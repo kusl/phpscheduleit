@@ -1,0 +1,9 @@
+**.psd
+**.bak
+test*
+.project
+**.build
+nant.bat
+**/_*.*
+**/test/*
+**/docs/*

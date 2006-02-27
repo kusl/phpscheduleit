@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<project name="phpScheduleIt" default="package" basedir=".">
+	<target name="tests" description="runs all phpUnit tests">
+		<exec program="tests/runall.bat" workingdir="./tests" failonerror="false" resultproperty="testresult" />
+		<if test="${property::get-value('testresult') != '0'}">
+			<fail message="Tests Failed"/>
+		</if>
+	</target>
+	<target name="package" depends="tests" description="packages all required files">
+		<property name="version" value="1.2.0"/>
+		<property name="packagename" value="phpScheduleIt_${version}" overwrite="false" />
+		<property name="zipdirectory" value="F:/Data/sites/phpScheduleIt_archive/zip_releases/${version}"/>
+		<property name="staging" value="../staging"/>
+		<property name="stagingdir" value="${staging}/phpScheduleIt"/>
+		
+		<delete dir="${staging}" failonerror="false"/>
+		<mkdir dir="${staging}" failonerror="false"/>
+		<mkdir dir="${stagingdir}" failonerror="false"/>
+		<copy todir="${stagingdir}" includeemptydirs="true">
+			<fileset basedir=".">
+				<include name="**/*"/>
+				<excludesfile name="_excludes.txt"/>
+			</fileset>
+		</copy>
+		
+		<mkdir dir="${zipdirectory}" failonerror="false"/>
+		<delete failonerror="false">
+			<fileset basedir="${zipdirectory}">
+				<include name="${packagename}.zip"/>
+				<include name="${packagename}.tar"/>
+				<include name="${packagename}.tar.gz"/>
+			</fileset>
+		</delete>
+		
+		<zip zipfile="${zipdirectory}/${packagename}.zip">
+			<fileset basedir="${staging}">
+				<include name="**/*"/>
+				<!--<excludesfile name="_excludes.txt"/>-->
+			</fileset>
+		</zip>
+		<tar destfile="${zipdirectory}/${packagename}.tar">
+			<fileset basedir="${staging}">
+				<include name="**/*"/>
+				<!--<excludesfile name="_excludes.txt"/>-->
+			</fileset>
+		</tar>
+		<tar destfile="${zipdirectory}/${packagename}.tar.gz" compression="GZip">
+			<fileset basedir="${staging}">
+				<include name="**/*"/>
+				<!--<excludesfile name="_excludes.txt"/>-->
+			</fileset>
+		</tar>
+		
+		<delete dir="${staging}" failonerror="false"/>
+	</target>
+</project>
