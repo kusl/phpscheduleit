@@ -1,5 +1,5 @@
 phpScheduleIt Development Guidelines
-Rev 1.0 DRAFT 2006-02-09
+Rev 1.1 DRAFT 2006-02-26
 Nick Korbel
 
 ----------------
@@ -11,27 +11,22 @@ The goal of this document is to help bring new developers up to speed quickly an
 - Setting Up Your Environment -
 -------------------------------
 1) Create a directory named 'phpScheduleIt'
-2) Perform a CVS Checkout with the following settings
-	Protocol: Secure shell (:ext:)
-	Server: cvs.sourceforge.net
-	Port: [empty]
-	Repository folder: /cvsroot/phpscheduleit
-	Username: [your SourceForge login]
-	Module: phpScheduleIt
+2) Perform a SVN Checkout with the following settings
+	URL: https://svn.sourceforge.net/svnroot/phpscheduleit
 
 ---------------------------
 - Before Writing Any Code -
 ---------------------------
-1) Always perform a CVS Update
+1) Always perform a SVN Update
 2) Resolve any conflicts (if 1 is always performed then this will never happen)
 
 -------------------------------------------
 - After Making Changes/Additions/Removals -
 -------------------------------------------
-1) Always perform a CVS Update
+1) Always perform a SVN Update
 2) Resolve any conflicts
-3) Add any new files to CVS
-4) Remove any obsolete files from CVS
+3) Add any new files to SVN
+4) Remove any obsolete files from SVN
 5) Commit your changes (Please add a descriptive comment)
 
 -----------------------
