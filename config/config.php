@@ -6,7 +6,7 @@
 *  are set in this file.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 10-07-05
+* @version 03-02-06
 * @package phpScheduleIt
 */
 /***************************************
@@ -268,5 +268,10 @@ $conf['ldap']['basedn'] = "ou=people,o=domain.com";
 // End common variables //
 //////////////////////////
 
-include_once('init.php');
+if (isset($_SERVER['HTTP_HOST'])) {
+	include_once('init.php');
+}
+else {
+	include_once('cmdinit.php');
+}
 ?>

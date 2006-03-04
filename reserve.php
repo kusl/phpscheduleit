@@ -28,17 +28,13 @@ if ($is_blackout) {
 	if (!Auth::is_logged_in()) {
 		Auth::print_login_msg();
 	}
-	/**
-	* Blackout class
-	*/
+
 	include_once('lib/Blackout.class.php');
 	$Class = 'Blackout';
 	$_POST['minres'] = $_POST['maxRes'] = null;
 }
 else {
-	/**
-	* Reservation class
-	*/
+
 	include_once('lib/Reservation.class.php');
 	$Class = 'Reservation';
 }

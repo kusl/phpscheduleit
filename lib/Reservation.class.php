@@ -539,10 +539,10 @@ class Reservation {
 	* of creation/modification/deletion of a reservation
 	* @param string $type type of modification made to the reservation
 	* @param array $repeat_dates array of dates reserved on
-	* @param array $users_to_notify array of emails to CC about the reservation mod
+	* @param array $users_to_inform array of emails to CC about the reservation mod
 	* @global $conf
 	*/
-	function send_email($type, $repeat_dates = null, $users_to_notify = null) {
+	function send_email($type, $repeat_dates = null, $users_to_inform = null) {
 		global $conf;
 
 		// Dont bother if nobody wants email
@@ -753,7 +753,6 @@ EOT;
 			foreach ($users_to_inform as $idx => $email) {
 				$mailer->AddCC($email);
 			}
-			//for ($i = 0; $i < count($users_to_inform); $i++) { $mailer->AddCC($users_to_inform[$i]); }
 		}
 
 		$mailer->From = $adminemail;

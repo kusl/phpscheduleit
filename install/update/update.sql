@@ -90,3 +90,6 @@ CREATE TABLE user_groups (
 CREATE INDEX usergroups_groupid ON user_groups (groupid);
 CREATE INDEX usergroups_memberid ON user_groups (memberid);
 CREATE INDEX usergroups_is_admin ON user_groups (is_admin);
+
+# Store lang for RSS and email reminders #
+ALTER TABLE login ADD COLUMN lang VARCHAR(5);

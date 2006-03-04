@@ -21,6 +21,7 @@ define('TBL_GROUPS', 'groups');
 define('TBL_LOGIN', 'login');
 define('TBL_MUTEX', 'mutex');
 define('TBL_PERMISSION', 'permission');
+define('TBL_REMINDERS', 'reminders');
 define('TBL_RESERVATION_RESOURCES', 'reservation_resources');
 define('TBL_RESERVATION_USERS', 'reservation_users');
 define('TBL_RESERVATIONS', 'reservations');

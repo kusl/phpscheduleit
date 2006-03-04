@@ -32,7 +32,8 @@ CREATE TABLE login (
   e_app CHAR(1) NOT NULL DEFAULT 'y',
   e_html CHAR(1) NOT NULL DEFAULT 'y',
   logon_name VARCHAR(30),
-  is_admin SMALLINT(1) DEFAULT 0
+  is_admin SMALLINT(1) DEFAULT 0,
+  lang VARCHAR(5)
   );
 
 # Create indexes ON login table #

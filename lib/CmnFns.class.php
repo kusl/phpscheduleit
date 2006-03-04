@@ -12,21 +12,10 @@
 * Base directory of application
 */
 @define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* Include configuration file
-**/
+
 include_once(BASE_DIR . '/config/config.php');
-/**
-* Include Link class
-*/
 include_once('Link.class.php');
-/**
-* Include Pager class
-*/
 include_once('Pager.class.php');
-/**
- * Include Timer class
- */
 include_once('Timer.class.php');
 
 /**
