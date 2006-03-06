@@ -1,5 +1,5 @@
 <?php
-include_once('/interfaces/IEmail.php');
+include_once('interfaces/IEmail.php');
 include_once('Reminder.class.php');
 
 class ReminderEmail extends IEmail
@@ -10,8 +10,8 @@ class ReminderEmail extends IEmail
 	* Builds a reminder email object from a Reminder
 	* @param IMailer $mailer the IMailer object to use for sending the email
 	*/
-	function ReminderEmail($mailer) {
-		$this->mailer = _mailer;
+	function ReminderEmail(&$mailer) {
+		$this->_mailer =& $mailer;
 	}
 	
 	function send() {
@@ -19,7 +19,7 @@ class ReminderEmail extends IEmail
 	}
 	
 	function addAddress($address, $name = '') {
-		die('Not implemented');
+		$this->_mailer->AddAddress($address);
 	}
 	
 	function addCC($address, $name = '') {
@@ -40,6 +40,10 @@ class ReminderEmail extends IEmail
 	
 	function setSubject($subject) {
 		die('Not implemented');
+	}
+	
+	function buildFromReminder($reminder) {
+		$this->addAddress($reminder->email);
 	}
 }
 ?>

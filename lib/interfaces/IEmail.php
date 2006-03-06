@@ -40,6 +40,5 @@ class IEmail
 	function setBody($body) {
 		die('Not implemented');
 	}
-	}
 }
 ?>
