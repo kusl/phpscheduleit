@@ -696,6 +696,8 @@ $strings['Group name is required.'] = 'Group name is required.';
 $strings['Groups'] = 'Groups';
 $strings['Current Groups'] = 'Current Groups';
 $strings['Group Administration'] = 'Group Administration';
+$strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
+	}
 // end since 1.2.0
 
 /***
@@ -796,4 +798,8 @@ $email['reservation_removal'] = "You have been removed from the following reserv
 		. "End Time: %s\r\n"
 		. "Summary: %s\r\n"
 		. "Repeated Dates (if present): %s\r\n\r\n";	
+		
+// @since 1.2.0
+// Email body that is sent for reminders
+$email['Reminder Body'] = "Your reservation for %s from %s %s to %s %s is approaching.";
 ?>

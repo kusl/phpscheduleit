@@ -2,7 +2,7 @@
 /**
 * Functionality to send email reminders to users
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-05-06
+* @version 03-11-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt

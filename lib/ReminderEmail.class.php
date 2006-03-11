@@ -15,7 +15,7 @@ class ReminderEmail extends IEmail
 	}
 	
 	function send() {
-		die('Not implemented');
+		$this->_mailer->Send();
 	}
 	
 	function addAddress($address, $name = '') {
@@ -31,19 +31,36 @@ class ReminderEmail extends IEmail
 	}
 	
 	function isHTML($isHtml = false) {
-		die('Not implemented');
+		$this->_mailer->IsHTML($isHtml);
 	}
 	
 	function setFrom($address, $name = '') {
-		die('Not implemented');
+		$this->_mailer->From = $address;
+		$this->_mailer->FromName = $name;
 	}
 	
 	function setSubject($subject) {
-		die('Not implemented');
+		$this->_mailer->Subject = $subject;
+	}
+	
+	function setBody($body) {
+		$this->_mailer->Body = $body;
 	}
 	
 	function buildFromReminder($reminder) {
 		$this->addAddress($reminder->email);
+		$this->setFrom($reminder->email);
+		$this->setSubject($this->_buildSubject($reminder));
+		$this->setBody($this->_buildBody($reminder));
+		$this->isHTML(false);
+	}
+	
+	function _buildSubject($reminder) {
+		return translate('Reminder Subject', array($reminder->resource_name, CmnFns::formatDate($reminder->start_date), CmnFns::formatTime($reminder->start_time)));
+	}
+	
+	function _buildBody($reminder) {
+		return translate_email('Reminder Body', $reminder->resource_name, CmnFns::formatDate($reminder->start_date), CmnFns::formatTime($reminder->start_time), CmnFns::formatDate($reminder->end_date), CmnFns::formatTime($reminder->end_time));
 	}
 }
 ?>
