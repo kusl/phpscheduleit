@@ -4,7 +4,7 @@
 *  translating the text
 * A few ideas and techniques were taken from the phpMyAdmin project
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 07-18-05
+* @version 03-16-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -99,13 +99,12 @@ function determine_language() {
 * Loads the language file 
 * @param none
 */
-function load_language_file() {
+function load_language_file($lang) {
 	global $languages;
-	global $lang;
 	
 	// Load the language file
-	if (isset($languages[$lang]) && file_exists(LANG_DIR . $languages[$lang][1])) {
-		include_once(LANG_DIR . $languages[$lang][1]);
+	if ( is_lang_valid($lang) ) {
+		include_once(get_language_path($lang));
 		global $charset;
 		header("Content-Type: text/html; charset=$charset");
 		header("Content-Language: {$languages[$lang][2]}");
@@ -114,6 +113,26 @@ function load_language_file() {
 		die('Could not load language file: ' . $languages[$lang][1]);
 		setcookie('lang', '', time() - 2592000, '/');
 	}
+}
+
+/**
+* Validates the language
+* @param string $lang the language key to validate
+* @return bool whether the lang is valid or not
+*/
+function is_lang_valid($lang) {
+	global $languages;
+	return isset($languages[$lang]) && file_exists(LANG_DIR . $languages[$lang][1]);
+}
+
+/**
+* Returns the path to this language file
+* @param string $lang the language key to get the file path for
+* @return path to the language file
+*/
+function get_language_path($lang) {
+	global $languages;
+	return LANG_DIR . $languages[$lang][1];
 }
 
 /**
@@ -278,7 +297,6 @@ function get_language_list() {
 	global $languages;
 	return $languages;
 }
-
 
 /** 
 * Determines if the proper jscalendar translation file is available

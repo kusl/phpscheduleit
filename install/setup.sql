@@ -223,6 +223,18 @@ CREATE TABLE user_groups (
 
 CREATE INDEX usergroups_is_admin ON user_groups (is_admin);
 
+# Create reminders table #
+CREATE TABLE reminders (
+  reminderid CHAR(16) NOT NULL PRIMARY KEY,
+  memberid CHAR(16) NOT NULL,
+  resid CHAR(16) NOT NULL,
+  reminder_date INTEGER NOT NULL
+  );
+
+CREATE INDEX reminders_date ON reminders (reminder_date);
+CREATE INDEX reminders_memberid ON reminders (memberid);
+CREATE INDEX reminders_resid ON reminders (resid);
+
 grant select, insert, update, delete
 ON phpScheduleIt.*
 to schedule_user@localhost identified by 'password';

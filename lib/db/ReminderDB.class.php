@@ -2,7 +2,7 @@
 /**
 * Handles all database functions for reminders
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-03-06
+* @version 03-16-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -31,13 +31,13 @@ class ReminderDB extends DBEngine {
 		$query = 'SELECT
 					rs.resid, rs.starttime, rs.endtime, rs.start_date, rs.end_date,
 					r.name, r.location, r.machid
-					l.email, l.memberid,
+					l.email, l.memberid, l.lang,
 					rem.reminderid
 				FROM ' . $this->get_table(TBL_REMINDERS) . ' rem INNER JOIN '
 				. $this->get_table(TBL_RESERVATIONS) . ' rs ON rem.resid = rs.resid INNER JOIN '
 				. $this->get_table(TBL_RESOURCES) . ' r ON rs.machid = r.machid INNER JOIN'
 				. $this->get_table(TBL_LOGIN) . ' l ON rem.memberid = l.memberid'
-				. ' WHERE reminder_date <= ?';
+				. ' WHERE rem.reminder_date <= ?';
 		
 		$result = $this->db->query($query, array($max_date));
 		$this->check_for_error($result);
@@ -48,13 +48,6 @@ class ReminderDB extends DBEngine {
 		
 		$result->free();	
 		return $return;
-	}
-	
-	/**
-	* 
-	*/
-	function deleteReminders($reminderids = array()) {
-	
 	}
 	
 	/**
@@ -75,6 +68,7 @@ class ReminderDB extends DBEngine {
 		$machid = $row['machid'];
 		$email = $row['email'];
 		$memberid = $row['memberid'];
+		$lang = $row['lang'];
 		
 		return $reminder;
 	}

@@ -403,14 +403,13 @@ class Reservation {
 	*/
 	function check_times() {
 		$is_valid = ( (intval($this->start_date) < intval($this->end_date)) || ( intval($this->start_date) == intval($this->end_date) ) && (intval($this->start) < intval($this->end)) );
-		
 		// It is valid if the start date is less than or equal to the end date or (if the dates are equal), the start time is less than the end time
 		if (!$is_valid) {
 			$this->add_error(translate('Start time must be less than end time') . '<br /><br />'
 					. translate('Current start time is') . ' ' . CmnFns::formatDateTime($this->start_date + 60 * $this->start) . '<br />'
 					. translate('Current end time is') . ' ' . CmnFns::formatDateTime($this->end_date + 60 * $this->end) );
 		}
-		return ($is_valid);
+		return $is_valid;
 	}
 
 	/**

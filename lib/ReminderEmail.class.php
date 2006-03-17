@@ -1,6 +1,15 @@
 <?php
+/**
+* Builds and sends the email for reservation reminders
+* @author Nick Korbel <lqqkout13@users.sourceforge.net>
+* @version 03-16-06
+* @package phpScheduleIt
+*
+* Copyright (C) 2003 - 2006 phpScheduleIt
+* License: GPL, see LICENSE
+*/
+
 include_once('interfaces/IEmail.php');
-include_once('Reminder.class.php');
 
 class ReminderEmail extends IEmail
 {

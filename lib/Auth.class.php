@@ -3,7 +3,7 @@
 * Authorization and login functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 02-25-06
+* @version 03-16-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -101,8 +101,9 @@ class Auth {
 
 		if ($isCookie !== false) {		// Cookie is set
 			$id = $isCookie;
-			if ($this->db->verifyID($id))
+			if ($this->db->verifyID($id)) {
 				$ok_user = $ok_pass = true;
+			}
 			else {
 				$ok_user = $ok_pass = false;
 				setcookie('ID', '', time()-3600, '/');	// Clear out all cookies
@@ -201,6 +202,9 @@ class Auth {
 			
 			if ($lang != '') {
 				set_language($lang);
+				if ($lang != $user->get_lang()) {
+					$user->set_lang($lang);		// Language changed so update the DB
+				}			
 			}
 			
 			// Send them to the control panel

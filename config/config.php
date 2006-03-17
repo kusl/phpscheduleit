@@ -6,7 +6,7 @@
 *  are set in this file.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-02-06
+* @version 03-16-06
 * @package phpScheduleIt
 */
 /***************************************
@@ -73,7 +73,7 @@ $conf['app']['adminEmail'] = 'admin@email.com';
 $conf['app']['defaultLanguage'] = 'en_US';
 
 // If you are running PHP in safe mode, set this value to 1.  Otherwise keep the default. [0]
-$conf['app']['safeMode'] = 1;
+$conf['app']['safeMode'] = 0;
 
 // This will hide all personal data from normal users.  Admins will still see full data. [0]
 $conf['app']['privacyMode'] = 0;
@@ -81,10 +81,10 @@ $conf['app']['privacyMode'] = 0;
 // This will allow or disable user self-registration.  If this is disabled, the admin will only be able to create users [1]
 $conf['app']['allowSelfRegistration'] = 1;
 
-// This will allow or disable the generation of RSS feeds for users to view their reservation data
+// This will allow or disable the generation of RSS feeds for users to view their reservation data [1]
 $conf['app']['allowRss'] = 1;
 
-// Make this a unique string if you have conflicting sessions, or multiple copies of this on the same server.  Otherwise leave it be. ['PHPSESSID']
+// Make this a unique string if you have conflicting sessions, or multiple copies of phpScheduleIt on the same server.  Otherwise leave it be. ['PHPSESSID']
 $conf['app']['sessionName'] = 'PHPSESSID';
 
 // View time in 12 or 24 hour format [12]
@@ -166,6 +166,11 @@ $conf['app']['useLogonName'] = 0;
 // Minimum password length required [6]
 $conf['app']['minPasswordLength'] = 6;
 
+// The amount of minutes before a reservation that a user can get a reminder [array()]
+// Add minutes in as integers ie) array(5,10,15,30)
+// The reminder email job must be scheduled for emails to be sent (see readme)
+$conf['app']['allowed_reminder_times'] = array(5, 10, 30);
+
 // Database type to be used by PEAR [mysql]
 /* Options are:
     mysql  -> MySQL
@@ -231,7 +236,7 @@ $conf['ui']['other_res'][]      = array ('color' => 'D2DDEC', 'hover' => 'AFBED3
 $conf['ui']['my_past_res'][]    = array ('color' => 'A0A1A1', 'hover' => '6F7070', 'text' => 'FFFFFF');
 $conf['ui']['other_past_res'][] = array ('color' => 'CFCFCF', 'hover' => 'ABABAB', 'text' => 'FFFFFF');
 $conf['ui']['pending'][]        = array ('color' => 'E4DC04', 'hover' => 'F7F386', 'text' => 'FFFFFF');
-$conf['ui']['blackout'][]        = array ('color' => '6F292D', 'hover' => '99353A', 'text' => 'FFFFFF');
+$conf['ui']['blackout'][]       = array ('color' => '6F292D', 'hover' => '99353A', 'text' => 'FFFFFF');
 
 // If we should print out the reservation owner's name in the summary box [1]
 // Can be 0 (for no) and 1 (for yes)

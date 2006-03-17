@@ -3,7 +3,7 @@
 * This file contains the database class to work with the User class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 02-18-06
+* @version 03-16-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -186,6 +186,18 @@ class UserDB extends DBEngine {
 		$query = 'DELETE FROM ' . $this->get_table(TBL_USER_GROUPS) . ' WHERE memberid = ? AND groupid IN (' . $del_list . ')';
 		$q = $this->db->prepare($query);
 		$result = $this->db->execute($q, array($memberid));
+		$this->check_for_error($result);
+	}
+	
+	/**
+	* Sets the language preference for this user
+	* @param string $memberid id of the user to set
+	* @param string $lang the language key
+	*/
+	function set_lang($memberid, $lang) {
+		$query = 'UPDATE ' . $this->get_table(TBL_LOGIN) . ' SET lang = ? WHERE memberid = ?';
+		$q = $this->db->prepare($query);
+		$result = $this->db->execute($q, array($lang, $memberid));
 		$this->check_for_error($result);
 	}
 }

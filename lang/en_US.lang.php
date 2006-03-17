@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 02-23-06
+* @version 03-16-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -697,7 +697,8 @@ $strings['Groups'] = 'Groups';
 $strings['Current Groups'] = 'Current Groups';
 $strings['Group Administration'] = 'Group Administration';
 $strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
-	}
+$strings['Reminder'] = 'Reminder';
+$strings['before reservation'] = 'before reservation';
 // end since 1.2.0
 
 /***

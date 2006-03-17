@@ -1,5 +1,6 @@
 <?php
 @define('BASE_DIR', dirname(__FILE__) . '/..');
+require_once(BASE_DIR . '/lib/CmnFns.class.php');
 require_once(BASE_DIR . '/lib/ReminderEmail.class.php');
 require_once('fakes/FakeReminder.php');
 require_once('fakes/EmailFakes.php');

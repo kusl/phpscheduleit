@@ -4,7 +4,7 @@
 * Provides all login and registration functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 11-05-05
+* @version 03-16-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -92,8 +92,9 @@ class AuthDB extends DBEngine {
 		array_push($to_insert, 'n');
 		array_push($to_insert, isset($data['logon_name']) ? $data['logon_name'] : null);	// Push the logon name if we are using it
 		array_push($to_insert, 0);	// is_admin
+		array_push($to_insert, $data['lang']);
 		
-		$q = $this->db->prepare('INSERT INTO ' . $this->get_table('login') . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+		$q = $this->db->prepare('INSERT INTO ' . $this->get_table('login') . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 		$result = $this->db->execute($q, $to_insert);
 		$this->check_for_error($result);
 		
@@ -105,8 +106,7 @@ class AuthDB extends DBEngine {
 	* @param string $userid id of user to update
 	* @param array $data array of new data
 	*/
-	function update_user($userid, $data) {
-		
+	function update_user($userid, $data) {		
 		$to_insert = array();
 
 		array_push($to_insert, strtolower($data['emailaddress']));

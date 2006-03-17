@@ -3,7 +3,7 @@
 * This file contains the User class for viewing
 *  and manipulating user data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 02-23-06
+* @version 03-16-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -31,6 +31,7 @@ class User {
 	var $logon_name;	//
 	var $is_admin;		//
 	var $groups = null;	//
+	var $lang;
 
 	var $is_valid = false;
 	var $err_msg = null;
@@ -56,28 +57,30 @@ class User {
 	* @return array of user data
 	*/
 	function load_by_id() {
-		$u = $this->db->get_user_data($this->userid);
+		$data = $this->db->get_user_data($this->userid);
 		
-		if (!$u) {
+		if (!$data) {
 			$this->err_msg = $this->db->get_err();
 			return;
 		}
-		else
+		else {
 			$this->is_valid = true;
+		}
 			
-		$this->fname	= $u['fname'];
-		$this->lname	= $u['lname'];
-		$this->email	= $u['email'];
-		$this->phone	= $u['phone'];
-		$this->inst		= $u['institution'];
-		$this->position	= $u['position'];
-		$this->logon_name = (isset($u['logon_name']) ? $u['logon_name'] : null);
-		$this->is_admin = (isset($u['is_admin']) && $u['is_admin'] == 1);
+		$this->fname	= $data['fname'];
+		$this->lname	= $data['lname'];
+		$this->email	= $data['email'];
+		$this->phone	= $data['phone'];
+		$this->inst		= $data['institution'];
+		$this->position	= $data['position'];
+		$this->logon_name = (isset($data['logon_name']) ? $data['logon_name'] : null);
+		$this->is_admin = (isset($data['is_admin']) && $data['is_admin'] == 1);
+		$this->lang 	= $data['lang'];
 		
 		$this->perms = $this->_get_perms();
 		$this->emails = $this->_get_emails();
 		$this->groups = $this->_get_groups();
-		unset($u);
+		unset($data);
 	}
 	
 	/**
@@ -235,7 +238,8 @@ class User {
 				'position'	=> $this->position,
 				'perms'		=> $this->perms,
 				'logon_name'=> $this->logon_name,
-				'groups' => $this->groups
+				'groups' 	=> $this->groups,
+				'lang' 		=> $this->lang
 			);
 	}
 	
@@ -298,6 +302,14 @@ class User {
 	}
 	
 	/**
+	* Stores the user's language preference to the database
+	* @param string $lang the language key
+	*/
+	function set_lang($lang) {
+		$this->db->set_lang($this->userid, $lang);
+	}
+	
+	/**
 	* Returns the error message generated
 	* @param none
 	* @return error message as string
@@ -306,94 +318,48 @@ class User {
 		return $this->err_msg;
 	}
 	
-	/**
-	* Return this user's id
-	* @param none
-	* @return user id
-	*/
 	function get_id() {
 		return $this->userid;
 	}
 	
-	/**
-	* Return the users first name
-	* @param none
-	* @return user first name
-	*/
 	function get_fname() {
 		return $this->fname;
 	}
 	
-	/**
-	* Return the users last name
-	* @param none
-	* @return user last name
-	*/
 	function get_lname() {
 		return $this->lname;
 	}
 	
-	/**
-	* Return the user's full name
-	* @param none
-	* @return the users full name as one string
-	*/
 	function get_name() {
 		return $this->fname . ' ' . $this->lname;
 	}
 	
-	/**
-	* Returns the email address
-	* @param none
-	* @return email address of this user
-	*/
 	function get_email() {
 		return $this->email;
 	}
 	
-	/**
-	* Returns user's phone
-	* @param none
-	* @return user's phone number as string
-	*/
 	function get_phone() {
 		return $this->phone;
 	}
 	
-	/**
-	* Returns the users institution
-	* @param none
-	* @return user's institution
-	*/
 	function get_inst() {
 		return $this->inst;
 	}
 	
-	/**
-	* Returns the user's position
-	* @param none
-	* @return user's position
-	*/
 	function get_position() {
 		return $this->position;
 	}
 	
-	/**
-	* Returns if the user has admin privleges or not
-	* @param none
-	* @return bool if they have admin rights
-	*/
 	function get_isadmin() {
 		return $this->is_admin;
 	}
 	
-	/**
-	* Returns the user's logon_name
-	* @param none
-	* @return user's logon_name
-	*/
 	function get_logon_name() {
 		return $this->logon_name;
+	}
+	
+	function get_lang() {
+		return $this->lang;
 	}
 }
 ?>

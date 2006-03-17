@@ -4,7 +4,7 @@
 *  without actually placing the reservation.
 * The output from this is to be used by an AJAX response handler
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 02-02-06
+* @version 03-16-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -14,7 +14,7 @@
 include_once('lib/Resource.class.php');
 include_once('lib/Blackout.class.php');
 include_once('lib/Auth.class.php');
-include_once('lib/helpers/ReservationHelper.class.php');
+include_once('lib/Utility.class.php');
 
 if (!Auth::is_logged_in()) {
 	die();
@@ -31,16 +31,17 @@ else {
 }
 
 $res = new $Class($id, false, false);
+$res->adminMode = Auth::isAdmin() || $cur_user->get_isadmin() || $cur_user->is_group_admin($res->user->get_groupids()); 
 
 $repeat_dates = process_reservation($res);
 $errors = array();
 
-$helper = new ReservationHelper();
+$helper = new Utility();
 
 $orig_resources = (isset($_POST['orig_resources']) && count($_POST['orig_resources']) > 0) ? $_POST['orig_resources'] : array();
 $selected_resources =  (isset($_POST['selected_resources']) && count($_POST['selected_resources']) > 0) ? $_POST['selected_resources'] : array();
 
-$resources_to_add = $helper->getAddedResources($orig_resources, $selected_resources);
+$resources_to_add = $helper->getAddedItems($orig_resources, $selected_resources);
 
 if ($res->check_startdate()) {
 	if ($res->check_times()) {

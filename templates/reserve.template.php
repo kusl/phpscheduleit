@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 01-28-06
+* @version 03-16-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -88,13 +88,16 @@ function print_basic_panel($res, $rs, $is_private) {
 		print_del_checkbox();
 	}
 
-	if ($res->type == RES_TYPE_ADD) {		// Print out repeat reservation box, if applicable
+	if ($res->type == RES_TYPE_ADD || $res->type == RES_TYPE_MODIFY) {		// Print out repeat reservation box, if applicable
 		divide_table();
-		print_repeat_box(date('m', $res->start_date), date('Y', $res->start_date));
-
-		if( $res->is_pending ) {
-			 print_pending_approval_msg();
+		if ($res->type == RES_TYPE_ADD) {
+			print_repeat_box(date('m', $res->start_date), date('Y', $res->start_date));
+	
+			if( $res->is_pending ) {
+				 print_pending_approval_msg();
+			}
 		}
+		print_reminder_box();
 	}
 ?>
 			<!-- Content end -->
@@ -454,7 +457,6 @@ function end_container() {
 * @param object $res Reservation object to work with
 */
 function print_buttons_and_hidden(&$res) {
-
 ?>
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
@@ -803,6 +805,35 @@ function print_repeat_box($month, $year) {
 		<input type="hidden" id="repeat_until" name="repeat_until" value="" />
 		</p>
 	</div>
+	</td>
+  </tr>
+</table>
+<?php
+}
+
+/**
+* Prints out the box where users can select when to get a reminder
+*/
+function print_reminder_box() {
+	global $conf;
+	$reminder_times = $conf['app']['allowed_reminder_times'];
+	if (empty($reminder_times)) {
+		return;
+	}
+?>
+<table width="200" border="0" cellspacing="0" cellpadding="0" class="recur_box" id="repeat_table" style="margin-top:5px;">
+  <tr>
+    <td style="padding: 5px;">
+	 <?php
+	 echo translate('Reminder') . ' ';
+	 echo '<select name="remind_time" id="remind_time" class="textbox">';
+	 echo '<option value="0">' . translate('Never') . '</option>';
+	 for ($i = 0; $i < count($reminder_times); $i++) {
+	 	echo "<option value=\"{$reminder_times[$i]}\">" . CmnFns::minutes_to_hours($reminder_times[$i]) . "</option>\n";
+	 }
+	 echo '</select><br/>';
+	 echo translate('before reservation')
+	 ?>
 	</td>
   </tr>
 </table>

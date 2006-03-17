@@ -3,7 +3,7 @@
 * This file prints out a registration or edit profile form
 * It will fill in fields if they are available (editing)
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 02-25-06
+* @version 03-16-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -46,6 +46,7 @@ else {
 }
 
 if (isset($_POST['register'])) {	// New registration
+	$data['lang'] = determine_language();
 	$msg = $auth->do_register_user($data, (bool)$conf['app']['allowSelfRegistration']);
 	$show_form = false;
 }

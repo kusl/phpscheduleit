@@ -28,4 +28,6 @@ define('TBL_RESERVATIONS', 'reservations');
 define('TBL_RESOURCES', 'resources');
 define('TBL_SCHEDULES', 'schedules');
 define('TBL_USER_GROUPS', 'user_groups');
+
+define('REMINDER_DATE_FORMAT', 'YmdHi');
 ?>
