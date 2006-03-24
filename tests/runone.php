@@ -2,7 +2,7 @@
 include_once('PHPUnit.php');
 include_once('../lib/Timer.class.php');
 
-$tests = array('ReminderEmailTests.php');
+$tests = array('ReminderTests.php');
 
 for ($i = 0; $i < count($tests); $i++) {
 	include_once($tests[$i]);

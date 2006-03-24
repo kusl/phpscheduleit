@@ -3,7 +3,7 @@
 * ScheduleDB class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 11-05-05
+* @version 03-18-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -41,22 +41,23 @@ class ScheduleDB extends DBEngine {
 	* Get all reservation data
 	* This function gets all reservation data
 	* between a given start and end date
-	* @param int $firstDay beginning date to return reservations from
-	* @param int $lastDay beginning date to return reservations from
-	* @param int $s_time start time of this schedules day
-	* @param int $e_time end time of this schedules day
+	* @param int $start_date the starting date to get reservations for
+	* @param int $end_date the ending date to get reservations for
+	* @param array $machids list of resource ids to get reservations for
+	* @param string $current_memberid the id of the currently logged in user
 	* @return array of reservation data formatted: $array[date|machid][#] = array of data
 	*  or an empty array
 	*/
-	function get_all_res($start_date, $end_date, $machids) {
+	function get_all_res($start_date, $end_date, $machids, $current_memberid = null) {
 		$return = array();
 		$mach_ids = $this->make_del_list($machids);
 		
 		// If it starts between the 2 dates, ends between the 2 dates, or surrounds the 2 dates, get it
-		$sql = 'SELECT res.*, res_users.*, login.fname, login.lname '
-				. ' FROM ' . $this->get_table('reservations') . ' as res'
-				. ' INNER JOIN ' . $this->get_table('reservation_users') . ' as res_users ON res.resid=res_users.resid'
-				. ' INNER JOIN ' . $this->get_table('login') . ' as login ON res_users.memberid = login.memberid'
+		$sql = 'SELECT res.*, res_users.*, login.fname, login.lname, participant.memberid as participantid, participant.owner'
+				. ' FROM ' . $this->get_table(TBL_RESERVATIONS) . ' as res'
+				. ' INNER JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' as res_users ON res.resid = res_users.resid'
+				. ' INNER JOIN ' . $this->get_table(TBL_LOGIN) . ' as login ON res_users.memberid = login.memberid'
+				. ' LEFT JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' as participant ON res.resid = participant.resid AND participant.memberid = ? AND participant.invited = 0'
 			. ' WHERE ( '
 						. '( '
 							. '(start_date >= ? AND start_date <= ?)'
@@ -70,14 +71,12 @@ class ScheduleDB extends DBEngine {
 		
 		if ($this->scheduleType == RESERVATION_ONLY)
 			$sql .= ' AND res.is_blackout <> 1 ';
-		//else if ($this->scheduleType == BLACKOUT_ONLY)
-		//	$sql .= ' AND res.is_blackout = 1 ';
 		
 		$sql .= ' AND res.machid IN (' . $mach_ids . ')';
 		
 		$sql .= ' ORDER BY res.start_date, res.starttime, res.end_date, res.endtime';
 
-		$values = array($start_date, $end_date, $start_date, $end_date, $start_date, $end_date);
+		$values = array($current_memberid, $start_date, $end_date, $start_date, $end_date, $start_date, $end_date);
 		
 		$p = $this->db->prepare($sql);
 		$result = $this->db->execute($p, $values);

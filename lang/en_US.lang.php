@@ -699,6 +699,8 @@ $strings['Group Administration'] = 'Group Administration';
 $strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
 $strings['Reminder'] = 'Reminder';
 $strings['before reservation'] = 'before reservation';
+$strings['My Participation'] = 'My Participation';
+$strings['My Past Participation'] = 'My Past Participation';
 // end since 1.2.0
 
 /***

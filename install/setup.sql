@@ -228,7 +228,7 @@ CREATE TABLE reminders (
   reminderid CHAR(16) NOT NULL PRIMARY KEY,
   memberid CHAR(16) NOT NULL,
   resid CHAR(16) NOT NULL,
-  reminder_date INTEGER NOT NULL
+  reminder_time INTEGER NOT NULL
   );
 
 CREATE INDEX reminders_date ON reminders (reminder_date);

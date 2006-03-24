@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-16-06
+* @version 03-23-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -97,7 +97,7 @@ function print_basic_panel($res, $rs, $is_private) {
 				 print_pending_approval_msg();
 			}
 		}
-		print_reminder_box();
+		print_reminder_box($res->reminder_minutes_prior);
 	}
 ?>
 			<!-- Content end -->
@@ -813,8 +813,9 @@ function print_repeat_box($month, $year) {
 
 /**
 * Prints out the box where users can select when to get a reminder
+* @param int $selected_minutes the currently selected minutes
 */
-function print_reminder_box() {
+function print_reminder_box($selected_minutes) {
 	global $conf;
 	$reminder_times = $conf['app']['allowed_reminder_times'];
 	if (empty($reminder_times)) {
@@ -829,7 +830,7 @@ function print_reminder_box() {
 	 echo '<select name="remind_time" id="remind_time" class="textbox">';
 	 echo '<option value="0">' . translate('Never') . '</option>';
 	 for ($i = 0; $i < count($reminder_times); $i++) {
-	 	echo "<option value=\"{$reminder_times[$i]}\">" . CmnFns::minutes_to_hours($reminder_times[$i]) . "</option>\n";
+	 	echo "<option value=\"{$reminder_times[$i]} " . ($selected_minutes == $reminder_times[$i] ? 'selected="selected"' : '') . "\">" . CmnFns::minutes_to_hours($reminder_times[$i]) . "</option>\n";
 	 }
 	 echo '</select><br/>';
 	 echo translate('before reservation')

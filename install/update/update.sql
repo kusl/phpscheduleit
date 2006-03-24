@@ -96,10 +96,10 @@ CREATE TABLE reminders (
   reminderid CHAR(16) NOT NULL PRIMARY KEY,
   memberid CHAR(16) NOT NULL,
   resid CHAR(16) NOT NULL,
-  reminder_date INTEGER NOT NULL
+  reminder_time INTEGER NOT NULL
   );
 
-CREATE INDEX reminders_date ON reminders (reminder_date);
+CREATE INDEX reminders_time ON reminders (reminder_time);
 CREATE INDEX reminders_memberid ON reminders (memberid);
 CREATE INDEX reminders_resid ON reminders (resid);
 

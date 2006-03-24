@@ -59,10 +59,12 @@ function print_color_key() {
   <tr style="font-size: 10px; font-weight: bold; text-align: center; vertical-align: center;">
     <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Reservations')?></td>
     <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Past Reservations')?></td>
-    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Reservations')?></td>    
+    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Participation')?></td>
+    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_past_res'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('My Past Participation')?></td> 
+	<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Reservations')?></td>    
     <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Past Reservations')?></td>
-    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['pending'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Pending Approval')?></td>
-      <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['blackout'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('Blacked Out Time')?></td>
+	<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['pending'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Pending Approval')?></td>
+	<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['blackout'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('Blacked Out Time')?></td>
   </tr>
 </table>
 <?php
@@ -205,8 +207,6 @@ function print_name_cell($ts, $id, $name, $shown, $is_blackout, $scheduleid, $pe
 */
 function print_blank_cols($cols, $start, $span, $ts, $machid, $scheduleid, $scheduleType, $clickable, $class = '') {
     $is_blackout = intval($scheduleType == BLACKOUT_ONLY);
-    //$color = empty($color) ? '' : "#" . $color;
-	//$color_str = empty($color) ? '': "style=\"background-color: $color;\"";
 	
     $js = '';
     for ($i = 0; $i <= $cols; $i++) {
@@ -226,7 +226,6 @@ function print_blank_cols($cols, $start, $span, $ts, $machid, $scheduleid, $sche
 function print_closing_tr() {
     echo "</tr>\n";
 }
-
 
 /**
 * Writes out the reservation cell

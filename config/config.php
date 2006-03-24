@@ -6,7 +6,7 @@
 *  are set in this file.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-16-06
+* @version 03-18-06
 * @package phpScheduleIt
 */
 /***************************************
@@ -237,6 +237,8 @@ $conf['ui']['my_past_res'][]    = array ('color' => 'A0A1A1', 'hover' => '6F7070
 $conf['ui']['other_past_res'][] = array ('color' => 'CFCFCF', 'hover' => 'ABABAB', 'text' => 'FFFFFF');
 $conf['ui']['pending'][]        = array ('color' => 'E4DC04', 'hover' => 'F7F386', 'text' => 'FFFFFF');
 $conf['ui']['blackout'][]       = array ('color' => '6F292D', 'hover' => '99353A', 'text' => 'FFFFFF');
+$conf['ui']['participant_res'][]		= array ('color' => 'CE56D6', 'hover' => 'E174E8', 'text' => 'FFFFFF');
+$conf['ui']['participant_past_res'][]	= array ('color' => '641293', 'hover' => '7B25AC', 'text' => 'FFFFFF');
 
 // If we should print out the reservation owner's name in the summary box [1]
 // Can be 0 (for no) and 1 (for yes)

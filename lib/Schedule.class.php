@@ -80,10 +80,12 @@ class Schedule {
             $this->admin    = $data['adminemail'];
             $this->dayoffset= $data['dayoffset'];
             
-            if ($scheduleType == READ_ONLY)
+            if ($scheduleType == READ_ONLY) {
                 $this->user = new User();
-            else
+			}
+            else {
                 $this->user = new User(Auth::getCurrentID());    // Set User class
+			}
             
             $this->_date = $this->get_date_vars();        // Get all date info we need
             $this->machids = $this->db->get_mach_ids($this->scheduleid);    // Get all resource info
@@ -93,7 +95,7 @@ class Schedule {
                     $machids[] = $mach['machid'];
                 }
             }    
-            $this->res = $this->db->get_all_res($this->_date['firstDayTs'], $this->_date['lastDayTs'], $machids);
+            $this->res = $this->db->get_all_res($this->_date['firstDayTs'], $this->_date['lastDayTs'], $machids, $this->user->get_id());
         }
     }
     
@@ -354,24 +356,39 @@ class Schedule {
         global $conf;
         
         $is_mine = false;
+		$is_participant = false;
         $is_past = false;
         $color_select = 'other_res';        // Default color (if anything else is true, it will be changed)
         
+		//die('parid' . $rs['participantid']);
         if ($this->scheduleType != READ_ONLY) {
-            if ($rs['memberid'] == $_SESSION['sessionID']) {
+            if ($rs['owner'] == 1) {
                 $is_mine = true;
                 $color_select = 'my_res';
             }
+			else if ($rs['participantid'] != null && $rs['owner'] == 0) {
+				$is_participant = true;
+				$color_select = 'participant_res';
+			}
         }
         
         if (mktime(0,0,0, date('m'), date('d') + $this->dayoffset) > $this->_date['current']) {        // If todays date is still before or on the day of this reservation
             $is_past = true;
-            $color_select = ($is_mine) ? 'my_past_res' : 'other_past_res';        // Choose which color array to use
+			if ($is_mine) {
+				 $color_select = 'my_past_res';
+			}
+			else if ($is_participant) {
+				$color_select = 'participant_past_res';
+			}
+			else {
+				$color_select ='other_past_res';
+			}
+            //$color_select = ($is_mine) ? 'my_past_res' : 'other_past_res';        // Choose which color array to use
         }
         
         // pending reservation
         if ( $rs['is_pending'] ) {
-            $color_select = "pending";
+            $color_select = 'pending';
         }
         
         return $color_select;
@@ -423,26 +440,27 @@ class Schedule {
     function write_reservation($rs, $colspan) {                
         global $conf;
         
+		/// !!! CLEAN THIS UP !!! ///
         $is_mine = false;
         $is_past = false;
 		$is_private = $conf['app']['privacyMode'] && !Auth::isAdmin();
-        $color_select = 'other_res';        // Default color (if anything else is true, it will be changed)
+        $color_select = $this->get_reservation_colorstr($rs);//'other_res';        // Default color (if anything else is true, it will be changed)
         
         if ($this->scheduleType != READ_ONLY) {
             if ($rs['memberid'] == $_SESSION['sessionID']) {
                 $is_mine = true;
-                $color_select = 'my_res';
+               // $color_select = 'my_res';
             }
         }
 
         if (mktime(0,0,0, date('m'), date('d') + $this->dayoffset) > $this->_date['current']) {        // If todays date is still before or on the day of this reservation
             $is_past = true;
-            $color_select = ($is_mine) ? 'my_past_res' : 'other_past_res';        // Choose which color array to use        
+            //$color_select = ($is_mine) ? 'my_past_res' : 'other_past_res';        // Choose which color array to use        
         }
         
         // pending reservation
         if ( $rs['is_pending'] ) {
-          $color_select = "pending";
+          //$color_select = "pending";
         }
         
 		$summary = ($conf['app']['prefixNameOnSummary']) ? "{$rs['fname']} {$rs['lname']}\n<i>" . htmlspecialchars($rs['summary']) . '</i>' : htmlspecialchars($rs['summary']);

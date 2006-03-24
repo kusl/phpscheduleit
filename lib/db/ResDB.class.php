@@ -4,7 +4,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-02-06
+* @version 03-18-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -48,10 +48,15 @@ class ResDB extends DBEngine {
 	* @param string $resid reservation id
 	* @return array of all reservation data
 	*/
-	function get_reservation($resid) {
+	function get_reservation($resid, $memberid) {
 		$return = array();
-
-		$result = $this->db->getRow('SELECT * FROM ' . $this->get_table(TBL_RESERVATIONS) . ' WHERE resid=?', array($resid));
+		
+		$query = 'SELECT r.*, ru.memberid AS participantid, rem.reminder_time FROM ' . $this->get_table(TBL_RESERVATIONS) . ' r'
+				. ' LEFT JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' ru ON r.resid = ru.resid AND ru.memberid = ? AND ru.owner = 0 AND ru.invited = 0'
+				. ' LEFT JOIN ' . $this->get_table(TBL_REMINDERS) . ' rem ON r.resid = rem.resid AND rem.memberid = ?'
+				. ' WHERE r.resid=?';
+		
+		$result = $this->db->getRow($query, array($memberid, $memberid, $resid));
 		$this->check_for_error($result);
 
 		if (count($result) <= 0) {

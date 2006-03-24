@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 02-26-06
+* @version 03-18-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -15,11 +15,12 @@
 */
 @define('BASE_DIR', dirname(__FILE__) . '/..');
 
-include_once('db/ResDB.class.php');
-include_once('User.class.php');
-include_once('Resource.class.php');
-include_once('PHPMailer.class.php');
-include_once(BASE_DIR . '/templates/reserve.template.php');
+require_once('db/ResDB.class.php');
+require_once('User.class.php');
+require_once('Resource.class.php');
+require_once('PHPMailer.class.php');
+require_once('Reminder.class.php');
+require_once(BASE_DIR . '/templates/reserve.template.php');
 
 
 class Reservation {
@@ -51,6 +52,8 @@ class Reservation {
 	var $errors     = array();
 	var $word		= null;
 	var $adminMode  = false;
+	var $is_participant = false;
+	var $reminder_minutes_prior = 0;
 
 	var $db;
 
@@ -86,10 +89,11 @@ class Reservation {
 	* @param none
 	*/
 	function load_by_id() {
-		$res = $this->db->get_reservation($this->id);	// Get values from DB
+		$res = $this->db->get_reservation($this->id, Auth::getCurrentID());	// Get values from DB
 
-		if (!$res)		// Quit if reservation doesnt exist
+		if (!$res) {	// Quit if reservation doesnt exist
 			CmnFns::do_error_box($this->db->get_err());
+		}
 
 		$this->start_date = $res['start_date'];
 		$this->end_date	= $res['end_date'];
@@ -105,6 +109,10 @@ class Reservation {
 		$this->is_pending	= $res['is_pending'];
 		$this->allow_participation = $res['allow_participation'];
 		$this->allow_anon_participation = $res['allow_anon_participation'];
+		$this->is_participant = $res['participantid'] != null;
+		$reminder = new Reminder();
+		$reminder->set_reminder_time($res['reminder_time']);
+		$this->reminder_minutes_prior = $reminder->getMinutuesPrior($this);
 
 		$this->users = $this->db->get_res_users($this->id);
 		// Store the memberid of the owner

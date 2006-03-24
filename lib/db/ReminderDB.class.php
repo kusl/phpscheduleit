@@ -58,17 +58,17 @@ class ReminderDB extends DBEngine {
 	function _buildReminder($row) {
 		$reminder = new Reminder();
 		$reminder->id = $row['reminderid'];
-		$resid = $row['resid'];
-		$start_time = intval($row['starttime']);
-		$end_time = intval($row['endtime']);
-		$start_date = intval($row['start_date']);
-		$end_date = intval($row['end_date']);
-		$resource_name = $row['name'];
-		$location = $row['location'];
-		$machid = $row['machid'];
-		$email = $row['email'];
-		$memberid = $row['memberid'];
-		$lang = $row['lang'];
+		$reminder->resid = $row['resid'];
+		$reminder->start_time = intval($row['starttime']);
+		$reminder->end_time = intval($row['endtime']);
+		$reminder->start_date = intval($row['start_date']);
+		$reminder->end_date = intval($row['end_date']);
+		$reminder->resource_name = $row['name'];
+		$reminder->location = $row['location'];
+		$reminder->machid = $row['machid'];
+		$reminder->email = $row['email'];
+		$reminder->memberid = $row['memberid'];
+		$reminder->lang = $row['lang'];
 		
 		return $reminder;
 	}
