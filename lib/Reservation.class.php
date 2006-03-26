@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-18-06
+* @version 03-26-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -29,9 +29,9 @@ class Reservation {
 	var $end_date	= null;				//
 	var $start	 	= null;				//
 	var $end	 	= null;				//
-	var $resource 	= null;
-	var $user		= null;
-	var $resources = array();
+	var $resource 	= null;				//
+	var $user		= null;				//
+	var $resources = array();			//
 	var $created 	= null;				//
 	var $modified 	= null;				//
 	var $type 		= null;				//
@@ -48,6 +48,7 @@ class Reservation {
 	var $users		= null;				//
 	var $allow_participation = 0;		//
 	var $allow_anon_participation = 0;	//
+	var $reminderid	= null;				//
 
 	var $errors     = array();
 	var $word		= null;
@@ -110,8 +111,9 @@ class Reservation {
 		$this->allow_participation = $res['allow_participation'];
 		$this->allow_anon_participation = $res['allow_anon_participation'];
 		$this->is_participant = $res['participantid'] != null;
-		$reminder = new Reminder();
+		$reminder = new Reminder($res['reminderid']);
 		$reminder->set_reminder_time($res['reminder_time']);
+		$this->reminderid = $res['reminderid'];
 		$this->reminder_minutes_prior = $reminder->getMinutuesPrior($this);
 
 		$this->users = $this->db->get_res_users($this->id);
@@ -143,7 +145,7 @@ class Reservation {
 			$users_to_inform[] = $this->users[$i]['email'];
 		}
 
-		$this->db->del_res($this->id, $this->parentid, $del_recur, mktime(0,0,0));
+		$this->db->del_res($this->id, $this->parentid, $del_recur, mktime(0,0,0), $this->user->userid);
 
 		if (!$this->is_blackout)		// Mail the user if they want to be notified
 			$this->send_email('e_del', null, $users_to_inform);
@@ -181,8 +183,12 @@ class Reservation {
 			$this->check_times();			// Check valid times
 		}
 
-		if ($this->has_errors())			// Print any errors generated above and kill app
+		if ($this->has_errors()) {			// Print any errors generated above and kill app
 			$this->print_all_errors(true);
+		}
+		
+		$reminder = new Reminder();
+		$reminder->setDB(new ReminderDB());
 
 		$is_parent = $this->is_repeat;		// First valid reservation will be parentid (no parentid if solo reservation)
 
@@ -198,6 +204,9 @@ class Reservation {
 			if ($is_valid) {
 				$tmp_valid = true;								// Only one recurring needs to work
 				$this->id = $this->db->add_res($this, $is_parent, $users_to_invite, $resources_to_add, $accept_code);
+				if ($this->reminder_minutes_prior != 0) {
+					$reminder->save($this, $this->reminder_minutes_prior); 		// Add the reminder
+				}
 				if (!$is_parent) {
 					array_push($dates, $this->start_date);		// Add recurring dates (first date isnt recurring)
 				}
@@ -275,9 +284,13 @@ class Reservation {
 		$dates = array();
 
 		// First, modify the current reservation
-		if ($this->has_errors())			// Print any errors generated above and kill app
+		if ($this->has_errors()) {			// Print any errors generated above and kill app
 			$this->print_all_errors(true);
+		}
 
+		$reminder = new Reminder();
+		$reminder->setDB(new ReminderDB());
+		
 		$tmp_valid = false;
 
 		if ($this->is_repeat) {				// Check and place all recurring reservations
@@ -295,6 +308,14 @@ class Reservation {
 				if ($is_valid) {
 					$tmp_valid = true;						// Only one recurring needs to pass
 					$this->db->mod_res($this, $users_to_invite, $users_to_remove, $resources_to_add, $resources_to_remove, $accept_code);		// And place the reservation
+					
+					if (!empty($this->reminderid)) {
+						$reminder->update($this, $this->reminder_minutes_prior);
+					}
+					else if ($this->reminder_minutes_prior != 0 && empty($this->reminderid)) {
+						$reminder->save($this, $this->reminder_minutes_prior);
+					}
+					
 					$dates[] = $this->start_date;
 					$valid_resids[] = $this->id;
 					CmnFns::write_log($this->word . ' ' . $this->id . ' modified.  machid:' . $this->machid .', dates:' . $this->start_date . ' - ' . $this->end_date . ', start:' . $this->start . ', end:' . $this->end, $this->memberid, $_SERVER['REMOTE_ADDR']);
@@ -304,6 +325,14 @@ class Reservation {
 		else {
 			if ($this->check_res($resources_to_add)) {															// Check overlap
 				$this->db->mod_res($this, $users_to_invite, $users_to_remove, $resources_to_add, $resources_to_remove, $accept_code);		// And place the reservation
+				
+				if (!empty($this->reminderid)) {
+					$reminder->update($this, $this->reminder_minutes_prior);
+				}
+				else if ($this->reminder_minutes_prior != 0 && empty($this->reminderid)) {
+					$reminder->save($this, $this->reminder_minutes_prior);
+				}
+				
 				$dates[] = $this->start_date;
 				$valid_resids[] = $this->id;
 			}

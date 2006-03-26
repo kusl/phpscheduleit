@@ -6,7 +6,7 @@
 * It will also allow other users to view this reservation.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 02-26-06
+* @version 03-25-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -140,12 +140,13 @@ function process_reservation($fn) {
 	$res->allow_participation = (int)isset($_POST['allow_participation']);
 	$res->allow_anon_participation = (int)isset($_POST['allow_anon_participation']);
 	$res->adminMode = Auth::isAdmin() || $cur_user->get_isadmin() || $cur_user->is_group_admin($res->user->get_groupids()); 
-	
+	$res->reminderid = isset($_POST['reminderid']) ? $_POST['reminderid'] : null;
+	$res->reminder_minutes_prior = isset($_POST['reminder_minutes_prior']) ? intval($_POST['reminder_minutes_prior']) : 0;
+
 	if ($fn == 'create') {
 		$res->resource = new Resource($_POST['machid']);
 		$res->scheduleid= $_POST['scheduleid'];
-		$res->repeat 	= $repeat;
-	
+		$res->repeat = $repeat;	
 		$res->add_res($users_to_invite, $resources_to_add);
 	}
 	else if ($fn == 'modify') {

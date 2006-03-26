@@ -2,7 +2,7 @@
 /**
 * Handles all database functions for reminders
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-16-06
+* @version 03-26-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -48,6 +48,44 @@ class ReminderDB extends DBEngine {
 		
 		$result->free();	
 		return $return;
+	}
+	
+	/**
+	* Saves a reminder to the database
+	* @param Reminder $reminder the populated reminder object to save
+	*/
+	function save(&$reminder) {
+		$reminder->id = $this->get_new_id();
+		$values = array($reminder->id, $reminder->memberid, $reminder->resid, $reminder->reminder_time);
+		$query = 'INSERT INTO ' . $this->get_table(TBL_REMINDERS) . ' VALUES (?,?,?,?)';
+		$q = $this->db->prepare($query);
+		$result = $this->db->execute($q, $values);
+		$this->check_for_error($result);
+	}
+	
+	/**
+	* Updates an existing reminder in the database
+	* @param Reminder $reminder the populated reminder object to save
+	*/
+	function save(&$reminder) {
+		$values = array($reminder->reminder_time, $reminder->memberid, $reminder->resid);
+		$query = 'UPDATE ' . $this->get_table(TBL_REMINDERS) . ' SET reminder_time = ? WHERE memberid = ? AND resid = ?';
+		$q = $this->db->prepare($query);
+		$result = $this->db->execute($q, $values);
+		$this->check_for_error($result);
+	}
+	
+	/**
+	* Deletes an existing reminder from the database
+	* @param string $memberid member id of the reminder owner
+	* @param string $resid reservation id of the reminder owner
+	*/
+	function delete($memberid, $resid) {
+		$values = array($memberid, $resid);
+		$query = 'DELETE FROM ' . $this->get_table(TBL_REMINDERS) . ' WHERE memberid = ? AND resid = ?';
+		$q = $this->db->prepare($query);
+		$result = $this->db->execute($q, $values);
+		$this->check_for_error($result);
 	}
 	
 	/**

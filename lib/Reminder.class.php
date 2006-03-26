@@ -2,7 +2,7 @@
 /**
 * Functionality to send email reminders to users
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-23-06
+* @version 03-26-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -11,13 +11,15 @@
 
 @define('BASE_DIR', dirname(__FILE__) . '/..');
 
+require_once('db/ReminderDB.class.php');
+
 class Reminder
 {
 	var $db = null;
 	
-	var $id = '';
-	var $memberid = '';
-	var $resid = '';
+	var $id = null;
+	var $memberid = null;
+	var $resid = null;
 	var $reminder_time = 0;
 	
 	// Values needed for emails
@@ -34,7 +36,8 @@ class Reminder
 	// Values needed for reservation
 	var $minutes_prior = 0;
 
-	function Reminder() {
+	function Reminder($id = null) {
+		$this->id = $id;
 	}
 	
 	/**
@@ -63,6 +66,15 @@ class Reminder
 	}
 	
 	/**
+	* Delete a reminder by reservation id and member id
+	* @param string $resid reservation id
+	* @param string $memeberid member id
+	*/
+	function deleteReminder($resid, $memberid) {
+		$this->db->deleteReminder($resid, $memberid);
+	}
+	
+	/**
 	* Populates and saves a reminder with needed database values for a reminder this many minutes before the reservation
 	* @param Reservation $res the reservation that the reminder is for
 	* @param int $number_of_minutes the number of minutes before the reservation to send the reminder
@@ -80,6 +92,9 @@ class Reminder
 	* @param int $number_of_minutes the number of minutes before the reservation to send the reminder
 	*/
 	function update(&$res, $number_of_minutes) {
+		if ($number_of_minutes == 0) {
+			$this->deleteReminder($res->id, $res->user->userid);
+		}
 		$this->resid = $res->id;
 		$this->memberid = $res->user->userid;
 		$this->reminder_time = $this->_calculateReminderTime($res->start_date, $res->start, $number_of_minutes);
@@ -91,7 +106,7 @@ class Reminder
 	* @param Reservation $res the reservation to calculate the time for
 	* @return returns the number of minutes prior to this reservation for this reminder
 	*/
-	function getMinutuesPrior($res) {
+	function getMinutuesPrior(&$res) {
 		if ($this->reminder_time == 0) {
 			return 0;
 		}
@@ -106,7 +121,7 @@ class Reminder
 		$hour = substr($this->reminder_time, 8, 2);
 		$min = substr($this->reminder_time, 10, 2);
 		$rem_datetime = mktime($hour, $min, 0, $mon, $day, $year);
-		
+
 		return ($res_datetime - $this->toDateTime()) / 60;
 	}
 	
@@ -141,7 +156,7 @@ class Reminder
 	* @param mixed the reminder_time value
 	*/
 	function set_reminder_time($time) {
-		$this->reminder_time = empty($time) ? 0 : intval($time);
+		$this->reminder_time = empty($time) ? 0 : $time;
 	}
 }
 ?>

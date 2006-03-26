@@ -96,7 +96,7 @@ CREATE TABLE reminders (
   reminderid CHAR(16) NOT NULL PRIMARY KEY,
   memberid CHAR(16) NOT NULL,
   resid CHAR(16) NOT NULL,
-  reminder_time INTEGER NOT NULL
+  reminder_time BIGINT NOT NULL
   );
 
 CREATE INDEX reminders_time ON reminders (reminder_time);

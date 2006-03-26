@@ -4,7 +4,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-18-06
+* @version 03-25-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -51,7 +51,7 @@ class ResDB extends DBEngine {
 	function get_reservation($resid, $memberid) {
 		$return = array();
 		
-		$query = 'SELECT r.*, ru.memberid AS participantid, rem.reminder_time FROM ' . $this->get_table(TBL_RESERVATIONS) . ' r'
+		$query = 'SELECT r.*, ru.memberid AS participantid, rem.reminder_time, rem.reminderid FROM ' . $this->get_table(TBL_RESERVATIONS) . ' r'
 				. ' LEFT JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' ru ON r.resid = ru.resid AND ru.memberid = ? AND ru.owner = 0 AND ru.invited = 0'
 				. ' LEFT JOIN ' . $this->get_table(TBL_REMINDERS) . ' rem ON r.resid = rem.resid AND rem.memberid = ?'
 				. ' WHERE r.resid=?';
@@ -439,8 +439,9 @@ class ResDB extends DBEngine {
 	* @param string $parentid id of parent reservation
 	* @param boolean $del_recur whether to delete recurring reservations or not
 	* @param int $date timestamp of current date
+	* @param string $memberid id of the reservation owner
 	*/
-	function del_res($id, $parentid, $del_recur, $date) {
+	function del_res($id, $parentid, $del_recur, $date, $memberid) {
 		$values = array($id);
 		$sql = 'SELECT resid FROM ' . $this->get_table(TBL_RESERVATIONS) . ' WHERE resid=?';
 		//$sql = 'DELETE ru.*, r.*'
@@ -454,6 +455,7 @@ class ResDB extends DBEngine {
 		}
 		$q = $this->db->prepare($sql);
 		$result = $this->db->execute($q, $values);
+		$this->check_for_error($result);
 		
 		while ($rs = $result->fetchRow()) {
 			$resids[] = $rs['resid'];
@@ -467,17 +469,24 @@ class ResDB extends DBEngine {
 		$sql = 'DELETE FROM ' . $this->get_table(TBL_RESERVATIONS) . ' WHERE resid IN (' . $del_list . ')';
 		$q = $this->db->prepare($sql);
 		$result = $this->db->execute($q);
+		$this->check_for_error($result);
 		
 		// Delete the participants
 		$sql = 'DELETE FROM ' . $this->get_table(TBL_RESERVATION_USERS) . ' WHERE resid IN (' . $del_list . ')';
 		$q = $this->db->prepare($sql);
 		$result = $this->db->execute($q);
+		$this->check_for_error($result);
 		
 		// Delete the additional resources
 		$sql = 'DELETE FROM ' . $this->get_table(TBL_RESERVATION_RESOURCES) . ' WHERE resid IN (' . $del_list . ')';
 		$q = $this->db->prepare($sql);
 		$result = $this->db->execute($q);
-
+		$this->check_for_error($result);
+		
+		// Delete the reminders
+		$sql = 'DELETE FROM ' . $this->get_table(TBL_REMINDERS) . ' WHERE resid IN (' . $del_list . ') AND memberid = ?';
+		$q = $this->db->prepare($sql);
+		$result = $this->db->execute($q, array($memberid));		
 		$this->check_for_error($result);
 	}
 	

@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-23-06
+* @version 03-25-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -58,6 +58,7 @@ function begin_container() {
 * @param bool $is_private if the privacy mode is on and we should hide personal data
 */
 function print_basic_panel($res, $rs, $is_private) {
+		global $conf;
 ?>
 	<!-- Begin basic panel -->
       <div id="pnl_basic" style="display:table; width:100%; position: relative;">
@@ -97,7 +98,8 @@ function print_basic_panel($res, $rs, $is_private) {
 				 print_pending_approval_msg();
 			}
 		}
-		print_reminder_box($res->reminder_minutes_prior);
+		$reminder_times = $conf['app']['allowed_reminder_times'];
+		print_reminder_box($reminder_times, $res->reminder_minutes_prior, $res->reminderid);
 	}
 ?>
 			<!-- Content end -->
@@ -813,11 +815,11 @@ function print_repeat_box($month, $year) {
 
 /**
 * Prints out the box where users can select when to get a reminder
+* @param array $reminder_times the minutes that are shown in the selection box
 * @param int $selected_minutes the currently selected minutes
+* @param string $reminderid id of the reminder to modify
 */
-function print_reminder_box($selected_minutes) {
-	global $conf;
-	$reminder_times = $conf['app']['allowed_reminder_times'];
+function print_reminder_box($reminder_times, $selected_minutes, $reminderid) {
 	if (empty($reminder_times)) {
 		return;
 	}
@@ -826,8 +828,9 @@ function print_reminder_box($selected_minutes) {
   <tr>
     <td style="padding: 5px;">
 	 <?php
+	 echo '<input type="hidden" name="reminderid" id="reminderid" value="' . $reminderid . '"/>';
 	 echo translate('Reminder') . ' ';
-	 echo '<select name="remind_time" id="remind_time" class="textbox">';
+	 echo '<select name="reminder_minutes_prior" id="reminder_minutes_prior" class="textbox">';
 	 echo '<option value="0">' . translate('Never') . '</option>';
 	 for ($i = 0; $i < count($reminder_times); $i++) {
 	 	echo "<option value=\"{$reminder_times[$i]} " . ($selected_minutes == $reminder_times[$i] ? 'selected="selected"' : '') . "\">" . CmnFns::minutes_to_hours($reminder_times[$i]) . "</option>\n";
