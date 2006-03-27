@@ -4,7 +4,7 @@
 *  data and settings in phpScheduleIt
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 02-26-06
+* @version 03-27-06
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -47,7 +47,7 @@ class Admin {
 	var $is_error = false;
 	var $error_msg;
 	var $user = null;
-	
+
 	/**
 	* Admin class constructor
 	* Sets up GUI and gets the current tool
@@ -56,7 +56,7 @@ class Admin {
 		$this->pager = CmnFns::getNewPager();
 		$this->pager->setTextStyle('font-size: 10px;');
 		$this->pager->setTbClass('textbox');
-		
+
 		$this->db = new AdminDB();
 		// Make sure its a proper tool
 		if (!isset($this->tools[$tool])) {
@@ -66,16 +66,16 @@ class Admin {
 		else
 			$this->tool = $this->tools[$tool];
 	}
-	
+
 	/**
 	* Returns whether an error occured or not
 	* @param none
 	* @return boolean whether error occured
-	*/	
+	*/
 	function is_error() {
 		return $this->is_error;
 	}
-	
+
 	/**
 	* Returns the last error message given
 	* @param none
@@ -84,7 +84,7 @@ class Admin {
 	function get_error_msg() {
 		return $this->error_msg;
 	}
-	
+
 	/**
 	* Determines if the user has privilege to manage this tool
 	* @param none
@@ -92,13 +92,13 @@ class Admin {
 	*/
 	function isUserAllowed() {
 		$allowed = false;
-		
+
 		if ($this->user->get_isadmin()) {
 			$allowed = true;
 		}
 		else if (
-			$this->tool[2] == 'users' || 
-			$this->tool[2] == 'perms' || 
+			$this->tool[2] == 'users' ||
+			$this->tool[2] == 'perms' ||
 			$this->tool[2] == 'pwreset' ||
 			$this->tool[2] == 'reservations' ||
 			$this->tool[2] == 'approval'
@@ -107,7 +107,7 @@ class Admin {
 		}
 		return $allowed;
 	}
-	
+
 	/**
 	* Execute the proper function based on the tool
 	* @param none
@@ -115,7 +115,7 @@ class Admin {
 	function execute() {
 		eval('$this->' . $this->tool[1] . '();');
 	}
-	
+
 	/**
 	* Interface for managing schedules
 	* @param none
@@ -124,7 +124,7 @@ class Admin {
 		$this->listSchedulesTable();		// List resources and allow deletion
 		$this->editScheduleTable();			// Enter/display info about a resource
 	}
-	
+
 	/**
 	* Prints out list of current schedules
 	* @param none
@@ -132,38 +132,38 @@ class Admin {
 	function listSchedulesTable() {
 		$pager = $this->pager;
 		$num = $this->db->get_num_admin_recs('schedules');	// Get number of records
-		$pager->setTotRecords($num);				// Pager method calls		
+		$pager->setTotRecords($num);				// Pager method calls
 		$orders = array('scheduletitle');
-		
+
 		$schedules = $this->db->get_all_admin_data($pager, 'schedules', $orders, true);
-		
+
 		print_manage_schedules($pager, $schedules, $this->db->get_err());	// Print table of resources
 		$pager->printPages();						// Print pages
 	}
-	
-	
+
+
 	/**
 	* Interface to add or edit schedule information
 	* @param none
 	*/
-	function editScheduleTable() {		
-		$edit = (isset($_GET['scheduleid']));	// Determine if the form should contain values or be blank	
+	function editScheduleTable() {
+		$edit = (isset($_GET['scheduleid']));	// Determine if the form should contain values or be blank
 		$rs = array();
-		
+
 		if ($edit)							// Validate machid
 			$scheduleid =  trim($_GET['scheduleid']);
-			
+
 		if ($edit) {						// If this is an edit, get the resource information from database
 			$rs = $this->db->get_schedule_data($scheduleid);
 		}
 		if (isset($_SESSION['post'])) {
 			$rs = $_SESSION['post'];
 		}
-		
-		print_schedule_edit($rs, $edit, $this->pager);		
+
+		print_schedule_edit($rs, $edit, $this->pager);
 		unset($_SESSION['post'], $rs);
 	}
-	
+
 	/**
 	* Interface for managing users
 	* Provides interface for viewing user information
@@ -172,27 +172,27 @@ class Admin {
 	*/
 	function manageUsers() {
 		$pager = $this->pager;
-		$orders = array('lname', 'email', 'institution');		
+		$orders = array('lname', 'email', 'institution');
 		$groupids = array();
 		$fname = isset($_GET['firstName']) ? trim($_GET['firstName']) : null;
 		$lname = isset($_GET['lastName']) ? trim($_GET['lastName']) : null;
-		
+
 		if (isset($_GET['groupid'])) {
 			 $groupids = array($_GET['groupid']);
 		}
 		else if ($this->user->is_group_admin()) {
 			$groupids = $this->user->get_admin_groups();
-		}		
-		
+		}
+
 		$num   = $this->db->get_num_user_recs($fname, $lname, $groupids);
 		$pager->setTotRecords($num);
 		$users = $this->db->search_users($pager, $orders, $fname, $lname, $groupids);
-	
-		print_manage_users($pager, $users, $this->db->get_err());		// Print table of users				
+
+		print_manage_users($pager, $users, $this->db->get_err());		// Print table of users
 		$pager->printPages();
 	}
-	
-	
+
+
 	/**
 	* Interface for managing resources
 	* Provides an interface for viewing resource information,
@@ -200,38 +200,38 @@ class Admin {
 	* and associated reservations from database
 	* @param none
 	*/
-	function manageResources() {		
+	function manageResources() {
 		$this->listResourcesTable();		// List resources and allow deletion
 		$this->editResourceTable();			// Enter/display info about a resource
 	}
-	
-	
+
+
 	/**
 	* Prints out list of current resources
 	* @param none
 	*/
 	function listResourcesTable() {
-		$pager = $this->pager;	
-		$num = $this->db->get_num_admin_recs('resources');	// Get number of records		
-		$pager->setTotRecords($num);				// Pager method calls		
+		$pager = $this->pager;
+		$num = $this->db->get_num_admin_recs('resources');	// Get number of records
+		$pager->setTotRecords($num);				// Pager method calls
 		$orders = array('name', 'machID');
-		
+
 		$resources = $this->db->get_all_resource_data($pager, $orders);
-		
-		print_manage_resources($pager, $resources, $this->db->get_err());	// Print table of resources				
+
+		print_manage_resources($pager, $resources, $this->db->get_err());	// Print table of resources
 		$pager->printPages();
 	}
-	
-	
+
+
 	/**
 	* Interface to add or edit resource information
 	* @param none
 	* @see printResourceEdit()
 	*/
-	function editResourceTable() {	
+	function editResourceTable() {
 		$edit = (isset($_GET['machid']));	// Determine if the form should contain values or be blank
 		$rs = array();
-		
+
 		if ($edit) {						// Validate machid
 			$machid =  trim($_GET['machid']);
 		}
@@ -241,50 +241,50 @@ class Admin {
 		if (isset($_SESSION['post'])) {
 			$rs = $_SESSION['post'];
 		}
-		
+
 		$scheds = $this->db->get_table_data('schedules', array('scheduleid', 'scheduletitle'), array('scheduletitle'));
-		
-		print_resource_edit($rs, $scheds, $edit, $this->pager);		
+
+		print_resource_edit($rs, $scheds, $edit, $this->pager);
 		unset($_SESSION['post'], $rs);
 	}
-	
-	
+
+
 	/**
 	* Interface for managing user training
 	* Provide interface for viewing and managing
 	*  user training information
 	* @param none
 	*/
-	function managePerms() {		
-		$user = new User($_GET['memberid']);	// User object		
+	function managePerms() {
+		$user = new User($_GET['memberid']);	// User object
 		if (!$this->user->is_group_admin($user->get_groupids())) {
 			print_not_allowed();
 		}
 		else {
-			$rs = $this->db->get_mach_ids();		
+			$rs = $this->db->get_mach_ids();
 			print_manage_perms($user, $rs, $this->db->get_err());
 		}
 	}
-	
-	
+
+
 	/**
 	* Interface for managing reservations
 	* Provide a table to allow admin to modify or delete reservations
 	* @param none
 	*/
 	function manageReservations() {
-		$pager = $this->pager;	
+		$pager = $this->pager;
 		$groupids = !$this->user->get_isadmin() ? $this->user->get_admin_groups() : null;
-		$num = $this->user->get_isadmin() ? $this->db->get_num_admin_recs('reservations') : $this->db->get_num_reservations($groupids);	
-		$pager->setTotRecords($num);							// Pager method calls		
+		$num = $this->user->get_isadmin() ? $this->db->get_num_admin_recs('reservations') : $this->db->get_num_reservations($groupids);
+		$pager->setTotRecords($num);							// Pager method calls
 		$orders = array('start_date', 'end_date', 'name', 'lname', 'starttime', 'endtime');
 		$res = $this->db->get_reservation_data($pager, $orders, null, $groupids);
-		
+
 		print_manage_reservations($pager, $res, $this->db->get_err());		// Print table of users
-			
+
 		$pager->printPages();									// Print pages
-	}		
-	
+	}
+
 	/**
 	* Wrapper function to call proper email function
 	* @param none
@@ -303,7 +303,7 @@ class Admin {
 			$this->list_email_users();				// Default, pick users/message
 		}
 	}
-	
+
 	/**
 	* Prints out GUI list to of email addresses
 	* Prints out a table with option to email users,
@@ -317,7 +317,7 @@ class Admin {
 		$users = $this->db->get_user_email();
 		print_manage_email($users, $sub, $msg, $usr, $this->db->get_err());
 	}
-	
+
 	/**
 	* Send email message to users
 	* Loop through array of emails and send HTML mail to each one
@@ -328,7 +328,7 @@ class Admin {
 		global $conf;
 		$success = $fail = array();
 		$isWin32 = strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'win32');
-		
+
 		$usr = $_SESSION['usr'];
 		$msg = $_SESSION['msg'];
 		$sub = $_SESSION['sub'];
@@ -348,16 +348,16 @@ class Admin {
 		$mailer->Subject = $sub;
 		$mailer->Body = $msg;
 		$mailer->IsHTML(false);
-		
+
 		if ($mailer->Send())
 			$success = true;
 		else
 			$success = false;
-		
+
 		print_email_results($sub, $msg, $success);
 		unset($_SESSION['usr'], $_SESSION['msg'], $_SESSION['sub'], $usr, $sub, $msg);
 	}
-	
+
 	/**
 	* Call the function to show table data or to show the resulting data
 	* @param none
@@ -366,7 +366,7 @@ class Admin {
 		if (is_array($_POST) && isset($_POST['submit'])) {		// The form is submitted, print out the selected data
 			$form = $_POST;
 			$xml = ($form['type'] == 'xml');					// XML or CSV format
-			
+
 			// Build the query for each table to output
 			foreach ($form as $key => $val) {
 				if ($key == 'table') {		// table[] checkbox
@@ -377,7 +377,7 @@ class Admin {
 						start_exported_data($xml, $table_name);
 						print_exported_data($data, $xml);
 						end_exported_data($xml, $table_name);
-					}			
+					}
 				}
 			}
 		}
@@ -394,7 +394,7 @@ class Admin {
 		}
 	}
 
-	
+
 	/**
 	* Builds the query to retrieve specific data from database
 	* @param array $form array of all form data
@@ -405,15 +405,15 @@ class Admin {
 		for ($j = 0; $j < count($form['table,' . $table_name]); $j++) {
 			if ($form['table,' . $table_name][$j] == 'all')
 				$query .= ' * ';
-			else		
+			else
 				$query .= ' ' . $form['table,' . $table_name][$j] . ',';
 		}
 		// Trim off last char (it will be a space or a comma)
 		$query = substr($query, 0, strlen($query) - 1) . ' from ' . $this->db->get_table($table_name);
-		
-		return $query;	
+
+		return $query;
 	}
-	
+
 	/**
 	* Returns the data to export in an array
 	* @param string $query query to execute
@@ -423,10 +423,10 @@ class Admin {
 		$result = $this->db->db->query($query);
 		while ($rs = $result->fetchRow())
 			$data[] = $rs;
-	
-		return $data;	
+
+		return $data;
 	}
-	
+
 	/**
 	* Prints a form to reset a password for a user
 	* @param none
@@ -440,72 +440,72 @@ class Admin {
 			print_reset_password($user);
 		}
 	}
-	
+
 	/**
 	* Interface for managing announcements
 	* @param none
 	*/
 	function manageAnnouncements() {
 	   $this->listAnnouncementsTable();
-	   $this->editAnnouncementTable();	
+	   $this->editAnnouncementTable();
 	}
-	
+
     /**
 	* Prints out list of current announcements
 	* @param none
 	*/
 	function listAnnouncementsTable() {
-		$pager = $this->pager;	
+		$pager = $this->pager;
 		$num = $this->db->get_num_admin_recs('announcements');	// Get number of records
-		$pager->setTotRecords($num);				// Pager method calls		
+		$pager->setTotRecords($num);				// Pager method calls
 		$orders = array('number');
-		
+
 		$announcements = $this->db->get_all_admin_data($pager, 'announcements', $orders, true);
-		
-		print_manage_announcements($pager, $announcements, $this->db->get_err());	// Print table of resources			
+
+		print_manage_announcements($pager, $announcements, $this->db->get_err());	// Print table of resources
 		$pager->printPages();						// Print pages
 	}
-	
-	
+
+
 	/**
 	* Interface to add or edit announcement information
 	* @param none
 	*/
-	function editAnnouncementTable() {		
-		$edit = (isset($_GET['announcementid']));	// Determine if the form should contain values or be blank	
+	function editAnnouncementTable() {
+		$edit = (isset($_GET['announcementid']));	// Determine if the form should contain values or be blank
 		$rs = array();
-		
+
 		if ($edit)					// Validate machid
 			$announcementid = trim($_GET['announcementid']);
-			
+
 		if ($edit) {				// If this is an edit, get the resource information from database
 			$rs = $this->db->get_announcement_data($announcementid);
 		}
 		if (isset($_SESSION['post'])) {
 			$rs = $_SESSION['post'];
 		}
-		
-		print_announce_edit($rs, $edit, $this->pager);		
+
+		print_announce_edit($rs, $edit, $this->pager);
 		unset($_SESSION['post'], $rs);
 	}
-	
+
 	/**
  	* Interface for approving/disapproving reservations
  	* Provide a table to allow admin to approving/disapproving reservations
 	* @param none
  	*/
  	function approveReservations() {
-		$pager = $this->pager;			
-		$num = $this->db->get_num_pending_res();	// Get number of records		
-		$pager->setTotRecords($num);							// Pager method calls	
+		$pager = $this->pager;
+		$num = $this->db->get_num_pending_res();	// Get number of records
+		$pager->setTotRecords($num);							// Pager method calls
 		$orders = array('start_date', 'end_date', 'name', 'lname', 'starttime', 'endtime');
-		
+
 		$res = $this->db->get_reservation_data($pager, $orders, true);
- 		
+
 		print_approve_reservations($pager, $res, $this->db->get_err());		// Print table of users
  		$pager->printPages();									// Print pages
  	}
- 	
+
  	/**
  	 * Interface for managing additional resources
  	 */
@@ -513,43 +513,45 @@ class Admin {
  		$this->listAdditionalResources();
  		$this->editAdditionalResources();
  	}
- 	
+
  	/**
  	 * Interface for creating/deleting additional resources
  	 * @param none
  	 */
  	function listAdditionalResources() {
- 		$pager = $this->pager;	
-		$num = $this->db->get_num_admin_recs('additional_resources');	// Get number of records		
-		$pager->setTotRecords($num);				// Pager method calls		
+ 		$pager = $this->pager;
+		$num = $this->db->get_num_admin_recs('additional_resources');	// Get number of records
+		$pager->setTotRecords($num);				// Pager method calls
 		$orders = array('name');
-		
+
 		$resources = $this->db->get_all_admin_data($pager, 'additional_resources', $orders, true);
-		
+
 		print_manage_additional_resources($pager, $resources, $this->db->get_err());	// Print table of resources
-				
+
 		$pager->printPages();						// Print pages
  	}
- 	
+
 	/**
 	* Interface to add or edit an additional resource
 	* @param none
 	*/
  	function editAdditionalResources() {
- 		$edit = (isset($_GET['resourceid']));	// Determine if the form should contain values or be blank	
-		$rs = array();		
-		$resourceid = $edit ? trim($_GET['resourceid']) : null;			
+ 		$edit = (isset($_GET['resourceid']));	// Determine if the form should contain values or be blank
+		$resourceid = $edit ? trim($_GET['resourceid']) : null;
 		$rs = new AdditionalResource($resourceid);
 
 		if (isset($_POST)) {
-			$rs = $_POST;
+			$rs = new AdditionalResource();
+			$rs->id = $resourceid;
+			$rs->name = trim($_POST['name']);
+			$rs->number_available = trim($_POST['number_available']);
 		}
-		
+
 		print_additional_resource_edit($rs, $edit, $this->pager);
-		
-		unset($_SESSION['post'], $rs);	
+
+		unset($_SESSION['post'], $rs);
  	}
-	
+
 	/**
 	* Interface for managing groups
 	*/
@@ -557,32 +559,32 @@ class Admin {
 		$this->listGroups();
 		$this->editGroup();
 	}
-	
+
 	/**
 	* Interface to view and delete a group
 	* @param none
 	*/
 	function listGroups() {
-	 	$pager = $this->pager;	
+	 	$pager = $this->pager;
 		$num = $this->db->get_num_admin_recs('groups');	// Get number of records
-		
-		$pager->setTotRecords($num);				// Pager method calls		
+
+		$pager->setTotRecords($num);				// Pager method calls
 		$groups = $this->db->get_all_group_data($pager);
-		
+
 		print_manage_groups($pager, $groups, $this->db->get_err());	// Print table of resources
-				
+
 		$pager->printPages();						// Print pages
 	}
-	
+
 	/**
 	* Interface to add and edit a group
 	* @param none
 	*/
 	function editGroup() {
-	 	$edit = (isset($_GET['groupid']));	// Determine if the form should contain values or be blank	
-		$rs = array();		
+	 	$edit = (isset($_GET['groupid']));	// Determine if the form should contain values or be blank
+		$rs = array();
 		$groupid = $edit ? trim($_GET['groupid']) : null;
-		
+
 		$group = new Group(new GroupDB(), $groupid);
 		$users = $this->db->get_group_users($groupid);
 
@@ -590,7 +592,7 @@ class Admin {
 			$group->group_name = $_POST['group_name'];
 			$group->group_admin = $_POST['group_admin'];
 		}
-		
+
 		print_group_edit($group, $edit, $this->pager, $users);
 	}
 }
