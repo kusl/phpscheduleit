@@ -33,7 +33,8 @@ CREATE TABLE login (
   e_html CHAR(1) NOT NULL DEFAULT 'y',
   logon_name VARCHAR(30),
   is_admin SMALLINT(1) DEFAULT 0,
-  lang VARCHAR(5)
+  lang VARCHAR(5),
+  timezone INT NOT NULL DEFAULT 0
   );
 
 # Create indexes ON login table #

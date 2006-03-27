@@ -105,3 +105,6 @@ CREATE INDEX reminders_resid ON reminders (resid);
 
 # Store lang for RSS and email reminders #
 ALTER TABLE login ADD COLUMN lang VARCHAR(5);
+
+# Store timezone for each user #
+ALTER TABLE login ADD COLUMN timezone INT NOT NULL DEFAULT 0;
