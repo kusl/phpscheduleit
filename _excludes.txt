@@ -5,5 +5,5 @@ test*
 **.build
 nant.bat
 **/_*.*
-**/test/*
+**/tests/*
 **/docs/*
