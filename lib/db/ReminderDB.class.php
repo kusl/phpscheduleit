@@ -30,15 +30,15 @@ class ReminderDB extends DBEngine {
 		
 		$query = 'SELECT
 					rs.resid, rs.starttime, rs.endtime, rs.start_date, rs.end_date,
-					r.name, r.location, r.machid
+					r.name, r.location, r.machid,
 					l.email, l.memberid, l.lang,
 					rem.reminderid
 				FROM ' . $this->get_table(TBL_REMINDERS) . ' rem INNER JOIN '
 				. $this->get_table(TBL_RESERVATIONS) . ' rs ON rem.resid = rs.resid INNER JOIN '
-				. $this->get_table(TBL_RESOURCES) . ' r ON rs.machid = r.machid INNER JOIN'
+				. $this->get_table(TBL_RESOURCES) . ' r ON rs.machid = r.machid INNER JOIN '
 				. $this->get_table(TBL_LOGIN) . ' l ON rem.memberid = l.memberid'
-				. ' WHERE rem.reminder_date <= ?';
-		
+				. ' WHERE rem.reminder_time <= ?';
+
 		$result = $this->db->query($query, array($max_date));
 		$this->check_for_error($result);
 		
@@ -67,7 +67,7 @@ class ReminderDB extends DBEngine {
 	* Updates an existing reminder in the database
 	* @param Reminder $reminder the populated reminder object to save
 	*/
-	function save(&$reminder) {
+	function update(&$reminder) {
 		$values = array($reminder->reminder_time, $reminder->memberid, $reminder->resid);
 		$query = 'UPDATE ' . $this->get_table(TBL_REMINDERS) . ' SET reminder_time = ? WHERE memberid = ? AND resid = ?';
 		$q = $this->db->prepare($query);

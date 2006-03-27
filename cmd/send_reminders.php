@@ -3,7 +3,7 @@
 * Sends all pending email reminders
 * This file is meant to be run from the command line and has no HTML output
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-23-06
+* @version 03-26-06
 * @package phpScheduleIt Command Line
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -25,10 +25,14 @@ $reminderids_sent = array();
 for ($i = 0; $i < count($reminders); $i++) {
 	$reminder =& $reminders[$i];
 	if (is_lang_valid($reminder->lang)) {
-		include(get_language_path($reminder->lang);		// Make sure email is in correct language
-		$email = new ReminderEmail($reminder);
+		include(get_language_path($reminder->lang));		// Make sure email is in correct language
+		$email = new ReminderEmail(new PHPMailer());
+		$email->buildFromReminder($reminder);
 		//$email->send();
-		$reminderids_sent[$reminder];
+		echo $email->_mailer->Subject;
+		echo $email->_mailer->Body;
+		echo $email->_mailer->to[0][0];
+		$reminderids_sent[] = $reminder;
 	}
 }
 

@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 03-16-06
+* @version 03-26-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
