@@ -22,17 +22,18 @@ $link = CmnFns::getNewLink();	// Get Link object
 */
 function print_register_form($edit, $data = array(), $msg = '', $memberid = '') {
 	global $conf;
-			
+
 	$positions    = $conf['ui']['positions'];		// Postions that are availble in the pull down menu
-	$institutions = $conf['ui']['institutions'];	// Institutions that are available in the pull down menu 
+	$institutions = $conf['ui']['institutions'];	// Institutions that are available in the pull down menu
 	$use_logonname = (bool)$conf['app']['useLogonName'];	// If we are using logon name or email for authentication
-	
+	$timezones = array(-12, -11, -10, -9, -8, -7, -6, -5, -4, -3.5, -3, -2, -1, 0, 1, 2, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 8, 9, 9.5, 10, 11, 12, 13);
+
 	// Print header
 	echo '<h3 align="center">' . (($edit) ? translate('Please edit your profile') : translate('Please register')) . '</h3>' . "\n";
-	
+
 	if (!empty($msg))
 		CmnFns::do_error_box($msg, '', false);
-	
+
 ?>
 <form name="register" method="post" action="<?php echo $_SERVER['PHP_SELF'] . "?edit=$edit&amp;memberid=$memberid";?>">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -93,7 +94,7 @@ function print_register_form($edit, $data = array(), $msg = '', $memberid = '') 
 		  else {
 		  ?>
 		  <select name="institution" class="textbox">
-		  <?php		  
+		  <?php
 			  // Print out position options
 			  for ($i = 0; $i < count($institutions); $i++) {
 				echo '<option value="' . $institutions[$i] . '"'
@@ -119,7 +120,7 @@ function print_register_form($edit, $data = array(), $msg = '', $memberid = '') 
 		  else {
 		  ?>
 		  <select name="position" class="textbox">
-		  <?php			  
+		  <?php
 			  // Print out position options
 			  for ($i = 0; $i < count($positions); $i++) {
 				echo '<option value="' . $positions[$i] . '"'
@@ -149,6 +150,22 @@ function print_register_form($edit, $data = array(), $msg = '', $memberid = '') 
 		  <input type="password" name="password2" class="textbox" />
 		</td>
 	  </tr>
+	  <tr bgcolor="#FFFFFF">
+	  		<td>
+	  		  <p align="right">* <?php echo translate('Timezone')?></p>
+	  		</td>
+	  		<td>
+	  		  // Print out position options
+			  for ($i = 0; $i < count($timezones); $i++) {
+			  	$label = $timezones[$i];
+			  	if ($timezones[$i] > 0) { $label = '+' $label; }
+			  	if ($timezones[$i] == 0) { $label = ''); }
+				echo "<option value=\"{$timezones[$i]}\""
+					. ( (isset($data['timezone']) && ($data['timezone'] == $timezones[$i])) ? ' selected="selected"' : '' )
+					. ">GMT $label</option>\n";
+			  }
+	  		</td>
+	  </tr>
 	  <?php if (!$edit && (bool)$conf['app']['allowSelfRegistration']) { ?>
 	  <tr bgcolor="#FFFFFF">
 		<td>
@@ -164,7 +181,7 @@ function print_register_form($edit, $data = array(), $msg = '', $memberid = '') 
 </tr>
 </table>
 <br />
-<?php if ($edit) { 
+<?php if ($edit) {
 	$cancelUrl = !empty($memberid) ? "admin.php?tool=users" : "ctrlpnl.php";
 ?>
 <input type="submit" name="update" value="<?php echo translate('Edit Profile')?>" class="button" />
@@ -183,16 +200,16 @@ function print_register_form($edit, $data = array(), $msg = '', $memberid = '') 
 * Prints out a login form and any error messages
 * @param string $msg error messages to display for user
 * @param string $resume page to resume on after login
-*/ 
+*/
 function printLoginForm($msg = '', $resume = '') {
 	global $conf;
 	$link = CmnFns::getNewLink();
 	$use_logonname = (bool)$conf['app']['useLogonName'] || (bool)$conf['ldap']['authentication'];
-	
+
 	// Check browser information
 	echo '<script language="JavaScript" type="text/javascript">checkBrowser();</script>';
-	
-	if (!empty($msg)) 
+
+	if (!empty($msg))
 		CmnFns::do_error_box($msg, '', false);
 ?>
 <form name="login" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
@@ -246,7 +263,7 @@ function printLoginForm($msg = '', $resume = '') {
 		  <?php if ((bool)$conf['app']['allowSelfRegistration']) { ?>
 		  <h4 align="center" style="margin-bottom:1px;"><b><?php echo translate('First time user')?>
 			<?php $link->doLink('register.php', translate('Click here to register'), '', '', translate('Register for phpScheduleIt')) ?>
-		  </h4>	
+		  </h4>
 		  <?php } ?>
 		</td>
 	  </tr>
