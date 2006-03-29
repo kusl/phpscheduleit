@@ -56,7 +56,6 @@ class LDAPEngine {
 		$this->ldap = ldap_connect( $this->host, $this->port ) or die( "Could not connect to LDAP server." );
 
 		$this->uid = $uid;
-		$uid = "uid=$uid,". $this->basedn;
 
 		if( $rdnSearch = @ldap_bind( $this->ldap ) ) {
 	   		if( $resID = ldap_search( $this->ldap, $this->basedn, "uid=$uid" ) ) {
