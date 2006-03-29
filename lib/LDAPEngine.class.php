@@ -136,7 +136,9 @@ class LDAPEngine {
             'phone' => $this->phone,
             'logon_name' => $this->uid,
             'password' => $this->password,
-            'password2' => $this->password
+            'password2' => $this->password,
+            'position' => null,
+            'institution' => null
         );
 
         return $return;
