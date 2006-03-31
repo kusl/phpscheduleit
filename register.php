@@ -3,7 +3,7 @@
 * This file prints out a registration or edit profile form
 * It will fill in fields if they are available (editing)
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-16-06
+* @version 03-30-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -19,7 +19,17 @@ $auth = new Auth();
 $t = new Template();
 
 $edit = isset($_GET['edit']) && (bool)$_GET['edit'];
-$id = (isset($_GET['memberid']) && !empty($_GET['memberid'])) ? $_GET['memberid'] : $_SESSION['sessionID'];
+
+if ( isset($_GET['memberid']) && !empty($_GET['memberid']) ) {
+	$id = $_GET['memberid'];
+}
+else if ( isset($_SESSION['sessionID']) && !empty($_SESSION['sessionID']) ) {
+	$id = $_SESSION['sessionID'];
+}
+else {
+	$id = null;
+}
+
 $msg = '';
 $show_form = true;
 
@@ -69,6 +79,7 @@ $t->startMain();
 
 // Either this is a fresh view or there was an error, so show the form
 if ($show_form || $msg != '') {
+	if (!isset($data['timezone'])) { $data['timezone'] = $conf['app']['timezone']; }
 	$auth->print_register_form($edit, $data, $msg, $id);
 }
 

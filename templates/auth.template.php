@@ -3,7 +3,7 @@
 * This file provides output functions for all auth pages
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 02-24-06
+* @version 03-30-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -152,18 +152,20 @@ function print_register_form($edit, $data = array(), $msg = '', $memberid = '') 
 	  </tr>
 	  <tr bgcolor="#FFFFFF">
 	  		<td>
-	  		  <p align="right">* <?php echo translate('Timezone')?></p>
+	  		  <p align="right"><?php echo translate('Timezone')?></p>
 	  		</td>
 	  		<td>
-	  		  // Print out position options
-			  for ($i = 0; $i < count($timezones); $i++) {
-			  	$label = $timezones[$i];
-			  	if ($timezones[$i] > 0) { $label = '+' $label; }
-			  	if ($timezones[$i] == 0) { $label = ''); }
+			<select name="timezone" id="timezone" class="textbox">
+			<?php
+	  		for ($i = 0; $i < count($timezones); $i++) {
+				$label = $timezones[$i];
+				if ($timezones[$i] >= 0) { $label = '+' . $label; }
 				echo "<option value=\"{$timezones[$i]}\""
 					. ( (isset($data['timezone']) && ($data['timezone'] == $timezones[$i])) ? ' selected="selected"' : '' )
 					. ">GMT $label</option>\n";
-			  }
+			}
+			?>
+			</select>
 	  		</td>
 	  </tr>
 	  <?php if (!$edit && (bool)$conf['app']['allowSelfRegistration']) { ?>

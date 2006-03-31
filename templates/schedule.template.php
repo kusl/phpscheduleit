@@ -6,7 +6,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 07-18-05
+* @version 03-30-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -178,14 +178,14 @@ function print_name_cell($ts, $id, $name, $shown, $is_blackout, $scheduleid, $pe
            . '<td class="resourceName">';
            
     if ($is_blackout) {
-        $link->doLink("javascript: reserve('r', '$id','$ts', '', '$scheduleid', '1', '0', '$pending');", $name, '', '', translate("Set blackout times", array($name, CmnFns::formatDate($ts))));
+        $link->doLink("javascript: reserve('r', '$id','$ts', '', '$scheduleid', '1', '0', '$pending');", $name);
     }
     else {
         // If the user is allowed to make reservations on this resource
         // then provide a link
         // Else do not
         if ($shown)    
-            $link->doLink("javascript: reserve('r','$id','$ts','', '$scheduleid', '0', '$pending');", $name, '', '', translate('Reserve on', array($name, CmnFns::formatDate($ts))));
+            $link->doLink("javascript: reserve('r','$id','$ts','', '$scheduleid', '0', '$pending');", $name);
         else
             echo '<span class="inact">' . $name . '</span>';
     }

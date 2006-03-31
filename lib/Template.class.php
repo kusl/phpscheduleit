@@ -3,7 +3,7 @@
 * This file provides output functions
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-02-06
+* @version 03-30-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -118,7 +118,7 @@ class Template {
 		<td class="mainBkgrdClr" valign="top">
 		  <div align="right">
 		    <p>
-			<?php echo translate_date('header', mktime());?>
+			<?php echo translate_date('header', CmnFns::getAdjustedTime(mktime()));?>
 			</p>
 			<p>
 			  <?php  $this->link->doLink('javascript: help();', translate('Help')) ?>

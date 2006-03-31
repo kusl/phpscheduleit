@@ -107,4 +107,4 @@ CREATE INDEX reminders_resid ON reminders (resid);
 ALTER TABLE login ADD COLUMN lang VARCHAR(5);
 
 # Store timezone for each user #
-ALTER TABLE login ADD COLUMN timezone INT NOT NULL DEFAULT 0;
+ALTER TABLE login ADD COLUMN timezone FLOAT NOT NULL DEFAULT 0;

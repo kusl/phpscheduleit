@@ -3,7 +3,7 @@
 * Authorization and login functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-16-06
+* @version 03-30-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -91,6 +91,7 @@ class Auth {
 		$_SESSION['sessionID'] = null;
 		$_SESSION['sessionName'] = null;
 		$_SESSION['sessionAdmin'] = null;
+		$_SESSION['hourOffset'] = null;
 			
 		$uname = stripslashes($uname);
 		$pass = stripslashes($pass);
@@ -199,6 +200,7 @@ class Auth {
 			// Set other session variables
 			$_SESSION['sessionID'] = $user->get_id();
 			$_SESSION['sessionName'] = $user->get_fname();
+			$_SESSION['hourOffset'] = $user->get_timezone() - $conf['app']['timezone'];
 			
 			if ($lang != '') {
 				set_language($lang);
@@ -224,9 +226,10 @@ class Auth {
 		}
 		else {
 			// Destroy all session variables
-			unset($_SESSION['sessionID']);
-			unset($_SESSION['sessionName']);
+			if (isset($_SESSION['sessionID'])) unset($_SESSION['sessionID']);
+			if (isset($_SESSION['sessionName'])) unset($_SESSION['sessionName']);
 			if (isset($_SESSION['sessionAdmin'])) unset($_SESSION['sessionAdmin']);
+			if (isset($_SESSION['hourOffset'])) unset($_SESSION['hourOffset']);
 			session_destroy();
 
 			// Clear out all cookies
@@ -317,6 +320,7 @@ class Auth {
 				// Set other session variables
 				$_SESSION['sessionID'] = $id;
 				$_SESSION['sessionName'] = $data['fname'];
+				$_SESSION['hourOffset'] = $data['timezone'] - $conf['app']['timezone'];
 		}
 
 		// Write log file
@@ -363,6 +367,7 @@ class Auth {
 
 		// Set other session variables
 		$_SESSION['sessionName'] = $data['fname'];
+		$_SESSION['hourOffset'] = $data['timezone'] - $conf['app']['timezone'];
 
 		// Write log file
 		CmnFns::write_log('User data modified. Data provided: fname- ' . $data['fname'] . ' lname- ' . $data['lname']
@@ -485,9 +490,11 @@ class Auth {
 	*/
 	function clean() {
 		// Destroy all session variables
-		unset($_SESSION['sessionID']);
-		unset($_SESSION['sessionName']);
+		if (isset($_SESSION['sessionID'])) unset($_SESSION['sessionID']);
+		if (isset($_SESSION['sessionName'])) unset($_SESSION['sessionName']);
 		if (isset($_SESSION['sessionAdmin'])) unset($_SESSION['sessionAdmin']);
+		if (isset($_SESSION['hourOffset'])) unset($_SESSION['hourOffset']);
+		session_destroy();
 		session_destroy();
 	}
 

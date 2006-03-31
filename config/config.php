@@ -6,7 +6,7 @@
 *  are set in this file.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-18-06
+* @version 03-30-06
 * @package phpScheduleIt
 */
 /***************************************
@@ -87,13 +87,16 @@ $conf['app']['allowRss'] = 1;
 // Make this a unique string if you have conflicting sessions, or multiple copies of phpScheduleIt on the same server.  Otherwise leave it be. ['PHPSESSID']
 $conf['app']['sessionName'] = 'PHPSESSID';
 
+// The GMT hour difference for the server
+$conf['app']['timezone'] = 0;
+
 // View time in 12 or 24 hour format [12]
 // Only acceptable values are 12 and 24 (if an invalid number is set, 12 hour time will be used)
 $conf['app']['timeFormat'] = 12;
 
 // First day of the week for the small navigational calendars [0]
 // Must be a value between 0 - 6 (0 = Sunday 6 = Saturday)
-$conf['app']['calFirstDay'] = 6;
+$conf['app']['calFirstDay'] = 0;
 
 // Email address of technical support []
 $conf['app']['techEmail'] = '';

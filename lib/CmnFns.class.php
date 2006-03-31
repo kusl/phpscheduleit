@@ -24,12 +24,14 @@ include_once('Timer.class.php');
 class CmnFns {
 	
 	/**
-	* Convert minutes to hours
+	* Convert minutes to hours and adjust for timezone
 	* @param double $time time to convert in minutes
 	* @return string time in 12 hour time
 	*/
 	function formatTime($time) {
 		global $conf;
+		
+		$time = ($time + (60 * CmnFns::getHourOffset() + 1440)) % 1440;
 		
 		// Set up time array with $timeArray[0]=hour, $timeArray[1]=minute
 		// If time does not contain decimal point
@@ -54,7 +56,7 @@ class CmnFns {
 	
 	
 	/**
-	* Convert timestamp to date format
+	* Convert timestamp to date format and adjust for timezone
 	* @param string $date timestamp
 	* @param string $format format to put datestamp into
 	* @return string date as $format or as default format
@@ -62,13 +64,15 @@ class CmnFns {
 	function formatDate($date, $format = '') {
 		global $dates;
 		
+		$date = CmnFns::getAdjustedTime($date);
+		
 		if (empty($format)) $format = $dates['general_date'];
 		return strftime($format, $date);
 	}
 	
 	
 	/**
-	* Convert UNIX timestamp to datetime format
+	* Convert UNIX timestamp to datetime format and adjust for timezone
 	* @param string $ts MySQL timestamp
 	* @param string $format format to put datestamp into
 	* @return string date/time as $format or as default format
@@ -77,9 +81,56 @@ class CmnFns {
 		global $conf;
 		global $dates;
 		
+		$ts = CmnFns::getAdjustedTime($ts);
+		
 		if (empty($format))
-			$format = $dates['general_datetime'] . ' ' . (($conf['app']['timeFormat'] ==24) ? '%H' : '%I') . ':%M:%S' . (($conf['app']['timeFormat'] == 24) ? '' : ' %p');
+			$format = $dates['general_datetime'] . ' ' . (($conf['app']['timeFormat'] == 24) ? '%H' : '%I') . ':%M:%S' . (($conf['app']['timeFormat'] == 24) ? '' : ' %p');
 		return strftime($format, $ts);
+	}
+	
+	/**
+	* Formats a timezone-adjusted timestamp for a reservation with this date and time
+	* @param int $res_ts the reservation start_date or end_date timestamp
+	* @param int $res_time the reservation starttime or endtime as minutes
+	* @param string $format the PHP format string for the resulting date
+	* @return the adjusted and formatted timestamp for the reservation
+	*/
+	function formatReservationDate($res_ts, $res_time, $format = '', $format_key = '') {
+		global $conf;
+		global $dates;
+		
+		$start_ts = $res_ts + (60 * $res_time);
+		$res_ts = CmnFns::getAdjustedTime($start_ts);
+		
+		if (empty($format)) {
+			$key = empty($format_key) ? 'general_date' : $format_key;
+			$format = $dates[$key];
+		}
+		
+		return strftime($format, $res_ts);
+	}
+	
+	/**
+	* Gets the timezone adjusted timestamp for the current user
+	* @param int $timestamp the timestamp to adjust
+	* @return the timezone adjusted timestamp for the current user, or the server timestamp if user is not logged in
+	*/
+	function getAdjustedTime($timestamp) {
+		if (CmnFns::getHourOffset() == 0) {
+			return $timestamp;
+		}
+		return $timestamp + 3600 * CmnFns::getHourOffset();
+	}
+	
+	/**
+	* Gets the hourOffset for the currently logged in user or 0 if they are not logged in
+	* @return the hour offset between user timezone and server timezone
+	*/
+	function getHourOffset() {
+		if (isset($_SESSION['hourOffset'])) {
+			return $_SESSION['hourOffset'];
+		}
+		return 0;
 	}
 	
 	

@@ -34,7 +34,7 @@ CREATE TABLE login (
   logon_name VARCHAR(30),
   is_admin SMALLINT(1) DEFAULT 0,
   lang VARCHAR(5),
-  timezone INT NOT NULL DEFAULT 0
+  timezone FLOAT NOT NULL DEFAULT 0
   );
 
 # Create indexes ON login table #

@@ -6,7 +6,7 @@
 * @author Adam Moore
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-23-06
+* @version 03-30-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -139,8 +139,8 @@ function showReservationTable($res, $err) {
         $modified = (isset($rs['modified']) && !empty($rs['modified'])) ?
 		CmnFns::formatDateTime($rs['modified']) : 'N/A';
         echo "        <tr class=\"$class\" align=\"center\">"
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatDate($rs['start_date']), '', '', translate('View this reservation')) . '</td>'
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatDate($rs['end_date']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td style="text-align:left;">' . $rs['name'] . '</td>'
 					. '          <td>' . CmnFns::formatTime($rs['starttime']) . '</td>'
 					. '          <td>' . CmnFns::formatTime($rs['endtime']) . '</td>'
@@ -265,8 +265,8 @@ function showInvitesTable($res, $err) {
 		$rs = $res[$i];
 		$class = 'cellColor' . ($i%2);
 		echo "        <tr class=\"$class\" align=\"center\">"
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatDate($rs['start_date']), '', '', translate('View this reservation')) . '</td>'
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatDate($rs['end_date']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td style="text-align:left;">' . $rs['name'] . '</td>'
 					. '          <td>' . CmnFns::formatTime($rs['starttime']) . '</td>'
 					. '          <td>' . CmnFns::formatTime($rs['endtime']) . '</td>'
@@ -332,8 +332,8 @@ function showParticipatingTable($res, $err) {
 		$rs = $res[$i];
 		$class = 'cellColor' . ($i%2);
 		echo "        <tr class=\"$class\" align=\"center\">"
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatDate($rs['start_date']), '', '', translate('View this reservation')) . '</td>'
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatDate($rs['end_date']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td style="text-align:left;">' . $rs['name'] . '</td>'
 					. '          <td>' . CmnFns::formatTime($rs['starttime']) . '</td>'
 					. '          <td>' . CmnFns::formatTime($rs['endtime']) . '</td>'

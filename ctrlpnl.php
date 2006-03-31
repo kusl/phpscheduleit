@@ -5,7 +5,7 @@
 *  and functionality to modify or delete them. It also
 *  provides links to all other parts of the system.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 02-23-06
+* @version 03-30-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -49,15 +49,16 @@ showReservationTable($res, $db->get_err());	// Print out My Reservations
 
 printCpanelBr();
 
-if ($conf['app']['use_perms']) {
-	showTrainingTable($db->get_user_permissions(Auth::getCurrentID()), $db->get_err());
-	printCpanelBr();
-}
-
 showInvitesTable($db->get_user_invitations(Auth::getCurrentID(), true), $db->get_err());
 printCpanelBr();
 
 showParticipatingTable($db->get_user_invitations(Auth::getCurrentID(), false), $db->get_err());
+
+printCpanelBr();
+
+if ($conf['app']['use_perms']) {
+	showTrainingTable($db->get_user_permissions(Auth::getCurrentID()), $db->get_err());
+}
 
 endDataDisplayCol();
 $t->endMain();

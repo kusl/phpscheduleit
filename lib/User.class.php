@@ -3,7 +3,7 @@
 * This file contains the User class for viewing
 *  and manipulating user data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-16-06
+* @version 03-30-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -32,6 +32,7 @@ class User {
 	var $is_admin;		//
 	var $groups = null;	//
 	var $lang;
+	var $timezone;
 
 	var $is_valid = false;
 	var $err_msg = null;
@@ -76,6 +77,7 @@ class User {
 		$this->logon_name = (isset($data['logon_name']) ? $data['logon_name'] : null);
 		$this->is_admin = (isset($data['is_admin']) && $data['is_admin'] == 1);
 		$this->lang 	= $data['lang'];
+		$this->timezone	= $data['timezone'];
 		
 		$this->perms = $this->_get_perms();
 		$this->emails = $this->_get_emails();
@@ -239,7 +241,8 @@ class User {
 				'perms'		=> $this->perms,
 				'logon_name'=> $this->logon_name,
 				'groups' 	=> $this->groups,
-				'lang' 		=> $this->lang
+				'lang' 		=> $this->lang,
+				'timezone'	=> $this->timezone
 			);
 	}
 	
@@ -360,6 +363,10 @@ class User {
 	
 	function get_lang() {
 		return $this->lang;
+	}
+	
+	function get_timezone() {
+		return $this->timezone;
 	}
 }
 ?>

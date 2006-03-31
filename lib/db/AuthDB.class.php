@@ -4,7 +4,7 @@
 * Provides all login and registration functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-16-06
+* @version 03-30-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -93,8 +93,9 @@ class AuthDB extends DBEngine {
 		array_push($to_insert, isset($data['logon_name']) ? $data['logon_name'] : null);	// Push the logon name if we are using it
 		array_push($to_insert, 0);	// is_admin
 		array_push($to_insert, $data['lang']);
+		array_push($to_insert, $data['timezone']);
 		
-		$q = $this->db->prepare('INSERT INTO ' . $this->get_table('login') . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+		$q = $this->db->prepare('INSERT INTO ' . $this->get_table('login') . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 		$result = $this->db->execute($q, $to_insert);
 		$this->check_for_error($result);
 		
@@ -116,6 +117,7 @@ class AuthDB extends DBEngine {
 		array_push($to_insert, $data['institution']);
 		array_push($to_insert, $data['position']);
 		array_push($to_insert, isset($data['logon_name']) ? $data['logon_name'] : null);	// Push the logon name if we are using it
+		array_push($to_insert, $data['timezone']);
 		
 		$sql = 'UPDATE ' . $this->get_table('login') 
 			. ' SET email=?,'
@@ -124,7 +126,8 @@ class AuthDB extends DBEngine {
 			. ' phone=?,'
 			. ' institution=?,'
 			. ' position=?,'
-			. ' logon_name=?';
+			. ' logon_name=?,'
+			. ' timezone=?';
 		
 		if (isset($data['password']) && !empty($data['password'])) {	// If they are changing passwords
 			$sql .= ', password=?';
@@ -153,17 +156,19 @@ class AuthDB extends DBEngine {
 		$this->check_for_error($result);
 		
         if( $result['email'] != $ldap['emailaddress'] ) {
-           return true;
-       } elseif( $result['fname'] != $ldap['fname'] ) {
+			return true;
+		}
+		else if( $result['fname'] != $ldap['fname'] ) {
             return true;
-       } elseif( $result['lname'] != $ldap['lname'] ) {
+       	}
+		else if( $result['lname'] != $ldap['lname'] ) {
            return true;
-       } elseif( $result['phone'] != $ldap['phone'] ) {
-	               return true;
+       	}
+		else if( $result['phone'] != $ldap['phone'] ) {
+			return true;
         }
 
-        return false;
-        
+        return false;   
 	}
 
 	/**

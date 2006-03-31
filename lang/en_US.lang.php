@@ -701,6 +701,7 @@ $strings['Reminder'] = 'Reminder';
 $strings['before reservation'] = 'before reservation';
 $strings['My Participation'] = 'My Participation';
 $strings['My Past Participation'] = 'My Past Participation';
+$strings['Timezone'] = 'Timezone';
 // end since 1.2.0
 
 /***

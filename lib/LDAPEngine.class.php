@@ -2,7 +2,7 @@
 /**
 * LDAPEngine class
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-29-06
+* @version 03-30-06
 * @package LDAPEngine
 *
 * Copyright (C) 2004 phpScheduleIt
@@ -128,7 +128,8 @@ class LDAPEngine {
 	* @return array containing user information
 	*/
     function getUserData() {
-
+		global $conf;
+		
         $return = array(
             'fname' => $this->fname,
             'lname' => $this->lname,
@@ -138,7 +139,8 @@ class LDAPEngine {
             'password' => $this->password,
             'password2' => $this->password,
             'position' => null,
-            'institution' => null
+            'institution' => null,
+			'timezone' => $conf['app']['timezone']
         );
 
         return $return;
@@ -160,7 +162,5 @@ class LDAPEngine {
 	function connected( ) {
 	  	return $this->connected;
     }
-
 }
-
 ?>

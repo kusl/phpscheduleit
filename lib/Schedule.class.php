@@ -7,7 +7,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 08-18-05
+* @version 03-30-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -235,12 +235,12 @@ class Schedule {
     }
     
     /**
-    * Return the formatted date
+    * Return the formatted and timezone adjusted date
     * @param int $ts time stamp for date to format
     * @return formatted date
     */
     function get_display_date() {
-        return translate_date('schedule_daily', $this->_date['current']);
+		return CmnFns::formatReservationDate($this->_date['current'], $this->startDay, null, 'schedule_daily');
     }
     
     /**
@@ -286,7 +286,8 @@ class Schedule {
         //    $dv['day'] += 7;
                 
         $dv['firstDayTs'] = mktime(0,0,0, $dv['month'], $dv['day'], $dv['year']);
-
+		$date_parts = getdate();
+		
         // Make timestamp for last date
         // by adding # of days to view minus the day of the week to $day
         $dv['lastDayTs'] = mktime(0,0,0, $dv['month'], ($dv['day'] + $this->viewdays - 1), $dv['year']);
@@ -299,7 +300,7 @@ class Schedule {
     /**
     * Get associative array of available times and rowspans
     * This function computes and returns an associative array
-    * containing a time value and it's rowspan value as
+    * containing a timezone adjusted time value and it's rowspan value as
     * $array[time] => rowspan
     * @param none
     * @return array of time value and it's associated rowspan value
