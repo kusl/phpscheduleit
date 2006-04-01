@@ -110,10 +110,21 @@ class Time
 		}
 		
 		if (!empty($res_time)) {
-			$timestamp = $res_time + (60 * $res_time);
+			$timestamp += ($res_time + (60 * $res_time));
 		}
 		
 		return $timestamp + 3600 * Time::getHourOffset();
+	}
+	
+	/**
+	* Gets the timezone adjusted datestamp for the current user with 0 hour/minute/second
+	* @param int $timestamp the timestamp to adjust
+	* @param int $res_time the reservation starttime or endtime as minutes
+	* @return the timezone adjusted timestamp for the current user, or the server timestamp if user is not logged in
+	*/
+	function getAdjustedDate($timestamp, $res_time = null) {
+		$tmp = getdate(Time::getAdjustedTime($timestamp, $res_time));
+		return mktime(0,0,0, $tmp['mon'], $tmp['mday'], $tmp['year']);
 	}
 	
 	/**
@@ -126,19 +137,6 @@ class Time
 		}
 		return 0;
 	}
-	
-	function getDay() {
-	
-	}
-	
-	function getMonth() {
-	
-	}
-	
-	function getYear() {
-	
-	}
-	
 	
 	/**
 	* Convert minutes to hours/minutes

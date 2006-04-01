@@ -134,7 +134,7 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 	$seconds_in_day = 86400;
 	
 	for ($i = 0; $i < count($reservations); $i++) {	
-		$day = ($reservations[$i]['start_date'] >= $datestamp) ? ($reservations[$i]['start_date'] - $datestamp)/$seconds_in_day : 0;	// This will tell how many days ahead of the first day this reservation occurs
+		$day = ($reservations[$i]['start_date'] >= $datestamp) ? ($reservations[$i]['start_date'] - $datestamp)/$seconds_in_day : 0;						// This will tell how many days ahead of the first day this reservation occurs
 		
 		// If the reservation starts on a day other than the first day shown then just show it at midnight of the first day
 		$start_hour = ($reservations[$i]['start_date'] >= $datestamp) ? ($reservations[$i]['starttime'] - ($reservations[$i]['starttime']%60))/60 : 0;		// This trims off any minutes and just gets the whole hour
@@ -213,11 +213,13 @@ function print_month_reservations($reservations, $datestamp, $fields = array('na
 			list($month, $day, $year) = split(' ', date('m j Y', $reservations[$i]['start_date']));
 			$date = 0;
 			for ($d = 0; $date <= $reservations[$i]['end_date']; $date = mktime(0,0,0, $month, $day + $d++, $year)) {
+				$date = Time::getAdjustedDate($date, $reservations[$i]['starttime']);
 				$reservations_by_date[$date][] = &$reservations[$i];
 			}
 		}
 		else {
-			$reservations_by_date[$start_date][] = &$reservations[$i];
+			$date = Time::getAdjustedDate($reservations[$i]['start_date'], $reservations[$i]['starttime']);
+			$reservations_by_date[$date][] = &$reservations[$i];
 		}
 	}
 
@@ -227,7 +229,7 @@ function print_month_reservations($reservations, $datestamp, $fields = array('na
 	}
 	echo '</tr>';
 	
-	$day = $week_start;	// Initialize day	
+	$day = $week_start;		// Initialize day	
 	$printRow = false;		// Initialize printRow
 	
 	// Print out days for all weeks
