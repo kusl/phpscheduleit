@@ -23,7 +23,7 @@ $link = CmnFns::getNewLink();
 */
 function print_date_span($d, $title) {
     // Print out current week being viewed
-    echo '<h3 align="center">' . $title . '<br/>' . CmnFns::formatDate($d['firstDayTs']) . ' - ' . CmnFns::formatDate($d['lastDayTs']) . '</h3>';
+    echo '<h3 align="center">' . $title . '<br/>' . Time::formatDate($d['firstDayTs']) . ' - ' . Time::formatDate($d['lastDayTs']) . '</h3>';
 }
 
 /**

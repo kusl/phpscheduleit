@@ -4,7 +4,7 @@
 *  data and settings in phpScheduleIt
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-27-06
+* @version 04-01-06
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -540,11 +540,11 @@ class Admin {
 		$resourceid = $edit ? trim($_GET['resourceid']) : null;
 		$rs = new AdditionalResource($resourceid);
 
-		if (isset($_POST)) {
+		if (isset($_SESSION['post'])) {
 			$rs = new AdditionalResource();
 			$rs->id = $resourceid;
-			$rs->name = trim($_POST['name']);
-			$rs->number_available = trim($_POST['number_available']);
+			$rs->name = trim($_SESSION['post']['name']);
+			$rs->number_available = trim($_SESSION['post']['number_available']);
 		}
 
 		print_additional_resource_edit($rs, $edit, $this->pager);

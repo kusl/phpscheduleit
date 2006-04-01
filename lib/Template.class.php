@@ -118,7 +118,7 @@ class Template {
 		<td class="mainBkgrdClr" valign="top">
 		  <div align="right">
 		    <p>
-			<?php echo translate_date('header', CmnFns::getAdjustedTime(mktime()));?>
+			<?php echo translate_date('header', Time::getAdjustedTime(mktime()));?>
 			</p>
 			<p>
 			  <?php  $this->link->doLink('javascript: help();', translate('Help')) ?>

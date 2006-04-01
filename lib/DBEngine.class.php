@@ -13,9 +13,7 @@
 * Base directory of application
 */
 @define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* CmnFns class
-*/
+
 include_once('CmnFns.class.php');
 /**
 * Pear::DB

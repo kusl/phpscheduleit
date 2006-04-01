@@ -6,7 +6,7 @@
 * @author Adam Moore
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-30-06
+* @version 04-01-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -45,7 +45,7 @@ function showAnnouncementTable($announcements) {
       <div id="announcements" style="display: <?php echo getShowHide('announcements') ?>">
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr class="cellColor">
-          <td colspan="2"><b><?php echo translate('Announcements as of', array(CmnFns::formatDate(mktime()))) ?></b>
+          <td colspan="2"><b><?php echo translate('Announcements as of', array(Time::formatDate(mktime()))) ?></b>
             <ul style="margin-bottom: 0px; margin-left: 20px; margin-top: 5px">
               <?php
 				// Cycle through and print out announcements
@@ -137,14 +137,14 @@ function showReservationTable($res, $err) {
 		$rs = $res[$i];
 		$class = 'cellColor' . ($i%2);
         $modified = (isset($rs['modified']) && !empty($rs['modified'])) ?
-		CmnFns::formatDateTime($rs['modified']) : 'N/A';
+		Time::formatDateTime($rs['modified']) : 'N/A';
         echo "        <tr class=\"$class\" align=\"center\">"
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td style="text-align:left;">' . $rs['name'] . '</td>'
-					. '          <td>' . CmnFns::formatTime($rs['starttime']) . '</td>'
-					. '          <td>' . CmnFns::formatTime($rs['endtime']) . '</td>'
-                    . '          <td>' . CmnFns::formatDateTime($rs['created']) . '</td>'
+					. '          <td>' . Time::formatTime($rs['starttime']) . '</td>'
+					. '          <td>' . Time::formatTime($rs['endtime']) . '</td>'
+                    . '          <td>' . Time::formatDateTime($rs['created']) . '</td>'
 					. '          <td>' . $link->getLink("javascript: reserve('m','','','" . $rs['resid'] . "');", translate('Modify'), '', '', translate('Modify this reservation')) . '</td>'
 					. '          <td>' . $link->getLink("javascript: reserve('d','','','" . $rs['resid'] . "');", translate('Delete'), '', '', translate('Delete this reservation')) . '</td>'
 					. "        </tr>\n";
@@ -265,11 +265,11 @@ function showInvitesTable($res, $err) {
 		$rs = $res[$i];
 		$class = 'cellColor' . ($i%2);
 		echo "        <tr class=\"$class\" align=\"center\">"
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td style="text-align:left;">' . $rs['name'] . '</td>'
-					. '          <td>' . CmnFns::formatTime($rs['starttime']) . '</td>'
-					. '          <td>' . CmnFns::formatTime($rs['endtime']) . '</td>'
+					. '          <td>' . Time::formatTime($rs['starttime']) . '</td>'
+					. '          <td>' . Time::formatTime($rs['endtime']) . '</td>'
                     . '          <td style="text-align:left;">' . $rs['fname'] . ' ' . $rs['lname'] . '</td>'
 					. '          <td>' . $link->getLink("manage_invites.php?id={$rs['resid']}&amp;memberid={$rs['memberid']}&amp;accept_code={$rs['accept_code']}&amp;action=" . INVITE_ACCEPT, translate('Accept'), '', '', translate('Accept or decline this reservation')) . '</td>'
 					. '          <td>' . $link->getLink("manage_invites.php?id={$rs['resid']}&amp;memberid={$rs['memberid']}&amp;accept_code={$rs['accept_code']}&amp;action=" . INVITE_DECLINE, translate('Decline'), '', '', translate('Accept or decline this reservation')) . '</td>'
@@ -332,11 +332,11 @@ function showParticipatingTable($res, $err) {
 		$rs = $res[$i];
 		$class = 'cellColor' . ($i%2);
 		echo "        <tr class=\"$class\" align=\"center\">"
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", CmnFns::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
+					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td style="text-align:left;">' . $rs['name'] . '</td>'
-					. '          <td>' . CmnFns::formatTime($rs['starttime']) . '</td>'
-					. '          <td>' . CmnFns::formatTime($rs['endtime']) . '</td>'
+					. '          <td>' . Time::formatTime($rs['starttime']) . '</td>'
+					. '          <td>' . Time::formatTime($rs['endtime']) . '</td>'
                     . '          <td style="text-align:left;">' . $rs['fname'] . ' ' . $rs['lname'] . '</td>'
 					. '          <td>' . $link->getLink("manage_invites.php?id={$rs['resid']}&amp;memberid={$rs['memberid']}&amp;accept_code={$rs['accept_code']}&amp;action=" . INVITE_DECLINE, translate('End Participation'), '', '', translate('End Participation')) . '</td>'
 					. "        </tr>\n";
@@ -384,19 +384,19 @@ function showQuickLinks($is_admin = false, $is_group_admin = false) {
               <?php $link->doLink('schedule.php', translate('Bookings')) ?>
             </p>
 			<p><b>&raquo;</b>
-              <?php $link->doLink('mycalendar.php?view=3', translate('View My Calendar')) ?>
+              <?php $link->doLink('mycalendar.php?view=3', translate('My Calendar')) ?>
             </p>
 			<p><b>&raquo;</b>
               <?php $link->doLink('rescalendar.php?view=3', translate('View Resource Calendar')) ?>
-            </p>
-            <p><b>&raquo;</b>
-              <?php $link->doLink('register.php?edit=true', translate('Change My Profile Information/Password')) ?>
             </p>
             <p><b>&raquo;</b>
               <?php $link->doLink('my_email.php', translate('Manage My Email Preferences')) ?>
             </p>
 			<p><b>&raquo;</b>
               <?php $link->doLink('mailto:' . $conf['app']['adminEmail'].'?cc=' . $conf['app']['ccEmail'], translate('Email Administrator'), '', '', 'Send a non-technical email to the administrator') ?>
+            </p>
+			<p><b>&raquo;</b>
+              <?php $link->doLink('register.php?edit=true', translate('Change My Profile Information/Password')) ?>
             </p>
             <p><b>&raquo;</b>
               <?php $link->doLink('index.php?logout=true', translate('Log Out')) ?>

@@ -62,17 +62,17 @@ function print_quick_stats(&$stats) {
   <tr><td height="1" bgcolor="#666666" colspan="2"></td></tr>
   <tr class="cellColor<?php echo ($color++%2)?>">
     <td><?php echo translate('Max Reservation')?></td>
-    <td><?php echo CmnFns::minutes_to_hours($stats->longest)?>
+    <td><?php echo Time::minutes_to_hours($stats->longest)?>
     </td>
   </tr>
   <tr class="cellColor<?php echo ($color++%2)?>">
     <td><?php echo translate('Min Reservation')?></td>
-    <td><?php echo CmnFns::minutes_to_hours($stats->shortest)?>
+    <td><?php echo Time::minutes_to_hours($stats->shortest)?>
     </td>
   </tr>
   <tr class="cellColor<?php echo ($color++%2)?>">
     <td><?php echo translate('Avg Reservation')?></td>
-    <td><?php echo @CmnFns::minutes_to_hours($stats->get_total_time()/$stats->get_num_res())?>
+    <td><?php echo @Time::minutes_to_hours($stats->get_total_time()/$stats->get_num_res())?>
     </td>
   </tr>
   <tr><td height="1" bgcolor="#666666" colspan="2"></td></tr>
@@ -171,12 +171,12 @@ function print_system_stats(&$stats) {
   </tr>
   <tr class="cellColor<?php echo ($color++%2)?>">
     <td><?php echo translate('Reservation start time')?></td>
-    <td><?php echo CmnFns::formatTime($stats->startDay)?>
+    <td><?php echo Time::formatTime($stats->startDay)?>
     </td>
   </tr>
   <tr class="cellColor<?php echo ($color++%2)?>">
     <td><?php echo translate('Reservation end time')?></td>
-    <td><?php echo CmnFns::formatTime($stats->endDay)?>
+    <td><?php echo Time::formatTime($stats->endDay)?>
     </td>
   </tr>
   <tr class="cellColor<?php echo ($color++%2)?>">

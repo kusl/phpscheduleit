@@ -65,11 +65,11 @@ class ReminderEmail extends IEmail
 	}
 	
 	function _buildSubject($reminder) {
-		return translate('Reminder Subject', array($reminder->resource_name, CmnFns::formatDate($reminder->start_date), CmnFns::formatTime($reminder->start_time)));
+		return translate('Reminder Subject', array($reminder->resource_name, Time::formatDate($reminder->start_date), Time::formatTime($reminder->start_time)));
 	}
 	
 	function _buildBody($reminder) {
-		return translate_email('Reminder Body', $reminder->resource_name, CmnFns::formatDate($reminder->start_date), CmnFns::formatTime($reminder->start_time), CmnFns::formatDate($reminder->end_date), CmnFns::formatTime($reminder->end_time));
+		return translate_email('Reminder Body', $reminder->resource_name, Time::formatDate($reminder->start_date), Time::formatTime($reminder->start_time), Time::formatDate($reminder->end_date), Time::formatTime($reminder->end_time));
 	}
 }
 ?>

@@ -132,7 +132,7 @@ function print_day_resource_reservations($reservations, $datestamp, $days, $sche
 	// The reservation data is stored in a 2D array of time (x axis) and date (y axis)
 	// This simply loops through all time/date possibilities and prints out the reservation data for each cell
 	for ($time = $starttime; $time < $endtime; $time += $timespan) {
-		echo '<tr><td valign="top" class="resourceName">' . CmnFns::formatTime($time) . '</td>';
+		echo '<tr><td valign="top" class="resourceName">' . Time::formatTime($time) . '</td>';
 		for ($date = 0; $date < $days; $date++) {
 			if (isset($hour_line[$time][$date])) {
 				$res = $hour_line[$time][$date];
@@ -252,7 +252,7 @@ function print_signup_sheet($reservations, $datestamp, $days, $starttime, $endti
 	// The reservation data is stored in a 2D array of time (x axis) and date (y axis)
 	// This simply loops through all time/date possibilities and prints out the reservation data for each cell
 	for ($time = $starttime; $time < $endtime; $time += $timespan) {
-		echo '<tr><td valign="top">' . CmnFns::formatTime($time) . '</td>';
+		echo '<tr><td valign="top">' . Time::formatTime($time) . '</td>';
 		for ($date = 0; $date < $days; $date++) {
 			if (isset($hour_line[$time][$date])) {
 				$res = $hour_line[$time][$date];

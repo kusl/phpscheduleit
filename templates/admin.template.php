@@ -60,9 +60,9 @@ function print_manage_schedules(&$pager, $schedules, $err) {
 		$cur = $schedules[$i];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" id=\"tr$i\">\n"
             . '<td style="text-align:left">' . $cur['scheduletitle'] . "</td>\n"
-            . '<td style="text-align:left">' . CmnFns::formatTime($cur['daystart']) . "</td>\n"
-            . '<td style="text-align:left">' . CmnFns::formatTime($cur['dayend']) . "</td>\n"
-            . '<td style="text-align:left">' . CmnFns::minutes_to_hours($cur['timespan']) . "</td>\n"
+            . '<td style="text-align:left">' . Time::formatTime($cur['daystart']) . "</td>\n"
+            . '<td style="text-align:left">' . Time::formatTime($cur['dayend']) . "</td>\n"
+            . '<td style="text-align:left">' . Time::minutes_to_hours($cur['timespan']) . "</td>\n"
 		    . '<td style="text-align:left">' . CmnFns::get_day_name($cur['weekdaystart'], 0) . "</td>\n"
 		 	. '<td style="text-align:left">' . $cur['adminemail'] . "</td>\n"
 			. '<td><input type="radio" value="' . $schedules[$i]['scheduleid'] . "\" name=\"isdefault\"" . ($schedules[$i]['isdefault'] == 1 ? ' checked="checked"' : '') . ' onclick="javacript: setSchedule(\'' . $schedules[$i]['scheduleid'] . '\');" /></td>'
@@ -114,7 +114,7 @@ function print_schedule_edit($rs, $edit, &$pager) {
 		  <td class="cellColor"><select name="daystart" class="textbox">		  
 		  <?php 
 		  for ($time = 0; $time <= 1410; $time += 30)
-		  	echo '<option value="' . $time . '"' . ((isset($rs['daystart']) && ($rs['daystart'] == $time)) ? ' selected="selected"' : '') . '>' . CmnFns::formatTime($time) . '</option>' . "\n";
+		  	echo '<option value="' . $time . '"' . ((isset($rs['daystart']) && ($rs['daystart'] == $time)) ? ' selected="selected"' : '') . '>' . Time::formatTime($time) . '</option>' . "\n";
 		  ?>		  
 		  </select>
 		  </td>
@@ -124,7 +124,7 @@ function print_schedule_edit($rs, $edit, &$pager) {
 		  <td class="cellColor"><select name="dayend" class="textbox">		  
 		  <?php 
 		  for ($time = 30; $time <= 1440; $time += 30)
-		  	echo '<option value="' . $time . '"' . ((isset($rs['dayend']) && ($rs['dayend'] == $time)) ? (' selected="selected"') : (($time==1440 && !isset($rs['dayend'])) ? ' selected="selected"' : '')) . '>' . CmnFns::formatTime($time) . '</option>' . "\n";
+		  	echo '<option value="' . $time . '"' . ((isset($rs['dayend']) && ($rs['dayend'] == $time)) ? (' selected="selected"') : (($time==1440 && !isset($rs['dayend'])) ? ' selected="selected"' : '')) . '>' . Time::formatTime($time) . '</option>' . "\n";
 		  ?>		  
 		  </select>
 		  </td>
@@ -135,7 +135,7 @@ function print_schedule_edit($rs, $edit, &$pager) {
 		  <?php 
 		  $spans = array (30, 10, 15, 60, 120, 180, 240);
 		  for ($i = 0; $i < count($spans); $i++)
-		  	echo '<option value="' . $spans[$i] . '"' . ((isset($rs['timespan']) && ($rs['timespan'] == $spans[$i])) ? (' selected="selected"') : '') . '>' . CmnFns::minutes_to_hours($spans[$i]) . '</option>' . "\n";
+		  	echo '<option value="' . $spans[$i] . '"' . ((isset($rs['timespan']) && ($rs['timespan'] == $spans[$i])) ? (' selected="selected"') : '') . '>' . Time::minutes_to_hours($spans[$i]) . '</option>' . "\n";
 		  ?>		  
 		  </select>
 		  </td>
@@ -356,7 +356,7 @@ print_additional_tools_box( array(
         <tr class=\"rowHeaders\">
           <td>" . $link->getLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'name'), translate('Resource Name')) . "</td>
           <td width=\"18%\">" . $link->getLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'location'), translate('Location')) . "</td>
-		  <td width=\"12%\">" . $link->getLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'scheduletitle'), translate('Schedule')) . "></td>
+		  <td width=\"12%\">" . $link->getLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'scheduletitle'), translate('Schedule')) . "</td>
           <td width=\"10%\">" . translate('Phone') . "</td>
           <td width=\"25%\">" . translate('Notes') . "</td>
           <td width=\"5%\">" . translate('Edit') . "</td>
@@ -728,12 +728,12 @@ function print_approve_reservations($pager, $res, $err) {
 		$fname = $cur['fname'];
 		$lname = $cur['lname'];	
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\">\n"
-					. '<td>' . CmnFns::formatDate($cur['start_date']) . '</td>'
-					. '<td>' . CmnFns::formatDate($cur['end_date']) . '</td>'
+					. '<td>' . Time::formatDate($cur['start_date']) . '</td>'
+					. '<td>' . Time::formatDate($cur['end_date']) . '</td>'
 					. '<td style="text-align:left">' . $link->getLink("javascript: viewUser('" . $cur['memberid'] . "');", $fname . ' ' . $lname, '', '', translate('View information about', array($fname,$lname))) . '</td>'
                     . '<td style="text-align:left">' . $cur['name'] . "</td>"
-					. '<td>' . CmnFns::formatTime($cur['starttime']) . '</td>'
-					. '<td>' . CmnFns::formatTime($cur['endtime']) . '</td>'
+					. '<td>' . Time::formatTime($cur['starttime']) . '</td>'
+					. '<td>' . Time::formatTime($cur['endtime']) . '</td>'
                     . '<td>' . $link->getLink("javascript: reserve('v','','','" . $cur['resid']. "');", translate('View'), '', '', translate('View this reservation information')) . '</td>'
 					. '<td>' . $link->getlink("javascript: reserve('a','','','" . $cur['resid'] ."');", translate('Approve'), '', '', translate('Approve this reservation')) . '</td>'
 					. '<td>' . $link->getLink("javascript: reserve('d','','','" . $cur['resid']. "');", translate('Delete'), '', '', translate('Delete this reservation')) . '</td>'
@@ -791,12 +791,12 @@ function print_manage_reservations(&$pager, $res, $err) {
 		$fname = $cur['fname'];
 		$lname = $cur['lname'];	
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\">\n"
-					. '<td>' . CmnFns::formatDate($cur['start_date']) . '</td>'
-					. '<td>' . CmnFns::formatDate($cur['end_date']) . '</td>'
+					. '<td>' . Time::formatDate($cur['start_date']) . '</td>'
+					. '<td>' . Time::formatDate($cur['end_date']) . '</td>'
 					. '<td style="text-align:left">' . $link->getLink("javascript: viewUser('" . $cur['memberid'] . "');", $fname . ' ' . $lname, '', '', translate('View information about', array($fname,$lname))) . "</td>"
                     . '<td style="text-align:left">' . $cur['name'] . "</td>"
-					. '<td>' . CmnFns::formatTime($cur['starttime']) . '</td>'
-					. '<td>' . CmnFns::formatTime($cur['endtime']) . '</td>'
+					. '<td>' . Time::formatTime($cur['starttime']) . '</td>'
+					. '<td>' . Time::formatTime($cur['endtime']) . '</td>'
                     . '<td>' . $link->getLink("javascript: reserve('v','','','" . $cur['resid']. "');", translate('View')) . '</td>'
 					. '<td>' . $link->getlink("javascript: reserve('m','','','" . $cur['resid']. "');", translate('Modify')) . '</td>'
 					. '<td>' . $link->getLink("javascript: reserve('d','','','" . $cur['resid']. "');", translate('Delete')) . '</td>'
@@ -899,7 +899,7 @@ function print_announce_edit($rs, $edit, &$pager) {
 		<tr>
 			<td class="formNames"><?php echo translate('Start Date'); ?></td>
 			<td class="cellColor">
-				<?php  echo '<div id="div_start_date" style="float:left;width:70px;">' . CmnFns::formatDate($start_date) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '"/> <a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_start_date" alt="' . translate('Start') . '"/></a>';
+				<?php  echo '<div id="div_start_date" style="float:left;width:70px;">' . Time::formatDate($start_date) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '"/> <a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_start_date" alt="' . translate('Start') . '"/></a>';
 					$s_hour = ($start_date_ok) ? date('h', $rs['start_datetime']) : '';
 					$s_min = ($start_date_ok) ? date('i', $rs['start_datetime']) : '';
 					$s_pm = ($start_date_ok) ? intval(date('H', $rs['start_datetime'])) >= 12 : false;
@@ -912,7 +912,7 @@ function print_announce_edit($rs, $edit, &$pager) {
 		<tr>
 			<td class="formNames"><?php echo translate('End Date'); ?></td>
 			<td class="cellColor">
-				<?php  echo '<div id="div_end_date" style="float:left;width:70px;">' . CmnFns::formatDate($end_date) . '</div><input type="hidden" id="hdn_end_date" name="end_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $end_date) . '"/> <a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_end_date" alt="' . translate('End') . '"/></a>';
+				<?php  echo '<div id="div_end_date" style="float:left;width:70px;">' . Time::formatDate($end_date) . '</div><input type="hidden" id="hdn_end_date" name="end_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $end_date) . '"/> <a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_end_date" alt="' . translate('End') . '"/></a>';
 					$s_hour = ($end_date_ok) ? date('h', $rs['end_datetime']) : '';
 					$s_min = ($end_date_ok) ? date('i', $rs['end_datetime']) : '';
 					$s_pm = ($end_date_ok) ? intval(date('H', $rs['end_datetime'])) >= 12 : false;

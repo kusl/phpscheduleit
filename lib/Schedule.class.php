@@ -240,7 +240,7 @@ class Schedule {
     * @return formatted date
     */
     function get_display_date() {
-		return CmnFns::formatReservationDate($this->_date['current'], $this->startDay, null, 'schedule_daily');
+		return Time::formatReservationDate($this->_date['current'], $this->startDay, null, 'schedule_daily');
     }
     
     /**
@@ -305,7 +305,6 @@ class Schedule {
     * @param none
     * @return array of time value and it's associated rowspan value
     * @global $conf
-    * @see CmnFns::formatTime()
     */
     function get_time_array() {
         global $conf;
@@ -319,20 +318,20 @@ class Schedule {
         $prevTime = $startDay;
         
         if ( (($startDay % 60) != 0) && ($interval < 60) ) {
-            $time = CmnFns::formatTime($startDay);
+            $time = Time::formatTime($startDay);
             $timeHash[$time] = intval((60-($startDay%60))/$interval);
             $prevTime += $interval*$timeHash[$time];
         }
 
         while ($prevTime < $endingTime) {                                    
             if ($interval < 60) {                
-                $time = CmnFns::formatTime($prevTime);
+                $time = Time::formatTime($prevTime);
                 $timeHash[$time] = intval(60 / $interval);
                 $prevTime += 60;        // Always increment by 1 hour
             }
             else {
                 $colspan = 1;                // Colspan is always 1
-                $time = CmnFns::formatTime($prevTime);
+                $time = Time::formatTime($prevTime);
                 $timeHash[$time] = $colspan;
                 $prevTime += $interval;
             }                

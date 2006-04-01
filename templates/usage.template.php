@@ -234,10 +234,10 @@ function showForm($min_max, $users, $machs, $schedules) {
               <select name="starttimeMin" class="textbox">
               <?php
               // Print out first time and select it
-              echo "<option value=\"$startDay\" selected=\"selected\">" . CmnFns::formatTime($startDay) . "</option>\n";
+              echo "<option value=\"$startDay\" selected=\"selected\">" . Time::formatTime($startDay) . "</option>\n";
               // Print out rest of times
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . CmnFns::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
               }
               ?>
               </select>
@@ -247,10 +247,10 @@ function showForm($min_max, $users, $machs, $schedules) {
               <?php
               // Print out all times except last
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . CmnFns::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
               }
               // Print out last time and select it
-              echo "<option value=\"$endDay\" selected=\"selected\">" . CmnFns::formatTime($endDay) . "</option>\n";
+              echo "<option value=\"$endDay\" selected=\"selected\">" . Time::formatTime($endDay) . "</option>\n";
               ?>
               </select>
             </td>
@@ -262,10 +262,10 @@ function showForm($min_max, $users, $machs, $schedules) {
               <select name="endtimeMin" class="textbox">
               <?php
               // Print out first time and select it
-              echo "<option value=\"$startDay\" selected=\"selected\">" . CmnFns::formatTime($startDay) . "</option>\n";
+              echo "<option value=\"$startDay\" selected=\"selected\">" . Time::formatTime($startDay) . "</option>\n";
               // Print out rest of times
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . CmnFns::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
               }
               ?>
               </select>
@@ -275,10 +275,10 @@ function showForm($min_max, $users, $machs, $schedules) {
               <?php
               // Print out all times except last
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . CmnFns::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
               }
               // Print out last time and select it
-              echo "<option value=\"$endDay\" selected=\"selected\">" . CmnFns::formatTime($endDay) . "</option>\n";
+              echo "<option value=\"$endDay\" selected=\"selected\">" . Time::formatTime($endDay) . "</option>\n";
               ?>
               </select>
             </td>
@@ -394,7 +394,7 @@ function print_csv_header() {
 * @param double $percent percent of resource usage
 */
 function printTableFooter($hours, $type, $percent) {
-    $hours = CmnFns::minutes_to_hours($hours);			// Format it nicely
+    $hours = Time::minutes_to_hours($hours);			// Format it nicely
 	if ($type == 'html') {
     ?>
     <tr class="cellColor">
@@ -443,7 +443,7 @@ function printTableFooter($hours, $type, $percent) {
 function print_reservation_data($type, &$link, $resNo, $start_date, $end_date, $created, $modified, $starttime, $endtime, $totTime, $resid, $fname, $lname, $name, $memberid, $schedule) {
 	global $conf;
 	
-	$totTime = CmnFns::minutes_to_hours($totTime);
+	$totTime = Time::minutes_to_hours($totTime);
 	switch ($type) {
 			case 'html' :
 				// Write out reservation info

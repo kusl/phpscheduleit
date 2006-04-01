@@ -296,7 +296,7 @@ class Stats {
 			case starttime :
 				for ($i = $start; $i < $end; $i += $interval) {
 					//$i = sprintf('%.1f', $i);
-					$this->labels[$i] = CmnFns::formatTime($i);
+					$this->labels[$i] = Time::formatTime($i);
 				}
 				$this->values =& $this->starttime;
 				$this->total = $this->numRes;
@@ -305,7 +305,7 @@ class Stats {
 			case endtime :
 				for ($i = $start + $interval; $i <= $end; $i += $interval) {
 					//$i = sprintf('%.1f', $i);
-					$this->labels[$i] = CmnFns::formatTime($i);
+					$this->labels[$i] = Time::formatTime($i);
 				}
 				$this->values =& $this->endtime;
 				$this->total = $this->numRes;

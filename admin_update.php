@@ -774,8 +774,9 @@ function print_fail($msg, $data = null) {
 	if (!is_array($msg))
 		$msg = array ($msg);
 		
-	if (!empty($data))
+	if (!empty($data)) {
 		$_SESSION['post'] = $data;
+	}
 	
 	$t = new Template(translate('Update failed!'));
 	$t->printHTMLHeader();

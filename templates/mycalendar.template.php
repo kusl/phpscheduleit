@@ -153,7 +153,7 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 	// The reservation data is stored in a 2D array of time (x axis) and date (y axis)
 	// This simply loops through all time/date possibilities and prints out the reservation data for each cell
 	for ($time = 0; $time < 24; $time++) {
-		echo '<tr><td valign="top" class="resourceName">' . CmnFns::formatTime($time*60) . '</td>';
+		echo '<tr><td valign="top" class="resourceName">' . Time::formatTime($time*60) . '</td>';
 		for ($date = 0; $date < $days; $date++) {
 			echo '<td valign="top" class="MyCalCellColor">';
 			if (isset($hour_line[$time][$date])) {
@@ -167,7 +167,7 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 				
 					$js = "onmouseover=\"showsummary('details', event, '" . build_reservation_detail_div($res) . "');\" onmouseout=\"hideSummary('details');\" onmousemove=\"moveSummary('details', event);\"";	
 						
-					echo "<p>&#8226; <a $js href=\"javascript:reserve('" . RES_TYPE_MODIFY. "','','','{$res['resid']}','{$res['scheduleid']}');\">" . CmnFns::formatTime($res['starttime']) . (($res['start_date'] < $datestamps[$date]) ? ' [' . translate_date('general_date', $res['start_date']) . ']' : '') . ' - '  . CmnFns::formatTime($res['endtime']) . (($res['end_date'] > $datestamps[$date]) ? ' [' . translate_date('general_date', $res['end_date']) . ']' : '') . ' ' . $res['name'] . '</a>';
+					echo "<p>&#8226; <a $js href=\"javascript:reserve('" . RES_TYPE_MODIFY. "','','','{$res['resid']}','{$res['scheduleid']}');\">" . Time::formatTime($res['starttime']) . (($res['start_date'] < $datestamps[$date]) ? ' [' . translate_date('general_date', $res['start_date']) . ']' : '') . ' - '  . Time::formatTime($res['endtime']) . (($res['end_date'] > $datestamps[$date]) ? ' [' . translate_date('general_date', $res['end_date']) . ']' : '') . ' ' . $res['name'] . '</a>';
 					if ($show_owner_icon) {
 						echo ($res['owner'] == 1) ? ' <img src="img/owner.gif" alt="' . translate('Owner') . '" title="' . translate('Owner') . '"/>' : ' <img src="img/participant.gif" alt="' . translate('Participant') . '" title="' . translate('Participant') . '"/>';
 					}
@@ -266,7 +266,7 @@ function print_month_reservations($reservations, $datestamp, $fields = array('na
 					
 					$js = "onmouseover=\"showsummary('details', event, '" . build_reservation_detail_div($res) . "');\" onmouseout=\"hideSummary('details');\" onmousemove=\"moveSummary('details', event);\"";	
 					
-					echo "<p align=\"left\">&#8226; <a $js href=\"javascript:reserve('" . RES_TYPE_MODIFY. "','','','{$res['resid']}','{$res['scheduleid']}');\">" . CmnFns::formatTime($res['starttime']) . (($res['start_date'] < $currentDate) ? ' [' . translate_date('general_date', $res['start_date']) . ']' : '') . ' - '  . CmnFns::formatTime($res['endtime']) . (($res['end_date'] > $currentDate) ? ' [' . translate_date('general_date', $res['end_date']) . ']' : '');
+					echo "<p align=\"left\">&#8226; <a $js href=\"javascript:reserve('" . RES_TYPE_MODIFY. "','','','{$res['resid']}','{$res['scheduleid']}');\">" . Time::formatTime($res['starttime']) . (($res['start_date'] < $currentDate) ? ' [' . translate_date('general_date', $res['start_date']) . ']' : '') . ' - '  . Time::formatTime($res['endtime']) . (($res['end_date'] > $currentDate) ? ' [' . translate_date('general_date', $res['end_date']) . ']' : '');
 					foreach ($fields as $field) {
 						echo ' ' . $res[$field];
 					}
@@ -307,8 +307,8 @@ function print_details_div() {
 */
 function build_reservation_detail_div($res) {
 	$html = '';
-	$html .= translate_date('general_date', $res['start_date']) . ' ' . CmnFns::formatTime($res['starttime']) . ' -<br/>';
-	$html .= translate_date('general_date', $res['end_date']) . ' ' . CmnFns::formatTime($res['endtime']) . '<br/><br/>'; 
+	$html .= translate_date('general_date', $res['start_date']) . ' ' . Time::formatTime($res['starttime']) . ' -<br/>';
+	$html .= translate_date('general_date', $res['end_date']) . ' ' . Time::formatTime($res['endtime']) . '<br/><br/>'; 
 	$html .= $res['name'] . ' @ ' .  $res['location'] . '<br/>';
 	$html .= $res['fname'] . ' ' . $res['lname'] . '<br/>';
 	if (!empty($res['summary'])) {

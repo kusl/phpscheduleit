@@ -75,22 +75,22 @@ if (isset($_POST['y'])) {
 						$mailer = new PHPMailer();		
 						$mailer->From = $conf['app']['adminEmail'];
 						$mailer->FromName = $conf['app']['title'];
-						$mailer->Subject =  translate($translate_index, array($user->get_name(), CmnFns::formatDate($res->start_date)));
+						$mailer->Subject =  translate($translate_index, array($user->get_name(), Time::formatDate($res->start_date)));
 						$mailer->IsHTML(false);
 						
 						$mailer->AddAddress($owner->get_email());
-						$mailer->Body = translate($translate_index, array($user->get_name(), CmnFns::formatDate($res->start_date)));
+						$mailer->Body = translate($translate_index, array($user->get_name(), Time::formatDate($res->start_date)));
 						$mailer->Send();
 						
 						if (count($failed) > 0) {
 							echo '<p>' . translate('You are not participating on the following reservation dates because they are at full capacity.') . '</p>';
 							for ($i = 0; $i < count($failed); $i++) {
-								echo '<p>' . CmnFns::formatDate($failed[$i]['start_date']) . '</p>';
+								echo '<p>' . Time::formatDate($failed[$i]['start_date']) . '</p>';
 							}
 						}
 						
 						$msg = '';
-						$msg .= translate($translate_index, array($user->get_name(), CmnFns::formatDate($res->start_date))) . '<br/>';
+						$msg .= translate($translate_index, array($user->get_name(), Time::formatDate($res->start_date))) . '<br/>';
 						if (Auth::is_logged_in()) {
 							$msg .= Link::getLink('ctrlpnl.php', translate('Return to My Control Panel'));
 						}	

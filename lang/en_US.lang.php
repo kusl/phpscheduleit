@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 03-26-06
+* @version 04-01-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -327,7 +327,7 @@ $strings['Bookings'] = 'Bookings';
 $strings['Change My Profile Information/Password'] = 'Change Profile';		// @since 1.2.0
 $strings['Manage My Email Preferences'] = 'Email Preferences';				// @since 1.2.0
 $strings['Mass Email Users'] = 'Mass Email Users';
-$strings['Search Scheduled Resource Usage'] = 'Search Scheduled Usage';		// @since 1.2.0
+$strings['Search Scheduled Resource Usage'] = 'Search Reservations';		// @since 1.2.0
 $strings['Export Database Content'] = 'Export Database Content';
 $strings['View System Stats'] = 'View System Stats';
 $strings['Email Administrator'] = 'Email Administrator';
@@ -644,7 +644,7 @@ $strings['Day View'] = 'Day View';
 $strings['Week View'] = 'Week View';
 $strings['Month View'] = 'Month View';
 $strings['Resource Calendar'] = 'Resource Calendar';
-$strings['View Resource Calendar'] = 'View Schedule &amp; Resource Calendar';
+$strings['View Resource Calendar'] = 'Schedule Calendar';	// @since 1.2.0
 $strings['Signup View'] = 'Signup View';
 
 $strings['Select User'] = 'Select User';

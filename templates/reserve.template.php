@@ -610,7 +610,7 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
         if ( ($type == RES_TYPE_ADD) || ($type == RES_TYPE_MODIFY) ) {
             // Start time select box
 
-            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . CmnFns::formatDate($start_date) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '" onchange="checkCalendarDates();"/>';
+            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($start_date) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '" onchange="checkCalendarDates();"/>';
 			if ($allow_multi) {
 				echo '<a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_start_date" alt="' . translate('Start') . '"/></a>'
                    . '<br/><br/>';
@@ -622,12 +622,12 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
                 // If this is a modification, select corrent time
                 if ( ($res->get_start() == $i) )
                     echo ' selected="selected" ';
-                echo '>' . CmnFns::formatTime($i) . '</option>';
+                echo '>' . Time::formatTime($i) . '</option>';
             }
             echo "</select>\n</td>\n";
 
             // End time select box
-            echo '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . CmnFns::formatDate($end_date) . '</div><input type="hidden" id="hdn_end_date" name="end_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $end_date) . '" onchange="checkCalendarDates();"/>';
+            echo '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . Time::formatDate($end_date) . '</div><input type="hidden" id="hdn_end_date" name="end_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $end_date) . '" onchange="checkCalendarDates();"/>';
 			if ($allow_multi) {
 			echo '<a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_end_date" alt="' . translate('End') . '"/></a>'
                    . '<br/><br/>';
@@ -639,21 +639,21 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
                 // If this is a modification, select corrent time
                 if ( ($res->get_end() == $i) )
                     echo ' selected="selected" ';
-                echo '>' . CmnFns::formatTime($i) . "</option>\n";
+                echo '>' . Time::formatTime($i) . "</option>\n";
             }
             echo "</select>\n</td>\n";
 			if ($print_min_max & !$allow_multi) {
 				echo '</tr><tr class="cellColor">'
-						. '<td colspan="2">' . translate('Minimum Reservation Length') . ' ' . CmnFns::minutes_to_hours($rs['minres'])
+						. '<td colspan="2">' . translate('Minimum Reservation Length') . ' ' . Time::minutes_to_hours($rs['minres'])
 						. '</td></tr>'
 						. '<tr class="cellColor">'
-						. '<td colspan="2">' . translate('Maximum Reservation Length') . ' ' . CmnFns::minutes_to_hours($rs['maxRes'])
+						. '<td colspan="2">' . translate('Maximum Reservation Length') . ' ' . Time::minutes_to_hours($rs['maxRes'])
 						. '</td>';
 			}
         }
         else {
-            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . CmnFns::formatDate($start_date) . '</div>' . CmnFns::formatTime($res->get_start()) . "</td>\n"
-			      . '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . CmnFns::formatDate($end_date) . '</div>' . CmnFns::formatTime($res->get_end()) . "</td>\n";
+            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($start_date) . '</div>' . Time::formatTime($res->get_start()) . "</td>\n"
+			      . '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . Time::formatDate($end_date) . '</div>' . Time::formatTime($res->get_end()) . "</td>\n";
 
         }
         // Close off table
@@ -713,11 +713,11 @@ function print_create_modify($c, $m) {
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
        <tr>
        <td class="formNames"><?php echo translate('Created')?></td>
-       <td class="cellColor"><?php echo CmnFns::formatDateTime($c)?></td>
+       <td class="cellColor"><?php echo Time::formatDateTime($c)?></td>
 	   </tr>
        <tr>
        <td class="formNames"><?php echo translate('Last Modified')?></td>
-       <td class="cellColor"><?php echo !empty($m) ? CmnFns::formatDateTime($m) : translate('N/A') ?></td>
+       <td class="cellColor"><?php echo !empty($m) ? Time::formatDateTime($m) : translate('N/A') ?></td>
        </tr>
       </table>
      </td>
@@ -833,7 +833,7 @@ function print_reminder_box($reminder_times, $selected_minutes, $reminderid) {
 	 echo '<select name="reminder_minutes_prior" id="reminder_minutes_prior" class="textbox">';
 	 echo '<option value="0">' . translate('Never') . '</option>';
 	 for ($i = 0; $i < count($reminder_times); $i++) {
-	 	echo "<option value=\"{$reminder_times[$i]} " . ($selected_minutes == $reminder_times[$i] ? 'selected="selected"' : '') . "\">" . CmnFns::minutes_to_hours($reminder_times[$i]) . "</option>\n";
+	 	echo "<option value=\"{$reminder_times[$i]} " . ($selected_minutes == $reminder_times[$i] ? 'selected="selected"' : '') . "\">" . Time::minutes_to_hours($reminder_times[$i]) . "</option>\n";
 	 }
 	 echo '</select><br/>';
 	 echo translate('before reservation')

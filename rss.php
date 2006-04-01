@@ -36,7 +36,7 @@ if (!$res) {
 for ($i = 0; $i < count($res) && $res != false; $i++) {
 	$cur = $res[$i];
 	echo "<item>\n";
-	echo '<title>' . $cur['name'] . ' [' . CmnFns::formatDate($cur['start_date']) . ' @ ' . CmnFns::formatTime($cur['starttime']) . "]</title>\n";
+	echo '<title>' . $cur['name'] . ' [' . Time::formatDate($cur['start_date']) . ' @ ' . Time::formatTime($cur['starttime']) . "]</title>\n";
 	echo '<link>' . CmnFns::getScriptURL() . "/reserve.php?type=m&amp;resid={$cur['resid']}&amp;scheduleid={$cur['scheduleid']}" . "</link>\n";
 	echo '<description>' . "</description>\n";
 	echo "</item>\n";

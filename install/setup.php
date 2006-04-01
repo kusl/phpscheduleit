@@ -63,7 +63,7 @@ function doPrintHeader() {
 	global $conf;
 ?>
 <p align="center">
-<?CmnFns::print_language_pulldown()?>
+<?php CmnFns::print_language_pulldown(); ?>
 </p>
 <h3 align="center">phpScheduleIt v<?php echo $conf['app']['version']?></h3>
 <?php

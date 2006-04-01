@@ -12,11 +12,8 @@
 * Base directory of application
 */
 @define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* CmnFns class
-*/
-include_once('CmnFns.class.php');
 
+include_once('CmnFns.class.php');
 
 class LDAPEngine {
 

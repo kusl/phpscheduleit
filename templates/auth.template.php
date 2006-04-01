@@ -245,7 +245,7 @@ function printLoginForm($msg = '', $resume = '') {
 		  <p><b><?php echo translate('Language')?></b></p>
 		</td>
 		<td>
-		<?CmnFns::print_language_pulldown()?>
+		<?php CmnFns::print_language_pulldown(); ?>
 		</td>
 	  </tr>
 	  <tr bgcolor="#FFFFFF">

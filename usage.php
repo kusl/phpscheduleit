@@ -203,12 +203,12 @@ function search($type) {
 		$percent = sprintf('%.02f', ($totalHours/$rs_hours[$rs['machid']]) * 100);
         
         // Store variables
-        $start_date = CmnFns::formatDate($rs['start_date']);
-		$end_date = CmnFns::formatDate($rs['end_date']);
-        $created = CmnFns::formatDateTime($rs['created']);
-        $modified = !empty($rs['modified']) ? CmnFns::formatDateTime($rs['modified']) : translate('N/A');
-        $starttime = CmnFns::formatTime($rs['starttime']);
-        $endtime = CmnFns::formatTime($rs['endtime']);
+        $start_date = Time::formatDate($rs['start_date']);
+		$end_date = Time::formatDate($rs['end_date']);
+        $created = Time::formatDateTime($rs['created']);
+        $modified = !empty($rs['modified']) ? Time::formatDateTime($rs['modified']) : translate('N/A');
+        $starttime = Time::formatTime($rs['starttime']);
+        $endtime = Time::formatTime($rs['endtime']);
         $totTime = (($rs['end_date']/60 + $rs['endtime']) - ($rs['start_date']/60 +$rs['starttime']));
         
 		print_reservation_data($type, $link, $resNo++, $start_date, $end_date, $created, $modified, $starttime, $endtime, $totTime, $rs['resid'], $rs['fname'], $rs['lname'], $rs['name'], $rs['memberid'], $rs['scheduletitle']);

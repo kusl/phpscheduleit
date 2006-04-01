@@ -413,7 +413,7 @@ class Reservation {
 			. '</script>';
 		$date_text = '';
 		for ($i = 0; $i < count($dates); $i++) {
-			$date_text .= CmnFns::formatDate($dates[$i]) . '<br/>';
+			$date_text .= Time::formatDate($dates[$i]) . '<br/>';
 		}
 		CmnFns::do_message_box(translate('Your ' . $this->word . ' was successfully ' . $verb)
 					. (($this->type != 'd') ? ' ' . translate('for the follwing dates') . '<br /><br />' : '.')
@@ -443,8 +443,8 @@ class Reservation {
 		// It is valid if the start date is less than or equal to the end date or (if the dates are equal), the start time is less than the end time
 		if (!$is_valid) {
 			$this->add_error(translate('Start time must be less than end time') . '<br /><br />'
-					. translate('Current start time is') . ' ' . CmnFns::formatDateTime($this->start_date + 60 * $this->start) . '<br />'
-					. translate('Current end time is') . ' ' . CmnFns::formatDateTime($this->end_date + 60 * $this->end) );
+					. translate('Current start time is') . ' ' . Time::formatDateTime($this->start_date + 60 * $this->start) . '<br />'
+					. translate('Current end time is') . ' ' . Time::formatDateTime($this->end_date + 60 * $this->end) );
 		}
 		return $is_valid;
 	}
@@ -464,9 +464,9 @@ class Reservation {
 		$is_valid = ($this_length >= ($min)) && (($this_length) <= ($max));
 		if (!$is_valid)
 			$this->add_error(translate('Reservation length does not fall within this resource\'s allowed length.') . '<br /><br >'
-					. translate('Your reservation is') . ' ' . CmnFns::minutes_to_hours($this_length) . '<br />'
-					. translate('Minimum reservation length') . ' ' . CmnFns::minutes_to_hours($min). '<br />'
-					. translate('Maximum reservation length') . ' ' . CmnFns::minutes_to_hours($max)
+					. translate('Your reservation is') . ' ' . Time::minutes_to_hours($this_length) . '<br />'
+					. translate('Minimum reservation length') . ' ' . Time::minutes_to_hours($min). '<br />'
+					. translate('Maximum reservation length') . ' ' . Time::minutes_to_hours($max)
 					);
 		return $is_valid;
 	}
@@ -489,7 +489,7 @@ class Reservation {
 			$is_valid = !($this->db->check_res($this));
 		}
 		if (!$is_valid) {
-			$this->add_error(translate('reserved or unavailable', array(CmnFns::formatDateTime($this->start_date + (60*$this->start)), CmnFns::formatDateTime($this->end_date + (60*$this->end)))));
+			$this->add_error(translate('reserved or unavailable', array(Time::formatDateTime($this->start_date + (60*$this->start)), Time::formatDateTime($this->end_date + (60*$this->end)))));
 		}
 		return $is_valid && $add_valid;
 	}
@@ -591,10 +591,10 @@ class Reservation {
 		$url        = CmnFns::getScriptURL();
 
 		// Format date
-		$start_date   = CmnFns::formatDate($this->start_date);
-		$end_date	  = CmnFns::formatDate($this->end_date);
-		$start  = CmnFns::formatTime($this->get_start());
-		$end    = CmnFns::formatTime($this->get_end());
+		$start_date   = Time::formatDate($this->start_date);
+		$end_date	  = Time::formatDate($this->end_date);
+		$start  = Time::formatTime($this->get_start());
+		$end    = Time::formatTime($this->get_end());
 
 		$defs = array(
 				translate('Reservation #'),
@@ -638,7 +638,7 @@ class Reservation {
 			// Start at index = 1 because at index 0 is the parent date
 			$text .= translate_email('reservation_activity_2');
 			for ($d = 1; $d < count($repeat_dates); $d++)
-				$text .= CmnFns::formatDate($repeat_dates[$d]) . "\r\n<br/>";
+				$text .= Time::formatDate($repeat_dates[$d]) . "\r\n<br/>";
 			$text .= "\r\n<br/>";
 		}
 
@@ -821,14 +821,14 @@ EOT;
 		$url = CmnFns::getScriptURL();
 
 		// Format dates
-		$start_date   = CmnFns::formatDate($this->start_date);
-		$end_date	  = CmnFns::formatDate($this->end_date);
-		$start  = CmnFns::formatTime($this->get_start());
-		$end    = CmnFns::formatTime($this->get_end());
+		$start_date   = Time::formatDate($this->start_date);
+		$end_date	  = Time::formatDate($this->end_date);
+		$start  = Time::formatTime($this->get_start());
+		$end    = Time::formatTime($this->get_end());
 
 		$dates_text = '';
 		for ($d = 1; $d < count($dates); $d++)
-			$dates_text .= CmnFns::formatDate($dates) . ",";
+			$dates_text .= Time::formatDate($dates) . ",";
 		
 		foreach ($userinfo as $memberid => $email) {
 			// Create and send the email
@@ -860,14 +860,14 @@ EOT;
 		$url        = CmnFns::getScriptURL();
 
 		// Format dates
-		$start_date   = CmnFns::formatDate($this->start_date);
-		$end_date	  = CmnFns::formatDate($this->end_date);
-		$start  = CmnFns::formatTime($this->get_start());
-		$end    = CmnFns::formatTime($this->get_end());
+		$start_date   = Time::formatDate($this->start_date);
+		$end_date	  = Time::formatDate($this->end_date);
+		$start  = Time::formatTime($this->get_start());
+		$end    = Time::formatTime($this->get_end());
 
 		$dates_text = '';
 		for ($d = 1; $d < count($dates); $d++)
-			$dates_text .= CmnFns::formatDate($dates) . ",";
+			$dates_text .= Time::formatDate($dates) . ",";
 
 		foreach ($emails as $email) {
 			$mailer->ClearAllRecipients();
