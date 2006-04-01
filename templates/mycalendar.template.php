@@ -134,10 +134,12 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 	$seconds_in_day = 86400;
 	
 	for ($i = 0; $i < count($reservations); $i++) {	
-		$day = ($reservations[$i]['start_date'] >= $datestamp) ? ($reservations[$i]['start_date'] - $datestamp)/$seconds_in_day : 0;						// This will tell how many days ahead of the first day this reservation occurs
+		$date = Time::getAdjustedDate($reservations[$i]['start_date'], $reservations[$i]['starttime']);
+		$day = ($date >= Time::getAdjustedDate($datestamp)) ? ($date - $datestamp)/$seconds_in_day : 0;						// This will tell how many days ahead of the first day this reservation occurs
 		
 		// If the reservation starts on a day other than the first day shown then just show it at midnight of the first day
-		$start_hour = ($reservations[$i]['start_date'] >= $datestamp) ? ($reservations[$i]['starttime'] - ($reservations[$i]['starttime']%60))/60 : 0;		// This trims off any minutes and just gets the whole hour
+		$start_hour = ($date >= $datestamp) ? ($reservations[$i]['starttime'] - ($reservations[$i]['starttime']%60))/60 : 0;		// This trims off any minutes and just gets the whole hour
+		$start_hour = Time::getAdjustedHour($start_hour);
 		$hour_line[$start_hour][$day][] = &$reservations[$i];		
 	}
 	
@@ -153,7 +155,7 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 	// The reservation data is stored in a 2D array of time (x axis) and date (y axis)
 	// This simply loops through all time/date possibilities and prints out the reservation data for each cell
 	for ($time = 0; $time < 24; $time++) {
-		echo '<tr><td valign="top" class="resourceName">' . Time::formatTime($time*60) . '</td>';
+		echo '<tr><td valign="top" class="resourceName">' . Time::formatTime($time*60, false) . '</td>';
 		for ($date = 0; $date < $days; $date++) {
 			echo '<td valign="top" class="MyCalCellColor">';
 			if (isset($hour_line[$time][$date])) {

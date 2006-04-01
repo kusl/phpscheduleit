@@ -16,10 +16,12 @@ class Time
 	* @param double $time time to convert in minutes
 	* @return string time in 12 hour time
 	*/
-	function formatTime($time) {
+	function formatTime($time, $adjust = true) {
 		global $conf;
 		
-		$time = ($time + (60 * Time::getHourOffset() + 1440)) % 1440;
+		if ($adjust) {
+			$time = ($time + (60 * Time::getHourOffset() + 1440)) % 1440;
+		}
 		
 		// Set up time array with $timeArray[0]=hour, $timeArray[1]=minute
 		// If time does not contain decimal point
@@ -125,6 +127,10 @@ class Time
 	function getAdjustedDate($timestamp, $res_time = null) {
 		$tmp = getdate(Time::getAdjustedTime($timestamp, $res_time));
 		return mktime(0,0,0, $tmp['mon'], $tmp['mday'], $tmp['year']);
+	}
+	
+	function getAdjustedHour($hour) {
+		return ($hour + Time::getHourOffset() + 24)%24;
 	}
 	
 	/**

@@ -7,7 +7,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-30-06
+* @version 04-01-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -471,7 +471,7 @@ class Schedule {
         $mod_view = ( ($is_mine || Auth::isAdmin()) && !$is_past) ? 'm' : 'v';    // To use in javascript edit/view box
         $showsummary = (($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlySummary'])) && $this->showsummary && !$is_private);
         $viewable = ($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlyDetails']));
-        write_reservation($colspan, $color_select, $mod_view, $rs['resid'],$summary , $viewable, $showsummary, $this->scheduleType == READ_ONLY, $rs['is_pending']);
+        write_reservation($colspan, $color_select, $mod_view, $rs['resid'], $summary, $viewable, $showsummary, $this->scheduleType == READ_ONLY, $rs['is_pending']);
     }
     
     /**

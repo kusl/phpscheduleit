@@ -241,6 +241,7 @@ function print_closing_tr() {
 */
 function write_reservation($colspan, $color_select, $mod_view, $resid, $summary = '', $viewable = false, $showsummary = 0, $read_only = false, $pending = 0) {
     global $conf;
+	
     $js = '';
     $color = '#' . $conf['ui'][$color_select][0]['color'];
     $hover = '#' . $conf['ui'][$color_select][0]['hover'];

@@ -76,7 +76,7 @@ class MyCalendar {
 			$firstWeekDay = (7 + (date('w', $datestamp) - $week_start)) % 7;
 			$lastWeekDay = date('w',$this->lastDate) + 1;
 			$firstResDate = mktime(0,0,0, $date_vars[1]-1, ($last_month_num_days - $firstWeekDay), $date_vars[2]);
-			$lastResDate = mktime(0,0,0, $date_vars[1]+1, (7 + $week_start - $lastWeekDay) % 7, $date_vars[2]);
+			$lastResDate = mktime(0,0,0, $date_vars[1]+1, ((7 + $week_start - $lastWeekDay) % 7), $date_vars[2]);
 		}
 		
 		$this->reservations = $this->db->get_all_reservations($firstResDate, $lastResDate, $this->userid);	
