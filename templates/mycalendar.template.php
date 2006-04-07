@@ -3,14 +3,13 @@
 * Provide all of the presentation functions for the MyCalendar class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 08-18-05
+* @version 04-06-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
 
-// Get Link object
 $link = CmnFns::getNewLink();
 
 /**
@@ -208,14 +207,15 @@ function print_month_reservations($reservations, $datestamp, $fields = array('na
 	
 	// Put all reservations in a new array stored by date
 	$reservations_by_date = array();
+	
 	for ($i = 0; $i < count($reservations); $i++) {
 		$start_date = $reservations[$i]['start_date'];
 		if ($reservations[$i]['start_date'] != $reservations[$i]['end_date']) {
 			// This makes sure that the reservation appears on every day that it is part of
 			list($month, $day, $year) = split(' ', date('m j Y', $reservations[$i]['start_date']));
-			$date = 0;
-			for ($d = 0; $date <= $reservations[$i]['end_date']; $date = mktime(0,0,0, $month, $day + $d++, $year)) {
-				$date = Time::getAdjustedDate($date, $reservations[$i]['starttime']);
+			$day_diff = ($reservations[$i]['end_date'] - $reservations[$i]['start_date'])/86400;
+			for ($d = 0; $d <= $day_diff; $d++) {
+				$date = Time::getAdjustedDate(mktime(0,0,0, $month, $day + $d, $year), $reservations[$i]['starttime']);
 				$reservations_by_date[$date][] = &$reservations[$i];
 			}
 		}
