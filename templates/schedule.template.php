@@ -6,7 +6,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-30-06
+* @version 04-06-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -233,39 +233,38 @@ function print_closing_tr() {
 * @param string $color_select array identifier for which color to use
 * @param string $mod_view indentifying character for javascript reserve function to mod or view reservation
 * @param string $resid id of this reservation
-* @param string $summary summary for this reservation
+* @param Summary $summary summary for this reservation
 * @param string $viewable whether the user can click on this reservation and bring up a details box
-* @param int $showsummary whether to show the summary or not
 * @param int $read_only whether this is a read only schedule
 * @param boolean $pending is this reservation pending approval
 */
-function write_reservation($colspan, $color_select, $mod_view, $resid, $summary = '', $viewable = false, $showsummary = 0, $read_only = false, $pending = 0) {
+function write_reservation($colspan, $color_select, $mod_view, $resid, $summary = '', $viewable = false, $read_only = false, $pending = 0) {
     global $conf;
 	
     $js = '';
     $color = '#' . $conf['ui'][$color_select][0]['color'];
     $hover = '#' . $conf['ui'][$color_select][0]['hover'];
     $text  = '#' . $conf['ui'][$color_select][0]['text'];
-    $chars = 4 * $colspan;
+    $chars = ($colspan > 1) ? 4 * $colspan : 0;
+
     $read_only = intval($read_only);
-    
+
     if ($viewable) {
         $js = "onclick=\"reserve('$mod_view','','','$resid','','0','$read_only','$pending');\" ";
-        if ($showsummary && $summary != '')
-            $js .= "onmouseover=\"resOver(this, '$hover'); showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary)) . "');\" onmouseout=\"resOut(this, '$color'); hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
-        else
+        if ($summary->isVisible()) {
+            $js .= "onmouseover=\"resOver(this, '$hover'); showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this, '$color'); hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+		}
+        else {
             $js .="onmouseover=\"resOver(this, '$hover');\" onmouseout=\"resOut(this, '$color');\"";
+		}
     }
     else {
-        if ($showsummary && $summary != '')
-            $js = "onmouseover=\"showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary)) . "');\" onmouseout=\"hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+        if ($summary->isVisible()) {
+            $js = "onmouseover=\"showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+		}
     }
     
-    if ($showsummary) {
-        $summary_text = ($summary != '' && $colspan > 1) ? substr($summary, 0, $chars) . ((strlen($summary) > $chars) ? '...' : '') : '&nbsp;';    
-    }
-    else
-        $summary_text = '&nbsp;';
+    $summary_text = $summary->toScheduleCell($chars);
         
     // Write reserved time cell
     echo "<td colspan=\"$colspan\" style=\"color: $text; background-color: $color;\" $js>$summary_text</td>";

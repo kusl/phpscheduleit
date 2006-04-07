@@ -7,7 +7,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-01-06
+* @version 04-06-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -17,17 +17,9 @@
 * Base directory of application
 */
 @define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* Include ScheduleDB class
-*/
 include_once('db/ScheduleDB.class.php');
-/**
-* Include Calendar
-*/
 include_once('Calendar.class.php');
-/**
-* Include Schedule template files
-*/
+include_once('Summary.class.php');
 include_once(BASE_DIR . '/templates/schedule.template.php');
 
 class Schedule {
@@ -444,34 +436,32 @@ class Schedule {
         $is_mine = false;
         $is_past = false;
 		$is_private = $conf['app']['privacyMode'] && !Auth::isAdmin();
-        $color_select = $this->get_reservation_colorstr($rs);//'other_res';        // Default color (if anything else is true, it will be changed)
+        $color_select = $this->get_reservation_colorstr($rs);
         
         if ($this->scheduleType != READ_ONLY) {
             if ($rs['memberid'] == $_SESSION['sessionID']) {
                 $is_mine = true;
-               // $color_select = 'my_res';
             }
         }
 
         if (mktime(0,0,0, date('m'), date('d') + $this->dayoffset) > $this->_date['current']) {        // If todays date is still before or on the day of this reservation
             $is_past = true;
-            //$color_select = ($is_mine) ? 'my_past_res' : 'other_past_res';        // Choose which color array to use        
-        }
+       }
         
-        // pending reservation
-        if ( $rs['is_pending'] ) {
-          //$color_select = "pending";
-        }
-        
-		$summary = ($conf['app']['prefixNameOnSummary']) ? "{$rs['fname']} {$rs['lname']}\n<i>" . htmlspecialchars($rs['summary']) . '</i>' : htmlspecialchars($rs['summary']);
-        
+		$summary = new Summary($rs['summary']);
+		if ((bool)$conf['app']['prefixNameOnSummary']) {
+			$summary->user_name = "{$rs['fname']} {$rs['lname']}";
+		}
+		
         // If this is the user who made the reservation or the admin,
         //  and time has not passed, allow them to edit it
         //  else only allow view
         $mod_view = ( ($is_mine || Auth::isAdmin()) && !$is_past) ? 'm' : 'v';    // To use in javascript edit/view box
         $showsummary = (($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlySummary'])) && $this->showsummary && !$is_private);
         $viewable = ($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlyDetails']));
-        write_reservation($colspan, $color_select, $mod_view, $rs['resid'], $summary, $viewable, $showsummary, $this->scheduleType == READ_ONLY, $rs['is_pending']);
+        $summary->visible = $showsummary;
+		
+		write_reservation($colspan, $color_select, $mod_view, $rs['resid'], $summary, $viewable, $this->scheduleType == READ_ONLY, $rs['is_pending']);
     }
     
     /**
