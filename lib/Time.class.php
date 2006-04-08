@@ -2,7 +2,7 @@
 /**
 * Time formatting and calculation functions
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-01-06
+* @version 04-08-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -12,7 +12,7 @@
 class Time
 {
 	/**
-	* Convert minutes to hours and adjust for timezone
+	* Formats number of minutes past midnight into a readable string and optionally adjust for timezone
 	* @param double $time time to convert in minutes
 	* @return string time in 12 hour time
 	*/
@@ -20,7 +20,7 @@ class Time
 		global $conf;
 		
 		if ($adjust) {
-			$time = ($time + (60 * Time::getHourOffset() + 1440)) % 1440;
+			$time = Time::getAdjustedMinutes($time);//($time + (60 * Time::getHourOffset() + 1440)) % 1440;
 		}
 		
 		// Set up time array with $timeArray[0]=hour, $timeArray[1]=minute
@@ -129,8 +129,22 @@ class Time
 		return mktime(0,0,0, $tmp['mon'], $tmp['mday'], $tmp['year']);
 	}
 	
+	/**
+	* Gets the current hour, adjusted for timezone
+	* @param int $hour the 24 hour time to adjust
+	* @return the 24-hour adjusted hour
+	*/
 	function getAdjustedHour($hour) {
 		return ($hour + Time::getHourOffset() + 24)%24;
+	}
+	
+	/**
+	* Returns the timezone adjusted number of minutes past midnight
+	* @param int $minutes minutes to adjust
+	* @return the timezone adjusted number of minutes past midnight
+	*/
+	function getAdjustedMinutes($minutes) {
+		return ($minutes + (60 * Time::getHourOffset() + 1440)) % 1440;
 	}
 	
 	/**

@@ -5,27 +5,16 @@
 *  reservation data in a particular format for a resource
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 11-18-05
+* @version 04-08-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
 @define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* Include MyCalendar class
-*/
+
 include_once('MyCalendar.class.php');
-/**
-* Include ResCalendarDB class
-*/
 include_once('db/ResCalendarDB.class.php');
-/**
-* Include ResCalendar template files
-*/
 include_once(BASE_DIR . '/templates/rescalendar.template.php');
 
 class ResCalendar extends MyCalendar {
@@ -119,11 +108,11 @@ class ResCalendar extends MyCalendar {
 			$week_start = $conf['app']['calFirstDay'];
 			$firstWeekDay = (7 + (date('w', $datestamp) - $week_start)) % 7;
 			$lastWeekDay = date('w',$this->lastDate) + 1;
-			$firstResDate = mktime(0,0,0, $date_vars[1]-1, ($last_month_num_days - $firstWeekDay), $date_vars[2]);
+			$firstResDate = mktime(0,0,0, $date_vars[1]-1, ($last_month_num_days - $firstWeekDay) + 1, $date_vars[2]);
 			$lastResDate = mktime(0,0,0, $date_vars[1]+1, (7 + $week_start - $lastWeekDay) % 7, $date_vars[2]);
 		}
 		
-		$this->reservations = $this->db->get_all_reservations($firstResDate, $lastResDate, (($this->isresource) ? $this->machid : $this->scheduleid), $this->isresource);	
+		$this->reservations = $this->db->get_all_reservations($firstResDate - SECONDS_IN_DAY, $lastResDate + SECONDS_IN_DAY, (($this->isresource) ? $this->machid : $this->scheduleid), $this->isresource, $firstResDate, $lastResDate);	
 	}
 	
 	/**

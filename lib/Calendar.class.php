@@ -17,7 +17,7 @@
 * Extend the class and override any functions to add/change functionality
 *
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 08-27-04
+* @version 04-08-06
 * @package Calendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -109,7 +109,7 @@ class Calendar {
     * @param none
     */
     function printCalendar() {
-		$today = getdate();
+		$today = getdate(Time::getAdjustedTime(mktime()));
 		
 		$this->printCalendarBody($today);
 

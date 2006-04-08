@@ -4,19 +4,14 @@
 * Provides backend DB functions for the MyCalendar class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 11-05-05
+* @version 04-08-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
+
 @define('BASE_DIR', dirname(__FILE__) . '/../..');
-/**
-* DBEngine class
-*/
 include_once(BASE_DIR . '/lib/DBEngine.class.php');
 
 /**
@@ -39,27 +34,10 @@ class ResCalendarDB extends DBEngine {
 	* @param bool $is_resource if we are looking up resource data or not
 	* @return array of reservation data or an empty array
 	*/
-	function get_all_reservations($firstDate, $lastDate, $id, $is_resource) {
+	function get_all_reservations($firstDate, $lastDate, $id, $is_resource, $filterFirst, $filterLast) {
 		$return = array();
 
 		// If it starts between the 2 dates, ends between the 2 dates, or surrounds the 2 dates, get it
-		/*
-		$sql = 'SELECT res.*, res_users.*, resources.name, resources.location, users.fname, users.lname FROM ' . $this->get_table('reservations') . ' as res, ' . $this->get_table('reservation_users') . ' as res_users, ' . $this->get_table('resources') . ' as resources, ' . $this->get_table('login') .' as users'
-			. ' WHERE ( '
-						. '( '
-							. '(start_date >= ? AND start_date <= ?)'
-							. ' OR '
-							. '(end_date >= ? AND end_date <= ?)'
-						. ' )'
-						. ' OR '
-						. '(start_date <= ?  AND end_date >= ?)'
-			.      ' )'
-			. ' AND res.resid=res_users.resid'
-			. ' AND res.is_blackout <> 1'
-			. ' AND res_users.owner = 1'
-			. ' AND resources.machid = res.machid'
-			. ' AND users.memberid = res_users.memberid';
-		*/
 		$sql = 'SELECT res.*, res_users.*, resources.name, resources.location, users.fname, users.lname'
 			. ' FROM ' . $this->get_table('reservations') . ' as res'
 			. ' INNER JOIN ' . $this->get_table('reservation_users') . ' as res_users ON res.resid=res_users.resid'
@@ -88,7 +66,12 @@ class ResCalendarDB extends DBEngine {
 		$this->check_for_error($result);
 		
 		while ($rs = $result->fetchRow()) {
-			$return[] = $rs;
+			$rs['start_date'] = Time::getAdjustedDate($rs['start_date'], $rs['starttime']);
+			$rs['end_date'] = Time::getAdjustedDate($rs['end_date'], $rs['endtime']);
+			
+			if ($rs['end_date'] >= $filterFirst && $rs['start_date'] <= $filterLast) {
+				$return[] = $rs;
+			}
 		}
 		
 		$result->free();

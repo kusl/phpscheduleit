@@ -5,27 +5,16 @@
 *  reservation data in a particular format for a user
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-01-06
+* @version 04-08-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
+
 @define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* Include MyCalendarDB class
-*/
 include_once('db/MyCalendarDB.class.php');
-/**
-* Include Calendar class
-*/
 include_once('Calendar.class.php');
-/**
-* Include MyCalendar template files
-*/
 include_once(BASE_DIR . '/templates/mycalendar.template.php');
 
 class MyCalendar {
@@ -70,16 +59,16 @@ class MyCalendar {
 		$lastResDate = $this->lastDate;
 		if ($this->type == MYCALENDARTYPE_MONTH) {
 			$datestamp = $this->firstDate;
-			$date_vars = explode(' ',date('d m Y t w W',$datestamp));
+			$date_vars = explode(' ',date('d m Y t w W', $datestamp));
 			$last_month_num_days = date('t', mktime(0,0,0, $date_vars[1]-1, $date_vars[0], $date_vars[2]));
 			$week_start = $conf['app']['calFirstDay'];
 			$firstWeekDay = (7 + (date('w', $datestamp) - $week_start)) % 7;
 			$lastWeekDay = date('w',$this->lastDate) + 1;
-			$firstResDate = mktime(0,0,0, $date_vars[1]-1, ($last_month_num_days - $firstWeekDay), $date_vars[2]);
+			$firstResDate = mktime(0,0,0, $date_vars[1]-1, ($last_month_num_days - $firstWeekDay) + 1, $date_vars[2]);
 			$lastResDate = mktime(0,0,0, $date_vars[1]+1, ((7 + $week_start - $lastWeekDay) % 7), $date_vars[2]);
 		}
 		
-		$this->reservations = $this->db->get_all_reservations($firstResDate, $lastResDate, $this->userid);	
+		$this->reservations = $this->db->get_all_reservations($firstResDate-SECONDS_IN_DAY, $lastResDate+SECONDS_IN_DAY, $this->userid, $firstResDate, $lastResDate);	
 	}
 	
 	/**

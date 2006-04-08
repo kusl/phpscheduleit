@@ -3,7 +3,7 @@
 * Provide all of the presentation functions for the MyCalendar class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-06-06
+* @version 04-08-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -130,16 +130,24 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 	$date_vars = getdate($datestamp);
 	$hour_line = array();
 	$col_width = intval(100/($days));
-	$seconds_in_day = 86400;
 	
 	for ($i = 0; $i < count($reservations); $i++) {	
-		$date = Time::getAdjustedDate($reservations[$i]['start_date'], $reservations[$i]['starttime']);
-		$day = ($date >= Time::getAdjustedDate($datestamp)) ? ($date - $datestamp)/$seconds_in_day : 0;						// This will tell how many days ahead of the first day this reservation occurs
+		$date = $reservations[$i]['start_date'];
+		$day = ($date >= $datestamp) ? round((($date - $datestamp)/SECONDS_IN_DAY)) : 0;						// This will tell how many days ahead of the first day this reservation occurs
 		
 		// If the reservation starts on a day other than the first day shown then just show it at midnight of the first day
-		$start_hour = ($date >= $datestamp) ? ($reservations[$i]['starttime'] - ($reservations[$i]['starttime']%60))/60 : 0;		// This trims off any minutes and just gets the whole hour
-		$start_hour = Time::getAdjustedHour($start_hour);
+		$start_hour = ($date >= $datestamp) ? Time::getAdjustedHour( ( $reservations[$i]['starttime'] - ($reservations[$i]['starttime']%60) )/60 ) : 0;		// This trims off any minutes and just gets the whole hour
 		$hour_line[$start_hour][$day][] = &$reservations[$i];		
+		
+		if ($reservations[$i]['start_date'] != $reservations[$i]['end_date']) {
+			// This makes sure that the reservation appears on every day that it is part of
+			$start_date = $reservations[$i]['start_date'] < $datestamp ? $datestamp : $reservations[$i]['start_date'];
+			$day_diff = ($reservations[$i]['end_date'] - $start_date)/SECONDS_IN_DAY;
+			
+			for ($d = 1; $d <= $day_diff && $d < $days; $d++) {
+				$hour_line[0][$day + $d][] = &$reservations[$i];
+			}
+		}
 	}
 	
 	$datestamps = array();		// This will store the datestamp for each date on the calendar
@@ -200,7 +208,7 @@ function print_month_reservations($reservations, $datestamp, $fields = array('na
 	global $days_full;
 	
 	$today = getdate(mktime());
-	$date_vars = explode(' ',date('d m Y t w W',$datestamp));
+	$date_vars = explode(' ',date('d m Y t w W', $datestamp));
 	$last_month_num_days = date('t', mktime(0,0,0, $date_vars[1]-1, $date_vars[0], $date_vars[2]));		// Number of days in the last month
 	$week_start = $conf['app']['calFirstDay'];
 	$firstWeekDay = (7 + (date('w', $datestamp) - $week_start)) % 7;
@@ -215,12 +223,12 @@ function print_month_reservations($reservations, $datestamp, $fields = array('na
 			list($month, $day, $year) = split(' ', date('m j Y', $reservations[$i]['start_date']));
 			$day_diff = ($reservations[$i]['end_date'] - $reservations[$i]['start_date'])/86400;
 			for ($d = 0; $d <= $day_diff; $d++) {
-				$date = Time::getAdjustedDate(mktime(0,0,0, $month, $day + $d, $year), $reservations[$i]['starttime']);
+				$date = mktime(0,0,0, $month, $day + $d, $year);
 				$reservations_by_date[$date][] = &$reservations[$i];
 			}
 		}
 		else {
-			$date = Time::getAdjustedDate($reservations[$i]['start_date'], $reservations[$i]['starttime']);
+			$date = $reservations[$i]['start_date'];
 			$reservations_by_date[$date][] = &$reservations[$i];
 		}
 	}

@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-25-06
+* @version 04-08-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -604,9 +604,10 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 	   </tr>
       <tr>
 <?php
-		$start_date = $res->get_start_date();
-		$end_date = $res->get_end_date();
-        // Show reserved time or select boxes depending on type
+		$start_date = Time::getAdjustedDate($res->get_start_date(), $res->get_start());
+		$end_date = Time::getAdjustedDate($res->get_end_date(), $res->get_end());
+        
+		// Show reserved time or select boxes depending on type
         if ( ($type == RES_TYPE_ADD) || ($type == RES_TYPE_MODIFY) ) {
             // Start time select box
 
@@ -617,11 +618,12 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 			}
 			echo "<select name=\"starttime\" class=\"textbox\">\n";
             // Start at startDay time, end 30 min before endDay
-            for ($i = $startDay; $i < $endDay+$interval; $i+=$interval) {
+            for ($i = $startDay; $i < $endDay+$interval; $i += $interval) {
                 echo '<option value="' . $i . '"';
                 // If this is a modification, select corrent time
-                if ( ($res->get_start() == $i) )
+                if ( ($res->get_start() == $i) ) {
                     echo ' selected="selected" ';
+				}
                 echo '>' . Time::formatTime($i) . '</option>';
             }
             echo "</select>\n</td>\n";
@@ -634,11 +636,12 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
             }
 			echo "<select name=\"endtime\" class=\"textbox\">\n";
 			// Start at 30 after startDay time, end 30 at endDay time
-            for ($i = $startDay; $i < $endDay+$interval; $i+=$interval) {
+            for ($i = $startDay; $i < $endDay+$interval; $i += $interval) {
                 echo "<option value=\"$i\"";
                 // If this is a modification, select corrent time
-                if ( ($res->get_end() == $i) )
+                if ( ($res->get_end() == $i) ) {
                     echo ' selected="selected" ';
+				}
                 echo '>' . Time::formatTime($i) . "</option>\n";
             }
             echo "</select>\n</td>\n";

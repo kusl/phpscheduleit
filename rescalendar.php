@@ -3,7 +3,7 @@
 * All specific views of an individual resource calendar will be available from this file
 *  such as day/week/month view
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 02-18-05
+* @version 04-08-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -63,7 +63,7 @@ function get_calendar_actual_date() {
 		$date_split = explode('-', $_GET['date']);
 	}
 	else {
-		$date_split = explode('-', date('m-d-Y'));
+		$date_split = explode('-', date('m-d-Y', Time::getAdjustedTime(mktime(), date('H') * 60)));
 	}
 	
 	return mktime(0,0,0, $date_split[0], $date_split[1], $date_split[2]);	

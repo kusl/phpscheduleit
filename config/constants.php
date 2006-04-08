@@ -30,4 +30,5 @@ define('TBL_SCHEDULES', 'schedules');
 define('TBL_USER_GROUPS', 'user_groups');
 
 define('REMINDER_DATE_FORMAT', 'YmdHi');
+define('SECONDS_IN_DAY', 86400);
 ?>
