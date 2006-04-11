@@ -4,7 +4,7 @@
 *  on /db_query/usage_db.php for database access
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 10-04-05
+* @version 04-11-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -27,11 +27,11 @@
 function showForm($min_max, $users, $machs, $schedules) {
 	global $conf;
 	global $months_full;
-    
+
     $startDay   = 0;
     $endDay     = 1440;
 	$interval   = 30;
-    
+
     // Set up array for month names
     $month  = $months_full;
     ?>
@@ -40,12 +40,12 @@ function showForm($min_max, $users, $machs, $schedules) {
 		<tr>
 		<td class="tableBorder">
 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
-          <tr> 
+          <tr>
             <td colspan="2" class="tableTitle">&#8250; <?php echo translate('Select Search Criteria')?></td>
           </tr>
-		  <tr class="cellColor"> 
+		  <tr class="cellColor">
             <td width="15%" class="formNames"><?php echo translate('Schedules')?></td>
-            <td> 
+            <td>
               <select name="scheduleid[]" size="4" multiple="multiple" class="textbox">
                 <option selected="selected" value="all"><?php echo translate('All Schedules')?></option>
                 <?php
@@ -57,9 +57,9 @@ function showForm($min_max, $users, $machs, $schedules) {
               <br /><?php echo translate('Hold CTRL to select multiple')?>
             </td>
           </tr>
-          <tr class="cellColor"> 
+          <tr class="cellColor">
             <td width="15%" class="formNames"><?php echo translate('Users')?></td>
-            <td> 
+            <td>
               <select name="memberid[]" size="4" multiple="multiple" class="textbox">
                 <option selected="selected" value="all"><?php echo translate('All Users')?></option>
                 <?php
@@ -71,9 +71,9 @@ function showForm($min_max, $users, $machs, $schedules) {
               <br /><?php echo translate('Hold CTRL to select multiple')?>
             </td>
           </tr>
-          <tr class="cellColor"> 
+          <tr class="cellColor">
             <td class="formNames"><?php echo translate('Resources')?></td>
-            <td> 
+            <td>
               <select name="machid[]" size="4" multiple="multiple" class="textbox">
 			    <option selected="selected" value="all"><?php echo translate('All Resources')?></option>
                 <?php
@@ -85,13 +85,13 @@ function showForm($min_max, $users, $machs, $schedules) {
               <br /><?php echo translate('Hold CTRL to select multiple')?>
             </td>
           </tr>
-          <tr class="cellColor"> 
+          <tr class="cellColor">
             <td class="formNames"><?php echo translate('Starting Date')?></td>
-            <td> 
+            <td>
 			  <?php echo translate('Minimum')?>
               <select name="startMonthMin" class="textbox">
               <?php
-              
+
               for ($i = 1; $i < 13; $i++) {
                 echo "<option value=\"$i\"";
                 if ($i == $min_max['startmin']['mon'])
@@ -125,7 +125,7 @@ function showForm($min_max, $users, $machs, $schedules) {
 			  <?php echo translate('Maximum')?>
               <select name="startMonthMax" class="textbox">
               <?php
-              
+
               for ($i = 1; $i < 13; $i++) {
                 echo "<option value=\"$i\"";
                 if ($i == $min_max['startmax']['mon'])
@@ -157,9 +157,9 @@ function showForm($min_max, $users, $machs, $schedules) {
               </select>
             </td>
           </tr>
-          <tr class="cellColor"> 
+          <tr class="cellColor">
             <td class="formNames"><?php echo translate('Ending Date')?></td>
-            <td> 
+            <td>
 			  <?php echo translate('Minimum')?>
               <select name="endMonthMin" class="textbox">
               <?php
@@ -227,17 +227,17 @@ function showForm($min_max, $users, $machs, $schedules) {
               </select>
             </td>
           </tr>
-          <tr class="cellColor"> 
+          <tr class="cellColor">
             <td class="formNames"><?php echo translate('Starting Time')?></td>
-            <td> 
+            <td>
 			  <?php echo translate('Minimum')?>
               <select name="starttimeMin" class="textbox">
               <?php
               // Print out first time and select it
-              echo "<option value=\"$startDay\" selected=\"selected\">" . Time::formatTime($startDay) . "</option>\n";
+              echo "<option value=\"$startDay\" selected=\"selected\">" . Time::formatTime($startDay, false) . "</option>\n";
               // Print out rest of times
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i, false) . "</option>\n";
               }
               ?>
               </select>
@@ -247,25 +247,25 @@ function showForm($min_max, $users, $machs, $schedules) {
               <?php
               // Print out all times except last
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i, false) . "</option>\n";
               }
               // Print out last time and select it
-              echo "<option value=\"$endDay\" selected=\"selected\">" . Time::formatTime($endDay) . "</option>\n";
+              echo "<option value=\"$endDay\" selected=\"selected\">" . Time::formatTime($endDay, false) . "</option>\n";
               ?>
               </select>
             </td>
           </tr>
-          <tr class="cellColor"> 
+          <tr class="cellColor">
             <td class="formNames"><?php echo translate('Ending Time')?></td>
-             <td> 
+             <td>
 			  <?php echo translate('Minimum')?>
               <select name="endtimeMin" class="textbox">
               <?php
               // Print out first time and select it
-              echo "<option value=\"$startDay\" selected=\"selected\">" . Time::formatTime($startDay) . "</option>\n";
+              echo "<option value=\"$startDay\" selected=\"selected\">" . Time::formatTime($startDay, false) . "</option>\n";
               // Print out rest of times
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i, false) . "</option>\n";
               }
               ?>
               </select>
@@ -275,10 +275,10 @@ function showForm($min_max, $users, $machs, $schedules) {
               <?php
               // Print out all times except last
               for ($i = $startDay+$interval; $i < $endDay; $i+=$interval) {
-                echo "<option value=\"$i\">" . Time::formatTime($i) . "</option>\n";
+                echo "<option value=\"$i\">" . Time::formatTime($i, false) . "</option>\n";
               }
               // Print out last time and select it
-              echo "<option value=\"$endDay\" selected=\"selected\">" . Time::formatTime($endDay) . "</option>\n";
+              echo "<option value=\"$endDay\" selected=\"selected\">" . Time::formatTime($endDay, false) . "</option>\n";
               ?>
               </select>
             </td>
@@ -295,7 +295,7 @@ function showForm($min_max, $users, $machs, $schedules) {
         </table>
  </td>
  </tr>
-</table> 
+</table>
 <p>&nbsp;</p>
   <input type="submit" name="search" value="<?php echo translate('Search')?>" class="button" />
   <input type="reset" name="Reset" value="<?php echo translate('Clear')?>" class="button" />
@@ -315,9 +315,9 @@ function showForm($min_max, $users, $machs, $schedules) {
 * @param int $memberid user memberID
 * @param string $type output type
 */
-function printUserInfo($fname, $lname, $memberid, $type) {  
+function printUserInfo($fname, $lname, $memberid, $type) {
     global $link;
-	
+
     switch ($type) {
 		case 'html' :
     		echo '<h4 align="center">' . $link->getLink("javascript: viewUser('$memberid');", $fname . ' ' . $lname, '', '', translate('View information about', array($fname, $lname)));
@@ -348,24 +348,24 @@ function printUserInfo($fname, $lname, $memberid, $type) {
 */
 function printTableHeader($fname, $lname, $name, $type, $schedule) {
     if ($type == 'html') {
-?>    
-    <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">    
-     <tr><td class="tableBorder">  
-      <table width="100%" border="0" cellspacing="1" cellpadding="0">    
+?>
+    <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
+     <tr><td class="tableBorder">
+      <table width="100%" border="0" cellspacing="1" cellpadding="0">
        <tr>
         <td colspan="8" class="tableTitle">
         <?php echo "$fname $lname - $name ($schedule)"?>
-		</td></tr>    
+		</td></tr>
 	   <tr class="rowHeaders" align="center">
         <td width="4%">#</td>
         <td width="9%"><?php echo translate('Start Date')?></td>
-		<td width="9%"><?php echo translate('End Date')?></td>  
-        <td width="19%"><?php echo translate('Created')?></td>  
-        <td width="19%"><?php echo translate('Last Modified')?></td>       
+		<td width="9%"><?php echo translate('End Date')?></td>
+        <td width="19%"><?php echo translate('Created')?></td>
+        <td width="19%"><?php echo translate('Last Modified')?></td>
         <td width="10%"><?php echo translate('Start Time')?></td>
         <td width="10%"><?php echo translate('End Time')?></td>
-        <td width="10%"><?php echo translate('Manage')?></td>  
-        <td width="10%"><?php echo translate('Total Time')?></td>  
+        <td width="10%"><?php echo translate('Manage')?></td>
+        <td width="10%"><?php echo translate('Total Time')?></td>
 	   </tr>
 <?php
 	}
@@ -442,7 +442,7 @@ function printTableFooter($hours, $type, $percent) {
 */
 function print_reservation_data($type, &$link, $resNo, $start_date, $end_date, $created, $modified, $starttime, $endtime, $totTime, $resid, $fname, $lname, $name, $memberid, $schedule) {
 	global $conf;
-	
+
 	$totTime = Time::minutes_to_hours($totTime);
 	switch ($type) {
 			case 'html' :
@@ -464,10 +464,10 @@ function print_reservation_data($type, &$link, $resNo, $start_date, $end_date, $
 						$modified = str_repeat('-', 23);
 						if ($conf['app']['timeFormat'] != 24)
 							$modified .= '-';
-					}						
-					
+					}
+
 					$extraTab = ($conf['app']['timeFormat'] == 24) ? "\t" : '';
-					
+
 					echo $resNo . "\t"
 							. $start_date . "\t"
 							. $end_date . "\t"
@@ -491,7 +491,7 @@ function print_reservation_data($type, &$link, $resNo, $start_date, $end_date, $
 					. "\t&lt;starttime&gt;$starttime&lt;/starttime&gt;\r\n"
 					. "\t&lt;endtime&gt;$endtime&lt;/endtime&gt;\r\n"
 					. "\t&lt;totTime&gt;$totTime&lt;/totTime&gt;\r\n"
-					. "&lt;/reservation&gt;\r\n"; 
+					. "&lt;/reservation&gt;\r\n";
 				break;
 			case 'csv' :
 				echo "\"$resid\","
@@ -517,15 +517,15 @@ function print_reservation_data($type, &$link, $resNo, $start_date, $end_date, $
 */
 function print_change_output($form, $obj_name = '') {
 	echo '<div style="text-align: center;"><form name="jump_output" method="post" action="' . $_SERVER['PHP_SELF'] . '" style="margin: 5px;">' . "\n";
-	
+
 	foreach ($form as $name => $val) {
 		if ($name == 'outputtype')	// Dont print this out if it is 'outputtype'
 			continue;
-			
+
 		if (is_array($val)) {		// If this object has many values, print them all out
 			foreach ($val as $val2)
 				echo '<input type="hidden" name="' . $name . '[]" value="' . $val2 . '" />' . "\n";
-		}		
+		}
 		else {
 			echo '<input type="hidden" name="' . $name . '" value="' . $val . '" />' . "\n";
 		}
@@ -539,5 +539,5 @@ function print_change_output($form, $obj_name = '') {
 	echo '</form></div>';
 
 }
-        
+
 ?>

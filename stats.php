@@ -4,21 +4,18 @@
 * Print out visual statistics of many different aspects
 *  of the application
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 07-18-05
+* @version 04-11-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-list($s_sec, $s_msec) = explode(' ', microtime());	// Start execution timer
-/**
-* Include Template class
-*/
+
 include_once('lib/Template.class.php');
-/**
-* Include Stats class
-*/
 include_once('lib/Stats.class.php');
+
+$timer = new Timer();
+$timer->start();
 
 $stats = new Stats();
 
@@ -41,45 +38,44 @@ if (!$stats->set_schedule($scheduleid)) {
 }
 else {
 	$stats->load_schedule();
-	
+
 	print_schedule_list($stats->get_schedule_list(), $stats->scheduleid);
-	
+
 	$stats->init();
 
 	ob_start();		// There is a lot of HTML being printed, so buffer the output
 
 	print_quick_stats($stats);
-	
+
 	print_system_stats($stats);
-	
+
 	$stats->set_stats(MONTH);
 	$stats->print_stats();
-	
+
 	$stats->set_stats(DAY_OF_WEEK);
 	$stats->print_stats();
-	
+
 	$stats->set_stats(DAY_OF_MONTH);
 	$stats->print_stats();
-	
-	$stats->set_stats(starttime);
+
+	$stats->set_stats(STARTTIME);
 	$stats->print_stats();
-	
-	$stats->set_stats(endtime);
+
+	$stats->set_stats(ENDTIME);
 	$stats->print_stats();
-	
+
 	$stats->set_stats(RESOURCE);
 	$stats->print_stats();
-	
+
 	$stats->set_stats(USER);
 	$stats->print_stats();
-	
+
 	ob_end_flush();	// Print the buffered HTML to the browser
 }
 $t->endMain();
 
-list($e_sec, $e_msec) = explode(' ', microtime());		// End execution timer
-$tot = ((float)$e_sec + (float)$e_msec) - ((float)$s_sec + (float)$s_msec);
-echo sprintf('<h6>Stats created in %.16f seconds</h6>', $tot);
+$timer->stop();
+$timer->printComment();
 
 $t->printHTMLFooter();	// Print HTML footer
 

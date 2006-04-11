@@ -1,7 +1,7 @@
 <?php
 /**
 * Stats class
-* Provides functions for finding statistics about 
+* Provides functions for finding statistics about
 *  phpScheduleIt and reservations
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @version 11-21-04
@@ -46,25 +46,25 @@ class Stats {
 
 	var $machids	 = array();
 	var $userids	 = array();
-	
+
 	var $scheduleid		= '';
 	var $sched			= array();
 	var $timespan		= '';
 	var $startDay		= 0;
 	var $endDay			= 0;
-	
+
 	var $type;				// Type of stat to find
 	var $db;
-	
+
 	var $labels = array();
 	var $values = array();
 	var $index  = array();
 	var $dyntot = array();
-	
+
 	var $dynlabel = false;	// Whether to use dynamic labeling
 	var $lbl_fnc;			// Dynamic label function name
 	var $dyn_title;			// Dynamic title
-	
+
 	var $numUsers	= 0;
 	var $numRes		= 0;
 	var $numRs		= 0;
@@ -73,7 +73,7 @@ class Stats {
 	var $shortest	= 1440;
 	var $active_resource = array ('num' => 0, 'id' => NULL, 'name' => NULL);	// Most active xxxx
 	var $active_user 	 = array ('num' => 0, 'id' => NULL, 'name' => NULL);
-	
+
 	var $month;				// Stats arrays
 	var $dayofmonth;		//
 	var $dayofweek;			//
@@ -82,26 +82,26 @@ class Stats {
 	var $total_time;		//
 	var $resource;			//
 	var $user;				//
-	
+
 	var $color0 = '#dedede';	// Graphical properties
 	var $color1 = '#ededed';	// (alternating row colors)
 	var $bar_outline = 'solid #000000 1px';
 	var $bar_color	 = '#FF0000';
 	var $height = '5px';		// (bar height)
 	var $fnt_sz	= '10px';		//
-	
+
 	var $graph_title;
-	
+
 	function Stats() {
 		global $months_abbr;
 		global $days_abbr;
-		
+
 		$this->db = new StatsDB();
 		for ($i = 1; $i <= count($months_abbr); $i++)
 			$this->month_names[$i] = $months_abbr[$i-1];//array_fill(1, count($months_abbr), $months_abbr);
 		$this->day_names = $days_abbr;
 	}
-	
+
 	/**
 	* Initializes the stats class
 	* @param none
@@ -110,20 +110,20 @@ class Stats {
 		$this->numUsers = $this->db->get_quick_stats('login');
 		$this->numRes	= $this->db->get_quick_stats('reservations');
 		$this->numRs	= $this->db->get_quick_stats('resources');
-		
+
 		// Set $this->machids array
 		$machs = $this->db->get_resources();//'resources', array('machid', 'name'), array('name'));
-		
+
 		for ($i = 0; $i < count($machs); $i++)
 			$this->machids[$machs[$i]['machid']] = $machs[$i]['name'];
 		// Set $this->userids array
 		$users = $this->db->get_table_data('login', array ('memberid, fname, lname'), array ('lname', 'fname'));
 		for ($i = 0; $i < count($users); $i++)
 			$this->userids[$users[$i]['memberid']] = $users[$i]['lname'] . ', ' . $users[$i]['fname'];
-		
+
 		$this->parse();
 	}
-	
+
 	/**
 	* Sets the schedule id
 	* @param string $scheduleid id of the schedule
@@ -133,23 +133,23 @@ class Stats {
 			$this->scheduleid = $this->db->get_default_id();
 		else
 			$this->scheduleid = $scheduleid;
-		
+
 		return $this->db->check_scheduleid($this->scheduleid);
 	}
-	
+
 	/**
 	* Loads the schedule data
 	* @param none
 	*/
 	function load_schedule() {
 		$this->db->scheduleid = $this->scheduleid;
-		
+
 		$this->sched = $this->db->get_schedule_data($this->scheduleid);
 		$this->timespan = $this->sched['timespan'];
 		$this->startDay = $this->sched['daystart'];
 		$this->endDay	= $this->sched['dayend'];
 	}
-	
+
 	/**
 	* Gets the list of schedules
 	* @param none
@@ -158,7 +158,7 @@ class Stats {
 	function get_schedule_list() {
 		return $this->db->get_schedule_list();
 	}
-	
+
 	/**
 	* Prints out schedule invalid error
 	* @param none
@@ -172,34 +172,34 @@ class Stats {
 	* @param none
 	*/
 	function parse() {
-		
+
 		$m = $w = $d = $s = $e = $r = $u = $p = array();
 		$total_time = 0;
-		
+
 		$res = $this->db->get_all_stats();
 		if (!$res) {		// If there are no reservations, return
 			//echo $this->db->get_err();
 			return;
 		}
-		
+
 		for ($i = 0; $i < count($res); $i++) {
 			$date = getdate($res[$i]['start_date']);
 			$starttime = $res[$i]['starttime'];
 			$endtime   = $res[$i]['endtime'];
 			$start_date = $res[$i]['start_date'];
 			$end_date = $res[$i]['end_date'];
-	
+
 			$m[$date['mon']]  = (!isset($m[$date['mon']])) ? 1 : $m[$date['mon']]  + 1;		// By month
 			$d[$date['mday']][$date['mon']] = (!isset($d[$date['mday']][$date['mon']])) ? 1 : $d[$date['mday']][$date['mon']] + 1;	// By day of month
 			$w[$date['wday']] = (!isset($w[$date['wday']])) ? 1 : $w[$date['wday']] + 1;	// By day of week
-			
+
 			$s[$starttime] = (!isset($s[$starttime])) ? 1 : $s[$starttime] + 1;	// By start time
 			$e[$endtime] = (!isset($e[$endtime])) ? 1 : $e[$endtime] + 1;			// By end time
 			$tot = (($end_date/60 + $endtime) - ($start_date/60 + $starttime));
 			if ($tot < $this->shortest) $this->shortest = $tot;
 			if ($tot > $this->longest) $this->longest = $tot;
 			$total_time += $tot;
-			
+
 			$r[$res[$i]['machid']] = (!isset($r[$res[$i]['machid']])) ? 1 : $r[$res[$i]['machid']] + 1;
 			if ($this->active_resource['num'] < $r[$res[$i]['machid']]) {	// Find most active resource
 				$this->active_resource['num'] = $r[$res[$i]['machid']];
@@ -215,7 +215,7 @@ class Stats {
 			}
 			// Group by user for each resource
 			$u[$res[$i]['memberid']][$res[$i]['machid']] = (!isset($u[$res[$i]['memberid']][$res[$i]['machid']])) ? 1 : $u[$res[$i]['memberid']][$res[$i]['machid']] + 1;
-			
+
 		}
 
 		/* Arrays of stats data */
@@ -228,7 +228,7 @@ class Stats {
 		$this->resource =& $r;
 		$this->user =& $u;
 	}
-	
+
 	/**
 	* Sets the object up to use dynamic labels
 	* Parameter must be properly defined label handler
@@ -238,27 +238,27 @@ class Stats {
 		$this->dynlabel = true;
 		$this->lbl_fnc = $function_name;
 	}
-	
+
 	/**
 	* Sets the stat mode
 	* This will load specific labels and values
 	*  to print out and will set any necessary
 	*  values for this stat type
 	* @param string $stat_type stat type to print
-	* 			can be: MONTH, DAY_0F_WEEK, DAY_OF_MONTH, USER, RESOURCE, starttime, endtime
+	* 			can be: MONTH, DAY_0F_WEEK, DAY_OF_MONTH, USER, RESOURCE, STARTTIME, ENDTIME
 	*/
 	function set_stats($stat_type) {
 		global $conf;
-		
+
 		$start	= $this->sched['daystart'];
 		$end	= $this->sched['dayend'];
 		$interval = $this->sched['timespan'];
-		
+
 		unset($this->labels);		// Reinitialize variables
 		$this->dynlabel = false;
-		
+
 		$this->type = $stat_type;
-		
+
 		switch ($stat_type) {
 			case MONTH :
 				$this->labels =& $this->month_names;
@@ -293,28 +293,26 @@ class Stats {
 				$this->total = $this->numRes;
 				$this->graph_title = translate('Reservations per resource');
 			break;
-			case starttime :
+			case STARTTIME :
 				for ($i = $start; $i < $end; $i += $interval) {
-					//$i = sprintf('%.1f', $i);
-					$this->labels[$i] = Time::formatTime($i);
+					$this->labels[$i] = Time::formatTime($i, false);
 				}
 				$this->values =& $this->starttime;
 				$this->total = $this->numRes;
 				$this->graph_title = translate('Reservations per start time');
 			break;
-			case endtime :
+			case ENDTIME :
 				for ($i = $start + $interval; $i <= $end; $i += $interval) {
-					//$i = sprintf('%.1f', $i);
-					$this->labels[$i] = Time::formatTime($i);
+					$this->labels[$i] = Time::formatTime($i, false);
 				}
 				$this->values =& $this->endtime;
 				$this->total = $this->numRes;
 				$this->graph_title = translate('Reservations per end time');
 			break;
 		}
-		
+
 	}
-	
+
 	/**
 	* Prints the currently set stats
 	* @param none
@@ -324,10 +322,10 @@ class Stats {
 			$this->print_multiple_stats();
 		else
 			print_stats($this);
-		
+
 		unset($this->index);
 	}
-	
+
 	/**
 	* Creates an index and prints out seperate tables
 	*  for each index.
@@ -342,7 +340,7 @@ class Stats {
 			$this->graph_title = $this->dyn_title . ' ' . translate('[All Reservations]');
 			print_stats($this, 'all');			// Print all first
 		}
-		
+
 		foreach ($this->index as $k => $v) {
 			if ($this->dynlabel)		// Call dynamic label handler
 				eval('$this->' . $this->lbl_fnc . '($k);');
@@ -351,7 +349,7 @@ class Stats {
 			print_stats($this, $k);		// Print the graph
 		}
 	}
-	
+
 	/**
 	* Returns the total number of items we are working with
 	* @param none
@@ -360,7 +358,7 @@ class Stats {
 	function get_total() {
 		return $this->total;
 	}
-	
+
 	/**
 	* Get total number of users in the system
 	* @param none
@@ -369,7 +367,7 @@ class Stats {
 	function get_num_users() {
 		return $this->numUsers;
 	}
-	
+
 	/**
 	* Return number of resources in system
 	* @param none
@@ -377,8 +375,8 @@ class Stats {
 	*/
 	function get_num_rs() {
 		return $this->numRs;
-	}	
-	
+	}
+
 	/**
 	* Return number of reservations in system
 	* @param none
@@ -387,7 +385,7 @@ class Stats {
 	function get_num_res() {
 		return $this->numRes;
 	}
-	
+
 	/**
 	* Returns the calculated percentage with a given value
 	* Uses the total number of reservations if no total is given
@@ -397,10 +395,10 @@ class Stats {
 	function get_percent($val) {
 		if (empty($this->total))
 			return 0;
-						
+
 		return sprintf('%.02d', ($val/$this->total) * 100);
 	}
-	
+
 	/**
 	* Returns the total time of all the reservations
 	* @param none
@@ -409,7 +407,7 @@ class Stats {
 	function get_total_time() {
 		return $this->total_time;
 	}
-	
+
 	/**
 	* Returns the title of the graph
 	* @param none
@@ -418,7 +416,7 @@ class Stats {
 	function get_title() {
 		return $this->graph_title;
 	}
-	
+
 	/**
 	* Dynamic label handler for day of month labels
 	* @param mixed $index index for currently needed label
