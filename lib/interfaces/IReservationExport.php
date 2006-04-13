@@ -7,14 +7,115 @@ class IReservationExport
 	var $_reservations;
 	var $_formatter;
 
-	function setReservations($reservations) {
+	function toString() {
 		die ('Not implemented');
 	}
 
-	function toString() {
-
+	function htmlHeader() {
+		die ('Not implemented');
 	}
 
+}
+
+class ICalExport : IReservationExport
+{
+	function ICalExport(&$reservations, &$formatter) {
+		$this->_reservations = $reservations;
+		$this->_formatter = $formatter;
+	}
+
+	function _parse() {
+		$builder = new StringBuilder();
+
+		for ($i = 0; $i < count($this->_reservations); $i++) {
+			$builder->append( $this->_formatter->format($this->_reservations[$i]) );
+		}
+
+		return $builder->toString();
+	}
+
+	function toString() {
+		return $this->_parse();
+	}
+
+	function htmlHeader() {
+		return 'Content-Type: text/calendar';
+
+
+		/*
+		http://www.zend.com/zend/trick/tricks-august-2001.php?article=tricks-august-2001&kind=tr&id=1524&open=1&anc=0&view=1
+
+
+		  $string = "bla bla bla";  // this can be a variable string or a row from a sql query or something else...
+		   $ext = "txt";   // file extension
+		   $mime_type = (PMA_USR_BROWSER_AGENT == 'IE' || PMA_USR_BROWSER_AGENT == 'OPERA')
+		   ? 'application/octetstream'
+		   : 'application/octet-stream';
+		   header('Content-Type: ' . $mime_type);
+		   if (PMA_USR_BROWSER_AGENT == 'IE')
+		   {
+		      header('Content-Disposition: inline; filename="' . $filename . '.' . $ext . '"');
+		      header("Content-Transfer-Encoding: binary");
+		      header('Expires: 0');
+		      header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		      header('Pragma: public');
+		      print $string;
+		   } else {
+		      header('Content-Disposition: attachment; filename="' . $filename . '.' . $ext . '"');
+		      header("Content-Transfer-Encoding: binary");
+		      header('Expires: 0');
+		      header('Pragma: no-cache');
+		      print $string;
+   			}
+
+
+
+   			function downloadStream(&$stream, $filename, $mimetype)
+			{
+			  $status = 0;
+			  $size = strlen($stream);
+			  if ($size > 0) {
+			   if(isset($_SERVER['HTTP_USER_AGENT']) &&
+			       preg_match("/MSIE/", $_SERVER['HTTP_USER_AGENT']))
+			   {
+			     // IE Bug in download name workaround
+			     ini_set( 'zlib.output_compression','Off' );
+			   }
+			   // header ('Content-type: ' . mime_content_type($file)
+			   header ('Content-type: ' . $mimetype);
+			   header ('Content-Disposition: attachment; filename="' . $filename . '"');
+			   header ('Expires: '.gmdate("D, d M Y H:i:s", mktime(date("H")+2, date("i"), date("s"), date("m"), date("d"), date("Y"))).' GMT');
+			   header ('Accept-Ranges: bytes');
+			   // Use Cache-control: private not following:
+			   // header ('Cache-control: no-cache, must-revalidate');
+			   header("Cache-control: private");
+			   header ('Pragma: private');
+
+			   if(isset($_SERVER['HTTP_RANGE'])) {
+			     list($a, $range) = explode("=",$_SERVER['HTTP_RANGE']);
+			     //if yes, download missing part
+			     str_replace($range, "-", $range);
+			     $size2 = $size-1;
+			     $new_length = $size2-$range;
+			     header("HTTP/1.1 206 Partial Content");
+			     header("Content-Length: $new_length");
+			     header("Content-Range: bytes $range$size2/$size");
+			   }
+			   else
+			   {
+			     $size2=$size-1;
+			     header("Content-Range: bytes 0-$size2/$size");
+			     header("Content-Length: ".$size);
+			   }
+
+			   // Dump the content.
+			   echo $stream;
+			   $status = 1;
+			  }
+			  return($status);
+			}
+		*/
+	}
 }
 
 class IReservationFormatter
@@ -30,12 +131,35 @@ class IReservationFormatter
 	function format(&$reservation) {
 		die ('Not implemented');
 	}
+
+	function formatSettings() {
+		die ('Not implemented');
+	}
+
+	function formatOwner() {
+		die ('Not implemented');
+	}
+
+	function formatParticipants() {
+		die ('Not implemented');
+	}
+
+	function formatSummary() {
+		die ('Not implemented');
+	}
+
+	function formatReminder() {
+		die ('Not implemented');
+	}
+
+	function formatResources() {
+		die ('Not implemented');
+	}
 }
 
-class ICalReservationFormatter
+class ICalReservationFormatter extends IReservationFormatter
 {
 	var $_reservation;
-
 
 	function ICalReservationFormatter(&$reservation) {
 		$this->_reservation = $reservation;
@@ -45,6 +169,12 @@ class ICalReservationFormatter
 		$builder = new StringBuilder();
 
 		$builder->append("BEGIN:VEVENT\n");
+		$builder->append($this->formatSettings());
+		$builder->append($this->formatOwner());
+		$builder->append($this->formatParticipants());
+		$builder->append($this->formatSummary());
+		$builder->append($this->formatReminder());
+		$builder->append($this->formatResources());
 		$builder->append("END:VEVENT\n");
 
 		return $builder->toString();
