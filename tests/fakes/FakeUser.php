@@ -4,18 +4,18 @@ require_once(BASE_DIR . '/lib/User.class.php');
 
 class FakeUser extends User
 {
-	var $userid = 'fakeid';		// Properties
-	var $email = 'test@email.com';			//
-	var $fname;			//
-	var $lname;			//
-	var $phone;			//
-  	var $inst;			//
-  	var $position;		//
-	var $perms = null;	//
-	var $emails;		//
-	var $logon_name;	//
-	var $is_admin;		//
-	var $groups = null;	//
+	var $userid = 'fakeid';
+	var $email = 'test@email.com';
+	var $fname = 'fake';
+	var $lname = 'name';
+	var $phone;
+  	var $inst;
+  	var $position;
+	var $perms = null;
+	var $emails;
+	var $logon_name;
+	var $is_admin;
+	var $groups = null;
 	var $lang;
 
 	var $is_valid = false;

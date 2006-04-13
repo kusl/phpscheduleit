@@ -1,4 +1,6 @@
 <?php
+//@define('BASE_DIR', dirname(__FILE__) . '/..');
+require_once(dirname(__FILE__) . '/../helpers/StringBuilder.class.php');
 
 class IReservationExport
 {
@@ -9,7 +11,7 @@ class IReservationExport
 		die ('Not implemented');
 	}
 
-	function print() {
+	function toString() {
 
 	}
 
@@ -33,32 +35,48 @@ class IReservationFormatter
 class ICalReservationFormatter
 {
 	var $_reservation;
+	
 
-	function format(&$reservation) {
-		$res = <<<EOT
-			BEGIN:VEVENT
-			END:VEVENT
-		EOT;
+	function ICalReservationFormatter(&$reservation) {
+		$this->_reservation = $reservation;
 	}
 
-	function _formatReservation(&$reservation) {
+	function format() {
+		$builder = new StringBuilder();
+		
+		$builder->append("BEGIN:VEVENT\n");
+		$builder->append("END:VEVENT\n");
+		
+		return $builder->toString();
+	}
+
+	function formatSettings() {
+		$builder = new StringBuilder();
+		
+		$builder->append("UID:{$this->_reservation->id}\n");
+		$builder->append(sprintf("DTSTART:%sT%s%s00Z\n", date('Ymd', $this->_reservation->start_date), Time::getHours($this->_reservation->start), Time::getMinutes($this->_reservation->start)) );
+		$builder->append(sprintf("DTEND:%sT%s%s00Z\n", date('Ymd', $this->_reservation->end_date), Time::getHours($this->_reservation->end), Time::getMinutes($this->_reservation->end)) );
+		$builder->append(sprintf("CREATED:%sT%sZ\n", date('Ymd', $this->_reservation->created), date('His', $this->_reservation->created)));
+		$builder->append(sprintf("LAST-MODIFIED:%sT%sZ\n", date('Ymd', $this->_reservation->modified), date('His', $this->_reservation->modified)));
+		
+		return $builder->toString();
+	}
+	/*
+	function formatOwner() {
 
 	}
 
-	function _formatOwner(&$user) {
+	function formatParticipants() {
 
 	}
 
-	function _formatParticipants(&$participants) {
+	function formatReminder() {
 
 	}
 
-	function _formatReminder(&$reminder) {
+	function formatResources() {
 
 	}
-
-	function _formatResources($resources) {
-
-	}
+	*/
 }
 ?>

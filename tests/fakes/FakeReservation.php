@@ -1,5 +1,5 @@
 <?php
-@define('BASE_DIR', dirname(__FILE__) . '/..');
+@define('BASE_DIR', dirname(__FILE__) . '/../..');
 require_once(BASE_DIR . '/lib/Reservation.class.php');
 require_once('FakeResource.php');
 require_once('FakeUser.php');
@@ -41,8 +41,16 @@ class FakeReservation extends Reservation
 	
 	function FakeReservation() {
 		$this->start_date = mktime(0,0,0,3,22,2006);
+		$this->end_date = mktime(0,0,0,3,24,2006);
+		
 		$this->resource = new FakeResource();
-		$this->user = new FakeUser();		
+		$this->user = new FakeUser();
+		$this->users = array( array('email' => 'fake1@email.com'), array('email' => 'fake2@email.com') );
+		$this->resources = array();
+		$this->created = mktime(12, 23, 01, 03, 22, 2006);
+		$this->modified = mktime(12, 23, 01, 03, 23, 2006);
+		$this->summary = 'summary';
+		$this->reminder_time = 20;
 	}
 }
 ?>

@@ -171,12 +171,33 @@ class Time
 	* @return string version of hours and minutes
 	*/
 	function minutes_to_hours($minutes) {
-		if ($minutes == 0)
+		if ($minutes == 0) {
 			return '0 ' . translate('hours');
+		}
 
 		$hours = (intval($minutes / 60) != 0) ? intval($minutes / 60) . ' ' . translate('hours') : '';
 		$min = (intval($minutes % 60) != 0) ? intval($minutes % 60) . ' ' . translate('minutes') : '';
 		return ($hours . ' ' . $min);
+	}
+	
+	/**
+	* Gets the hour part from the number of minutes past midnight
+	* @param $minutes the number of minutes past midnight
+	* @return the string value of the hour part in 24 hour time
+	*/
+	function getHours($minutes) {
+		$hour = (intval($minutes / 60) != 0) ? intval($minutes / 60) : 0;		
+		return ($hour < 10) ? "0$hour" : $hour;
+	}
+	
+	/**
+	* Gets the hour part from the number of minutes past midnight
+	* @param $minutes the number of minutes past midnight
+	* @return the string value of the hour part in 24 hour time
+	*/
+	function getMinutes($minutes) {
+		$min = (intval($minutes % 60) != 0) ? intval($minutes % 60) : 0;
+		return ($min < 10) ? "0$min" : $min;
 	}
 }
 ?>
