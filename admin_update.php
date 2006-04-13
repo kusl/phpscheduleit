@@ -25,33 +25,33 @@ if (!validate_function($user, $fn)) {
 
 $db = new AdminDB();
 
-$tools = array ( 
+$tools = array (
 				'deleteUsers' => 'del_users',
-				
+
 				'addResource'	=> 'add_resource',
 				'editResource'	=> 'edit_resource',
 				'delResource'	=> 'del_resource',
 				'togResource'	=> 'tog_resource',
-				
+
 				'editPerms' =>	'edit_perms',
-				
+
 				'resetPass' => 'reset_password',
-				
+
 				'addSchedule'	=> 'add_schedule',
 				'editSchedule'	=> 'edit_schedule',
 				'delSchedule'	=> 'del_schedule',
 				'dfltSchedule'	=> 'set_default_schedule',
-				
+
 				'addAnnouncement'	=> 'add_announcement',
 				'editAnnouncement'	=> 'edit_announcement',
 				'delAnnouncement'	=> 'del_announcement',
-				
+
 				'adminToggle' => 'toggle_admin',
-				
+
 				'addAdditionalResource' => 'add_additional_resource',
 				'editAdditionalResource' => 'edit_additional_resource',
 				'delAddResource' => 'del_additional_resource',
-				
+
 				'addGroup' => 'add_group',
 				'editGroup' => 'edit_group',
 				'delGroup' => 'del_group'
@@ -63,8 +63,9 @@ if (!isset($tools[$fn]) && !isset($tools[$fn])) {		// Validate tool
 	die();
 }
 else {
-	if (isset($tools[$fn]))
+	if (isset($tools[$fn])) {
 		eval($tools[$fn] . '();');
+	}
 }
 
 
@@ -74,15 +75,15 @@ else {
 * @param string $function the requested function
 * @return if the user can access the update page
 */
-function validate_function($user, $function) {
+function validate_function(&$user, $function) {
 	if (Auth::isAdmin() || $user->is_admin()) {
 		return true;
 	}
-	
+
 	if ( $function == 'editPerms' || $function == 'resetPass' ) {
 		return $user->is_group_admin();
 	}
-	
+
 	return false;
 }
 
@@ -94,10 +95,10 @@ function validate_function($user, $function) {
 function add_schedule() {
 	global $db;
 	global $conf;
-	
+
 	$schedule = check_schedule_data(CmnFns::cleanPostVals());
 	$id = $db->add_schedule($schedule);
-	
+
 	CmnFns::write_log('Schedule added. ' . $schedule['scheduletitle'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -111,7 +112,7 @@ function edit_schedule() {
 
 	$schedule = check_schedule_data(CmnFns::cleanPostVals());
 	$db->edit_schedule($schedule);
-	
+
 	CmnFns::write_log('Schedule editied. ' . $schedule['scheduletitle'] . ' ' . $schedule['scheduleid'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -122,13 +123,13 @@ function edit_schedule() {
 */
 function del_schedule() {
 	global $db;
-	
+
 	$scheduleid = $_POST['scheduleid'];
-	
+
 	// Make sure machids are checked
 	if (empty($scheduleid))
 		print_fail(translate('You did not select any schedules to delete.'));
-	
+
 	$db->del_schedule($scheduleid);
 	CmnFns::write_log('Schedules deleted. ' . join(', ', $scheduleid), $_SESSION['sessionID']);
 	print_success();
@@ -136,7 +137,7 @@ function del_schedule() {
 
 function set_default_schedule() {
 	global $db;
-	
+
 	$db->set_default_schedule($_POST['scheduleid']);
 	CmnFns::write_log('Default schedule changed to ' . $_POST['scheduleid'], $_SESSION['sessionID']);
 	print_success();
@@ -149,10 +150,10 @@ function set_default_schedule() {
 function add_announcement() {
 	global $db;
 	global $conf;
-	
+
 	$announcement = check_announcement_data(CmnFns::cleanPostVals());
 	$id = $db->add_announcement($announcement);
-	
+
 	CmnFns::write_log('Announcement added. ' . $announcement['announcement'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -166,7 +167,7 @@ function edit_announcement() {
 
 	$announcement = check_announcement_data(CmnFns::cleanPostVals());
 	$db->edit_announcement($announcement);
-	
+
 	CmnFns::write_log('Announcement editied. ' . $announcement['announcement'] . ' ' . $announcement['announcementid'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -177,13 +178,13 @@ function edit_announcement() {
 */
 function del_announcement() {
 	global $db;
-	
+
 	$announcementid = $_POST['announcementid'];
-	
+
 	// Make sure machids are checked
 	if (empty($announcementid))
 		print_fail('You did not select any announcements to delete.');
-	
+
 	$db->del_announcement($announcementid);
 	CmnFns::write_log('Announcements deleted. ' . join(', ', $announcementid), $_SESSION['sessionID']);
 	print_success();
@@ -195,11 +196,11 @@ function del_announcement() {
 */
 function del_users() {
 	global $db;
-	
+
 	// Make sure memberids are checked
 	if (empty($_POST['memberid']))
 		print_fail(translate('You did not select any members to delete.') . '<br />');
-	
+
 	$db->del_users($_POST['memberid']);
 	CmnFns::write_log('Users deleted. ' . join(', ', $_POST['memberid']), $_SESSION['sessionID']);
 	print_success();
@@ -212,13 +213,13 @@ function del_users() {
 function add_resource() {
 	global $db;
 	global $conf;
-	
+
 	$resource = check_resource_data(CmnFns::cleanPostVals());
 	$id = $db->add_resource($resource);
-	
+
 	if (isset($resource['autoassign']))		// Automatically give all users permission to reserve this resource
 		$db->autoassign($id);
-	
+
 	CmnFns::write_log('Resource added. ' . $resource['name'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -229,13 +230,13 @@ function add_resource() {
 */
 function edit_resource() {
 	global $db;
-	
+
 	$resource = check_resource_data(CmnFns::cleanPostVals());
 	$db->edit_resource($resource);
-	
-	if (isset($resource['autoassign']))		// Automatically give all users permission to reserve this resource 
+
+	if (isset($resource['autoassign']))		// Automatically give all users permission to reserve this resource
 		$db->autoassign($resource['machid']);
-		
+
 	CmnFns::write_log('Resource editied. ' . $resource['name'] . ' ' . $resource['machid'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -246,11 +247,11 @@ function edit_resource() {
 */
 function del_resource() {
 	global $db;
-	
+
 	// Make sure machids are checked
 	if (empty($_POST['machid']))
 		print_fail(translate('You did not select any resources to delete.'));
-	
+
 	$db->del_resource($_POST['machid']);
 	CmnFns::write_log('Resources deleted. ' . join(', ', $_POST['machid']), $_SESSION['sessionID']);
 	print_success();
@@ -262,7 +263,7 @@ function del_resource() {
 */
 function tog_resource() {
 	global $db;
-	
+
 	$db->tog_resource($_GET['machid'], $_GET['status']);
 	CmnFns::write_log('Resource ' . $_GET['machid'] . ' toggled on/off.', $_SESSION['sessionID']);
 	print_success();
@@ -271,17 +272,17 @@ function tog_resource() {
 /**
 * Edit user permissions for what resources they can reserve
 * @param none
-*/ 
+*/
 function edit_perms() {
 	global $db;
-	
+
 	$db->clear_perms($_POST['memberid']);
 	$db->set_perms($_POST['memberid'], isset($_POST['machid']) ? $_POST['machid'] : array());
 	CmnFns::write_log('Permissions changed for user ' . $_POST['memberid'], $_SESSION['sessionID']);
-	
+
 	if (isset($_POST['notify_user']))
 		send_perms_email($_POST['memberid']);
-	
+
 	print_success();
 }
 
@@ -292,20 +293,20 @@ function edit_perms() {
 */
 function send_perms_email($memberid) {
 	global $conf;
-	
+
 	$adminemail = $conf['app']['adminEmail'];
 	$appTitle = $conf['app']['title'];
-	
+
 	$user = new User($memberid);
 	$perms = $user->get_perms();
-	
+
 	$subject = $appTitle . ' ' . translate('Permissions Updated');
 	$msg = $user->get_fname() . ",\r\n"
 			. translate('Your permissions have been updated', array($appTitle)) . "\r\n\r\n";
 	$msg .= (empty($perms)) ? translate('You now do not have permission to use any resources.') . "\r\n" : translate('You now have permission to use the following resources') . "\r\n";
 	foreach ($perms as $val)
 		$msg .= $val . "\r\n";	// Add each resource name
-	
+
 	$msg .= "\r\n" . translate('Please contact with any questions.', array($adminemail));
 
 	$mailer = new PHPMailer();
@@ -324,15 +325,15 @@ function send_perms_email($memberid) {
 function reset_password() {
 	global $db;
 	global $conf;
-	
+
 	$data = CmnFns::cleanPostVals();
-	
+
 	$password = empty( $data['password'] ) ? $conf['app']['defaultPassword'] : stripslashes($data['password']);
 	$db->reset_password($data['memberid'], $password);
-	
+
 	if (isset($data['notify_user']))
 		send_pwdreset_email($data['memberid'], $password);
-		
+
 	CmnFns::write_log('Password reset by admin for user ' . $_POST['memberid'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -344,16 +345,16 @@ function reset_password() {
 */
 function send_pwdreset_email($memberid, $password) {
 	global $conf;
-	
+
 	$adminemail = $conf['app']['adminEmail'];
 	$appTitle = $conf['app']['title'];
-	
+
 	$user = new User($memberid);
-	
+
 	$subject = $appTitle . ' ' . translate('Password Reset');
 	$msg = $user->get_fname() . ",\r\n"
 			. translate_email('password_reset', $appTitle, $password, $appTitle, CmnFns::getScriptURL(), $adminemail);
-	
+
 	$mailer = new PHPMailer();
 	$mailer->AddAddress($user->get_email(), $user->get_name());
 	$mailer->From = $adminemail;
@@ -369,13 +370,13 @@ function send_pwdreset_email($memberid, $password) {
 */
 function toggle_admin() {
 	global $db;
-	
+
 	$is_admin = 0;
-	
+
 	if (isset($_GET['status']) && $_GET['status'] == 1) { $is_admin = 1; }
-	
+
 	$db->change_admin_status($_GET['memberid'], $is_admin);
-	
+
 	CmnFns::write_log('Admin status chagned for user: ' . $_GET['memberid'], $_SESSION['sessionID']);
 	print_success();
 }
@@ -386,7 +387,7 @@ function toggle_admin() {
 */
 function add_additional_resource() {
 	global $db;
-	
+
 	$data = check_additional_resource_data(CmnFns::cleanPostVals());
 	$id = $db->add_additional_resource($data['name'], $data['number_available']);
 	print_success();
@@ -398,7 +399,7 @@ function add_additional_resource() {
 */
 function edit_additional_resource() {
 	global $db;
-	
+
 	$data = check_additional_resource_data(CmnFns::cleanPostVals());
 	$db->edit_additional_resource($data['resourceid'], $data['name'], $data['number_available']);
 	print_success();
@@ -410,11 +411,11 @@ function edit_additional_resource() {
 */
 function del_additional_resource() {
 	global $db;
-	
+
 	// Make sure machids are checked
 	if (empty($_POST['resourceid']))
 		print_fail(translate('You did not select anything to delete.'));
-	
+
 	$db->del_additional_resource($_POST['resourceid']);
 	print_success();
 }
@@ -425,7 +426,7 @@ function del_additional_resource() {
 */
 function add_group() {
 	global $db;
-	
+
 	$data = check_group_data(CmnFns::cleanPostVals());
 	$db->add_group($data['group_name']);
 	print_success();
@@ -437,7 +438,7 @@ function add_group() {
 */
 function edit_group() {
 	global $db;
-	
+
 	$data = check_group_data(CmnFns::cleanPostVals());
 	$db->edit_group($data['groupid'], $data['group_name'], $data['group_admin']);
 	print_success();
@@ -449,11 +450,11 @@ function edit_group() {
 */
 function del_group() {
 	global $db;
-	
+
 	// Make sure machids are checked
 	if (empty($_POST['groupid']))
 		print_fail(translate('You did not select anything to delete.'));
-	
+
 	$db->del_group($_POST['groupid']);
 	print_success();
 }
@@ -469,34 +470,34 @@ function del_group() {
 function check_schedule_data($data) {
 	$rs = array();
 	$msg = array();
-	
+
 	if (empty($data['scheduletitle']))
 		array_push($msg, translate('Schedule title is required.'));
 	else
 		$rs['scheduletitle'] = $data['scheduletitle'];
-	
+
 	if (intval($data['daystart']) >= intval($data['dayend']))
 		array_push($msg, translate('Invalid start/end times'));
 	else {
 		$rs['daystart']	= $data['daystart'];
 		$rs['dayend']	= $data['dayend'];
 	}
-	
+
 	$rs['weekdaystart']	= $data['weekdaystart'];
-	$rs['timespan'] = $data['timespan'];		
+	$rs['timespan'] = $data['timespan'];
 	$rs['ishidden'] = $data['ishidden'];
 	$rs['showsummary'] = $data['showsummary'];
-	
+
 	if (empty($data['viewdays']) || $data['viewdays'] <= 0)
 		array_push($msg, translate('View days is required'));
 	else
 		$rs['viewdays'] = intval($data['viewdays']);
-	
+
 	if ($data['dayoffset'] == '' || $data['dayoffset'] < 0)
 		array_push($msg, translate('Day offset is required'));
 	else
 		$rs['dayoffset'] = intval($data['dayoffset']);
-	
+
 	if (empty($data['adminemail']))
 		array_push($msg, translate('Admin email is required'));
 	else
@@ -504,10 +505,10 @@ function check_schedule_data($data) {
 
 	if (isset($data['scheduleid']))
 		$rs['scheduleid'] = $data['scheduleid'];
-	
+
 	if (!empty($msg))
 		print_fail($msg, $data);
-	
+
 	return $rs;
 }
 
@@ -520,30 +521,30 @@ function check_schedule_data($data) {
 function check_announcement_data($data) {
 	$rs = array();
 	$msg = array();
-	
+
 	if (empty($data['announcement']))
 		array_push($msg, translate('Announcement text is required.'));
 	else
 		$rs['announcement'] = $data['announcement'];
-	
+
 	if (empty($data['number']) || !is_numeric($data['number']) || $data['number'] < 0)
 		array_push($msg, translate('Announcement number is required.'));
 	else
 		$rs['number'] = intval($data['number']);
-	
+
 	if (isset($data['announcementid']))
 		$rs['announcementid'] = $data['announcementid'];
-	
+
 	$start_hour = $end_hour = $start_minute = $end_minute = 0;
 	if (isset($data['use_start_time'])) {
 		// Validate the starting hour
-		if (!isset($data['start_hour']) || empty($data['start_hour']) || intval($data['start_hour']) < 0 || (intval($data['start_hour']) == 12 && $data['start_ampm'] == 'am')) { 
+		if (!isset($data['start_hour']) || empty($data['start_hour']) || intval($data['start_hour']) < 0 || (intval($data['start_hour']) == 12 && $data['start_ampm'] == 'am')) {
 			$start_hour = 0;
 		}
 		else if (intval($data['start_hour']) > 23) {
 			$start_hour = 23;
 		}
-		else if (intval($data['start_hour']) < 12 && $data['start_ampm'] == 'pm') {			
+		else if (intval($data['start_hour']) < 12 && $data['start_ampm'] == 'pm') {
 			$start_hour = intval($data['start_hour']) + 12;
 		}
 		else {
@@ -551,7 +552,7 @@ function check_announcement_data($data) {
 		}
 		// Validate the starting minute
 		if (!isset($data['start_min']) || empty($data['start_min']) || intval($data['start_min']) < 0) {
-			$start_minute = 0;		
+			$start_minute = 0;
 		}
 		else if (intval($data['start_min']) > 59) {
 			$start_minute = 59;
@@ -559,16 +560,16 @@ function check_announcement_data($data) {
 		else {
 			$start_minute = intval($data['start_min']);
 		}
-	}	
+	}
 	if (isset($data['use_end_time'])) {
 		// Validate the ending hour
-		if (!isset($data['end_hour']) || empty($data['end_hour']) || intval($data['end_hour']) < 0 || (intval($data['end_hour']) == 12 && $data['end_ampm'] == 'am')) { 
+		if (!isset($data['end_hour']) || empty($data['end_hour']) || intval($data['end_hour']) < 0 || (intval($data['end_hour']) == 12 && $data['end_ampm'] == 'am')) {
 			$end_hour = 0;
 		}
 		else if (intval($data['end_hour']) > 23) {
 			$end_hour = 23;
 		}
-		else if (intval($data['end_hour']) < 12 && $data['end_ampm'] == 'pm') {			
+		else if (intval($data['end_hour']) < 12 && $data['end_ampm'] == 'pm') {
 			$end_hour = intval($data['end_hour']) + 12;
 		}
 		else {
@@ -585,7 +586,7 @@ function check_announcement_data($data) {
 			$end_minute = intval($data['end_min']);
 		}
 	}
-	
+
 	// Complete the starting/ending time values
 	if (isset($data['use_start_time'])) {
 		$start_date_vals = split(INTERNAL_DATE_SEPERATOR, $data['start_date']);
@@ -601,13 +602,13 @@ function check_announcement_data($data) {
 	else {
 		$ending_time = null;
 	}
-	
+
 	$rs['start_datetime'] = $starting_time;
 	$rs['end_datetime'] = $ending_time;
-	
+
 	if (!empty($msg))
 		print_fail($msg, $data);
-	
+
 	return $rs;
 }
 
@@ -620,7 +621,7 @@ function check_announcement_data($data) {
 function check_resource_data($data) {
 	$rs = array();
 	$msg = array();
-	
+
 	if (isset($data['allow_multi'])) {
 		$minres = 0;
 		$maxRes = 1440;
@@ -631,17 +632,17 @@ function check_resource_data($data) {
 	}
 	$data['minres']	= $minres;
 	$data['maxRes']	= $maxRes;
-	
+
 	if (empty($data['name']))
 		array_push($msg, translate('Resource name is required.'));
 	else
 		$rs['name'] = $data['name'];
-	
+
 	if (empty($data['scheduleid']))
 		array_push($msg, translate('Valid schedule must be selected'));
 	else
 		$rs['scheduleid'] = $data['scheduleid'];
-	
+
 	if (intval($minres) > intval($maxRes)) {
 		array_push($msg, translate('Minimum reservation length must be less than or equal to maximum reservation length.'));
 	}
@@ -649,33 +650,33 @@ function check_resource_data($data) {
 		$rs['minres']	= $minres;
 		$rs['maxRes']	= $maxRes;
 	}
-	
+
 	$rs['rphone']	= $data['rphone'];
 	$rs['location'] = $data['location'];
 	$rs['notes']	= $data['notes'];
-	
+
 	if (isset($data['autoassign']))
 		$rs['autoassign'] = $data['autoassign'];
-		
+
     if (isset($data['approval']))
 		$rs['approval'] = $data['approval'];
-	
+
 	if (isset($data['allow_multi']))
 		$rs['allow_multi'] = $data['allow_multi'];
 
 	if (isset($data['machid']))
 		$rs['machid'] = $data['machid'];
-	
+
 	if ($data['max_participants'] != '') {
 		$rs['max_participants'] = abs(intval($data['max_participants']));
 	}
 	else {
 		$rs['max_participants'] = null;
 	}
-	
+
 	if (!empty($msg))
 		print_fail($msg, $data);
-	
+
 	return $rs;
 }
 
@@ -688,26 +689,26 @@ function check_resource_data($data) {
 function check_additional_resource_data($data) {
 	$rs = array();
 	$msg = array();
-	
+
 	if (empty($data['name']))
 		array_push($msg, translate('Resource name is required.'));
 	else
 		$rs['name'] = $data['name'];
-	
+
 	if ($data['number_available'] != '') {
 		$rs['number_available'] = abs(intval($data['number_available']));
 	}
 	else {
 		$rs['number_available'] = -1;
 	}
-	
+
 	if (isset($data['resourceid']))
 		$rs['resourceid'] = $data['resourceid'];
-	
+
 	if (!empty($msg)) {
 		print_fail($msg, $data);
 	}
-	
+
 	return $rs;
 }
 
@@ -720,22 +721,22 @@ function check_additional_resource_data($data) {
 function check_group_data($data) {
 	$rs = array();
 	$msg = array();
-	
+
 	if (empty($data['group_name']))
 		array_push($msg, translate('Group name is required.'));
 	else
 		$rs['group_name'] = $data['group_name'];
-	
+
 	$rs['group_admin'] = $data['group_admin'];
-	
+
 	if (isset($data['groupid'])) {
 		$rs['groupid'] = $data['groupid'];
 	}
-	
+
 	if (!empty($msg)) {
 		print_fail($msg, $data);
 	}
-	
+
 	return $rs;
 }
 
@@ -759,7 +760,7 @@ function print_success() {
 				. translate('Or wait to be automatically redirected there.'));
 	$t->endMain();
 	$t->printHTMLFooter();
-	die;	
+	die;
 }
 
 
@@ -773,11 +774,11 @@ function print_success() {
 function print_fail($msg, $data = null) {
 	if (!is_array($msg))
 		$msg = array ($msg);
-		
+
 	if (!empty($data)) {
 		$_SESSION['post'] = $data;
 	}
-	
+
 	$t = new Template(translate('Update failed!'));
 	$t->printHTMLHeader();
 	$t->printWelcome();
