@@ -2,7 +2,7 @@
 include_once('PHPUnit.php');
 include_once('../lib/Timer.class.php');
 
-$tests = array('ICalFormatterTests.php');
+$tests = array('ReservationSearchTests.php');
 
 for ($i = 0; $i < count($tests); $i++) {
 	include_once($tests[$i]);

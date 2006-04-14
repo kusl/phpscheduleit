@@ -1,6 +1,6 @@
 <?php
-@define('BASE_DIR', dirname(__FILE__) . '/../..');
-require_once(BASE_DIR . '/lib/Reservation.class.php');
+$BASE_DIR = dirname(__FILE__) . '/../..';
+require_once($BASE_DIR . '/lib/Reservation.class.php');
 require_once('FakeResource.php');
 require_once('FakeUser.php');
 

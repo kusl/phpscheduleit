@@ -1,20 +1,17 @@
 <?php
 /**
-* Interface for exporting a formatted list of reservations
+* Abstract base class for creating a web page
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @version 04-13-06
-* @package Interfaces
+* @package phpScheduleIt.PageBase
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
 
-class IReservationExport
+class Page
 {
-	var $_reservations;
-	var $_formatter;
-
-	function toString() {
+	function printHeaders() {
 		die ('Not implemented');
 	}
 }

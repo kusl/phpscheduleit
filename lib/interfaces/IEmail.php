@@ -9,11 +9,8 @@
 * License: GPL, see LICENSE
 */
 
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/../..');
-require_once(BASE_DIR . '/lib/PHPMailer.class.php');
+$basedir = dirname(__FILE__) . '/../..';
+require_once($basedir . '/lib/PHPMailer.class.php');
 
 class IEmail 
 {

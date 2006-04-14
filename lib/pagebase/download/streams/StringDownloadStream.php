@@ -1,0 +1,32 @@
+<?php
+/**
+* Allows for forced file download as a file attachment
+* @author Nick Korbel <lqqkout13@users.sourceforge.net>
+* @version 04-13-06
+* @package phpScheduleIt.PageBase.Download.Stream
+*
+* Copyright (C) 2003 - 2006 phpScheduleIt
+* License: GPL, see LICENSE
+*/
+
+class StringDownloadStream extends IDownloadStream
+{
+	var $contents;
+	
+	/**
+	* Provides the functionality for downloading a string as a file from the browser
+	* @param string $string the string contents of the file to download
+	*/
+	function StringDownloadStream($string) {
+		$this->contents = $string;
+	}
+	
+	function getSize() {
+		return strlen($this->contents);
+	}
+	
+	function download() {
+	   print($this->contents);
+	}
+}
+?>

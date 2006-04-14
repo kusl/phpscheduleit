@@ -1,6 +1,6 @@
 <?php
 require_once('fakes/FakeReservation.php');
-require_once('../lib/interfaces/IReservationExport.php');
+require_once('../lib/ical/ICalReservationFormatter.php');
 require_once('PHPUnit.php');
 
 class ICalFormatterTests extends PHPUnit_TestCase
@@ -12,7 +12,8 @@ class ICalFormatterTests extends PHPUnit_TestCase
 	function testFormatSettingsIncludesProperAttributes() {
 		$fake = new FakeReservation();
 
-		$formatter = new ICalReservationFormatter($fake);
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
 		$settings = $formatter->formatSettings();
 
 		$id = $fake->id;
@@ -40,7 +41,8 @@ class ICalFormatterTests extends PHPUnit_TestCase
 	function testFormatOwnerIncludesProperAttributes() {
 		$fake = new FakeReservation();
 
-		$formatter = new ICalReservationFormatter($fake);
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
 		$owner = $formatter->formatOwner();
 
 		$this->assertEquals("ORGANIZER:MAILTO:test@email.com\n", $owner);
@@ -49,7 +51,8 @@ class ICalFormatterTests extends PHPUnit_TestCase
 	function testFormatParticipantsIncludesProperAttributes() {
 		$fake = new FakeReservation();
 
-		$formatter = new ICalReservationFormatter($fake);
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
 		$participants = $formatter->formatParticipants();
 
 		$this->assertEquals("ATTENDEE:MAILTO:fake1@email.com\nATTENDEE:MAILTO:fake2@email.com\n", $participants);
@@ -58,7 +61,8 @@ class ICalFormatterTests extends PHPUnit_TestCase
 	function testFormatSummaryIncludesProperAttributes() {
 		$fake = new FakeReservation();
 
-		$formatter = new ICalReservationFormatter($fake);
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
 		$summary = $formatter->formatSummary();
 
 		$this->assertEquals("SUMMARY:summary\n", $summary);
@@ -67,7 +71,8 @@ class ICalFormatterTests extends PHPUnit_TestCase
 	function testFormatReminderIncludesProperAttributes() {
 		$fake = new FakeReservation();
 
-		$formatter = new ICalReservationFormatter($fake);
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
 		$reminder = $formatter->formatReminder();
 
 		$this->assertEquals("BEGIN:VALARM\nACTION:EMAIL\nTRIGGER:-P20M\nEND:VALARM\n", $reminder);
@@ -76,7 +81,8 @@ class ICalFormatterTests extends PHPUnit_TestCase
 	function testFormatResourcesncludesProperAttributes() {
 		$fake = new FakeReservation();
 
-		$formatter = new ICalReservationFormatter($fake);
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
 		$resources = $formatter->formatResources();
 
 		$this->assertEquals("RESOURCES:resource1,projector1\nLOCATION:location1\n", $resources);
