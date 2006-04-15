@@ -1,6 +1,6 @@
 <?php
 require_once('fakes/FakeReservation.php');
-require_once('../lib/ical/ICalReservationFormatter.php');
+require_once('../lib/icalendar/ICalReservationFormatter.php');
 require_once('PHPUnit.php');
 
 class ICalFormatterTests extends PHPUnit_TestCase
@@ -75,7 +75,7 @@ class ICalFormatterTests extends PHPUnit_TestCase
 		$formatter->setReservation($fake);
 		$reminder = $formatter->formatReminder();
 
-		$this->assertEquals("BEGIN:VALARM\nACTION:EMAIL\nTRIGGER:-P20M\nEND:VALARM\n", $reminder);
+		$this->assertEquals("BEGIN:VALARM\nACTION:EMAIL\nTRIGGER:-P{$fake->reminder_minutes_prior}M\nEND:VALARM\n", $reminder);
 	}
 
 	function testFormatResourcesncludesProperAttributes() {

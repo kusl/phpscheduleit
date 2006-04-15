@@ -57,7 +57,7 @@ class ResDB extends DBEngine {
 			$this->err_msg = translate('That record could not be found.');
 			return false;
 		}
-
+			
 		return $this->cleanRow($result);
 	}
 	/**
@@ -361,69 +361,6 @@ class ResDB extends DBEngine {
 		$t->print_comment();
 		unset($values, $query);
 	}
-	
-	/*
-	function mod_participation($resids, $invited_users, $participating_users, $users_to_remove, $invites_to_remove, $accept_code) {
-		
-		// Next, insert all the invited and participating users back
-		// This is done this way because recurring reservations will throw an 'already exists'
-		// error when you try to insert a user who was removed from one reservation and is
-		// trying to be added back with the 'modify all' option checked
-		$t = new Timer("mod_participation()");
-		$t->start();
-		
-		$query = 'SELECT memberid FROM ' . $this->get_table('TBL_RESERVATION_USERS') . ' WHERE resid IN (' .  $this->make_del_list($resids) . ')';
-		$q = $this->db->prepare($query);
-		$result = $this->db->execute($q);
-		
-		while ($rs = $result->fetchRow()) {
-			$memberids[$rs['memberid']] = $rs['memberid'];
-		}
-		
-		$result->free();
-		
-		$values = array();
-		
-		foreach ($resids as $id) {
-			foreach ($invited_users as $user_id) {
-				if (!isset($memberids[$user_id])) { 
-					$values[] = array($id, $user_id, 0, 1, 0, 0, $accept_code);
-				}
-			}
-			foreach ($participating_users as $user_id) {
-				if (!isset($memberids[$user_id])) {
-					$values[] = array($id, $user_id, 0, 0, 0, 0, $accept_code);
-				} 
-			}
-		}
-		
-		if (count($values) > 0) {
-			$query = 'INSERT INTO ' . $this->get_table(TBL_RESERVATION_USERS) . ' VALUES(?,?,?,?,?,?,?)';
-			$q = $this->db->prepare($query);
-			$result = $this->db->executeMultiple($q, $values);
-			$this->check_for_error($result);
-		}
-		
-		// Delete invites
-		if (!empty($invites_to_remove)) {
-			$query = 'DELETE FROM ' . $this->get_table(TBL_RESERVATION_USERS) . ' WHERE memberid IN (' . $this->make_del_list($invites_to_remove) . ') AND resid IN (' .  $this->make_del_list($resids) . ') AND invited = 1';
-			$q = $this->db->prepare($query);
-			$result = $this->db->execute($q);
-			$this->check_for_error($result);
-		}
-		
-		// Delete participation
-		if (!empty($users_to_remove)) {
-			$query = 'DELETE FROM ' . $this->get_table(TBL_RESERVATION_USERS) . ' WHERE memberid IN (' . $this->make_del_list($users_to_remove) . ') AND resid IN (' .  $this->make_del_list($resids) . ') AND invited = 0';
-			$q = $this->db->prepare($query);
-			$result = $this->db->execute($q);
-			$this->check_for_error($result);
-		}
-		
-		$t->stop();
-		$t->print_comment();
-	}
-	*/
 
 	/**
 	* Deletes a reservation from the database

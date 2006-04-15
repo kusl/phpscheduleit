@@ -2,7 +2,7 @@
 /**
 * Exports a list of Reservations formatted for iCalendar
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-13-06
+* @version 04-15-06
 * @package phpScheduleIt.iCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -10,8 +10,8 @@
 */
 
 $basedir = dirname(__FILE__) . '/../..';
-require_once($basedir . '/interfaces/IReservationExport.php');
-require_once($basedir . '/helpers/StringBuilder.class.php');
+require_once($basedir . '/lib/interfaces/IReservationExport.php');
+require_once($basedir . '/lib/helpers/StringBuilder.class.php');
 
 class ICalExport extends IReservationExport
 {
@@ -22,9 +22,10 @@ class ICalExport extends IReservationExport
 
 	function _parse() {
 		$builder = new StringBuilder();
-
+		
 		for ($i = 0; $i < count($this->_reservations); $i++) {
-			$builder->append( $this->_formatter->format($this->_reservations[$i]) );
+			$this->_formatter->setReservation($this->_reservations[$i]);
+			$builder->append($this->_formatter->format());
 		}
 
 		return $builder->toString();

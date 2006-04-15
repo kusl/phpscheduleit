@@ -1,4 +1,13 @@
 <?php
+/**
+* Ability to search for group data
+* @author Nick Korbel <lqqkout13@users.sourceforge.net>
+* @version 04-14-06
+* @package phpScheduleIt
+*
+* Copyright (C) 2003 - 2006 phpScheduleIt
+* License: GPL, see LICENSE
+*/
 
 require_once('db/GroupDB.class.php');
 

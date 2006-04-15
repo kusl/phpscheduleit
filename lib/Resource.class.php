@@ -16,7 +16,6 @@
 
 include_once('db/ResourceDB.class.php');
 
-
 class Resource {
 	
 	var $machid = null;	

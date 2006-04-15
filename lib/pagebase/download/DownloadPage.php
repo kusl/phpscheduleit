@@ -9,7 +9,8 @@
 * License: GPL, see LICENSE
 */
 
-require_once('Page.php');
+$basedir = dirname(__FILE__) . '/../../../';
+require_once($basedir . '/lib/pagebase/Page.php');
 
 class DownloadPage extends Page
 {

@@ -83,7 +83,7 @@ class ICalReservationFormatter extends IReservationFormatter
 
 		$builder->append("BEGIN:VALARM\n");
 		$builder->append("ACTION:EMAIL\n");
-		$builder->append("TRIGGER:-P{$this->_reservation->reminder_time}M\n");
+		$builder->append("TRIGGER:-P{$this->_reservation->reminder_minutes_prior}M\n");
 		$builder->append("END:VALARM\n");
 
 		return $builder->toString();

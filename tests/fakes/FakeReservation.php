@@ -35,7 +35,7 @@ class FakeReservation extends Reservation
 	var $word		= null;
 	var $adminMode  = false;
 	var $is_participant = false;
-	var $reminder_time = 0;
+	var $reminder_minutes_prior = 0;
 
 	var $db;
 
@@ -50,7 +50,7 @@ class FakeReservation extends Reservation
 		$this->created = mktime(12, 23, 01, 03, 22, 2006);
 		$this->modified = mktime(12, 23, 01, 03, 23, 2006);
 		$this->summary = 'summary';
-		$this->reminder_time = 20;
+		$this->reminder_minutes_prior = 20;
 	}
 }
 ?>
