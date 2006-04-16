@@ -87,5 +87,65 @@ class ICalFormatterTests extends PHPUnit_TestCase
 
 		$this->assertEquals("RESOURCES:resource1,projector1\nLOCATION:location1\n", $resources);
 	}
+	
+	function testSummaryIsEmptyStringIfNoSummary() {
+		$fake = new FakeReservation();
+		$fake->summary = '';
+
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
+		$summary = $formatter->formatSummary();
+
+		$this->assertEquals("", $summary);
+		
+		$fake->summary = null;
+
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
+		$summary = $formatter->formatSummary();
+
+		$this->assertEquals("", $summary);
+	}
+	
+	function testAlarmIsEmptyStringIfNoReminder() {
+		$fake = new FakeReservation();
+		$fake->reminder_minutes_prior = 0;
+
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
+		$reminder = $formatter->formatReminder();
+
+		$this->assertEquals("", $reminder);
+	}
+	
+	function testModifiedIsEmptyIfNoModification() {
+		$fake = new FakeReservation();
+		$fake->modified = null;
+		
+		$formatter = new ICalReservationFormatter();
+		$formatter->setReservation($fake);
+		$settings = $formatter->formatSettings();
+
+		$id = $fake->id;
+
+		$dtstart = sprintf(
+			'%sT%s%s00Z',
+			date('Ymd', $fake->start_date),
+			Time::getHours($fake->start),
+			Time::getMinutes($fake->start)
+		);
+
+		$dtend = sprintf(
+			'%sT%s%s00Z',
+			date('Ymd', $fake->end_date),
+			Time::getHours($fake->end),
+			Time::getMinutes($fake->end)
+		);
+
+		$created = sprintf('%sT%sZ', date('Ymd', $fake->created), date('His', $fake->created));
+
+		$this->assertEquals("UID:$id\nDTSTART:$dtstart\nDTEND:$dtend\nCREATED:$created\n", $settings);
+	
+	}
 }
 ?>

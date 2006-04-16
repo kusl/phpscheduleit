@@ -2,7 +2,7 @@
 /**
 * 
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-15-06
+* @version 04-16-06
 * @package 
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -45,15 +45,16 @@ class ReservationSearchDb extends ResDB
 		$return = array();
 		$values = array($userid, $userid);
 		
-		$query = 'SELECT r.*, ru.memberid AS participantid, rem.reminder_time, rem.reminderid FROM ' . $this->get_table(TBL_RESERVATIONS) . ' r'
-			. ' LEFT JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' ru ON r.resid = ru.resid AND ru.memberid = ? AND ru.owner = 0 AND ru.invited = 0'
-			. ' LEFT JOIN ' . $this->get_table(TBL_REMINDERS) . ' rem ON r.resid = rem.resid AND rem.memberid = ?';
+		$query = 'SELECT r.*, rem.reminder_time, rem.reminderid FROM ' . $this->get_table(TBL_RESERVATIONS) . ' r'
+			. ' INNER JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' ru ON r.resid = ru.resid'
+			. ' LEFT JOIN ' . $this->get_table(TBL_REMINDERS) . ' rem ON r.resid = rem.resid AND rem.memberid = ?'
+			. ' WHERE ru.memberid = ? AND ru.invited = 0';
 		
 		if ($start_date != null && $end_date != null) {
 			$values[] = $start_date;
 			$values[] = $end_date;
 			
-			$query .= 'WHERE r.start_date >= ? AND r.end_date <=';
+			$query .= 'AND r.start_date >= ? AND r.end_date <=';
 		}
 		
 		$result = $this->db->query($query, $values);

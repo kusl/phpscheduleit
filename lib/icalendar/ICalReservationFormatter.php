@@ -2,7 +2,7 @@
 /**
 * Formats a Reservation for iCalendar
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-13-06
+* @version 04-16-06
 * @package phpScheduleIt.iCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -44,11 +44,39 @@ class ICalReservationFormatter extends IReservationFormatter
 		$builder = new StringBuilder();
 
 		$builder->append("UID:{$this->_reservation->id}\n");
-		$builder->append(sprintf("DTSTART:%sT%s%s00Z\n", date('Ymd', $this->_reservation->start_date), Time::getHours($this->_reservation->start), Time::getMinutes($this->_reservation->start)) );
-		$builder->append(sprintf("DTEND:%sT%s%s00Z\n", date('Ymd', $this->_reservation->end_date), Time::getHours($this->_reservation->end), Time::getMinutes($this->_reservation->end)) );
-		$builder->append(sprintf("CREATED:%sT%sZ\n", date('Ymd', $this->_reservation->created), date('His', $this->_reservation->created)));
-		$builder->append(sprintf("LAST-MODIFIED:%sT%sZ\n", date('Ymd', $this->_reservation->modified), date('His', $this->_reservation->modified)));
-
+		
+		$adjusted_start = Time::getAdjustedMinutes($this->_reservation->start);
+		$builder->append( sprintf(
+							"DTSTART:%sT%s%s00Z\n", 
+							date('Ymd', Time::getAdjustedDate($this->_reservation->start_date, $this->_reservation->start)), 
+							Time::getHours($adjusted_start), 
+							Time::getMinutes($adjusted_start)
+							) );
+		
+		$adjusted_end = Time::getAdjustedMinutes($this->_reservation->end);
+		$builder->append( sprintf(
+							"DTEND:%sT%s%s00Z\n", 
+							date('Ymd', Time::getAdjustedDate($this->_reservation->end_date, $this->_reservation->end)), 
+							Time::getHours($adjusted_end), 
+							Time::getMinutes($adjusted_end)
+							));
+		
+		$adjusted = Time::getAdjustedTime($this->_reservation->created);
+		$builder->append( sprintf(
+							"CREATED:%sT%sZ\n", 
+							date('Ymd', $adjusted), 
+							date('His', $adjusted)
+							));
+		
+		if (!empty($this->_reservation->modified)) {
+			$adjusted = Time::getAdjustedTime($this->_reservation->modified);
+			$builder->append( sprintf(
+								"LAST-MODIFIED:%sT%sZ\n", 
+								date('Ymd', $adjusted), 
+								date('His', $adjusted)
+								));
+		}
+		
 		return $builder->toString();
 	}
 
@@ -72,19 +100,23 @@ class ICalReservationFormatter extends IReservationFormatter
 
 	function formatSummary() {
 		$builder = new StringBuilder();
-
-		$builder->append("SUMMARY:{$this->_reservation->summary}\n");
+		
+		if (!empty($this->_reservation->summary)) {	
+			$builder->append("SUMMARY:{$this->_reservation->summary}\n");
+		}
 
 		return $builder->toString();
 	}
 
 	function formatReminder() {
 		$builder = new StringBuilder();
-
-		$builder->append("BEGIN:VALARM\n");
-		$builder->append("ACTION:EMAIL\n");
-		$builder->append("TRIGGER:-P{$this->_reservation->reminder_minutes_prior}M\n");
-		$builder->append("END:VALARM\n");
+		
+		if ($this->_reservation->reminder_minutes_prior != 0) {
+			$builder->append("BEGIN:VALARM\n");
+			$builder->append("ACTION:EMAIL\n");
+			$builder->append("TRIGGER:-P{$this->_reservation->reminder_minutes_prior}M\n");
+			$builder->append("END:VALARM\n");
+		}
 
 		return $builder->toString();
 	}

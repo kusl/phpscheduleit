@@ -26,10 +26,6 @@ print $export->toString();
 //$page->download();
 
 
-/// TODO: IF SUMMARY, ALERT IS EMPTY, DONT USE
-///       CONVERT TIMES TO LOCALTIME
-
-
 function getResults() {
 	$search = new ReservationSearch(new ReservationSearchDB());
 	
