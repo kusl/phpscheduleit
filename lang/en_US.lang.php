@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 04-01-06
+* @version 04-19-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -423,7 +423,7 @@ $strings['All Schedules'] = 'All Schedules';
 $strings['Hold CTRL to select multiple'] = 'Hold CTRL to select multiple';
 $strings['Users'] = 'Users:';
 $strings['All Users'] = 'All Users';
-$strings['Resources'] = 'Resources:';
+$strings['Resources'] = 'Resources';		// @since 1.2.0
 $strings['All Resources'] = 'All Resources';
 $strings['Starting Date'] = 'Starting Date:';
 $strings['Ending Date'] = 'Ending Date:';
@@ -676,7 +676,7 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'Additional Tools';
 $strings['Create User'] = 'Create User';
 $strings['Check Availability'] = 'Check Availability';
-$strings['Add Resources'] = 'Add Resources';
+//$strings['Add Resources'] = 'Add Resources';
 $strings['Manage Additional Resources'] = 'Manage Additional Resources';
 $strings['All Additional Resources'] = 'All Additional Resources';
 $strings['Number Available'] = 'Number Available';
@@ -702,6 +702,7 @@ $strings['before reservation'] = 'before reservation';
 $strings['My Participation'] = 'My Participation';
 $strings['My Past Participation'] = 'My Past Participation';
 $strings['Timezone'] = 'Timezone';
+$strings['Export'] = 'Export';
 // end since 1.2.0
 
 /***

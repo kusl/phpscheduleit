@@ -553,11 +553,15 @@ class Reservation {
 		}
 		else {
 			$this->user->get_id();
+			
 			$all_users = ($is_owner) ? $this->db->get_non_participating_users($this->id, Auth::getCurrentID()) : array();
 			print_users_panel($this, $all_users, $is_owner, $rs['max_participants'], true, $day_has_passed);
+			
 			$all_resources = ($is_owner) ? $this->db->get_non_participating_resources($this->id) : array();
 			print_additional_tab($this, $all_resources, $is_owner, true);		
 		}
+		
+		print_export_tab($this, ($this->user->get_id() == Auth::getCurrentID()) && $this->type != RES_TYPE_ADD);
 		
 		end_container();
 		print_buttons_and_hidden($this);

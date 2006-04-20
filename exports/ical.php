@@ -1,8 +1,8 @@
 <?php
 /**
-* 
+* Provides ability to generate an iCalendar export file for a reservation or reservations within a date range
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-15-06
+* @version 04-19-06
 * @package 
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -21,9 +21,8 @@ if (!Auth::is_logged_in()) {
 
 $export = new ICalExport(getResults());
 
-print $export->toString();
-//$page = new StreamDownload('calendar.ics', $export->toString());
-//$page->download();
+$page = new StreamDownload('phpScheduleIt.ics', $export->toString());
+$page->download();
 
 
 function getResults() {
@@ -32,19 +31,20 @@ function getResults() {
 	$results = array();
 	
 	if (isset($_GET['resid'])) {
-		$results = $search->getReservation($_GET['resid']);
+		$results = $search->getReservation(htmlspecialchars($_GET['resid']));
 	}	
 	else {
 		$start_date = null;
 		$end_date = null;
+		
 		$userid = Auth::getCurrentID();
 		
 		if ( isset($_GET['start_date']) ) {
-			$start_date = $_GET['start_date'];
+			$start_date = htmlspecialchars($_GET['start_date']);
 		}
 		 
 		if ( isset($_GET['end_date']) ) {
-			$end_date = $_GET['end_date'];
+			$end_date = htmlspecialchars($_GET['end_date']);
 		}
 		
 		$results = $search->getReservations($userid, $start_date, $end_date);

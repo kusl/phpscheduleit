@@ -2,12 +2,14 @@
 /**
 * Allows for forced file download as a file attachment
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-13-06
+* @version 04-19-06
 * @package phpScheduleIt.PageBase.Download.Stream
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
+
+require_once('IDownloadStream.class.php');
 
 class FileDownloadStream extends IDownloadStream
 {

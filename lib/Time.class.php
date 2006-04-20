@@ -9,6 +9,8 @@
 * License: GPL, see LICENSE
 */
 
+require_once('ReservationTime.class.php');
+
 class Time
 {
 	/**
@@ -111,9 +113,10 @@ class Time
 	* Gets the timezone adjusted timestamp for the current user
 	* @param int $timestamp the timestamp to adjust
 	* @param int $res_time the reservation starttime or endtime as minutes
+	* @param bool $to_server_time if this is going to server time or user time
 	* @return the timezone adjusted timestamp for the current user, or the server timestamp if user is not logged in
 	*/
-	function getAdjustedTime($timestamp, $res_time = null) {
+	function getAdjustedTime($timestamp, $res_time = null, $to_server_time = false) {
 		if (Time::getHourOffset() == 0) {
 			return $timestamp;
 		}
@@ -121,19 +124,38 @@ class Time
 		if (!empty($res_time)) {
 			$timestamp += ($res_time + (60 * $res_time));
 		}
-
-		return $timestamp + 3600 * Time::getHourOffset();
+		
+		return $timestamp + 3600 * Time::getHourOffset($to_server_time);
 	}
 
 	/**
 	* Gets the timezone adjusted datestamp for the current user with 0 hour/minute/second
 	* @param int $timestamp the timestamp to adjust
 	* @param int $res_time the reservation starttime or endtime as minutes
+	* @param bool $to_server_time if this is going to server time or user time
 	* @return the timezone adjusted timestamp for the current user, or the server timestamp if user is not logged in
 	*/
-	function getAdjustedDate($timestamp, $res_time = null) {
-		$tmp = getdate(Time::getAdjustedTime($timestamp, $res_time));
+	function getAdjustedDate($timestamp, $res_time = null, $to_server_time = false) {
+		$tmp = getdate(Time::getAdjustedTime($timestamp, $res_time, $to_server_time));
 		return mktime(0,0,0, $tmp['mon'], $tmp['mday'], $tmp['year']);
+	}
+	
+	/**
+	* Gets the user selected time and converts it into the server stored timezone
+	* @param int $datestamp the datestamp to adjust
+	* @param int $minutes number of minutes past midnight
+	*/
+	function getServerTime($datestamp, $minutes = null) {
+		if (Time::getHourOffset() == 0) {
+			$date = $datestamp;
+			$time = minutes;
+		}
+		else {
+			$date = Time::getAdjustedDate($datestamp, $minutes, true);
+			$time = Time::getAdjustedMinutes($minutes, true);
+		}
+		
+		return new ReservationTime($date, $time);
 	}
 
 	/**
@@ -150,17 +172,17 @@ class Time
 	* @param int $minutes minutes to adjust
 	* @return the timezone adjusted number of minutes past midnight
 	*/
-	function getAdjustedMinutes($minutes) {
-		return ($minutes + (60 * Time::getHourOffset() + 1440)) % 1440;
+	function getAdjustedMinutes($minutes, $to_server_time = false) {
+		return ($minutes + (60 * Time::getHourOffset($to_server_time) + 1440)) % 1440;
 	}
 
 	/**
 	* Gets the hourOffset for the currently logged in user or 0 if they are not logged in
 	* @return the hour offset between user timezone and server timezone
 	*/
-	function getHourOffset() {
+	function getHourOffset($to_server_time = false) {
 		if (isset($_SESSION['hourOffset'])) {
-			return $_SESSION['hourOffset'];
+			return $to_server_time ? $_SESSION['hourOffset'] * -1 : $_SESSION['hourOffset'];
 		}
 		return 0;
 	}

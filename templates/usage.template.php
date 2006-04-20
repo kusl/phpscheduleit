@@ -72,7 +72,7 @@ function showForm($min_max, $users, $machs, $schedules) {
             </td>
           </tr>
           <tr class="cellColor">
-            <td class="formNames"><?php echo translate('Resources')?></td>
+            <td class="formNames"><?php echo translate('Resources')?>:</td>
             <td>
               <select name="machid[]" size="4" multiple="multiple" class="textbox">
 			    <option selected="selected" value="all"><?php echo translate('All Resources')?></option>

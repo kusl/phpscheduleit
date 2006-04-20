@@ -572,37 +572,6 @@ function selectAllOptions(button) {
 			}
 		}
 	}
-	/*
-	selectbox = document.getElementById("all_users");
-	for (i = 0; i < selectbox.options.length; i++) {
-		selectbox.options[i].selected = true;
-	}
-	
-	selectbox = document.getElementById("invited_users");
-	for (i = 0; i < selectbox.options.length; i++) {
-		selectbox.options[i].selected = true;
-	}
-	
-	selectbox = document.getElementById("removed_users");
-	for (i = 0; i < selectbox.options.length; i++) {
-		selectbox.options[i].selected = true;
-	}
-	
-	selectbox = document.getElementById("participating_users");
-	for (i = 0; i < selectbox.options.length; i++) {
-		selectbox.options[i].selected = true;
-	}
-	
-	selectbox = document.getElementById("all_resources");
-	for (i = 0; i < selectbox.options.length; i++) {
-		selectbox.options[i].selected = true;
-	}
-	
-	selectbox = document.getElementById("selected_resources");
-	for (i = 0; i < selectbox.options.length; i++) {
-		selectbox.options[i].selected = true;
-	}
-	*/
 }
 
 function changeMyCal(m, d, y, view) {
@@ -674,63 +643,6 @@ function createXMLDoc() {
 	return xmlDoc;
 }
 
-/*
-function createRootForOrig() {
-	var xmlDoc = createXMLDoc();
-	var tmp = xmlDoc.createElement("root");
-	xmlDoc.appendChild(tmp);
-	return xmlDoc;
-}
-
-function addToOrigList(id, email, lname, fname) {
-	var elementName = id + "|" + email;
-	var tmp = xmlDoc.createElement("elementName");
-	
-	xmlDoc.childNodes[0].appendChild(tmp);
-}
-
-function populateAddRemove(invited, all_users, hdn_add_users, hdn_remove_users) {
-	
-	var invited_list = document.getElementById(invited);
-	var remove_list = document.getElementById(all_users);
-	var _add_users = document.getElementById(hdn_add_users);
-	var _rem_users = document.getElementById(hdn_remove_users);
-	
-	if (xmlDoc.childNodes[0].childNodes.length == 0) {
-		// No original participants, so just loop through and copy
-		for (i = 0; i < invited_list.options.length; i++) {
-			_add_users.options.add(getOption(invited_list.options[i]));
-			_add_users.options[0].selected = true;
-		}
-	}
-	else {
-		// Original participatns, so we need to check who was not there to begin with and who needs to be removed
-		
-		/// NEW PARTICIPANTS ///
-		for (i = 0; i < invited_list.options.length; i++) {
-			var elements = xmlDoc.childNodes[0].getElementsByTagName(invited_list.options[i].value);
-			// Participant was not in the original list, so add them to participation
-			if (elements.length == 0) {
-				_add_users.options.add(getOption(invited_list.options[i]));
-				_add_users.options[0].selected = true;
-			}
-		}
-		
-		/// REMOVE PARTICIPANTS ///
-		for (i = 0; i < remove_list.options.length; i++) {
-			var elements = xmlDoc.childNodes[0].getElementsByTagName(remove_list.options[i].value);
-			// Participant was in the original list, so add them to the remove list	
-			if (elements.length == 1) {
-				_rem_users.options.add(getOption(remove_list.options[i]));
-				_rem_users.options[0].selected = true;
-			}
-		}
-	}
-	
-	return true;
-}
-*/
-
 function getOption(opt) {
 	if (isIE()) {
 		return new Option(opt.text, opt.value);
@@ -748,4 +660,37 @@ function popGroupEdit(memberid) {
 function popGroupView(memberid) {
 	window.open("group_edit.php?edit=0&memberid=" + memberid, "groups","height=250,width=470,resizable=no,status=no,menubar=no");
 	void(0);
+}
+
+function showDivHere(element, e) {
+	myLayer = document.getElementById(element);
+	
+	w = parseInt(myLayer.style.width);
+	h = parseInt(myLayer.style.height);
+
+    if (e != '') {
+        if (isIE()) {
+            x = e.clientX;
+            y = e.clientY;
+            browserX = document.body.offsetWidth - 25;
+			x += document.body.scrollLeft;			// Adjust for scrolling on IE
+    		y += document.body.scrollTop;
+        }
+        if (!isIE()) {
+            x = e.pageX;
+            y = e.pageY;
+            browserX = window.innerWidth - 35;
+        }
+    }
+	
+	x1 = x;		// Move out of mouse pointer
+	y1 = y-50;
+	
+	// Keep box from going off screen
+	if (x1 + w > browserX)
+		x1 = browserX - w;
+    
+    myLayer.style.left = parseInt(x1)+ "px";
+    myLayer.style.top = parseInt(y1) + "px";
+	myLayer.style.visibility = "visible";	
 }

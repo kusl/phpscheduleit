@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-08-06
+* @version 04-19-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -40,7 +40,8 @@ function begin_container() {
 <tr class="tab-row">
 <td class="tab-selected" id="tab_basic" onclick="javacript: clickTab(this, 'pnl_basic');"><a href="javascript:void(0);"><?php echo translate('Basic')?></a></td>
 <td class="tab-not-selected" id="tab_advanced" onclick="javacript: clickTab(this, 'pnl_advanced');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Participants')?></a></td>
-<td class="tab-not-selected" id="tab_additional" onclick="javacript: clickTab(this, 'pnl_additional');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Add Resources')?></a></td>
+<td class="tab-not-selected" id="tab_additional" onclick="javacript: clickTab(this, 'pnl_additional');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Resources')?></a></td>
+<td class="tab-not-selected" id="tab_export" onclick="javacript: clickTab(this, 'pnl_export');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Export')?></a></td>
 <td class="tab-filler">&nbsp;</td>
 </tr>
 </table>
@@ -222,7 +223,6 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 						}
 					?>
 					</select>
-					</td>
 					<?php
 				}
 				else {
@@ -231,6 +231,7 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 						echo "<p>{$res->resources[$i]['name']}</p>";
 					}
 				}
+				echo '</td>';
 			}
 		  ?>
 			<!-- End content -->
@@ -238,6 +239,29 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
         </table>
       </div>
 	  <!-- End additional panel -->
+<?php
+}
+
+function print_export_tab($res, $visible) {
+?>
+	<!-- Begin export panel -->
+     <div id="pnl_export" style="display:none; width:100%; position: relative;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+		  	<!-- Begin content -->
+		  	<td>
+				Format:<br/>
+				<select name="format" id="format" class="textbox">
+					<option value="ical">iCalendar</option>
+					<option value="vcal">vCalendar</option>
+				</select>
+				<a href="javascript:export('format', 'resid');">export</a>
+			</td>
+			<!-- End content -->
+          </tr>
+        </table>
+      </div>
+	  <!-- End export panel -->
 <?php
 }
 
@@ -715,7 +739,7 @@ function print_create_modify($c, $m) {
      <td>
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
        <tr>
-       <td class="formNames"><?php echo translate('Created')?></td>
+       <td class="formNames" width="100"><?php echo translate('Created')?></td>
        <td class="cellColor"><?php echo Time::formatDateTime($c)?></td>
 	   </tr>
        <tr>
