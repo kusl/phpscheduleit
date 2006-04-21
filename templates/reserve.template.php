@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-19-06
+* @version 04-20-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -41,7 +41,6 @@ function begin_container() {
 <td class="tab-selected" id="tab_basic" onclick="javacript: clickTab(this, 'pnl_basic');"><a href="javascript:void(0);"><?php echo translate('Basic')?></a></td>
 <td class="tab-not-selected" id="tab_advanced" onclick="javacript: clickTab(this, 'pnl_advanced');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Participants')?></a></td>
 <td class="tab-not-selected" id="tab_additional" onclick="javacript: clickTab(this, 'pnl_additional');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Resources')?></a></td>
-<td class="tab-not-selected" id="tab_export" onclick="javacript: clickTab(this, 'pnl_export');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Export')?></a></td>
 <td class="tab-filler">&nbsp;</td>
 </tr>
 </table>
@@ -58,7 +57,7 @@ function begin_container() {
 * @param array $rs resource data array
 * @param bool $is_private if the privacy mode is on and we should hide personal data
 */
-function print_basic_panel($res, $rs, $is_private) {
+function print_basic_panel(&$res, &$rs, $is_private) {
 		global $conf;
 ?>
 	<!-- Begin basic panel -->
@@ -81,6 +80,10 @@ function print_basic_panel($res, $rs, $is_private) {
 	}
 
 	print_summary($res->summary, $res->type);
+	
+	if (($res->user->get_id() == Auth::getCurrentID()) && $res->type != RES_TYPE_ADD) {
+		print_export_button($res->id);
+	}
 
 	if (!empty($res->parentid) && ($res->type == RES_TYPE_MODIFY || $res->type == RES_TYPE_DELETE || $res->type == RES_TYPE_APPROVE)) {
 		print_recur_checkbox($res->parentid);
@@ -239,29 +242,6 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
         </table>
       </div>
 	  <!-- End additional panel -->
-<?php
-}
-
-function print_export_tab($res, $visible) {
-?>
-	<!-- Begin export panel -->
-     <div id="pnl_export" style="display:none; width:100%; position: relative;">
-        <table width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-		  	<!-- Begin content -->
-		  	<td>
-				Format:<br/>
-				<select name="format" id="format" class="textbox">
-					<option value="ical">iCalendar</option>
-					<option value="vcal">vCalendar</option>
-				</select>
-				<a href="javascript:export('format', 'resid');">export</a>
-			</td>
-			<!-- End content -->
-          </tr>
-        </table>
-      </div>
-	  <!-- End export panel -->
 <?php
 }
 
@@ -924,6 +904,22 @@ function print_summary($summary, $type) {
      </td>
     </tr>
    </table>
+<?php
+}
+
+function print_export_button($id) {
+?>
+	<input type="button" onclick="showHere(this, 'export_menu');" class="button" value="Export"></input>
+	<div id="export_menu" class="export_menu" onMouseOut="showHide('export_menu');">
+	<table width="100%" cellpadding="0" cellspacing="1" border="0">
+		<tr>
+			<td class="export_menu_out" onmouseover="switchStyle(this,'export_menu_over');" onmouseout="switchStyle(this, 'export_menu_out');" onclick="openExport('ical', '<?php echo $id ?>');">iCalendar</td>
+		</tr>
+		<tr>
+			<td class="export_menu_out" onmouseover="switchStyle(this,'export_menu_over');" onmouseout="switchStyle(this, 'export_menu_out');" onclick="">vCalendar</td>
+		</tr>
+	</table>
+	</div>
 <?php
 }
 

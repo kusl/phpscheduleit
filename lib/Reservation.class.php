@@ -561,8 +561,6 @@ class Reservation {
 			print_additional_tab($this, $all_resources, $is_owner, true);		
 		}
 		
-		print_export_tab($this, ($this->user->get_id() == Auth::getCurrentID()) && $this->type != RES_TYPE_ADD);
-		
 		end_container();
 		print_buttons_and_hidden($this);
 		end_reserve_form();

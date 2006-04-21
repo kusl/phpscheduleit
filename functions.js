@@ -662,35 +662,46 @@ function popGroupView(memberid) {
 	void(0);
 }
 
-function showDivHere(element, e) {
-	myLayer = document.getElementById(element);
+function showHere(parent, id) {
+	var element = document.getElementById(id);
+	var x;
+	var y;
 	
-	w = parseInt(myLayer.style.width);
-	h = parseInt(myLayer.style.height);
+	var offset = getOffset(parent);
+	x = offset[0];
+	y = offset[1];
+	element.style.left = parseInt(x) + "px";
+    element.style.top = parseInt(y - 34) + "px";
+	element.style.display = "inline";
+}
 
-    if (e != '') {
-        if (isIE()) {
-            x = e.clientX;
-            y = e.clientY;
-            browserX = document.body.offsetWidth - 25;
-			x += document.body.scrollLeft;			// Adjust for scrolling on IE
-    		y += document.body.scrollTop;
-        }
-        if (!isIE()) {
-            x = e.pageX;
-            y = e.pageY;
-            browserX = window.innerWidth - 35;
-        }
-    }
+function getOffset(obj) {
+	var curLeft = 0;
+	var curTop = 0;
 	
-	x1 = x;		// Move out of mouse pointer
-	y1 = y-50;
+	if (obj.offsetParent)
+	{
+		while (obj.offsetParent)
+		{
+			curLeft += obj.offsetLeft
+			curTop += obj.offsetTop;
+			obj = obj.offsetParent;
+		}
+	}
+	else if (obj.x) {
+		curLeft += obj.x;
+		curTop += obj.y;
+	}
 	
-	// Keep box from going off screen
-	if (x1 + w > browserX)
-		x1 = browserX - w;
-    
-    myLayer.style.left = parseInt(x1)+ "px";
-    myLayer.style.top = parseInt(y1) + "px";
-	myLayer.style.visibility = "visible";	
+	return new Array(curLeft, curTop);
+}
+
+function switchStyle(obj, style) {
+	obj.className = style;
+}
+
+function openExport(type, id) {
+	if (type == 'ical') {
+		window.open('exports/ical.php?id=' + id);
+	}
 }

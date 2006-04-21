@@ -450,6 +450,33 @@ div.mycal_div {
 	vertical-align:middle;
 	text-align:center;
 }
+
 .messageNegativeBG {
 	background-color: #751814;
+}
+
+.export_menu {
+	display:none;
+	position:absolute;
+	width:100px;
+	height:45px;
+}
+
+.export_menu table {
+	background-color:#999999;
+}
+
+.export_menu td.export_menu_out, td.export_menu_over {
+	padding-left: 10px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+.export_menu td.export_menu_out {
+	background-color: #EDEDED;
+	cursor: default;
+} 
+
+.export_menu td.export_menu_over {
+	background-color: #FFFFFF;
+	cursor:pointer;
 }
