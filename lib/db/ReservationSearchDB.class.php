@@ -2,7 +2,7 @@
 /**
 * DB functions to provide ability to search for reservations
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-19-06
+* @version 04-22-06
 * @package 
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -24,16 +24,18 @@ class ReservationSearchDb extends ResDB
 			. ' LEFT JOIN ' . $this->get_table(TBL_REMINDERS) . ' rem ON r.resid = rem.resid AND rem.memberid = ?'
 			. ' WHERE ru.memberid = ? AND ru.invited = 0';
 		
-		if ($start!= null && $end != null) {
+		if ($start != null) {
 			$values[] = $start->date;
 			$values[] = $start->date;
-			$values[] = $start->time;
+			$values[] = $start->time;			
+			$query .= ' AND (r.start_date >= ? OR (r.start_date = ? AND r.starttime >= ?))';						
+		}
+		
+		if ($end != null) {
 			$values[] = $end->date;
 			$values[] = $end->date;
 			$values[] = $end->time;
-			
-			$query .= ' AND (r.start_date >= ? OR (r.start_date = ? AND r.starttime >= ?))
-							 AND (r.end_date <= ? OR (r.end_date = ? AND r.endtime <= ?))';
+			$query .= ' AND (r.end_date <= ? OR (r.end_date = ? AND r.endtime <= ?))';
 		}
 		
 		$result = $this->db->query($query, $values);

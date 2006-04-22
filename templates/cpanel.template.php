@@ -91,13 +91,16 @@ function showReservationTable($res, $err) {
     <td class="tableBorder">
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr>
-          <td colspan="7" class="tableTitle">
-		    <a href="javascript: void(0);" onclick="showHideCpanelTable('reservation');">&#8250; <?php echo translate('My Reservations')?></a>
+          <td class="tableTitle" width="120">
+		  	<a href="javascript: void(0);" onclick="showHideCpanelTable('reservation');">&#8250; <?php echo translate('My Reservations')?></a></div>		
+		  </td>
+		  <td class="tableTitle" width="20">
+		  	<?php $link->doImageLink('export.php', 'img/export.gif', 'Export Reservations'); ?>
 		  </td>
           <td class="tableTitle">
             <div align="right">
               <?php $link->doLink('javascript: help(\'my_reservations\');', '?', '', 'color: #FFFFFF;', translate('Help') . ' - ' . translate('My Reservations')) ?>
-            </div>
+			</div>
           </td>
         </tr>
       </table>
@@ -149,7 +152,6 @@ function showReservationTable($res, $err) {
 					. '          <td>' . $link->getLink("javascript: reserve('d','','','" . $rs['resid'] . "');", translate('Delete'), '', '', translate('Delete this reservation')) . '</td>'
 					. "        </tr>\n";
 	}
-	unset($res);
 ?>
       </table>
 	  </div>

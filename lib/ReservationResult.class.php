@@ -2,7 +2,7 @@
 /**
 * A "dumb" object to hold values of a reservation search result
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-19-06
+* @version 04-22-06
 * @package 
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -34,8 +34,18 @@ class ReservationResult extends Reservation
 		$this->is_participant = $res->is_participant;
 		$this->reminderid = $res->reminderid;
 		$this->reminder_minutes_prior = $res->reminder_minutes_prior;
-		$this->users = $res->users;
-		$this->user = $res->user;
+		
+		$users = $res->users;
+		for ($i = 0; $i < count($users); $i++) {
+			if ($users[$i]['owner'] == 1) {
+				$this->user = new User($users[$i]['memberid']);
+				$this->user->db = null;
+				break;
+			}
+			else {
+				$this->users[] = $users[$i];
+			}
+		}
 		$this->user->db = null;
 		$this->resources = $res->resources;
 	}

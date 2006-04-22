@@ -34,13 +34,13 @@ class ReservationSearch
 		$start = null;
 		$end = null;
 		
-		if ($start_date != null && $end_date == null) {
-			$end_date = mktime(0,0,0);
-		}
-		
 		if ($start_date != null) {
 			$start = Time::getServerTime($start_date, 0);
+		}
+		if ($end_date != null) {
 			$end = Time::getServerTime($end_date, 0);
+			print_r($end);
+			die(date('m-d-y', $end->date));
 		}
 
 		return $this->data->getReservations($userid, $start, $end);

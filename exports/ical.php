@@ -2,7 +2,7 @@
 /**
 * Provides ability to generate an iCalendar export file for a reservation or reservations within a date range
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-19-06
+* @version 04-22-06
 * @package 
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -34,20 +34,24 @@ function getResults() {
 		$results = $search->getReservation(htmlspecialchars($_GET['resid']));
 	}	
 	else {
-		$start_date = null;
-		$end_date = null;
+		$start = null;
+		$end = null;
 		
 		$userid = Auth::getCurrentID();
 		
-		if ( isset($_GET['start_date']) ) {
+		if ( isset($_GET['start_date']) && !empty($_GET['start_date']) ) {
 			$start_date = htmlspecialchars($_GET['start_date']);
+			$dates = explode(INTERNAL_DATE_SEPERATOR, $start_date);
+			$start = mktime(0, 0, 0, $dates[0], $dates[1], $dates[2]);
 		}
 		 
-		if ( isset($_GET['end_date']) ) {
+		if ( isset($_GET['end_date']) && !empty($_GET['end_date']) ) {
 			$end_date = htmlspecialchars($_GET['end_date']);
+			$dates = explode(INTERNAL_DATE_SEPERATOR, $end_date);
+			$end = mktime(0, 0, 0, $dates[0], $dates[1], $dates[2]);
 		}
 		
-		$results = $search->getReservations($userid, $start_date, $end_date);
+		$results = $search->getReservations($userid, $start, $end);
 	}
 	
 	return $results;	

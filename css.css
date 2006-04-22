@@ -85,6 +85,8 @@ Data table head row settings
     color: #FFFFFF;
     padding-left: 10px; padding-top: 1px; padding-bottom: 1px; padding-right: 5px;
 	background-color: #36648B;
+	height: 20px;
+	vertical-align: middle;
 }
 
 .tableTitle a, .tableTitle a:hover {
@@ -479,4 +481,13 @@ div.mycal_div {
 .export_menu td.export_menu_over {
 	background-color: #FFFFFF;
 	cursor:pointer;
+}
+
+div.textbox, div.blur_textbox {
+	border: solid 1px #666666;
+	padding: 2px;"
+}
+
+div.blur_textbox {
+	background-color: #EEEEEE;
 }

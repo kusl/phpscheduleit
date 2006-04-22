@@ -700,8 +700,37 @@ function switchStyle(obj, style) {
 	obj.className = style;
 }
 
-function openExport(type, id) {
-	if (type == 'ical') {
-		window.open('exports/ical.php?id=' + id);
+function openExport(type, id, start, end) {
+	var qs = '';
+	
+	if (id.length > 0) {
+		qs += "resid=" + id;
 	}
+	else {
+		if (start.length > 0) {
+			qs += "start_date=" + start; 	
+		}
+		if (end.length >0) {
+			qs += "end_date=" + end;	
+		}
+	}
+	
+	if (type == "ical") {
+		window.open("exports/ical.php?" + qs);
+	}
+}
+
+function exportSearch() {
+	var _type = document.getElementById("type");
+	var type = _type[_type.selectedIndex].value;
+	
+	var start = document.getElementById("nostart").checked ? '' : document.getElementById("hdn_start_date").value;
+	var end = document.getElementById("noend").checked ? '' : document.getElementById("hdn_end_date").value;
+	alert(end);
+	
+	openExport(type, '', start, end);
+}
+
+function blurDiv(checkbox, divid) {
+	document.getElementById(divid).className = checkbox.checked ? "blur_textbox" : "textbox";
 }

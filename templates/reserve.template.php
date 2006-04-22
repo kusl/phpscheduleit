@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-20-06
+* @version 04-22-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -80,10 +80,6 @@ function print_basic_panel(&$res, &$rs, $is_private) {
 	}
 
 	print_summary($res->summary, $res->type);
-	
-	if (($res->user->get_id() == Auth::getCurrentID()) && $res->type != RES_TYPE_ADD) {
-		print_export_button($res->id);
-	}
 
 	if (!empty($res->parentid) && ($res->type == RES_TYPE_MODIFY || $res->type == RES_TYPE_DELETE || $res->type == RES_TYPE_APPROVE)) {
 		print_recur_checkbox($res->parentid);
@@ -468,6 +464,7 @@ function print_buttons_and_hidden(&$res) {
   <tr>
     <td>
 <?php
+	$is_owner = ($res->user->get_id() == Auth::getCurrentID());
 	$type = $res->get_type();
       // Print buttons depending on type
     echo '<p>';
@@ -494,6 +491,10 @@ function print_buttons_and_hidden(&$res) {
     // Print cancel button as long as type is not "view"
 	if ($type != RES_TYPE_VIEW) {
 		echo '&nbsp;&nbsp;&nbsp;<input type="button" name="close" value="' . translate('Cancel') . '" class="button" onclick="window.close();" />';
+	}
+	if ($type != RES_TYPE_ADD && $is_owner) {
+		echo '&nbsp;&nbsp;';
+		print_export_button($res->id);
 	}
 	
 	echo '</p>';
@@ -614,7 +615,6 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 		// Show reserved time or select boxes depending on type
         if ( ($type == RES_TYPE_ADD) || ($type == RES_TYPE_MODIFY) ) {
             // Start time select box
-
             echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($start_date) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '" onchange="checkCalendarDates();"/>';
 			if ($allow_multi) {
 				echo '<a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_start_date" alt="' . translate('Start') . '"/></a>'
@@ -909,7 +909,7 @@ function print_summary($summary, $type) {
 
 function print_export_button($id) {
 ?>
-	<input type="button" onclick="showHere(this, 'export_menu');" class="button" value="Export"></input>
+	<input type="button" onclick="showHere(this, 'export_menu');" class="button" value="<?php echo translate('Export')?>"></input>
 	<div id="export_menu" class="export_menu" onMouseOut="showHide('export_menu');">
 	<table width="100%" cellpadding="0" cellspacing="1" border="0">
 		<tr>
