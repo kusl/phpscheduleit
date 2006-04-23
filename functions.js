@@ -1,4 +1,4 @@
-// Last modified: 02-18-06
+// Last modified: 03-23-06
 
 function checkForm(f) {
 	var msg = "Please fix these errors:\n";
@@ -726,7 +726,6 @@ function exportSearch() {
 	
 	var start = document.getElementById("nostart").checked ? '' : document.getElementById("hdn_start_date").value;
 	var end = document.getElementById("noend").checked ? '' : document.getElementById("hdn_end_date").value;
-	alert(end);
 	
 	openExport(type, '', start, end);
 }

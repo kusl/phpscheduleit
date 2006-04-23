@@ -2,22 +2,27 @@
 
 function print_export_table() {
 ?>
-
-<p style="font-weight:bold;">Select reservations to export</p>
+<table width="100%" border="0">
+	<tr>
+		<td class="tableTitle">
+		Select reservations to export
+		</td>
+	</tr>
+</table>
 <table style="background-color:#CCCCCC;" cellspacing="1">
 	<tr class="cellColor">
-		<td width="50" class="formNames" style="font-weight:bold;">Starting</td>
-		<td>	
+		<td width="70" class="formNames" style="font-weight:bold;">Starting</td>
+		<td width="120">	
 			<div id="div_start_date" style="float:left;" class="textbox"><?php echo Time::formatDate(mktime()) ?></div><a href="javascript:void(0);"><img src="img/calendar.gif" style="padding-left:10px;" border="0" id="img_start_date" alt="' <?php echo translate('Start'); ?>"/></a>
 			<input type="hidden" id="hdn_start_date" name="start_date" value="<?php echo date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', mktime()); ?>"/>	
 		</td>
-		<td class="formNames" style="font-weight:bold;">Ending</td>
-		<td>	
+		<td width="70" class="formNames" style="font-weight:bold;">Ending</td>
+		<td width="120">	
 			<div id="div_end_date" style="float:left;" class="textbox"><?php echo Time::formatDate(mktime()) ?></div><a href="javascript:void(0);"><img src="img/calendar.gif" style="padding-left:10px;" border="0" id="img_end_date" alt="' <?php echo translate('End'); ?>" /></a>
 			<input type="hidden" id="hdn_end_date" name="end_date" value="<?php echo date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', mktime()); ?>" />	
 		</td>
-		<td class="formNames" style="font-weight:bold;">Export Format</td>
-		<td>
+		<td width="100" class="formNames" style="font-weight:bold;">Export Format</td>
+		<td width="120">
 			<select name="type" id="type" class="textbox">
 				<option value="ical">iCalendar</option>
 				<option value="vcal">vCalendar</option>

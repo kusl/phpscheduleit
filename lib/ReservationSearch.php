@@ -39,8 +39,6 @@ class ReservationSearch
 		}
 		if ($end_date != null) {
 			$end = Time::getServerTime($end_date, 0);
-			print_r($end);
-			die(date('m-d-y', $end->date));
 		}
 
 		return $this->data->getReservations($userid, $start, $end);
