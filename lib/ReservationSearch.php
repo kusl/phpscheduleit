@@ -3,7 +3,7 @@
 * Ability to search for reservations
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @version 04-19-06
-* @package 
+* @package phpScheduleIt.ReservationSearch
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE

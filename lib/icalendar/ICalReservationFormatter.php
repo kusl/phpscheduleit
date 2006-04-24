@@ -2,7 +2,7 @@
 /**
 * Formats a Reservation for iCalendar
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-16-06
+* @version 04-24-06
 * @package phpScheduleIt.iCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -101,9 +101,8 @@ class ICalReservationFormatter extends IReservationFormatter
 	function formatSummary() {
 		$builder = new StringBuilder();
 		
-		if (!empty($this->_reservation->summary)) {	
-			$builder->append("SUMMARY:{$this->_reservation->summary}\n");
-		}
+		$summary = (!empty($this->_reservation->summary)) ? $this->_reservation->summary : $this->_reservation->resource->properties['name'];		
+		$builder->append("SUMMARY:$summary\n");
 
 		return $builder->toString();
 	}

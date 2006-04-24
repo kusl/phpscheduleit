@@ -2,7 +2,7 @@
 /**
 * Exports a list of Reservations formatted for iCalendar
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-19-06
+* @version 04-24-06
 * @package phpScheduleIt.iCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -41,7 +41,8 @@ class ICalExport extends IReservationExport
 	}
 	
 	function getHeader() {
-		return "BEGIN:VCALENDAR\nVERSION:2.0\n";
+		global $conf;
+		return "BEGIN:VCALENDAR\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\nPRODID:-//phpScheduleIt//{$conf['app']['version']}//EN\nX-WR-CALNAME;VALUE=TEXT:phpScheduleIt\nVERSION:2.0\n";
 	}
 	
 	function getFooter() {

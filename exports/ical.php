@@ -2,8 +2,8 @@
 /**
 * Provides ability to generate an iCalendar export file for a reservation or reservations within a date range
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-22-06
-* @package 
+* @version 04-24-06
+* @package phpScheduleIt.iCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE

@@ -1,27 +1,36 @@
 <?php
+/**
+* Provides ability to generate an iCalendar export file for a reservation or reservations within a date range
+* @author Nick Korbel <lqqkout13@users.sourceforge.net>
+* @version 04-24-06
+* @package phpScheduleIt.iCalendar
+*
+* Copyright (C) 2003 - 2006 phpScheduleIt
+* License: GPL, see LICENSE
+*/
 
 function print_export_table() {
 ?>
-<table width="100%" border="0">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom:10px;">
 	<tr>
 		<td class="tableTitle">
-		Select reservations to export
+		<?php echo translate('Select reservations to export') ?>
 		</td>
 	</tr>
 </table>
 <table style="background-color:#CCCCCC;" cellspacing="1">
 	<tr class="cellColor">
-		<td width="70" class="formNames" style="font-weight:bold;">Starting</td>
+		<td width="70" class="formNames" style="font-weight:bold;"><?php echo translate('Starting Date') ?></td>
 		<td width="120">	
 			<div id="div_start_date" style="float:left;" class="textbox"><?php echo Time::formatDate(mktime()) ?></div><a href="javascript:void(0);"><img src="img/calendar.gif" style="padding-left:10px;" border="0" id="img_start_date" alt="' <?php echo translate('Start'); ?>"/></a>
 			<input type="hidden" id="hdn_start_date" name="start_date" value="<?php echo date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', mktime()); ?>"/>	
 		</td>
-		<td width="70" class="formNames" style="font-weight:bold;">Ending</td>
+		<td width="70" class="formNames" style="font-weight:bold;"><?php echo translate('Ending Date') ?></td>
 		<td width="120">	
 			<div id="div_end_date" style="float:left;" class="textbox"><?php echo Time::formatDate(mktime()) ?></div><a href="javascript:void(0);"><img src="img/calendar.gif" style="padding-left:10px;" border="0" id="img_end_date" alt="' <?php echo translate('End'); ?>" /></a>
 			<input type="hidden" id="hdn_end_date" name="end_date" value="<?php echo date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', mktime()); ?>" />	
 		</td>
-		<td width="100" class="formNames" style="font-weight:bold;">Export Format</td>
+		<td width="70" class="formNames" style="font-weight:bold;"><?php echo translate('Export Format') ?>:</td>
 		<td width="120">
 			<select name="type" id="type" class="textbox">
 				<option value="ical">iCalendar</option>
@@ -30,8 +39,8 @@ function print_export_table() {
 		</td>
 	</tr>
 	<tr class="cellColor">
-		<td colspan="2">None <input type="checkbox" name="nostart" id="nostart" value="nostart" onclick="blurDiv(this, 'div_start_date');" /></td>
-		<td colspan="2">None <input type="checkbox" name="noend" id="noend" value="noend" onclick="blurDiv(this, 'div_end_date');" /></td>
+		<td colspan="2"><?php echo translate('None')?> <input type="checkbox" name="nostart" id="nostart" value="nostart" onclick="blurDiv(this, 'div_start_date');" /></td>
+		<td colspan="2"><?php echo translate('None')?> <input type="checkbox" name="noend" id="noend" value="noend" onclick="blurDiv(this, 'div_end_date');" /></td>
 		<td colspan="2">&nbsp;</td>
 	</tr>
 	<tr class="cellColor">

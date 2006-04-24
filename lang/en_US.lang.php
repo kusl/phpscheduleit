@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 04-19-06
+* @version 04-24-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -703,6 +703,8 @@ $strings['My Participation'] = 'My Participation';
 $strings['My Past Participation'] = 'My Past Participation';
 $strings['Timezone'] = 'Timezone';
 $strings['Export'] = 'Export';
+$strings['Select reservations to export'] = 'Select reservations to export';
+$strings['Export Format'] = 'Export Format';
 // end since 1.2.0
 
 /***
