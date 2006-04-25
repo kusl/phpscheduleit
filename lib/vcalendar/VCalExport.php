@@ -1,23 +1,22 @@
 <?php
 /**
-* Exports a list of Reservations formatted for iCalendar
+* Exports a list of Reservations formatted for vCalendar
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @version 04-24-06
-* @package phpScheduleIt.iCalendar
+* @package phpScheduleIt.vCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
 
 $basedir = dirname(__FILE__) . '/../..';
-require_once($basedir . '/lib/interfaces/IReservationExport.php');
-require_once($basedir . '/lib/helpers/StringBuilder.class.php');
+require_once($basedir . '/lib/icalendar/ICalExport');
 
-class ICalExport extends IReservationExport
+class VCalExport extends ICalExport
 {
-	function ICalExport(&$reservations) {
+	function VCalExport(&$reservations) {
 		$this->_reservations = $reservations;
-		$this->_formatter = new ICalReservationFormatter();
+		$this->_formatter = new VCalReservationFormatter();
 	}
 
 	function _parse() {
@@ -42,11 +41,7 @@ class ICalExport extends IReservationExport
 	
 	function getHeader() {
 		global $conf;
-		return "BEGIN:VCALENDAR\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nPRODID:-//phpScheduleIt//{$conf['app']['version']}//EN\r\nX-WR-CALNAME;VALUE=TEXT:phpScheduleIt\r\nVERSION:2.0\r\n";
-	}
-	
-	function getFooter() {
-		return "END:VCALENDAR";
+		return "BEGIN:VCALENDAR\r\n\r\nPRODID:-//phpScheduleIt//{$conf['app']['version']}//EN\r\nVERSION:1.0\r\n";
 	}
 }
 ?>
