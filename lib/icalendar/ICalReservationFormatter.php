@@ -10,21 +10,21 @@
 */
 
 $basedir = dirname(__FILE__) . '/../..';
-require_once($basedir . '/interfaces/IReservationFormatter.php');
-require_once($basedir . '/helpers/StringBuilder.class.php');
+require_once($basedir . '/lib/interfaces/IReservationFormatter.php');
+require_once($basedir . '/lib/helpers/StringBuilder.class.php');
 
 class ICalReservationFormatter extends IReservationFormatter
 {
 	var $_reservation;
 
 	function ICalReservationFormatter() {
-		
+
 	}
-	
+
 	function setReservation(&$reservation) {
 		$this->_reservation = $reservation;
 	}
-	
+
 	function format() {
 		$builder = new StringBuilder();
 
@@ -44,39 +44,39 @@ class ICalReservationFormatter extends IReservationFormatter
 		$builder = new StringBuilder();
 
 		$builder->append("UID:{$this->_reservation->id}\r\n");
-		
+
 		$adjusted_start = Time::getAdjustedMinutes($this->_reservation->start);
 		$builder->append( sprintf(
-							"DTSTART:%sT%s%s00Z\r\n", 
-							date('Ymd', Time::getAdjustedDate($this->_reservation->start_date, $this->_reservation->start)), 
-							Time::getHours($adjusted_start), 
+							"DTSTART:%sT%s%s00Z\r\n",
+							date('Ymd', Time::getAdjustedDate($this->_reservation->start_date, $this->_reservation->start)),
+							Time::getHours($adjusted_start),
 							Time::getMinutes($adjusted_start)
 							) );
-		
+
 		$adjusted_end = Time::getAdjustedMinutes($this->_reservation->end);
 		$builder->append( sprintf(
-							"DTEND:%sT%s%s00Z\r\n", 
-							date('Ymd', Time::getAdjustedDate($this->_reservation->end_date, $this->_reservation->end)), 
-							Time::getHours($adjusted_end), 
+							"DTEND:%sT%s%s00Z\r\n",
+							date('Ymd', Time::getAdjustedDate($this->_reservation->end_date, $this->_reservation->end)),
+							Time::getHours($adjusted_end),
 							Time::getMinutes($adjusted_end)
 							));
-		
+
 		$adjusted = Time::getAdjustedTime($this->_reservation->created);
 		$builder->append( sprintf(
-							"CREATED:%sT%sZ\r\n", 
-							date('Ymd', $adjusted), 
+							"CREATED:%sT%sZ\r\n",
+							date('Ymd', $adjusted),
 							date('His', $adjusted)
 							));
-		
+
 		if (!empty($this->_reservation->modified)) {
 			$adjusted = Time::getAdjustedTime($this->_reservation->modified);
 			$builder->append( sprintf(
-								"LAST-MODIFIED:%sT%sZ\r\n", 
-								date('Ymd', $adjusted), 
+								"LAST-MODIFIED:%sT%sZ\r\n",
+								date('Ymd', $adjusted),
 								date('His', $adjusted)
 								));
 		}
-		
+
 		return $builder->toString();
 	}
 
@@ -100,8 +100,8 @@ class ICalReservationFormatter extends IReservationFormatter
 
 	function formatSummary() {
 		$builder = new StringBuilder();
-		
-		$summary = (!empty($this->_reservation->summary)) ? $this->_reservation->summary : $this->_reservation->resource->properties['name'];		
+
+		$summary = (!empty($this->_reservation->summary)) ? $this->_reservation->summary : $this->_reservation->resource->properties['name'];
 		$builder->append("SUMMARY:$summary\r\n");
 
 		return $builder->toString();
@@ -109,7 +109,7 @@ class ICalReservationFormatter extends IReservationFormatter
 
 	function formatReminder() {
 		$builder = new StringBuilder();
-		
+
 		if ($this->_reservation->reminder_minutes_prior != 0) {
 			$builder->append("BEGIN:VALARM\r\n");
 			$builder->append("ACTION:EMAIL\r\n");

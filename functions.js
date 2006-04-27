@@ -158,7 +158,7 @@ function checkBoxes() {
 }
 
 function viewUser(user) {
-	window.open("userinfo.php?user="+user,"UserInfo","width=400,height=400,scrollbars,resizable=no,status=no");     
+	window.open("userInfo.php?user="+user,"UserInfo","width=400,height=400,scrollbars,resizable=no,status=no");     
 		void(0);    
 }
 
