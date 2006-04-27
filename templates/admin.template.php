@@ -44,8 +44,8 @@ function print_manage_schedules(&$pager, $schedules, $err) {
           <td>" . translate('Schedule Title') . "</td>
           <td width=\"8%\">" . translate('Start Time') . "</td>
           <td width=\"8%\">" . translate('End Time') . "</td>
-          <td width=\"9%\">" . translate('Time Span') . "</td>  
-		  <td width=\"11%\">" . translate('Weekday Start') . "</td>    
+          <td width=\"9%\">" . translate('Time Span') . "</td>
+		  <td width=\"11%\">" . translate('Weekday Start') . "</td>
           <td width=\"20%\">" . translate('Admin Email') . "</td>
 		  <td width=\"7%\">" . translate('Default') . "</td>
 		  <td width=\"5%\">" . translate('Edit') . "</td>
@@ -55,7 +55,7 @@ function print_manage_schedules(&$pager, $schedules, $err) {
 
 	if (!$schedules)
 		echo '<tr class="cellColor0"><td colspan="9" style="text-align: center;">' . $err . '</td></tr>' . "\n";
-		
+
     for ($i = 0; is_array($schedules) && $i < count($schedules); $i++) {
 		$cur = $schedules[$i];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" id=\"tr$i\">\n"
@@ -70,7 +70,7 @@ function print_manage_schedules(&$pager, $schedules, $err) {
             . "<td><input type=\"checkbox\" name=\"scheduleid[]\" value=\"" . $cur['scheduleid'] . "\" onclick=\"adminRowClick(this,'tr$i',$i);\"/></td>\n"
             . "</tr>\n";
     }
-	
+
     // Close table
     ?>
       </table>
@@ -78,7 +78,7 @@ function print_manage_schedules(&$pager, $schedules, $err) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
 	echo submit_button(translate('Delete'), 'scheduleid') . hidden_fn('delSchedule');
 ?>
 </form>
@@ -86,7 +86,7 @@ function print_manage_schedules(&$pager, $schedules, $err) {
 <input type="hidden" name="scheduleid" value=""/>
 <input type="hidden" name="fn" value="dfltSchedule"/>
 </form>
-<?php 
+<?php
 }
 
 
@@ -111,42 +111,42 @@ function print_schedule_edit($rs, $edit, &$pager) {
         </tr>
 		<tr>
 		  <td class="formNames"><?php echo translate('Start Time')?></td>
-		  <td class="cellColor"><select name="daystart" class="textbox">		  
-		  <?php 
+		  <td class="cellColor"><select name="daystart" class="textbox">
+		  <?php
 		  for ($time = 0; $time <= 1410; $time += 30)
 		  	echo '<option value="' . $time . '"' . ((isset($rs['daystart']) && ($rs['daystart'] == $time)) ? ' selected="selected"' : '') . '>' . Time::formatTime($time) . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
 		</tr>
 		<tr>
 		  <td class="formNames"><?php echo translate('End Time')?></td>
-		  <td class="cellColor"><select name="dayend" class="textbox">		  
-		  <?php 
+		  <td class="cellColor"><select name="dayend" class="textbox">
+		  <?php
 		  for ($time = 30; $time <= 1440; $time += 30)
 		  	echo '<option value="' . $time . '"' . ((isset($rs['dayend']) && ($rs['dayend'] == $time)) ? (' selected="selected"') : (($time==1440 && !isset($rs['dayend'])) ? ' selected="selected"' : '')) . '>' . Time::formatTime($time) . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
 		</tr>
         <tr>
           <td class="formNames"><?php echo translate('Time Span')?></td>
-          <td class="cellColor"><select name="timespan" class="textbox">		  
-		  <?php 
+          <td class="cellColor"><select name="timespan" class="textbox">
+		  <?php
 		  $spans = array (30, 10, 15, 60, 120, 180, 240);
 		  for ($i = 0; $i < count($spans); $i++)
 		  	echo '<option value="' . $spans[$i] . '"' . ((isset($rs['timespan']) && ($rs['timespan'] == $spans[$i])) ? (' selected="selected"') : '') . '>' . Time::minutes_to_hours($spans[$i]) . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
         </tr>
         <tr>
           <td class="formNames"><?php echo translate('Weekday Start')?></td>
-          <td class="cellColor"><select name="weekdaystart" class="textbox">		  
-		  <?php 
+          <td class="cellColor"><select name="weekdaystart" class="textbox">
+		  <?php
 		  for ($i = 0; $i < 7; $i++)
 		  	echo '<option value="' . $i . '"' . ( (isset($rs['weekdaystart']) && $rs['weekdaystart'] == $i) ? ' selected="selected"' : '') . '>' . CmnFns::get_day_name($i) . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
         </tr>
@@ -162,22 +162,22 @@ function print_schedule_edit($rs, $edit, &$pager) {
 		</tr>
 		<tr>
 		  <td class="formNames"><?php echo translate('Hidden')?></td>
-		   <td class="cellColor"><select name="ishidden" class="textbox">		  
-		  <?php 
+		   <td class="cellColor"><select name="ishidden" class="textbox">
+		  <?php
 		  $yesNo = array(translate('No'), translate('Yes'));
 		  for ($i = 0; $i < 2; $i++)
 		  	echo '<option value="' . $i . '"' . ((isset($rs['ishidden']) && ($rs['ishidden'] == $i)) ? (' selected="selected"') : '') . '>' . $yesNo[$i]  . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
 		</tr>
 		<tr>
 		  <td class="formNames"><?php echo translate('Show Summary')?></td>
-		   <td class="cellColor"><select name="showsummary" class="textbox">		  
-		  <?php 
+		   <td class="cellColor"><select name="showsummary" class="textbox">
+		  <?php
 		  for ($i = 1; $i >= 0; $i--)
 		  	echo '<option value="' . $i . '"' . ((isset($rs['showsummary']) && ($rs['showsummary'] == $i)) ? (' selected="selected"') : '') . '>' . $yesNo[$i]  . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
 		</tr>
@@ -191,7 +191,7 @@ function print_schedule_edit($rs, $edit, &$pager) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
         // Print out correct buttons
         if (!$edit) {
             echo submit_button(translate('Add Schedule'), 'scheduleid') . hidden_fn('addSchedule')
@@ -200,7 +200,7 @@ function print_schedule_edit($rs, $edit, &$pager) {
 		else {
             echo submit_button(translate('Edit Schedule'), 'scheduleid') . cancel_button($pager) . hidden_fn('editSchedule')
 				. '<input type="hidden" name="scheduleid" value="' . $rs['scheduleid'] . '" />' . "\n";
-        	// Unset variables	
+        	// Unset variables
 			unset($rs);
 		}
 		echo "</form>\n";
@@ -217,7 +217,7 @@ function print_manage_users(&$pager, $users, $err) {
 	global $conf;
 	$util = new Utility();
 	$isAdmin = Auth::isAdmin();
-	
+
 	if ($isAdmin) {
 		print_additional_tools_box( array (
 										array('Create User', 'register.php')
@@ -243,27 +243,27 @@ function print_manage_users(&$pager, $users, $err) {
           <td width=\"8%\">" . translate('Password') . "</td>
 		  <td width=\"5%\">" . translate('Admin') . "</td>
 		  <td width=\"5%\">" . translate('Groups') . "</td>
-          <td width=\"8%\">" . translate('Permissions') . "</td>"         
-		 . ($isAdmin ? '<td width="6%">' . translate('Delete') . '</td>' : '')       
+          <td width=\"8%\">" . translate('Permissions') . "</td>"
+		 . ($isAdmin ? '<td width="6%">' . translate('Delete') . '</td>' : '')
 		 . "</tr>\n";
-	
+
 	if (!$users)
 		echo '<tr class="cellColor0"><td colspan="9" style="text-align: center;">' . $err . '</td></tr>' . "\n";
-	
+
 	for ($i = 0; is_array($users) && $i < count($users); $i++) {
 		$cur = $users[$i];
 		$fname = $cur['fname'];
 		$lname = $cur['lname'];
 		$email = $cur['email'];
-		
+
 		$fname_lname = array($fname, $lname);
-		
+
 		$admin_text = (($cur['is_admin'] == 1) ? translate('Yes') : translate('No'));
 		$admin_link = $isAdmin ? $link->getLink("admin_update.php?fn=adminToggle&amp;memberid={$cur['memberid']}&amp;status=" . (($cur['is_admin'] == 1) ? '0' : '1'), $admin_text) : $admin_text;
-        
+
 		$group_function = $isAdmin ? 'popGroupEdit' : 'popGroupView';
 		$group_text = $isAdmin ? 'Edit' : 'View';
-		
+
 		echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" id=\"tr$i\">\n"
                . '<td style="text-align:left;">' . $link->getLink("register.php?edit=true&amp;memberid=". $cur['memberid'], $fname . ' ' . $lname, '', '', translate('View information about', $fname_lname)) . "</td>\n"
                . '<td style="text-align:left;">' . $link->getLink("mailto:$email", $email, '', '', translate('Send email to', array($fname, $lname))) . "</td>\n"
@@ -276,7 +276,7 @@ function print_manage_users(&$pager, $users, $err) {
                . ($isAdmin ? '<td><input type="checkbox" name="memberid[]" value="' . $cur['memberid'] . "\" onclick=\"adminRowClick(this,'tr$i',$i);\"/></td>\n" : '')
               . "</tr>\n";
     }
-	
+
     // Close users table
     ?>
       </table>
@@ -294,11 +294,11 @@ function print_manage_users(&$pager, $users, $err) {
 	<br />
 	<p align="center">
 	<?php echo translate('First Name')?> <input type="text" name="firstName" class="textbox" />
-	<?php echo translate('Last Name')?> <input type="text" name="lastName" class="textbox" />	
+	<?php echo translate('Last Name')?> <input type="text" name="lastName" class="textbox" />
 	<input type="hidden" name="searchUsers" value="true" />
 	<input type="hidden" name="tool" value="<?php echo getTool();?>" />
 	<input type="hidden" name="<?php echo $pager->getLimitVar();?>" value="<?php echo $pager->getLimit();?>" />
-	<?php  
+	<?php
 	if (isset($_GET['order'])) {
 		echo "<input type=\"hidden\" name=\"order\" value=\"{$_GET['order']}'\" />\n";
 	}
@@ -312,7 +312,7 @@ function print_manage_users(&$pager, $users, $err) {
 	<input type="submit" name="searchUsersBtn" value="<?php echo translate('Search Users');?>" class="button" />
 	</p>
 </form>
-<?php 
+<?php
 }
 
 
@@ -366,7 +366,7 @@ print_additional_tools_box( array(
 
 	if (!$resources)
 		echo '<tr class="cellColor0"><td colspan="8" style="text-align: center;">' . $err . '</td></tr>' . "\n";
-		
+
     for ($i = 0; is_array($resources) && $i < count($resources); $i++) {
 		$cur = $resources[$i];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" id=\"tr$i\">\n"
@@ -380,7 +380,7 @@ print_additional_tools_box( array(
             . "<td><input type=\"checkbox\" name=\"machid[]\" value=\"" . $cur['machid'] . "\" onclick=\"adminRowClick(this,'tr$i',$i);\" /></td>\n"
             . "</tr>\n";
     }
-	
+
     // Close table
     ?>
       </table>
@@ -388,7 +388,7 @@ print_additional_tools_box( array(
   </tr>
 </table>
 <br />
-<?php 
+<?php
 	echo submit_button(translate('Delete'), 'machid') . hidden_fn('delResource') . '</form>';
 }
 
@@ -405,7 +405,7 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 	$end   = 1440;
 	$mins = array(0, 10, 15, 30);
 	$disabled = ($edit && $rs['allow_multi'] == 1) ? 'disabled="disabled"' : '';
-	
+
 	if ($edit) {
 		$minH = intval($rs['minres'] / 60);
 		$minM = intval($rs['minres'] % 60);
@@ -446,7 +446,7 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 		<td class="formNames"><?php echo translate('Schedule')?></td>
 		<td class="cellColor">
 		<select name="scheduleid" class="textbox">
-		<?php 
+		<?php
 		if (empty($scheds))
 			echo '<option value="">Please add schedules</option>';
 		else {
@@ -460,36 +460,65 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 		<tr>
 		  <td class="formNames"><?php echo translate('Minimum Reservation Time')?></td>
 		  <td class="cellColor">
-		  <select name="minH" class="textbox" id="minH" <?php echo $disabled?>>		  
-		  <?php 
+		  <select name="minH" class="textbox" id="minH" <?php echo $disabled?>>
+		  <?php
 		  for ($h = 0; $h < 25; $h++)
 		  	echo '<option value="' . $h . '"' . ((isset($minH) && $minH == $h) ? ' selected="selected"' : '') . '>' . $h . ' ' . translate('hours') . '</option>' . "\n";
 		  ?>
 		  </select>
 		  <select name="minM" class="textbox" id="minM" <?php echo $disabled?>>
-		  <?php 
+		  <?php
 		  foreach ($mins as $m)
 		  	echo '<option value="' . $m . '"' . ((isset($minM) && $minM == $m) ? ' selected="selected"' : '') . '>' . $m . ' ' . translate('minutes') . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
 		</tr>
 		<tr>
 		  <td class="formNames"><?php echo translate('Maximum Reservation Time')?></td>
 		  <td class="cellColor">
-		  <select name="maxH" class="textbox" id="maxH" <?php echo $disabled?>>		  
-		  <?php 
+		  <select name="maxH" class="textbox" id="maxH" <?php echo $disabled?>>
+		  <?php
 		  for ($h = 0; $h < 25; $h++)
 		  	echo '<option value="' . $h . '"' . ((isset($maxH) && $maxH == $h) ? ' selected="selected"' : '') . '>' . $h . ' ' . translate('hours') . '</option>' . "\n";
 		  ?>
 		  </select>
 		  <select name="maxM" class="textbox" id="maxM" <?php echo $disabled?>>
-		  <?php 
+		  <?php
 		  foreach ($mins as $m)
 		  	echo '<option value="' . $m . '"' . ((isset($maxM) && $maxM == $m) ? ' selected="selected"' : '') . '>' . $m . ' ' . translate('minutes') . '</option>' . "\n";
-		  ?>		  
+		  ?>
 		  </select>
 		  </td>
+		</tr>
+		<tr>
+			<td class="formNames"><?php echo translate('Minimum Booking Notice')?></td>
+			<td class="cellColor">
+				Reservation must be booked at least <input type="text" name="minBook" id="minBook" class="textbox" <?php echo isset($minBook) ? "value=\"$minBook\"" : ''?> /> hours prior to the start time
+				<!--
+				<select name="minBook" id="minBook" class="textbox">
+				<?php
+				for ($h = 0; $h < 25; $h++)
+					echo '<option value="' . $h . '"' . ((isset($minBook) && $maxH == $h) ? ' selected="selected"' : '') . '>' . $h . ' ' . translate('hours') . '</option>' . "\n";
+				?>
+				</select>
+				-->
+			</td>
+		</tr>
+		<tr>
+			<td class="formNames"><?php echo translate('Maximum Booking Notice')?></td>
+			<td class="cellColor">
+				Reservation cannot be booked more than <input type="text" name="maxBook" id="maxBook" class="textbox" <?php echo isset($maxBook) ? "value=\"$maxBook\"" : ''?> /> hours from the current time
+				<input type="text" name="maxBook" id="maxBook" class="textbox" <?php echo isset($maxBook) ? "value=\"$maxBook\"" : ''?> />
+				<!--
+				<select name="minBook" id="minBook" class="textbox">
+				<?php
+				for ($h = 0; $h < 25; $h++)
+					echo '<option value="' . $h . '"' . ((isset($maxH) && $maxH == $h) ? ' selected="selected"' : '') . '>' . $h . ' ' . translate('hours') . '</option>' . "\n";
+				?>
+				</select>
+				-->
+			</td>
 		</tr>
 		<tr>
 		  <td class="formNames"><?php echo translate('Maximum Participant Capacity')?></td>
@@ -517,7 +546,7 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
         // Print out correct buttons
         if (!$edit) {
             echo submit_button(translate('Add Resource'), 'machid') . hidden_fn('addResource')
@@ -526,7 +555,7 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 		else {
             echo submit_button(translate('Edit Resource'), 'machid') . cancel_button($pager) . hidden_fn('editResource')
 				. '<input type="hidden" name="machid" value="' . $rs['machid'] . '" />' . "\n";
-        	// Unset variables	
+        	// Unset variables
 			unset($rs);
 		}
 		echo "</form>\n";
@@ -561,7 +590,7 @@ function print_manage_additional_resources($pager, $resources, $err) {
 
 	if (!$resources)
 		echo '<tr class="cellColor0"><td colspan="4" style="text-align: center;">' . $err . '</td></tr>' . "\n";
-		
+
     for ($i = 0; is_array($resources) && $i < count($resources); $i++) {
 		$cur = $resources[$i];
 		if ($cur['number_available'] == -1)  { $cur['number_available'] = translate('Unlimited'); }
@@ -573,7 +602,7 @@ function print_manage_additional_resources($pager, $resources, $err) {
             . "<td><input type=\"checkbox\" name=\"resourceid[]\" value=\"" . $cur['resourceid'] . "\" onclick=\"adminRowClick(this,'tr$i',$i);\" /></td>\n"
             . "</tr>\n";
     }
-	
+
     // Close table
     ?>
       </table>
@@ -581,7 +610,7 @@ function print_manage_additional_resources($pager, $resources, $err) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
 	echo submit_button(translate('Delete'), 'resourceid') . hidden_fn('delAddResource') . '</form>';
 }
 
@@ -615,7 +644,7 @@ function print_additional_resource_edit($resource, $edit, &$pager) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
         // Print out correct buttons
         if (!$edit) {
             echo submit_button(translate('Add Additional Resource'), 'resourceid') . hidden_fn('addAdditionalResource')
@@ -635,14 +664,14 @@ function print_additional_resource_edit($resource, $edit, &$pager) {
 * @param object $user User object of user to manage
 * @param array $rs list of resources
 */
-function print_manage_perms(&$user, $rs, $err) {    
+function print_manage_perms(&$user, $rs, $err) {
 	global $link;
-	
+
 	if (!$user->is_valid()) {
 		CmnFns::do_error_box($user->get_error() . '<br /><a href="' . $_SERVER['PHP_SELF'] . '?tool=users">' . translate('Back') . '</a>', '', false);
 		return;
 	}
-			
+
 	echo '<h3>' . $user->get_name() . '</h3>';
     ?>
 <form name="train" method="post" action="admin_update.php">
@@ -656,7 +685,7 @@ function print_manage_perms(&$user, $rs, $err) {
           </tr>
 		<?php
 			if (!$rs) echo '<tr class="cellColor0" style="text-align: center;"><td colspan="2">' . $err . '</td></tr>';
-			
+
 			for ($i = 0; is_array($rs) && $i < count($rs); $i++) {
 				echo '<tr class="cellColor"><td>' . $rs[$i]['name'] . '</td><td style="text-align: center;">'
 					. '<input type="checkbox" name="machid[]" value="' . $rs[$i]['machid'] . '"';
@@ -664,7 +693,7 @@ function print_manage_perms(&$user, $rs, $err) {
 					echo ' checked="checked"';
 				echo '/></td></tr>';
 		  	}
-    
+
 		// Close off tables/forms.  Print buttons and hidden field
 		?>
           <tr class="cellColor1">
@@ -695,7 +724,7 @@ function print_manage_perms(&$user, $rs, $err) {
 function print_approve_reservations($pager, $res, $err) {
 	global $link;
 	$util = new Utility();
-	
+
 ?>
 <form name="approve" id="approve" method="post" action="reserve.php" style="margin: 0px;">
 <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
@@ -717,8 +746,8 @@ function print_approve_reservations($pager, $res, $err) {
           <td width=\"7%\">" . translate('Approve') . "</td>
           <td width=\"7%\">" . translate('Delete') . "</td>
         </tr>";
-		
-	// Write message if they have no reservations	
+
+	// Write message if they have no reservations
 	if (!$res)
 		echo '<tr class="cellColor"><td colspan="9" align="center">' . $err . '</td></tr>';
 
@@ -726,7 +755,7 @@ function print_approve_reservations($pager, $res, $err) {
 	for ($i = 0; is_array($res) && $i < count($res); $i++) {
 		$cur = $res[$i];
 		$fname = $cur['fname'];
-		$lname = $cur['lname'];	
+		$lname = $cur['lname'];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\">\n"
 					. '<td>' . Time::formatDate($cur['start_date']) . '</td>'
 					. '<td>' . Time::formatDate($cur['end_date']) . '</td>'
@@ -737,7 +766,7 @@ function print_approve_reservations($pager, $res, $err) {
                     . '<td>' . $link->getLink("javascript: reserve('v','','','" . $cur['resid']. "');", translate('View'), '', '', translate('View this reservation information')) . '</td>'
 					. '<td>' . $link->getlink("javascript: reserve('a','','','" . $cur['resid'] ."');", translate('Approve'), '', '', translate('Approve this reservation')) . '</td>'
 					. '<td>' . $link->getLink("javascript: reserve('d','','','" . $cur['resid']. "');", translate('Delete'), '', '', translate('Delete this reservation')) . '</td>'
-					. "</tr>\n";		
+					. "</tr>\n";
 	}
     ?>
       </table>
@@ -759,7 +788,7 @@ function print_approve_reservations($pager, $res, $err) {
 function print_manage_reservations(&$pager, $res, $err) {
 	global $link;
 	$util = new Utility();
-	
+
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
   <tr>
@@ -780,8 +809,8 @@ function print_manage_reservations(&$pager, $res, $err) {
           <td width=\"7%\">" . translate('Modify') . "</td>
           <td width=\"7%\">" . translate('Delete') . "</td>
         </tr>";
-		 	
-	// Write message if they have no reservations	
+
+	// Write message if they have no reservations
 	if (!$res)
 		echo '<tr class="cellColor"><td colspan="9" align="center">' . $err . '</td></tr>';
 
@@ -789,7 +818,7 @@ function print_manage_reservations(&$pager, $res, $err) {
 	for ($i = 0; is_array($res) && $i < count($res); $i++) {
 		$cur = $res[$i];
 		$fname = $cur['fname'];
-		$lname = $cur['lname'];	
+		$lname = $cur['lname'];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\">\n"
 					. '<td>' . Time::formatDate($cur['start_date']) . '</td>'
 					. '<td>' . Time::formatDate($cur['end_date']) . '</td>'
@@ -800,7 +829,7 @@ function print_manage_reservations(&$pager, $res, $err) {
                     . '<td>' . $link->getLink("javascript: reserve('v','','','" . $cur['resid']. "');", translate('View')) . '</td>'
 					. '<td>' . $link->getlink("javascript: reserve('m','','','" . $cur['resid']. "');", translate('Modify')) . '</td>'
 					. '<td>' . $link->getLink("javascript: reserve('d','','','" . $cur['resid']. "');", translate('Delete')) . '</td>'
-					. "</tr>\n";		
+					. "</tr>\n";
 	}
     ?>
       </table>
@@ -808,7 +837,7 @@ function print_manage_reservations(&$pager, $res, $err) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
 }
 
 
@@ -840,7 +869,7 @@ function print_manage_announcements(&$pager, $announcements, $err) {
 
 	if (!$announcements)
 		echo '<tr class="cellColor0"><td colspan="4" style="text-align: center;">' . $err . '</td></tr>' . "\n";
-		
+
     for ($i = 0; is_array($announcements) && $i < count($announcements); $i++) {
 		$cur = $announcements[$i];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" id=\"tr$i\">\n"
@@ -852,7 +881,7 @@ function print_manage_announcements(&$pager, $announcements, $err) {
             . "<td><input type=\"checkbox\" name=\"announcementid[]\" value=\"" . $cur['announcementid'] . "\" onclick=\"adminRowClick(this,'tr$i',$i);\" /></td>\n"
             . "</tr>\n";
     }
-	
+
     // Close table
     ?>
       </table>
@@ -860,11 +889,11 @@ function print_manage_announcements(&$pager, $announcements, $err) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
 	echo submit_button(translate('Delete Announcements'), 'announcementid') . hidden_fn('delAnnouncement');
 ?>
 </form>
-<?php 
+<?php
 }
 
 /**
@@ -877,7 +906,7 @@ function print_announce_edit($rs, $edit, &$pager) {
 	global $conf;
 	$start_date_ok = (isset($rs['start_datetime']) && !empty($rs['start_datetime']));
 	$end_date_ok = (isset($rs['end_datetime']) && !empty($rs['end_datetime']));
-								
+
 	$start_date = ($start_date_ok) ? $rs['start_datetime'] : mktime();
 	$end_date = ($end_date_ok) ? $rs['end_datetime'] : mktime();
     ?>
@@ -895,7 +924,7 @@ function print_announce_edit($rs, $edit, &$pager) {
           <td width="200" class="formNames"><?php echo translate('Number'); ?></td>
           <td class="cellColor"><input type="text" name="number" class="textbox" size="3" maxlength="3" value="<?php echo isset($rs['number']) ? $rs['number'] : '' ?>" />
           </td>
-        </tr>     
+        </tr>
 		<tr>
 			<td class="formNames"><?php echo translate('Start Date'); ?></td>
 			<td class="cellColor">
@@ -927,7 +956,7 @@ function print_announce_edit($rs, $edit, &$pager) {
   </tr>
 </table>
 <br />
-<?php 	
+<?php
         // Print out correct buttons
         if (!$edit) {
             echo submit_button(translate('Add Announcement'), 'announcementid') . hidden_fn('addAnnouncement')
@@ -935,7 +964,7 @@ function print_announce_edit($rs, $edit, &$pager) {
         }
 		else {
             echo submit_button(translate('Edit Announcement'), 'announcementid') . cancel_button($pager) . hidden_fn('editAnnouncement')
-				. '<input type="hidden" name="announcementid" value="' . $rs['announcementid'] . '" />' . "\n";		
+				. '<input type="hidden" name="announcementid" value="' . $rs['announcementid'] . '" />' . "\n";
 		}
 		echo "</form>\n";
 		print_jscalendar_setup($start_date_ok ? $rs['start_datetime'] : null, $end_date_ok ? $rs['end_datetime'] : null);		// Set up the javascript calendars
@@ -966,7 +995,7 @@ function print_manage_groups(&$pager, $groups, $err) {
 
 	if (!$groups)
 		echo '<tr class="cellColor0"><td colspan="4" style="text-align: center;">' . $err . '</td></tr>' . "\n";
-		
+
     for ($i = 0; is_array($groups) && $i < count($groups); $i++) {
 		$cur = $groups[$i];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" id=\"tr$i\">\n"
@@ -977,7 +1006,7 @@ function print_manage_groups(&$pager, $groups, $err) {
             . "<td><input type=\"checkbox\" name=\"groupid[]\" value=\"" . $cur['groupid'] . "\" onclick=\"adminRowClick(this,'tr$i',$i);\" /></td>\n"
             . "</tr>\n";
     }
-	
+
     // Close table
     ?>
       </table>
@@ -985,11 +1014,11 @@ function print_manage_groups(&$pager, $groups, $err) {
   </tr>
 </table>
 <br />
-<?php 
+<?php
 	echo submit_button(translate('Delete Groups'), 'groupid') . hidden_fn('delGroup');
 ?>
 </form>
-<?php 
+<?php
 }
 
 /**
@@ -1032,7 +1061,7 @@ function print_group_edit($group, $edit, &$pager, $group_users = array()) {
   </tr>
 </table>
 <br />
-<?php 	
+<?php
         // Print out correct buttons
         if (!$edit) {
             echo submit_button(translate('Save'), 'groupid') . hidden_fn('addGroup')
@@ -1040,7 +1069,7 @@ function print_group_edit($group, $edit, &$pager, $group_users = array()) {
         }
 		else {
             echo submit_button(translate('Edit'), 'groupid') . cancel_button($pager) . hidden_fn('editGroup')
-				. '<input type="hidden" name="groupid" value="' . $group->id . '" />' . "\n";		
+				. '<input type="hidden" name="groupid" value="' . $group->id . '" />' . "\n";
 		}
 		echo "</form>\n";
 }
@@ -1071,7 +1100,7 @@ function print_manage_email($users, $sub, $msg, $usr, $err) {
             <td width=\"40%\">" . translate('User') . "</td>
             <td width=\"45%\">" . translate('Email') . "</td>
           </tr>";
-		  
+
 	if (!$users)
 		echo '<tr class="cellColor0" style="text-align: center;"><td colspan="3">' . $err . '</td></tr>';
     // Print users out in table
@@ -1114,7 +1143,7 @@ function print_manage_email($users, $sub, $msg, $usr, $err) {
   </table>
   <input type="submit" name="previewEmail" value="<?php echo translate('Next')?> &gt;" class="button" />
 </form>
-<?php 
+<?php
 }
 
 /**
@@ -1139,7 +1168,7 @@ function preview_email($sub, $msg, $usr) {
         </tr>
 		<tr class="cellColor0">
 		  <td>
-		  <?php 
+		  <?php
 		  if (empty($usr)) echo translate('Please select users');
 		  foreach ($usr as $email) { echo $email . '<br />'; }
 		  ?>
@@ -1187,7 +1216,7 @@ function show_tables($tables, $fields) {
 		. '<form name="get_fields" action="' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'] . '" method="post">' . "\n";
 	for ($i = 0; $i < count($tables); $i++) {
 		echo '<p><input type="checkbox" name="table[]" value="' . $tables[$i] . '"  checked="checked" onclick="javascript: toggle_fields(this);" />' . $tables[$i] . "</p>\n";
-		
+
 		echo '<select name="table,' . $tables[$i] . '[]" multiple="multiple" size="5" class="textbox">' . "\n";
 		echo '<option value="all" selected="selected">' . translate('all fields') . "</option>\n";
 		for ($k = 0; $k < count($fields[$tables[$i]]); $k++)
@@ -1219,16 +1248,16 @@ function print_exported_data($data, $xml) {
 	$first_row = true;
 	for ($x = 0; $x < count($data); $x++) {
 		echo ($xml) ? "\t&lt;record&gt;\r\n" : '';
-		
+
 		if (!$xml && $first_row) {				// Print out names of fields for first row of CSV
 				$keys = array_keys($data[$x]);
 				for ($i = 0; $i < count($keys); $i++) {
 					echo '"' . $keys[$i] . '"';
 					if ($i < count($keys)-1) echo ',';
-				} 
+				}
 				echo "\r\n";
 		}
-		
+
 		$first_row = false;
 
 		$first_csv = '"';
@@ -1237,7 +1266,7 @@ function print_exported_data($data, $xml) {
 			$first_csv = ',"';
 		}
 		echo ($xml) ? "\t&lt;/record&gt;\r\n" : "\r\n";
-	}	
+	}
 }
 
 /**
@@ -1307,7 +1336,7 @@ function print_not_allowed() {
 /**
 * Returns a button to cancel editing
 * @param none
-* @return string of html for a cancel button 
+* @return string of html for a cancel button
 */
 function cancel_button(&$pager) {
 	return '<input type="button" name="cancel" value="' . translate('Cancel') . '" class="button" onclick="javascript: document.location=\'' . $_SERVER['PHP_SELF'] . '?tool=' . $_GET['tool'] . '&amp;' . $pager->getLimitVar() . '=' . $pager->getLimit() . '&amp;' . $pager->getPageVar() . '=' . $pager->getPageNum() . '\';" />' . "\n";
@@ -1350,7 +1379,7 @@ function print_jscalendar_setup($start = null, $end = null) {
 	{
 	inputField : "hdn_start_date", // ID of the input field
 	ifFormat : "<?php echo '%m' . INTERNAL_DATE_SEPERATOR . '%d' . INTERNAL_DATE_SEPERATOR . '%Y'?>", // the date format
-	daFormat : "<?php echo $dates['general_date']?>", // the date format 
+	daFormat : "<?php echo $dates['general_date']?>", // the date format
 	button : "img_start_date", // ID of the button
 	date : start,
 	displayArea : "div_start_date"
@@ -1379,13 +1408,13 @@ function print_additional_tools_box($links) {
     <td class="additionalToolsHead"><h5 align="center"><?php echo translate('Additional Tools')?></h5></td>
   </tr>
   <tr>
-<?php 
+<?php
 	for ($i = 0; $i < count($links); $i++) {
     	echo " <td>- <a href=\"{$links[$i][1]}\">" . translate($links[$i][0]) . " </td>\n";
 	}
 ?>
   </tr>
 </table>
-<?php 
+<?php
 }
 ?>

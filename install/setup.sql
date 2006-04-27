@@ -91,7 +91,9 @@ CREATE TABLE resources (
   autoassign SMALLINT(1),
   approval SMALLINT(1),
   allow_multi SMALLINT(1),
-  max_participants INTEGER
+  max_participants INTEGER,
+  min_notice_time INTEGER,
+  max_notice_time INTEGER
   );
 
 # Create indexes ON resources table #

@@ -108,3 +108,7 @@ ALTER TABLE login ADD COLUMN lang VARCHAR(5);
 
 # Store timezone for each user #
 ALTER TABLE login ADD COLUMN timezone FLOAT NOT NULL DEFAULT 0;
+
+# Add support for min/max notice time
+ALTER TABLE resources ADD COLUMN min_notice_time INTEGER;
+ALTER TABLE resources ADD COLUMN max_notice_time INTEGER;
