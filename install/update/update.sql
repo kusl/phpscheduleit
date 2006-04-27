@@ -113,3 +113,4 @@ ALTER TABLE login ADD COLUMN timezone FLOAT NOT NULL DEFAULT 0;
 ALTER TABLE resources ADD COLUMN min_notice_time INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE resources ADD COLUMN max_notice_time INTEGER NOT NULL DEFAULT 0;
 UPDATE resources, schedules SET min_notice_time = dayoffset * 24 WHERE resources.scheduleid = schedules.scheduleid AND dayoffset IS NOT NULL;
+ALTER TABLE schedules DROP COLUMN dayoffset;

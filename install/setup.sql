@@ -127,8 +127,7 @@ CREATE TABLE schedules (
   ishidden SMALLINT(1),
   showsummary SMALLINT(1),
   adminemail VARCHAR(75),
-  isdefault SMALLINT(1),
-  dayoffset INTEGER
+  isdefault SMALLINT(1)
   );
   
 # Create DEFAULT schedule #
