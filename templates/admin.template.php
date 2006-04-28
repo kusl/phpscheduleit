@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 02-26-06
+* @version 04-27-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -155,11 +155,6 @@ function print_schedule_edit($rs, $edit, &$pager) {
           <td class="cellColor"><input type="text" name="viewdays" class="textbox" size="2" maxlength="2" value="<?php echo isset($rs['viewdays']) ? $rs['viewdays'] : '7' ?>" />
           </td>
         </tr>
-		<tr>
-		  <td class="formNames"><?php echo translate('Reservation Offset')?></td>
-		  <td class="cellColor"><input type="text" name="dayoffset" class="textbox" size="2" maxlength="2" value="<?php echo isset($rs['dayoffset']) ? $rs['dayoffset'] : '0' ?>" />
-          </td>
-		</tr>
 		<tr>
 		  <td class="formNames"><?php echo translate('Hidden')?></td>
 		   <td class="cellColor"><select name="ishidden" class="textbox">

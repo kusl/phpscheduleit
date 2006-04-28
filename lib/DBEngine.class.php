@@ -3,7 +3,7 @@
 * DBEngine class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-23-06
+* @version 04-27-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -292,7 +292,7 @@ class DBEngine {
         $return = array();
         $values = array();
         
-        $sql = 'SELECT machid, name, status, approval FROM ' . $this->get_table('resources');
+        $sql = 'SELECT machid, name, status, approval, min_notice_time, max_notice_time FROM ' . $this->get_table('resources');
         if ($scheduleid != null) {
             $sql .= ' WHERE scheduleid = ?';
             $values = array($scheduleid);

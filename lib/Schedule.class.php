@@ -24,10 +24,10 @@ include_once(BASE_DIR . '/templates/schedule.template.php');
 
 class Schedule {
 
-    var $_date        = array();
-    var $machids    = array();
-    var $res        = array();
-    var $blackouts    = array();
+    var $_date = array();
+    var $machids = array();
+    var $res = array();
+    var $blackouts = array();
     var $db;
     var $user;
     var $scheduleType;
@@ -135,24 +135,35 @@ class Schedule {
         print_calendars($prev, $curr, $next);
     }
 
-    function canShowReservation($current_date, $current_record) {
+	/**
+	* Whether the reservation link is shown/clickable
+	* @param bool $viewable_date if the date is viewable
+	* @param string $status the status of this resource 
+	* @return if this reservation link is available to view
+	*/
+    function canShowReservation($viewable_date, $status) {
 		if (Auth::isAdmin()) {
 			return true;
 		}
 
-		$is_active = $current_record['status'] == 'a';
+		$is_active = ($status == 'a');
 		$has_permission = $this->user->has_perm($current_record['id']);
-		$viewable_date = $this->isViewableDate($current_date, $current_record['min_notice_time'], $current_record['max_notice_time']);
-
-		return ( $viewable_date && $is_active && $has_permission )
+		
+		return ( $viewable_date && $is_active && $has_permission );
     }
 
+	/**
+	* Whether the reservation link is shown/clickable on this date
+	* @param int $current_date the current datestamp
+	* @param int $min_notice the minimum number of notice hours for the current resource
+	* @param int $max_notice the maximum number of notice hours for the current resource
+	* @return if this reservation link is available to view
+	*/
     function isViewableDate($current_date, $min_notice, $max_notice) {
 		if ($min_notice != 0) {
 			$min_days = intval($min_notice / 24);
-			$min_hour = intval($min_notice % 24);
 
-			$min_date = intval(mktime(0,0,0, date('m'), date('d') + $min_days));
+			$min_date = mktime(0,0,0, date('m'), date('d') + $min_days);
 
 			if ($current_date < $min_date)
 			{
@@ -162,9 +173,8 @@ class Schedule {
 
 		if ($max_notice != 0) {
 			$max_days = intval($max_notice / 24);
-			$max_hour = intval($max_notice % 24);
 
-			$max_date = intval(mktime(0,0,0, date('m'), date('d') + $max_days));
+			$max_date = mktime(0,0,0, date('m'), date('d') + $max_days);
 
 			if ($current_date > $max_date)
 			{
@@ -174,11 +184,7 @@ class Schedule {
 
 		return true;
     }
-
-    function violatesMinimumNotice($date, $min_notice) {
-
-    }
-
+	
     /**
     * Print out the reservations for each resource on each day
     * @param none
@@ -194,22 +200,20 @@ class Schedule {
         for ($count = 0; $count < count($this->machids); $count++) {
             $prevTime = $this->startDay;        // Previous time holder
             $totCol = intval(($this->endDay - $this->startDay) / $this->timespan);    // Total columns holder
+			$cur_resource = $this->machids[$count];
 
             // Store info about this current resource in local vars
-            $id = $this->machids[$count]['machid'];
-            $name = $this->machids[$count]['name'];
-            $status = $this->machids[$count]['status'];
-            $approval = $this->machids[$count]['approval'];
+            $id = $cur_resource['machid'];
+            $name = $cur_resource['name'];
+            $status = $cur_resource['status'];
+            $approval = $cur_resource['approval'];
 
             $shown = false;        // Default resource visiblilty to not shown
+			$viewable_date = $this->isViewableDate($current_date, $cur_resource['min_notice_time'], $cur_resource['max_notice_time']);
 
             // If the date has not passed, resource is active and user has permission,
             //  or the user is the admin allow reservations to be made
-            if ( canShowReservation($current_date, $this->machids[$count]) )
-
-            {
-                $shown = true;
-            }
+            $shown = $this->canShowReservation($viewable_date, $status);
 
             $color = 'cellColor' . ($count%2);
             print_name_cell($current_date, $id, $name, $shown, $this->scheduleType == BLACKOUT_ONLY, $this->scheduleid, $approval, $color);
@@ -259,7 +263,7 @@ class Schedule {
                     if ($rs['is_blackout'] == 1)
                         $this->write_blackout($rs, $colspan);
                     else
-                        $this->write_reservation($rs, $colspan);
+                        $this->write_reservation($rs, $colspan, $viewable_date);
 
                     // Set prevTime to this reservation's ending time
                     $prevTime = $thisEnd;
@@ -396,8 +400,7 @@ class Schedule {
         $is_past = false;
         $color_select = 'other_res';        // Default color (if anything else is true, it will be changed)
 
-		//die('parid' . $rs['participantid']);
-        if ($this->scheduleType != READ_ONLY) {
+		if ($this->scheduleType != READ_ONLY) {
             if ($rs['owner'] == 1) {
                 $is_mine = true;
                 $color_select = 'my_res';
@@ -408,7 +411,7 @@ class Schedule {
 			}
         }
 
-        if (mktime(0,0,0, date('m'), date('d') + $this->dayoffset) > $this->_date['current']) {        // If todays date is still before or on the day of this reservation
+        if (mktime(0,0,0) > $this->_date['current']) {        // If todays date is still before or on the day of this reservation
             $is_past = true;
 			if ($is_mine) {
 				 $color_select = 'my_past_res';
@@ -419,10 +422,8 @@ class Schedule {
 			else {
 				$color_select ='other_past_res';
 			}
-            //$color_select = ($is_mine) ? 'my_past_res' : 'other_past_res';        // Choose which color array to use
         }
 
-        // pending reservation
         if ( $rs['is_pending'] ) {
             $color_select = 'pending';
         }
@@ -462,9 +463,7 @@ class Schedule {
         global $conf;
         $cols = (($end-$prev) / $span) - 1;
 
-        $is_past = (mktime(0,0,0, date('m'), date('d') + $this->dayoffset) > $this->_date['current']);        // If todays date is still before or on the day of this reservation
-
-		print_blank_cols($cols, $prev, $span, $ts, $machid, $this->scheduleid, $this->scheduleType, $clickable, $color);
+        print_blank_cols($cols, $prev, $span, $ts, $machid, $this->scheduleid, $this->scheduleType, $clickable, $color);
         print_closing_tr();
     }
 
@@ -472,8 +471,9 @@ class Schedule {
     * Calls template function to write out the reservation cell
     * @param array $rs array of reservation information
     * @param int $colspan column span value
+	* @param bool $viewable_date if the date is clickable/viewable
     */
-    function write_reservation($rs, $colspan) {
+    function write_reservation($rs, $colspan, $viewable_date) {
         global $conf;
 
 		/// !!! CLEAN THIS UP !!! ///
@@ -488,10 +488,6 @@ class Schedule {
             }
         }
 
-        if (mktime(0,0,0, date('m'), date('d') + $this->dayoffset) > $this->_date['current']) {        // If todays date is still before or on the day of this reservation
-            $is_past = true;
-       }
-
 		$summary = new Summary($rs['summary']);
 		if ((bool)$conf['app']['prefixNameOnSummary']) {
 			$summary->user_name = "{$rs['fname']} {$rs['lname']}";
@@ -500,7 +496,7 @@ class Schedule {
         // If this is the user who made the reservation or the admin,
         //  and time has not passed, allow them to edit it
         //  else only allow view
-        $mod_view = ( ($is_mine || Auth::isAdmin()) && !$is_past) ? 'm' : 'v';    // To use in javascript edit/view box
+        $mod_view = ( ($is_mine || Auth::isAdmin()) && $viewable_date) ? 'm' : 'v';    // To use in javascript edit/view box
         $showsummary = (($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlySummary'])) && $this->showsummary && !$is_private);
         $viewable = ($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlyDetails']));
         $summary->visible = $showsummary;

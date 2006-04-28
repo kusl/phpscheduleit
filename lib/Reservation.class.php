@@ -433,15 +433,17 @@ class Reservation {
 
 		$min_notice = $this->resource->get_property('min_notice_time');
 		$max_notice = $this->resource->get_property('max_notice_time');
+		
+		$start_hour = intval($this->start/60);
 
 		if ($min_notice != 0) {
 			$min_days = intval($min_notice / 24);
 			$min_hour = intval($min_notice % 24);
 
-			$min_date = intval(mktime(0,0,0, date('m'), date('d') + $min_days));
+			$min_date = mktime(0,0,0, date('m'), date('d') + $min_days);
 
 			if ($this->start_date < $min_date ||
-				$this->start_date == $min_date && $this->start < $min_hour )
+				$this->start_date == $min_date && $start_hour < $min_hour )
 			{
 				$dates_valid = false;
 				$this->add_error( translate('This resource cannot be reserved less than %s hours in advance', array($min_notice)) );
@@ -452,10 +454,10 @@ class Reservation {
 			$max_days = intval($max_notice / 24);
 			$max_hour = intval($max_notice % 24);
 
-			$max_date = intval(mktime(0,0,0, date('m'), date('d') + $max_days));
+			$max_date = mktime(0,0,0, date('m'), date('d') + $max_days);
 
 			if ($this->start_date > $max_date ||
-				$this->start_date == $max_date && $this->start > $max_hour )
+				$this->start_date == $max_date && $start_hour > $max_hour )
 			{
 				$dates_valid = false;
 				$this->add_error( translate('This resource cannot be reserved more than %s hours in advance', array($max_notice)) );
