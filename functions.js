@@ -189,8 +189,6 @@ function checkAddSchedule() {
 		msg+="-Invalid start/end times.\n";
 	if (f.viewdays.value == "" || parseInt(f.viewdays.value) <= 0)
 		msg+="Invalid view days.\n";
-	if (f.dayoffset.value == "" || parseInt(f.dayoffset.value) < 0)
-		msg+="Invalid day offset.\n";
 	if (f.adminemail.value == "")
 		msg+="Admin email is required.\n";
 

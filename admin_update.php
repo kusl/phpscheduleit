@@ -493,11 +493,6 @@ function check_schedule_data($data) {
 	else
 		$rs['viewdays'] = intval($data['viewdays']);
 
-	if ($data['dayoffset'] == '' || $data['dayoffset'] < 0)
-		array_push($msg, translate('Day offset is required'));
-	else
-		$rs['dayoffset'] = intval($data['dayoffset']);
-
 	if (empty($data['adminemail']))
 		array_push($msg, translate('Admin email is required'));
 	else

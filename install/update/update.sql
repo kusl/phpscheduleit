@@ -70,7 +70,6 @@ ALTER TABLE schedules CHANGE isHidden ishidden SMALLINT(1);
 ALTER TABLE schedules CHANGE showSummary showsummary SMALLINT(1);
 ALTER TABLE schedules CHANGE adminEmail adminemail CHAR(75);
 ALTER TABLE schedules CHANGE isDefault isdefault SMALLINT(1);
-ALTER TABLE schedules CHANGE dayOffset dayoffset INTEGER;
 
 # Add support for groups #
 CREATE TABLE groups (

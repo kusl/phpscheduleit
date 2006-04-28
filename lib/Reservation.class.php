@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-26-06
+* @version 04-27-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -124,7 +124,7 @@ class Reservation {
 				break;
 			}
 		}
-		
+
 		$this->resources = $this->db->get_sup_resources($this->id);
 	}
 
@@ -178,7 +178,7 @@ class Reservation {
 			$this->check_perms();			// Only need to check once
 			$this->check_min_max();
 		}
-		
+
 		if ($this->check_startdate()) {
 			$this->check_times();			// Check valid times
 		}
@@ -186,7 +186,7 @@ class Reservation {
 		if ($this->has_errors()) {			// Print any errors generated above and kill app
 			$this->print_all_errors(true);
 		}
-		
+
 		$reminder = new Reminder();
 		$reminder->setDB(new ReminderDB());
 
@@ -290,7 +290,7 @@ class Reservation {
 
 		$reminder = new Reminder();
 		$reminder->setDB(new ReminderDB());
-		
+
 		$tmp_valid = false;
 
 		if ($this->is_repeat) {				// Check and place all recurring reservations
@@ -308,14 +308,14 @@ class Reservation {
 				if ($is_valid) {
 					$tmp_valid = true;						// Only one recurring needs to pass
 					$this->db->mod_res($this, $users_to_invite, $users_to_remove, $resources_to_add, $resources_to_remove, $accept_code);		// And place the reservation
-					
+
 					if (!empty($this->reminderid)) {
 						$reminder->update($this, $this->reminder_minutes_prior);
 					}
 					else if ($this->reminder_minutes_prior != 0 && empty($this->reminderid)) {
 						$reminder->save($this, $this->reminder_minutes_prior);
 					}
-					
+
 					$dates[] = $this->start_date;
 					$valid_resids[] = $this->id;
 					CmnFns::write_log($this->word . ' ' . $this->id . ' modified.  machid:' . $this->machid .', dates:' . $this->start_date . ' - ' . $this->end_date . ', start:' . $this->start . ', end:' . $this->end, $this->memberid, $_SERVER['REMOTE_ADDR']);
@@ -325,14 +325,14 @@ class Reservation {
 		else {
 			if ($this->check_res($resources_to_add)) {															// Check overlap
 				$this->db->mod_res($this, $users_to_invite, $users_to_remove, $resources_to_add, $resources_to_remove, $accept_code);		// And place the reservation
-				
+
 				if (!empty($this->reminderid)) {
 					$reminder->update($this, $this->reminder_minutes_prior);
 				}
 				else if ($this->reminder_minutes_prior != 0 && empty($this->reminderid)) {
 					$reminder->save($this, $this->reminder_minutes_prior);
 				}
-				
+
 				$dates[] = $this->start_date;
 				$valid_resids[] = $this->id;
 			}
@@ -427,13 +427,44 @@ class Reservation {
 	* @return if the starting date is valid
 	*/
 	function check_startdate() {
-		if ($this->adminMode) { return true; } 		// Admin can reserve in the past
-		$dates_valid = intval($this->start_date) >= intval(mktime(0,0,0, date('m'), date('d') + $this->sched['dayoffset']));
-		if (!$dates_valid) {
-			$this->add_error(translate('That starting date has already passed'));
+		if ($this->adminMode) { return true; }
+
+		$dates_valid = true;
+
+		$min_notice = $this->resource->get_property('min_notice_time');
+		$max_notice = $this->resource->get_property('max_notice_time');
+
+		if ($min_notice != 0) {
+			$min_days = intval($min_notice / 24);
+			$min_hour = intval($min_notice % 24);
+
+			$min_date = intval(mktime(0,0,0, date('m'), date('d') + $min_days));
+
+			if ($this->start_date < $min_date ||
+				$this->start_date == $min_date && $this->start < $min_hour )
+			{
+				$dates_valid = false;
+				$this->add_error( translate('This resource cannot be reserved less than %s hours in advance', array($min_notice)) );
+			}
 		}
+
+		if ($max_notice != 0) {
+			$max_days = intval($max_notice / 24);
+			$max_hour = intval($max_notice % 24);
+
+			$max_date = intval(mktime(0,0,0, date('m'), date('d') + $max_days));
+
+			if ($this->start_date > $max_date ||
+				$this->start_date == $max_date && $this->start > $max_hour )
+			{
+				$dates_valid = false;
+				$this->add_error( translate('This resource cannot be reserved more than %s hours in advance', array($max_notice)) );
+			}
+		}
+
+		return $dates_valid;
 	}
-	
+
 	/**
 	* Verify that the user selected appropriate times and dates
 	* @return if the times and dates selected are all valid
@@ -477,7 +508,7 @@ class Reservation {
 	*/
 	function check_res($resources_to_add) {
 		$is_valid = $add_valid = true;
-		
+
 		$reserved = $this->db->checkAdditionalResources($this, $resources_to_add);
 		$add_valid = (count($reserved) <= 0);
 		if (!$add_valid) {
@@ -525,10 +556,10 @@ class Reservation {
 	*/
 	function print_res() {
 		global $conf;
-		
+
 		$is_private = $conf['app']['privacyMode'] && !$this->adminMode;
 
-		$day_has_passed = intval($this->start_date) < intval(mktime(0,0,0, date('m'), date('d') + $this->sched['dayoffset']));
+		$day_has_passed = !$this->check_startdate();// intval($this->start_date) < intval(mktime(0,0,0, date('m'), date('d') + $this->sched['dayoffset']));
 
 		if (!$this->adminMode && !$this->is_blackout && $day_has_passed )  {
 			$this->type = RES_TYPE_VIEW;
@@ -539,33 +570,33 @@ class Reservation {
 		if ($this->type == RES_TYPE_ADD && $rs['approval'] == 1) {
 			$this->is_pending = true;		// On the initial add, make sure that the is_pending flag is correct
 		}
-		
+
 		$is_owner = (($this->user->get_id() == Auth::getCurrentID() || $this->adminMode) && $this->type != RES_TYPE_VIEW);
-		
+
 		print_title($rs['name']);
 		begin_reserve_form($this->type == RES_TYPE_ADD, $this->is_blackout);
 		begin_container();
 		print_basic_panel($this, $rs, $is_private);		// Contains resource/user info, time select, summary, repeat boxes
-		
+
 		if ($this->is_blackout || $is_private) {
 			print_users_panel($this, array(), null, '', false, false);	// No advanced for either case
 			print_additional_tab($this, array(), null, false, false);
 		}
 		else {
 			$this->user->get_id();
-			
+
 			$all_users = ($is_owner) ? $this->db->get_non_participating_users($this->id, Auth::getCurrentID()) : array();
 			print_users_panel($this, $all_users, $is_owner, $rs['max_participants'], true, $day_has_passed);
-			
+
 			$all_resources = ($is_owner) ? $this->db->get_non_participating_resources($this->id) : array();
-			print_additional_tab($this, $all_resources, $is_owner, true);		
+			print_additional_tab($this, $all_resources, $is_owner, true);
 		}
-		
+
 		end_container();
 		print_buttons_and_hidden($this);
 		end_reserve_form();
 		print_jscalendar_setup($this, $rs);
-		
+
 		if ((bool)$this->allow_anon_participation || (bool)$this->allow_participation) {
 			print_join_form_tags();
 		}
@@ -831,7 +862,7 @@ EOT;
 		$dates_text = '';
 		for ($d = 1; $d < count($dates); $d++)
 			$dates_text .= Time::formatDate($dates) . ",";
-		
+
 		foreach ($userinfo as $memberid => $email) {
 			// Create and send the email
 
