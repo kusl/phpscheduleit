@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-27-06
+* @version 04-28-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -117,6 +117,8 @@ class Reservation {
 		$this->reminder_minutes_prior = $reminder->getMinutuesPrior($this);
 
 		$this->users = $this->db->get_res_users($this->id);
+		print_r($this->users);
+		die();
 		// Store the memberid of the owner
 		for ($i = 0; $i < count($this->users); $i++) {
 			if ($this->users[$i]['owner'] == 1) {
@@ -434,16 +436,19 @@ class Reservation {
 		$min_notice = $this->resource->get_property('min_notice_time');
 		$max_notice = $this->resource->get_property('max_notice_time');
 		
-		$start_hour = intval($this->start/60);
+		$date_vals = getdate();		
+		$month = $date_vals['mon'];
+		$day = $date_vals['mday'];
+		$hour = $date_vals['hours'];
+		$min = $date_vals['minutes'];
 
 		if ($min_notice != 0) {
 			$min_days = intval($min_notice / 24);
-			$min_hour = intval($min_notice % 24);
-
-			$min_date = mktime(0,0,0, date('m'), date('d') + $min_days);
-
-			if ($this->start_date < $min_date ||
-				$this->start_date == $min_date && $start_hour < $min_hour )
+			$min_time = ((intval($min_notice % 24) + $hour) * 60) + $min;
+			$min_date = mktime(0,0,0, $month, $day + $min_days);			
+			
+			if ( ($this->start_date < $min_date) ||
+				 ($this->start_date == $min_date && $this->start < $min_time) )
 			{
 				$dates_valid = false;
 				$this->add_error( translate('This resource cannot be reserved less than x hours in advance', array($min_notice)) );
@@ -453,15 +458,15 @@ class Reservation {
 		if ($max_notice != 0 && $dates_valid) {
 			// Only need to check this if the min notice check passed
 			$max_days = intval($max_notice / 24);
-			$max_hour = intval($max_notice % 24);
+			$max_time = ((intval($max_notice % 24) + $hour) * 60) + $min;
 
-			$max_date = mktime(0,0,0, date('m'), date('d') + $max_days);
+			$max_date = mktime(0,0,0, $month, $day + $max_days);
 
-			if ($this->start_date > $max_date ||
-				$this->start_date == $max_date && $start_hour > $max_hour )
+			if ( ($this->start_date > $max_date) ||
+				 ($this->start_date == $max_date && $this->start > $max_time) )
 			{
 				$dates_valid = false;
-				$this->add_error( translate('This resource cannot be reserved more than %s hours in advance', array($max_notice)) );
+				$this->add_error( translate('This resource cannot be reserved more than x hours in advance', array($max_notice)) );
 			}
 		}
 

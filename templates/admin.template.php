@@ -406,9 +406,15 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 		$minM = intval($rs['minres'] % 60);
 		$maxH = intval($rs['maxres'] / 60);
 		$maxM = intval($rs['maxres'] % 60);
+		
+		$minNotice = $rs['min_notice_time'];
+		$maxNotice = $rs['max_notice_time'];
 	}
 	else {
 		$maxH = 24;
+		
+		$minNotice = 0;
+		$maxNotice = 0;
 	}
 
     ?>
@@ -489,13 +495,13 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 		<tr>
 			<td class="formNames"><?php echo translate('Minimum Booking Notice')?></td>
 			<td class="cellColor">
-				<input type="text" name="min_notice_time" id="min_notice_time" class="textbox" size="3" <?php echo isset($rs['min_notice_time']) ? "value=\"{$rs['min_notice_time']}\"" : ''?> /> hours prior to the start time
+				<input type="text" name="min_notice_time" id="min_notice_time" class="textbox" size="3" value="<?php echo $minNotice?>" /> <?php echo translate('hours prior to the start time') ?>
 			</td>
 		</tr>
 		<tr>
 			<td class="formNames"><?php echo translate('Maximum Booking Notice')?></td>
 			<td class="cellColor">
-				<input type="text" name="max_notice_time" id="max_notice_time" class="textbox" size="3" <?php echo isset($rs['max_notice_time']) ? "value=\"{$rs['max_notice_time']}\"" : ''?> /> hours from the current time
+				<input type="text" name="max_notice_time" id="max_notice_time" class="textbox" size="3" value="<?php echo $maxNotice?>" /> <?php echo translate('hours from the current time') ?>
 			</td>
 		</tr>
 		<tr>

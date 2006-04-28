@@ -138,16 +138,16 @@ class Schedule {
 	/**
 	* Whether the reservation link is shown/clickable
 	* @param bool $viewable_date if the date is viewable
-	* @param string $status the status of this resource 
+	* @param array $current_record the currently iterated machid record
 	* @return if this reservation link is available to view
 	*/
-    function canShowReservation($viewable_date, $status) {
+    function canShowReservation($viewable_date, $current_record) {
 		if (Auth::isAdmin()) {
 			return true;
 		}
 
-		$is_active = ($status == 'a');
-		$has_permission = $this->user->has_perm($current_record['id']);
+		$is_active = ($current_record['status'] == 'a');
+		$has_permission = $this->user->has_perm($current_record['machid']);
 		
 		return ( $viewable_date && $is_active && $has_permission );
     }
@@ -213,7 +213,7 @@ class Schedule {
 
             // If the date has not passed, resource is active and user has permission,
             //  or the user is the admin allow reservations to be made
-            $shown = $this->canShowReservation($viewable_date, $status);
+            $shown = $this->canShowReservation($viewable_date, $cur_resource);
 
             $color = 'cellColor' . ($count%2);
             print_name_cell($current_date, $id, $name, $shown, $this->scheduleType == BLACKOUT_ONLY, $this->scheduleid, $approval, $color);

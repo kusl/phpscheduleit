@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 04-27-06
+* @version 04-28-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -709,6 +709,8 @@ $strings['This resource cannot be reserved less than x hours in advance'] = 'Thi
 $strings['This resource cannot be reserved more than x hours in advance'] = 'This resource cannot be reserved more than %s hours in advance';
 $strings['Minimum Booking Notice'] = 'Minimum Booking Notice';
 $strings['Maximum Booking Notice'] = 'Maximum Booking Notice';
+$strings['hours prior to the start time'] = 'hours prior to the start time';
+$strings['hours from the current time'] = 'hours from the current time';
 // end since 1.2.0
 
 /***

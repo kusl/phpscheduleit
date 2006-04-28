@@ -4,7 +4,7 @@
 *  without actually placing the reservation.
 * The output from this is to be used by an AJAX response handler
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-16-06
+* @version 04-28-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -30,8 +30,15 @@ else {
 	$Class = 'Reservation';
 }
 
-$res = new $Class($id, false, false);
-$res->adminMode = Auth::isAdmin() || $cur_user->get_isadmin() || $cur_user->is_group_admin($res->user->get_groupids()); 
+$res = new $Class($id);
+
+if ($id != null) {
+	$cur_user = new User(Auth::getCurrentID());
+	$res->adminMode = Auth::isAdmin() || $cur_user->get_isadmin() || $cur_user->is_group_admin($res->user->get_groupids()); 
+}
+else {
+	$res->adminMode = Auth::isAdmin();
+}
 
 $repeat_dates = process_reservation($res);
 $errors = array();

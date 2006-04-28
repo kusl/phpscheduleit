@@ -556,7 +556,7 @@ class AdminDB extends DBEngine {
 	*/
 	function edit_resource($rs) {
 		$values = array();
-
+		
 		$sql = 'SELECT scheduleid FROM ' . $this->get_table(TBL_RESOURCES) . ' WHERE machid=?';
 		$old_id = $this->db->getOne($sql, array($rs['machid']));
 		$this->check_for_error($old_id);
@@ -574,6 +574,7 @@ class AdminDB extends DBEngine {
 		$values[] = $rs['max_participants'];
 		$values[] = $rs['min_notice_time'];
 		$values[] = $rs['max_notice_time'];
+		$values[] = $rs['machid'];
 
 		$sql = 'UPDATE '. $this->get_table(TBL_RESOURCES) . ' SET '
 				. 'scheduleid=?, name=?, location=?, rphone=?, notes=?, minres=?, maxRes=?, autoassign=?, approval=?, allow_multi=?, max_participants=?, min_notice_time=?, max_notice_time=? '
