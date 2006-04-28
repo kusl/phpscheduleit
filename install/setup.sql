@@ -38,11 +38,9 @@ CREATE TABLE login (
   );
 
 # Create indexes ON login table #
-CREATE INDEX login_memberid ON login (memberid);
 CREATE INDEX login_email ON login (email);
 CREATE INDEX login_password ON login (password);
 CREATE INDEX login_logonname ON login (logon_name);
-
 
 # Create reservations table #  
 CREATE TABLE reservations (
@@ -64,7 +62,6 @@ CREATE TABLE reservations (
   );
 
 # Create indexes ON reservations table #
-CREATE INDEX res_resid ON reservations (resid);
 CREATE INDEX res_machid ON reservations (machid);
 CREATE INDEX res_scheduleid ON reservations (scheduleid);
 CREATE INDEX reservations_startdate ON reservations (start_date);
@@ -97,7 +94,6 @@ CREATE TABLE resources (
   );
 
 # Create indexes ON resources table #
-CREATE INDEX rs_machid ON resources (machid);
 CREATE INDEX rs_scheduleid ON resources (scheduleid);
 CREATE INDEX rs_name ON resources (name);
 CREATE INDEX rs_status ON resources (status);
@@ -134,9 +130,8 @@ CREATE TABLE schedules (
 INSERT INTO schedules VALUES ('sc1423642970aa9f','default',480,1200,30,12,0,7,0,0,1,'admin@email.com',1,0);
 
 # Create indexes ON schedules table #
-CREATE INDEX sh_scheduleid ON schedules (scheduleid);
-CREATE INDEX sh_hidden ON schedules (isHidden);
-CREATE INDEX sh_perms ON schedules (usePermissions);
+CREATE INDEX sh_hidden ON schedules (ishidden);
+CREATE INDEX sh_perms ON schedules (usepermissions);
 
 # Create schedule permission tables
 CREATE TABLE schedule_permission (
@@ -173,8 +168,6 @@ CREATE TABLE anonymous_users (
   lname VARCHAR(30) NOT NULL
   );
 
-CREATE INDEX anonymous_users_memberid ON anonymous_users (memberid);
-
 # Create additional_resources table #
 CREATE TABLE additional_resources (
   resourceid CHAR(16) NOT NULL PRIMARY KEY,
@@ -184,7 +177,6 @@ CREATE TABLE additional_resources (
   );
 
 # Create indexes ON additional_resources table #
-CREATE INDEX ar_resourceid ON additional_resources (resourceid);
 CREATE INDEX ar_name ON additional_resources (name);
 CREATE INDEX ar_status ON additional_resources (status);
 
@@ -223,6 +215,8 @@ CREATE TABLE user_groups (
   PRIMARY KEY(groupid, memberid)
   );
 
+CREATE INDEX usergroups_groupid ON user_groups (groupid);
+CREATE INDEX usergroups_memberid ON user_groups (memberid);
 CREATE INDEX usergroups_is_admin ON user_groups (is_admin);
 
 # Create reminders table #
