@@ -404,8 +404,8 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 	if ($edit) {
 		$minH = intval($rs['minres'] / 60);
 		$minM = intval($rs['minres'] % 60);
-		$maxH = intval($rs['maxRes'] / 60);
-		$maxM = intval($rs['maxRes'] % 60);
+		$maxH = intval($rs['maxres'] / 60);
+		$maxM = intval($rs['maxres'] % 60);
 	}
 	else {
 		$maxH = 24;
@@ -489,30 +489,13 @@ function print_resource_edit($rs, $scheds, $edit, &$pager) {
 		<tr>
 			<td class="formNames"><?php echo translate('Minimum Booking Notice')?></td>
 			<td class="cellColor">
-				Reservation must be booked at least <input type="text" name="minBook" id="minBook" class="textbox" <?php echo isset($minBook) ? "value=\"$minBook\"" : ''?> /> hours prior to the start time
-				<!--
-				<select name="minBook" id="minBook" class="textbox">
-				<?php
-				for ($h = 0; $h < 25; $h++)
-					echo '<option value="' . $h . '"' . ((isset($minBook) && $maxH == $h) ? ' selected="selected"' : '') . '>' . $h . ' ' . translate('hours') . '</option>' . "\n";
-				?>
-				</select>
-				-->
+				<input type="text" name="min_notice_time" id="min_notice_time" class="textbox" size="3" <?php echo isset($rs['min_notice_time']) ? "value=\"{$rs['min_notice_time']}\"" : ''?> /> hours prior to the start time
 			</td>
 		</tr>
 		<tr>
 			<td class="formNames"><?php echo translate('Maximum Booking Notice')?></td>
 			<td class="cellColor">
-				Reservation cannot be booked more than <input type="text" name="maxBook" id="maxBook" class="textbox" <?php echo isset($maxBook) ? "value=\"$maxBook\"" : ''?> /> hours from the current time
-				<input type="text" name="maxBook" id="maxBook" class="textbox" <?php echo isset($maxBook) ? "value=\"$maxBook\"" : ''?> />
-				<!--
-				<select name="minBook" id="minBook" class="textbox">
-				<?php
-				for ($h = 0; $h < 25; $h++)
-					echo '<option value="' . $h . '"' . ((isset($maxH) && $maxH == $h) ? ' selected="selected"' : '') . '>' . $h . ' ' . translate('hours') . '</option>' . "\n";
-				?>
-				</select>
-				-->
+				<input type="text" name="max_notice_time" id="max_notice_time" class="textbox" size="3" <?php echo isset($rs['max_notice_time']) ? "value=\"{$rs['max_notice_time']}\"" : ''?> /> hours from the current time
 			</td>
 		</tr>
 		<tr>

@@ -5,7 +5,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-26-06
+* @version 04-28-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -527,21 +527,23 @@ class AdminDB extends DBEngine {
 
 		$id = $this->get_new_id();
 
-		array_push($values, $id);	// Values to insert
-		array_push($values, $rs['scheduleid']);
-		array_push($values, $rs['name']);
-		array_push($values, $rs['location']);
-		array_push($values, $rs['rphone']);
-		array_push($values, $rs['notes']);
-		array_push($values, 'a');
-		array_push($values, $rs['minres']);
-		array_push($values, $rs['maxRes']);
-		array_push($values, intval(isset($rs['autoassign'])));
-		array_push($values, intval(isset($rs['approval'])));
-		array_push($values, intval(isset($rs['allow_multi'])));
-		array_push($values, $rs['max_participants']);
+		$values[] = $id;
+		$values[] = $rs['scheduleid'];
+		$values[] = $rs['name'];
+		$values[] = $rs['location'];
+		$values[] = $rs['rphone'];
+		$values[] = $rs['notes'];
+		$values[] = 'a';
+		$values[] = $rs['minres'];
+		$values[] = $rs['maxRes'];
+		$values[] = intval(isset($rs['autoassign']));
+		$values[] = intval(isset($rs['approval']));
+		$values[] = intval(isset($rs['allow_multi']));
+		$values[] = $rs['max_participants'];
+		$values[] = $rs['min_notice_time'];
+		$values[] = $rs['max_notice_time'];
 
-		$q = $this->db->prepare('INSERT INTO ' . $this->get_table(TBL_RESOURCES) . ' VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)');
+		$q = $this->db->prepare('INSERT INTO ' . $this->get_table(TBL_RESOURCES) . ' VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
 		$result = $this->db->execute($q, $values);
 		$this->check_for_error($result);
 
@@ -559,21 +561,22 @@ class AdminDB extends DBEngine {
 		$old_id = $this->db->getOne($sql, array($rs['machid']));
 		$this->check_for_error($old_id);
 
-		array_push($values, $rs['scheduleid']);
-		array_push($values, $rs['name']);
-		array_push($values, $rs['location']);
-		array_push($values, $rs['rphone']);
-		array_push($values, $rs['notes']);
-		array_push($values, $rs['minres']);
-		array_push($values, $rs['maxRes']);
-		array_push($values, intval(isset($rs['autoassign'])));
-		array_push($values, intval(isset($rs['approval'])));
-		array_push($values, intval(isset($rs['allow_multi'])));
-		array_push($values, $rs['max_participants']);
-		array_push($values, $rs['machid']);
+		$values[] = $rs['scheduleid'];
+		$values[] = $rs['name'];
+		$values[] = $rs['location'];
+		$values[] = $rs['rphone'];
+		$values[] = $rs['notes'];
+		$values[] = $rs['minres'];
+		$values[] = $rs['maxRes'];
+		$values[] = intval(isset($rs['autoassign']));
+		$values[] = intval(isset($rs['approval']));
+		$values[] = intval(isset($rs['allow_multi']));
+		$values[] = $rs['max_participants'];
+		$values[] = $rs['min_notice_time'];
+		$values[] = $rs['max_notice_time'];
 
 		$sql = 'UPDATE '. $this->get_table(TBL_RESOURCES) . ' SET '
-				. 'scheduleid=?, name=?, location=?, rphone=?, notes=?, minres=?, maxRes=?, autoassign=?, approval=?, allow_multi=?, max_participants=? '
+				. 'scheduleid=?, name=?, location=?, rphone=?, notes=?, minres=?, maxRes=?, autoassign=?, approval=?, allow_multi=?, max_participants=?, min_notice_time=?, max_notice_time=? '
 				. 'WHERE machid=?';
 
 		$q = $this->db->prepare($sql);

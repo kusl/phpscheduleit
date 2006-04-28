@@ -446,11 +446,12 @@ class Reservation {
 				$this->start_date == $min_date && $start_hour < $min_hour )
 			{
 				$dates_valid = false;
-				$this->add_error( translate('This resource cannot be reserved less than %s hours in advance', array($min_notice)) );
+				$this->add_error( translate('This resource cannot be reserved less than x hours in advance', array($min_notice)) );
 			}
 		}
 
-		if ($max_notice != 0) {
+		if ($max_notice != 0 && $dates_valid) {
+			// Only need to check this if the min notice check passed
 			$max_days = intval($max_notice / 24);
 			$max_hour = intval($max_notice % 24);
 

@@ -3,7 +3,7 @@
 * Provides interface for making all administrative database changes
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 02-26-06
+* @version 04-28-06
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -113,7 +113,7 @@ function edit_schedule() {
 	$schedule = check_schedule_data(CmnFns::cleanPostVals());
 	$db->edit_schedule($schedule);
 
-	CmnFns::write_log('Schedule editied. ' . $schedule['scheduletitle'] . ' ' . $schedule['scheduleid'], $_SESSION['sessionID']);
+	CmnFns::write_log('Schedule edited. ' . $schedule['scheduletitle'] . ' ' . $schedule['scheduleid'], $_SESSION['sessionID']);
 	print_success();
 }
 
@@ -168,7 +168,7 @@ function edit_announcement() {
 	$announcement = check_announcement_data(CmnFns::cleanPostVals());
 	$db->edit_announcement($announcement);
 
-	CmnFns::write_log('Announcement editied. ' . $announcement['announcement'] . ' ' . $announcement['announcementid'], $_SESSION['sessionID']);
+	CmnFns::write_log('Announcement edited. ' . $announcement['announcement'] . ' ' . $announcement['announcementid'], $_SESSION['sessionID']);
 	print_success();
 }
 
@@ -237,7 +237,7 @@ function edit_resource() {
 	if (isset($resource['autoassign']))		// Automatically give all users permission to reserve this resource
 		$db->autoassign($resource['machid']);
 
-	CmnFns::write_log('Resource editied. ' . $resource['name'] . ' ' . $resource['machid'], $_SESSION['sessionID']);
+	CmnFns::write_log('Resource edited. ' . $resource['name'] . ' ' . $resource['machid'], $_SESSION['sessionID']);
 	print_success();
 }
 
@@ -628,18 +628,22 @@ function check_resource_data($data) {
 	$data['minres']	= $minres;
 	$data['maxRes']	= $maxRes;
 
-	if (empty($data['name']))
-		array_push($msg, translate('Resource name is required.'));
-	else
+	if (empty($data['name'])) {
+		$msg[] = translate('Resource name is required.');
+	}
+	else {
 		$rs['name'] = $data['name'];
+	}
 
-	if (empty($data['scheduleid']))
-		array_push($msg, translate('Valid schedule must be selected'));
-	else
+	if (empty($data['scheduleid'])) {
+		$msg[] = translate('Valid schedule must be selected');
+	}
+	else {
 		$rs['scheduleid'] = $data['scheduleid'];
+	}
 
 	if (intval($minres) > intval($maxRes)) {
-		array_push($msg, translate('Minimum reservation length must be less than or equal to maximum reservation length.'));
+		$msg[] = translate('Minimum reservation length must be less than or equal to maximum reservation length.');
 	}
 	else {
 		$rs['minres']	= $minres;
@@ -650,17 +654,21 @@ function check_resource_data($data) {
 	$rs['location'] = $data['location'];
 	$rs['notes']	= $data['notes'];
 
-	if (isset($data['autoassign']))
+	if (isset($data['autoassign'])) {
 		$rs['autoassign'] = $data['autoassign'];
+	}
 
-    if (isset($data['approval']))
+    if (isset($data['approval'])) {
 		$rs['approval'] = $data['approval'];
+	}
 
-	if (isset($data['allow_multi']))
+	if (isset($data['allow_multi'])) {
 		$rs['allow_multi'] = $data['allow_multi'];
+	}
 
-	if (isset($data['machid']))
+	if (isset($data['machid'])) {
 		$rs['machid'] = $data['machid'];
+	}
 
 	if ($data['max_participants'] != '') {
 		$rs['max_participants'] = abs(intval($data['max_participants']));
@@ -668,9 +676,24 @@ function check_resource_data($data) {
 	else {
 		$rs['max_participants'] = null;
 	}
+	
+	if (!empty($data['min_notice_time'])) {
+		$rs['min_notice_time'] = abs(intval($data['min_notice_time']));
+	}
+	else {
+		$msg[] = translate('Minimum booking notice is required.');
+	}
+	
+	if (!empty($data['max_notice_time'])) {
+		$rs['max_notice_time'] = abs(intval($data['max_notice_time']));
+	}
+	else {
+		$msg[] = translate('Maximum booking notice is required.');
+	}
 
-	if (!empty($msg))
+	if (!empty($msg)) {
 		print_fail($msg, $data);
+	}
 
 	return $rs;
 }

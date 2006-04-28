@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 04-24-06
+* @version 04-27-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -705,6 +705,10 @@ $strings['Timezone'] = 'Timezone';
 $strings['Export'] = 'Export';
 $strings['Select reservations to export'] = 'Select reservations to export';
 $strings['Export Format'] = 'Export Format';
+$strings['This resource cannot be reserved less than x hours in advance'] = 'This resource cannot be reserved less than %s hours in advance';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'This resource cannot be reserved more than %s hours in advance';
+$strings['Minimum Booking Notice'] = 'Minimum Booking Notice';
+$strings['Maximum Booking Notice'] = 'Maximum Booking Notice';
 // end since 1.2.0
 
 /***
