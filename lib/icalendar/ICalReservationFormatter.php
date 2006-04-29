@@ -7,7 +7,6 @@
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
-* $Id$
 */
 
 $basedir = dirname(__FILE__) . '/../..';
