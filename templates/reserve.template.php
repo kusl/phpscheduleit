@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-22-06
+* @version 04-29-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -916,7 +916,7 @@ function print_export_button($id) {
 			<td class="export_menu_out" onmouseover="switchStyle(this,'export_menu_over');" onmouseout="switchStyle(this, 'export_menu_out');" onclick="openExport('ical', '<?php echo $id ?>');">iCalendar</td>
 		</tr>
 		<tr>
-			<td class="export_menu_out" onmouseover="switchStyle(this,'export_menu_over');" onmouseout="switchStyle(this, 'export_menu_out');" onclick="">vCalendar</td>
+			<td class="export_menu_out" onmouseover="switchStyle(this,'export_menu_over');" onmouseout="switchStyle(this, 'export_menu_out');" onclick="openExport('vcal', '<?php echo $id ?>');">vCalendar</td>
 		</tr>
 	</table>
 	</div>
