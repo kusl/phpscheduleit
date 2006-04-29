@@ -1,5 +1,3 @@
-// Last modified: 03-23-06
-
 function checkForm(f) {
 	var msg = "Please fix these errors:\n";
 	var errors = false;
@@ -699,7 +697,7 @@ function switchStyle(obj, style) {
 }
 
 function openExport(type, id, start, end) {
-	var qs = '';
+	var qs = 'type=' + type;
 	
 	if (id.length > 0) {
 		qs += "resid=" + id;
@@ -713,9 +711,7 @@ function openExport(type, id, start, end) {
 		}
 	}
 	
-	if (type == "ical") {
-		window.open("exports/ical.php?" + qs);
-	}
+	window.open("exports/ical.php?" + qs);
 }
 
 function exportSearch() {
