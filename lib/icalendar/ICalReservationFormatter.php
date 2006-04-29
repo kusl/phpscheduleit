@@ -2,11 +2,12 @@
 /**
 * Formats a Reservation for iCalendar
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-24-06
+* @version 04-29-06
 * @package phpScheduleIt.iCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
+* $Id
 */
 
 $basedir = dirname(__FILE__) . '/../..';
@@ -44,6 +45,13 @@ class ICalReservationFormatter extends IReservationFormatter
 		$builder = new StringBuilder();
 
 		$builder->append("UID:{$this->_reservation->id}\r\n");
+		
+		$adjusted = Time::getAdjustedTime(mktime());
+		$builder->append( sprintf(
+							"DTSTAMP:%sT%sZ\r\n",
+							date('Ymd', $adjusted),
+							date('His', $adjusted)
+							));
 
 		$adjusted_start = Time::getAdjustedMinutes($this->_reservation->start);
 		$builder->append( sprintf(
