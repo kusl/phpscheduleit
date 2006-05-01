@@ -17,8 +17,6 @@ CREATE TABLE anonymous_users (
   lname VARCHAR(30) NOT NULL
   );
 
-CREATE INDEX anonymous_users_memberid ON anonymous_users (memberid);
-
 # Create additional_resources table #
 CREATE TABLE additional_resources (
   resourceid CHAR(16) NOT NULL PRIMARY KEY,
@@ -28,7 +26,6 @@ CREATE TABLE additional_resources (
   );
 
 # Create indexes ON additional_resources table #
-CREATE INDEX ar_resourceid ON additional_resources (resourceid);
 CREATE INDEX ar_name ON additional_resources (name);
 CREATE INDEX ar_status ON additional_resources (status);
 
@@ -77,8 +74,6 @@ CREATE TABLE groups (
   group_name VARCHAR(50) NOT NULL,
   group_admin CHAR(16)
   );
-
-CREATE INDEX groups_groupadmin ON groups (group_admin);
 
 CREATE TABLE user_groups (
   groupid CHAR(16) NOT NULL,
