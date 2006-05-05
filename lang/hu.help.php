@@ -66,20 +66,20 @@
         <h4><a name="getting_started" id="getting_started"></a>Bevezetés</h4> 
         <p>A phpScheduleIt használatához elsõként regisztrálni kell. 
           Ammennyiben már regisztrált, akkor be kell jelentkeznie a Rendszerbe. 
-          Minden oldal tetején (kivéve a regisztrációs és  bejelentkezõ oldalt 
+          Minden oldal tetején (kivéve a regisztrációs és a bejelentkezõ oldalt)
           egy köszöntõ üzenetet talál, az aktuális dátummal és néhány linkkel. 
-          -- &quot;Kilépés&quot; link és &quot;Irányító Pult&quot; link 
-          a köszöntõ üzenet alatt, és egy &quot;Segítség&quot link a napi 
-          dátum alatt.</p> 
+          A &quot;Kilépés&quot; link és az &quot;Irányító Pult&quot; link 
+          a köszöntõ üzenet alatt, a &quot;Segítség&quot link pedig a napi 
+          dátum alatt helyezkedik el.</p> 
           <p>Ha más Felhasználó nevét olvassa a Köszöntõben, klikkeljen a &quot;Kilépés&quot; 
-          linkre, amivel érvényteleníti a sütiket, majd kövesse a <a href="#logging_in">Belépés 
-          </a> linket a bejelentkezéshez. Az &quot;Irányító Pult&quot; link elviszi 
-          az <a href="#my_control_panel">Irányító Pulthoz</a>, amely az Ön &quot;központi 
+          linkre, amivel érvényteleníti a sütiket, majd kattintson a <a href="#logging_in">Belépés</a>
+          linkre a bejelentkezéshez. Az &quot;Irányító Pult&quot; linkkel az 
+          <a href="#my_control_panel">Irányító Pultra</a> jut, amely az Ön &quot;központi 
           lapja&quot; az elõjegyzõ Rendszerben. 
           Amennyiben ráklikkel a &quot;Segítség&quot; linkre, egy felugró ablak jelenik meg. 
-          Az &quot;Levél Küldése az Adminisztrátornak&quot; linket választva egy beviteli mezõ 
+          A &quot;Levél Küldése az Adminisztrátornak&quot; linket választva egy beviteli mezõ 
           jelenik meg, mellyel az Rendszer karbantartójának üzenhet.</p> 
-          <p><font color="#FF0000">Warning:</font> Ha az ön gépén fut a Norton Personal 
+          <p><font color="#FF0000">Figyelem:</font> Ha az ön gépén fut a Norton Personal 
             Firewall miközben a phpScheduleIt-et használja, akkor problémák léphetnek fel. 
             Kérem kapcsolja ki a Norton Personal Firewallt, ameddig a phpScheduleIt-tel 
             dolgozik és kapcsolja vissza amint végzett a teendõivel.</p> 
@@ -98,8 +98,8 @@
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
         <h5><a name="logging_in" id="logging_in"></a>Bejelentkezés</h5>
         <p>Bejelentkezéskor egyszerûen csak meg kell adni a Felhasználó Nevet és a 
-          Jelszavát. Elõbb <a href="#registering">Regsiztrálnia</a> kell mielõtt. 
-          be tudna jelentkezni. Ezt a REgisztráció linkre kattintva teheti meg az 
+          Jelszavát. Elõbb <a href="#registering">Regisztrálnia</a> kell mielõtt 
+          be tudna jelentkezni. Ezt a Regisztráció linkre kattintva teheti meg az 
           induló oldalon. Ha bejelöli az &quot;Õrizzen meg bejelentkezett állapotban&quot; 
           opciót, akkor a rendszer sütiket fog használni az ön azonosítására minden alkalommal, 
           feleslegessé téve ezzel az ismételt bejelentkezést. <i>Csak akkor használja ezt az 
@@ -123,7 +123,7 @@
           Szerkesztése/Jelszó Váltás&quot; linkre. Ez egy olyan oldalra viszi, 
           ahol az adatai vannak felsorolva. Szerkessze azokat tetszése szerint. Az üresen 
           hagyott mezõk tartalma nem fog változni. Amennyiben a Jelszavát szeretné Megváltoztatni, 
-          írja azt be kétszer. Amikor végrhajtotta a kívánt változtatásokat, klikkeljen a &quot;Profil Szerkesztése&quot; 
+          írja azt be kétszer. Amikor végrehajtotta a kívánt változtatásokat, klikkeljen a &quot;Profil Szerkesztése&quot; 
           linkre és a változások érvénybe fognak lépni. Végezetül vissza fog kerülni az 
           Irányító Pultra.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
@@ -133,16 +133,16 @@
           &quot;Elfelejtett Jelszó&quot; linket a Bejelentekezõ mezõ alatt. 
           Egy új oldalra fog kerülni, ahol meg kell adnia email címét. 
           Miután ráklikkelt a &quot;Küldés&quot; linkre, a rendszer egy Új, véletlen jelszót 
-          generál. Az Újdonsült Jelszó bekerül az adatbázisba és a Rendszer elküldi Önnek. 
+          generál. Az Újdonsült Jelszó bekerül az adatbázisba és a Rendszer elküldi Önnek 
           email-ben. Nyissa meg a levelet és másolja át a jelszavát a bejelentkezéhez, 
           <a href="#logging_in">Jelentkezzen be</a> vele, és nyomban <a href="#manage_profile">változtassa 
           meg azt</a>.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
         <h5><a name="getting_support" id="getting_support"></a>Támogatás</h5>
         <p>Ha nincs joga egy Kontingens használatához, kérdése van egy Kontingenssel, 
-          Elõjegyzéssel, vagy az Elérésével kapcsolatban, kérem használja az &quot;Email
+          Elõjegyzéssel, vagy a Felhasználójával kapcsolatban, kérem használja az &quot;Email
           küldése az Adminisztrátornak&quot; linket,
-          melyet <a href="#quick_links">Gyors Linkek</a> között talál.</p>
+          melyet <a href="#quick_links">Gyors Linkek</a> között találhat meg.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>        <p align="right">&nbsp;</p>
         <hr width="95%" size="1" noshade="noshade" />
         <h4><a name="my_control_panel" id="my_control_panel"></a>Irányító Pult</h4>
@@ -157,11 +157,11 @@
           Az elsõ, az &quot;Ugrás az Online Elõjegyzésre&quot; az alapértelmezett
           Elõjegyzéshez vezet. Itt megtekintheti és átnézheti a Kontingenseit, 
           és módosíthatja Elõjegyzéseit.</p>
-        <p>A &quot;Naptár Megtekintése&quot; az Elõjegyzés Naptár Nézetéhez vezet,
+        <p>A &quot;Saját Naptár Megtekintése&quot; az Elõjegyzés Naptár Nézetéhez vezet,
           melyben szerepelnek az Elõjegyzések, melyekben Ön is Résztvevõ. Megtekinthetõ
           Napi, Heti, vagy Havi Bontásban.</p>
-        <p>A &quot;Kontingens &amp; Naptár Megtekintése&quot; elviszi Önt a Rendszer
-          Naptárához, amelyben az összes, vagy egy kiválasztott Kontingensen, 
+        <p>A &quot;Kontingens Naptár Megtekintése&quot; elviszi Önt a Rendszer
+          Naptárához, amelyben az összes, vagy egy kiválasztott Kontingens 
           Elõjegyzéseit tekintheti meg. Ha kiválaszt egy Kontingenst a Napi Nézetben,
           lehetõsége van kinyomtatni a &quot;Lista Nézetet&quot;, amennyiben
           a jegyzettömb ikonra kattint, a Kontingens melletti legördülõ menüben.</p>
@@ -181,8 +181,8 @@
           közlésre fontosnak ítélt.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
         <h5><a name="my_reservations" id="my_reservations"></a>Elõjegyzések</h5>
-        <p>Az Elõjegyzések lista tartalmaz mindenows eljövendõ Elõjegyzést az aktuális 
-          naptól számítva (alapértelmezés). A táblázatban megtalálható az Elõjegyzés, 
+        <p>Az Elõjegyzések lista tartalmaz minde eljövendõ Elõjegyzést az aktuális 
+          naptól számítva (alapértelmezés). A táblázatban megtalálható az Elõjegyzés 
           Dátuma, Kontingense, a Létrehozás ideje, az utolsó Módosítás ideje, valamint a
           Kezdõ és a Befejezõ Idõpont. A listából kiindulva az Elõjegyzések 
           Módosítani és Törölni lehet a &quot;Módosítás&quot; vagy a &quot;Törlés&quot; 
@@ -192,7 +192,7 @@
           melyen megtekintheti a részleteket.</p>
         <p>Az Elõjegyzések rendezési módjának megváltoztatásához kattintson a &#150; 
           vagy a + linkre az oszlop tetején. A mínusz jellel az adott oszlopra nézve 
-          csökkenõ sorrendben kérhetõk az ELõjegyzési lista elemei, a plussz jellel az 
+          csökkenõ sorrendben kérhetõk az Elõjegyzési lista elemei, a plussz jellel az 
           aktuális oszlopnak megfelelõen növekvõ sorrendben listázhatók az Elõjegyzések.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
         <h5><a name="my_training" id="my_training"></a>Jogosultságok</h5>
@@ -201,7 +201,7 @@
           érdeklõdhet az Adminisztrátornál.</p>
         <p>Regisztrációt követõen a Felhasználó nem tud egyik Kontingensbe sem írni, hacsak a 
 	  az Adminisztrátor nem határozott úgy, hogy a Felhasználók alapértelmezett Jogosultságot kapnak. 
-	  Az Adminsiztrátor az egyetlen személy, aki Jogosultságot adhat egy Kontingenshez. Amíg ez nem 
+	  Az Adminisztrátor az egyetlen személy, aki Jogosultságot adhat egy Kontingenshez. Amíg ez nem 
           történik meg, Ön nem írhat azokba a Kontingensekbe, amelyekhez nincs joga, de az Elõjegyzést 
           megtekintheti.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
@@ -218,14 +218,14 @@
           Résztvevõként szerepel. Nem mutatkoznak azok az Elõjegyzések, melyeknek
           Ön a gazdája. Az táblázaton lehetõség nyílik a Részvétel Felfüggesztésére
           egy kiválasztott Elõjegyzésben. Ha befejezi a Részvételt egy Elõjegyzésben,
-          Nem fog tudni résztvenni benne, ha a z Elõjegyzés létrehozója nem Hivja meg
+          Nem fog tudni résztvenni benne, hacsak az Elõjegyzés létrehozója nem Hivja meg
           Önt ismételten.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>        <p align="right">&nbsp;</p>
         <hr width="95%" size="1" noshade="noshade" />
         <h4><a name="using_the_scheduler" id="using_the_scheduler"></a>A Rendszer használata</h4>
-        <p>Az Elõjegyzési Rendszerben végrhajthat minden Elõjegyzési funkciót.
+        <p>Az Elõjegyzési Rendszerben végrehajthat minden Elõjegyzési funkciót.
           A Heti Bontás az aktuális hetet mutatja, és alapértelmezésben 7 napos
-          idõszakot mutat. Válthat az Elõjegyzések között, megtekintheti a Kontingenseket
+          idõszakot mutat. Váltogathat az Elõjegyzések között, megtekintheti a Kontingenseket
           és módosíthatja Elõjegyzéseit. Az Elõjegyzések színkódoltak, és mindegyik látható
           de csak az <i>Ön</i> által létrehozottak esetében
           található link a szerkesztéshez. A többi Elõjegyzés esetén csak a megtekintéshez
@@ -269,8 +269,8 @@
            tudta teljesíteni a kérést. Sikertelen próbálkozás esetén menjen vissza és 
            változtassa meg az Idõpontokat oly módon, hogy ne forduljon elõ átfedés más
            Elõjegyzéssel. Az Elõjegyzés elfogadása esetén a Rendszer automatikusan
-           frissül. Ez elõfeltétele, hogy minen új információ kijelzésre kerüljöne.</p>
-        <p>Nem hozhat létre Elõjegyzést olyan idõpontra, amelyik már elmúlt, olyan
+           frissül. Ez elõfeltétele, hogy minen új információ kijelzésre kerüljön.</p>
+        <p>Nem hozhat létre Elõjegyzést olyan idõpontra, amelyik már elmúlt, továbbá olyan
            Kontingensbe, amelyhez nincsen irási Jogosultsága vagy olyan Elõjegyzésbe
            amely Inaktív. Ilyen esetben a Kontingens szürkén jelenik meg és nem érhetõ
            el olyan link, amely elõhozná az elõre ugró ablakot.</p>
@@ -283,10 +283,10 @@
            a Rendszer nem kínálja fel a linket.</p>
         <p>Az Elõjegyzési Rendszerben rendkívül egyszerû módon elég a kívánt
           Elõjegyzésre kattintania. Ezután az Elõjegyzés Létrehozásakor
-          látható ablakhoz hasonló elõre ugró ablak jelenik meg. Két választása;
+          látható ablakhoz hasonló elõre ugró ablak jelenik meg. Két választása
           van: a Kezdõ és a Befejezõ idõpontok Módosítása után választhatja a &quot;Módosítás&quot;
-          gombot az oldal alján, az Elõjegyzés törléséhez ez elõtt a &quot;Törlés&quot;
-          opciót kell kiválasztania. A megadott új adatok ellenõrzésre kerülnek a
+          gombot az oldal alján, az Elõjegyzés törléséhez pedig ez elõtt a &quot;Törlés&quot;
+          opciót ki kell kiválasztania. A megadott új adatok ellenõrzésre kerülnek a
           Rendszerben a többi Elõjegyzéshez képest és a Rendszer visszajelzést
           ad, hogy sikeres volt-e a változtatás. Ha az idõpontok nem stimmelnek
           térjen vissza a Módosítás ablakba, hogy kijavíthassa az átfedéseket 

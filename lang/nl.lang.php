@@ -4,6 +4,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator <gerbrand@teomech.ugent.be>
+* @translator <erwin.vandenbunder@e-ware.be>
 * @version 04-04-05
 * @package Languages
 *
@@ -130,10 +131,10 @@ $strings['Help'] = 'Help';
 $strings['Manage Schedules'] = 'Beheer planningen';
 $strings['Manage Users'] ='Beheer gebruiker';
 $strings['Manage Resources'] ='Beheer bronnen';
-$strings['Manage User Training'] ='Beheer Gebruikersopleiding';
+$strings['Manage User Training'] ='Beheer gebruikersopleiding';
 $strings['Manage Reservations'] ='Beheer reservaties';
 $strings['Email Users'] ='E-mail gebruikers';
-$strings['Export Database Data'] = 'Exporteer data gegevensbank';
+$strings['Export Database Data'] = 'Exporteer databankgegevens';
 $strings['Reset Password'] = 'Wijzig wachtwoord';
 $strings['System Administration'] = 'Systeembeheer';
 $strings['Successful update'] = 'Update gelukt';
@@ -144,7 +145,7 @@ $strings['Manage My Email Contacts'] = 'Beheer mijn e-mail gegevens';
 $strings['Choose Date'] = 'Kies datum';
 $strings['Modify My Profile'] = 'Wijzig mijn profiel';
 $strings['Register'] = 'Registreer';
-$strings['Processing Blackout'] = 'Bezig met verwerken ongeschikbaarheid';
+$strings['Processing Blackout'] = 'Bezig met verwerken onbeschikbaarheid';
 $strings['Processing Reservation'] = 'Bezig met verwerken reservatie';
 $strings['Online Scheduler [Read-only Mode]'] = 'Online Planner [Alleen-lezen modus]';
 $strings['Online Scheduler'] = 'Online Planner';
@@ -246,7 +247,7 @@ $strings['Sort by descending last modified time'] = 'Sorteer volgens wijzigingsd
 $strings['Sort by ascending last modified time'] = 'Sorteer volgens wijzigingsdatum (oplopend)';
 
 $strings['Search Users'] = 'Zoek gebruikers';
-$strings['Location'] = 'Plats';
+$strings['Location'] = 'Plaats';
 $strings['Schedule'] = 'Planning';
 $strings['Phone'] = 'Telefoon';
 $strings['Notes'] = 'Opmerkingen';
@@ -313,7 +314,7 @@ $strings['My Permissions'] = 'Mijn toegangsrechten';
 $strings['My Quick Links'] = 'Mijn snelle verwijzingen';
 $strings['Announcements as of'] = 'Aankondigingen sinds %s';
 $strings['There are no announcements.'] = 'Geen aankondigingen.';
-$strings['Resource'] = 'Reservatiebrond';
+$strings['Resource'] = 'Reservatiebron';
 $strings['Created'] = 'Aangemaakt';
 $strings['Last Modified'] = 'Laatst gewijzigd';
 $strings['View this reservation'] = 'Bekijk deze reservatie';
@@ -352,11 +353,11 @@ $strings['Days'] = 'Dagen';
 $strings['Weeks'] = 'Weken';
 $strings['Months (date)'] = 'Maanden (datum)';
 $strings['Months (day)'] = 'Maanden (dag)';
-$strings['First Days'] = 'First Days';
-$strings['Second Days'] = 'Second Days';
-$strings['Third Days'] = 'Third Days';
-$strings['Fourth Days'] = 'Fourth Days';
-$strings['Last Days'] = 'Last Days';
+$strings['First Days'] = 'Eerste dagen';
+$strings['Second Days'] = 'Tweede dagen';
+$strings['Third Days'] = 'Derde dagen';
+$strings['Fourth Days'] = 'Vierde dagen';
+$strings['Last Days'] = 'Laatste dagen';
 $strings['Repeat every'] = 'Herhaal elke:';
 $strings['Repeat on'] = 'Herhaal op:';
 $strings['Repeat until date'] = 'Herhaal tot datum:';
@@ -384,7 +385,7 @@ $strings['View Monthly Calendar'] = 'Bekijk de maandkalender';
 $strings['Open up a navigational calendar'] = 'Open een navigeerbare kalender';
 
 $strings['View stats for schedule'] = 'Bekijk statistieken voor planning:';
-$strings['At A Glance'] = 'At A Glance';
+$strings['At A Glance'] = 'In een oogopslag';
 $strings['Total Users'] = 'Aantal gebruikers:';
 $strings['Total Resources'] = 'Aantal reservatiebronnen:';
 $strings['Total Reservations'] = 'Aantal reservaties:';
@@ -562,103 +563,103 @@ $strings['This will populate the required fields for phpScheduleIt 1.0.0 and pat
 		. '<br />Dit is enkel vereist als je een manuele SQL update uitvoerde of wil upgraden van versie 0.9.9';
 
 // @since 1.0.0 RC1
-$strings['If no value is specified, the default password set in the config file will be used.'] = 'If no value is specified, the default password set in the config file will be used.';
-$strings['Notify user that password has been changed?'] = 'Notify user that password has been changed?';
+$strings['If no value is specified, the default password set in the config file will be used.'] = 'Als geen waarde wordt opgegeven, wordt het standaard paswoord uit het configuratiebestand gebruikt.';
+$strings['Notify user that password has been changed?'] = 'Verwittig de gebruiker dat het paswoord is gewijzigd?';
 
 // @since 1.1.0
-$strings['This system requires that you have an email address.'] = 'This system requires that you have an email address.';
-$strings['Invalid User Name/Password.'] = 'Invalid User Name/Password.';
-$strings['Pending User Reservations'] = 'Pending User Reservations';
-$strings['Approve'] = 'Approve';
-$strings['Approve this reservation'] = 'Approve this reservation';
-$strings['Approve Reservations'] ='Approve Reservations';
+$strings['This system requires that you have an email address.'] = 'Dit systeem vereist dat u over een emailadres beschikt.';
+$strings['Invalid User Name/Password.'] = 'Ongeldige gebruikersnaam/paswoord.';
+$strings['Pending User Reservations'] = 'Wachtende Gebruikersreservaties';
+$strings['Approve'] = 'Goedkeuren';
+$strings['Approve this reservation'] = 'Keur deze reservatie goed';
+$strings['Approve Reservations'] ='Reservaties goedkeuren';
 
-$strings['Announcement'] = 'Announcement';
-$strings['Number'] = 'Number';
-$strings['Add Announcement'] = 'Add Announcement';
-$strings['Edit Announcement'] = 'Edit Announcement';
-$strings['All Announcements'] = 'All Announcements';
-$strings['Delete Announcements'] = 'Delete Announcements';
-$strings['Use start date/time?'] = 'Use start date/time?';
-$strings['Use end date/time?'] = 'Use end date/time?';
-$strings['Announcement text is required.'] = 'Announcement text is required.';
-$strings['Announcement number is required.'] = 'Announcement number is required.';
+$strings['Announcement'] = 'Aankondiging';
+$strings['Number'] = 'Nummer';
+$strings['Add Announcement'] = 'Aankondiging toevoeging';
+$strings['Edit Announcement'] = 'Aankondiging wijzigen';
+$strings['All Announcements'] = 'Alle aankondigingen';
+$strings['Delete Announcements'] = 'Aankondiging verwijderen';
+$strings['Use start date/time?'] = 'Gebruik starttijd/-datum?';
+$strings['Use end date/time?'] = 'Gebruik stoptijd/-datum?';
+$strings['Announcement text is required.'] = 'Aankondigingstekst is vereist.';
+$strings['Announcement number is required.'] = 'Aankondigingsnummer is vereist.';
 
-$strings['Pending Approval'] = 'Pending Approval';
-$strings['My reservation is approved'] = 'My reservation is approved';
-$strings['This reservation must be approved by the administrator.'] = 'This reservation must be approved by the administrator.';
-$strings['Approval Required'] = 'Approval Required';
-$strings['No reservations requiring approval'] = 'No reservations requiring approval';
-$strings['Your reservation was successfully approved'] = 'Your reservation was successfully approved';
-$strings['Reservation approved for'] = 'Reservation approved for %s';
-$strings['approved'] = 'approved';
-$strings['Reservation approved'] = 'Reservation approved';
+$strings['Pending Approval'] = 'Wachtend op goedkeuring';
+$strings['My reservation is approved'] = 'Mijn reservatie is goedgekeurd';
+$strings['This reservation must be approved by the administrator.'] = 'Deze reservatie moet door de administrator goedgekeurd worden.';
+$strings['Approval Required'] = 'Goedkeuring vereist';
+$strings['No reservations requiring approval'] = 'Geen reservaties die goedkeuring vereisen';
+$strings['Your reservation was successfully approved'] = 'Uw reservatie werd goedgekeurd.';
+$strings['Reservation approved for'] = 'Reservatie goedgekeurd voor %s';
+$strings['approved'] = 'goedgekeurd';
+$strings['Reservation approved'] = 'Reservatie goedgekeurd';
 
-$strings['Valid username is required'] = 'Valid username is required';
-$strings['That logon name is taken already.'] = 'That logon name is taken already.';
-$strings['this will be your login'] = '(this will be your login)';
-$strings['Logon name'] = 'Logon name';
-$strings['Your logon name is'] = 'Your logon name is %s';
+$strings['Valid username is required'] = 'Geldige gebruikersnaam is vereist';
+$strings['That logon name is taken already.'] = 'Die logon is reeds in gebruik.';
+$strings['this will be your login'] = '(dit wordt uw login)';
+$strings['Logon name'] = 'Logon naam';
+$strings['Your logon name is'] = 'Uw logon naam is %s';
 
 $strings['Start'] = 'Start';
-$strings['End'] = 'End';
-$strings['Start date must be less than or equal to end date'] = 'Start date must be less than or equal to end date';
-$strings['That starting date has already passed'] = 'That starting date has already passed';
-$strings['Basic'] = 'Basic';
-$strings['Participants'] = 'Participants';
-$strings['Close'] = 'Close';
-$strings['Start Date'] = 'Start Date';
-$strings['End Date'] = 'End Date';
+$strings['End'] = 'Eind';
+$strings['Start date must be less than or equal to end date'] = 'Startdatum moet kleiner of gelijk aan de einddatum zijn';
+$strings['That starting date has already passed'] = 'Die startdatum is reeds voorbij';
+$strings['Basic'] = 'Standaard';
+$strings['Participants'] = 'Deelnemers';
+$strings['Close'] = 'Sluiten';
+$strings['Start Date'] = 'Startdatum';
+$strings['End Date'] = 'Einddatum';
 $strings['Minimum'] = 'Minimum';
 $strings['Maximum'] = 'Maximum';
-$strings['Allow Multiple Day Reservations'] = 'Allow Multiple Day Reservations';
-$strings['Invited Users'] = 'Invited Users';
-$strings['Invite Users'] = 'Invite Users';
-$strings['Remove Participants'] = 'Remove Participants';
-$strings['Reservation Invitation'] = 'Reservation Invitation';
-$strings['Manage Invites'] = 'Manage Invites';
-$strings['No invite was selected'] = 'No invite was selected';
-$strings['reservation accepted'] = '%s Accepted Your Invitation on %s';
-$strings['reservation declined'] = '%s Declined Your Invitation on %s';
-$strings['Login to manage all of your invitiations'] = 'Login to manage all of your invitiations';
-$strings['Reservation Participation Change'] = 'Reservation Participation Change';
-$strings['My Invitations'] = 'My Invitations';
-$strings['Accept'] = 'Accept';
-$strings['Decline'] = 'Decline';
-$strings['Accept or decline this reservation'] = 'Accept or decline this reservation';
-$strings['My Reservation Participation'] = 'My Reservation Participation';
-$strings['End Participation'] = 'End Participation';
-$strings['Owner'] = 'Owner';
-$strings['Particpating Users'] = 'Particpating Users';
-$strings['No advanced options available'] = 'No advanced options available';
-$strings['Confirm reservation participation'] = 'Confirm reservation participation';
-$strings['Confirm'] = 'Confirm';
-$strings['Do for all reservations in the group?'] = 'Do for all reservations in the group?';
+$strings['Allow Multiple Day Reservations'] = 'Meerdaagse reservaties toelaten';
+$strings['Invited Users'] = 'Uitgenodigde gebruikers';
+$strings['Invite Users'] = 'Gebruikers uitnodigen';
+$strings['Remove Participants'] = 'Deelnemers verwijderen';
+$strings['Reservation Invitation'] = 'Reservatie uitnodiging';
+$strings['Manage Invites'] = 'Genodigden beheren';
+$strings['No invite was selected'] = 'Er was geen genodigde geselecteerd';
+$strings['reservation accepted'] = '%s heeft uw uitnodiging aanvaard op %s';
+$strings['reservation declined'] = '%s heeft uw uitnodiging geweigerd op %s';
+$strings['Login to manage all of your invitiations'] = 'Log in om al uw uitnodigingen te beheren';
+$strings['Reservation Participation Change'] = 'Deelname aan de reservatie is gewijzigd';
+$strings['My Invitations'] = 'Mijn uitnodigingen';
+$strings['Accept'] = 'Aanvaarden';
+$strings['Decline'] = 'Weigeren';
+$strings['Accept or decline this reservation'] = 'Deze uitnodiging aanvaarden of weigeren';
+$strings['My Reservation Participation'] = 'Mijn reservatie deelname';
+$strings['End Participation'] = 'Beeindig deelname';
+$strings['Owner'] = 'Eigenaar';
+$strings['Particpating Users'] = 'Deelnemende gebruikers';
+$strings['No advanced options available'] = 'Geen geavanceerde opties beschikbaar';
+$strings['Confirm reservation participation'] = 'Reservatie deelname bevestigen';
+$strings['Confirm'] = 'Bevestig';
+$strings['Do for all reservations in the group?'] = 'Toepassen voor alle reservaties in de groep?';
 
-$strings['My Calendar'] = 'My Calendar';
-$strings['View My Calendar'] = 'View My Calendar';
-$strings['Participant'] = 'Participant';
-$strings['Recurring'] = 'Recurring';
-$strings['Multiple Day'] = 'Multiple Day';
-$strings['[today]'] = '[today]';
-$strings['Day View'] = 'Day View';
-$strings['Week View'] = 'Week View';
-$strings['Month View'] = 'Month View';
-$strings['Resource Calendar'] = 'Resource Calendar';
-$strings['View Resource Calendar'] = 'View Schedule &amp; Resource Calendar';
-$strings['Signup View'] = 'Signup View';
+$strings['My Calendar'] = 'Mijn kalender';
+$strings['View My Calendar'] = 'Mijn kalender bekijken';
+$strings['Participant'] = 'Deelnemer';
+$strings['Recurring'] = 'Herhaling';
+$strings['Multiple Day'] = 'Meerdere dagen';
+$strings['[today]'] = '[vandaag]';
+$strings['Day View'] = 'Dag weergave';
+$strings['Week View'] = 'Week weergave';
+$strings['Month View'] = 'Maand weergave';
+$strings['Resource Calendar'] = 'Bron kalender';
+$strings['View Resource Calendar'] = 'Bron kalender bekijken';
+$strings['Signup View'] = 'Weergave Inschrijving';
 
-$strings['Select User'] = 'Select User';
-$strings['Change'] = 'Change';
+$strings['Select User'] = 'Selecteer gebruiker';
+$strings['Change'] = 'Wijzig';
 
-$strings['Update'] = 'Update';
-$strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'phpScheduleIt Update is only available for versions 1.0.0 or later';
-$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt is already up to date';
-$strings['Migrating reservations'] = 'Migrating reservations';
+$strings['Update'] = 'Actualiseren';
+$strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'phpScheduleIt Actualisatie is alleen beschikbaar voor versies 1.0.0 of later';
+$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt is reeds geactualiseerd';
+$strings['Migrating reservations'] = 'Reservaties aan het migreren.';
 
 $strings['Admin'] = 'Admin';
-$strings['Manage Announcements'] = 'Manage Announcements';
-$strings['There are no announcements'] = 'There are no announcements';
+$strings['Manage Announcements'] = 'Beheer aankondigingen';
+$strings['There are no announcements'] = 'Er zijn geen aankondigingen';
 // end since 1.1.0
 
 /***
@@ -671,35 +672,35 @@ $strings['There are no announcements'] = 'There are no announcements';
 // @since 1.1.0
 // Email message that a user gets after they register
 $email['register'] = "%s, %s \r\n"
-				. "You have successfully registered with the following information:\r\n"
+				. "U bent succesvol aangemeld met volgende gegevens:\r\n"
 				. "Logon: %s\r\n"
-				. "Name: %s %s \r\n"
-				. "Phone: %s \r\n"
-				. "Institution: %s \r\n"
-				. "Position: %s \r\n\r\n"
-				. "Please log into the scheduler at this location:\r\n"
+				. "Naam: %s %s \r\n"
+				. "Telefoon: %s \r\n"
+				. "Organisatie: %s \r\n"
+				. "Positie: %s \r\n\r\n"
+				. "Gelieve hier in te loggen op de planner:\r\n"
 				. "%s \r\n\r\n"
-				. "You can find links to the online scheduler and to edit your profile at My Control Panel.\r\n\r\n"
-				. "Please direct any resource or reservation based questions to %s";
+				. "U vindt links naar de online planner en om uw profiel aan te passen in Mijn Controle Paneel.\r\n\r\n"
+				. "Gelieve alle vragen m.b.t. bronnen en reservaties te richten tot %s";
 
 // Email message the admin gets after a new user registers
 $email['register_admin'] = "Administrator,\r\n\r\n"
-					. "A new user has registered with the following information:\r\n"
+					. "Een nieuwe gebruiker heeft zich aangemeld met volgende gegevens:\r\n"
 					. "Email: %s\r\n"
-					. "Name: %s %s\r\n"
-					. "Phone: %s\r\n"
-					. "Institution: %s\r\n"
-					. "Position: %s\r\n\r\n";
+					. "Naam: %s %s\r\n"
+					. "Telefoon: %s\r\n"
+					. "Organisatie: %s\r\n"
+					. "Positie: %s\r\n\r\n";
 
 // First part of the email that a user gets after they create/modify/delete a reservation
 // 'reservation_activity_1' through 'reservation_activity_6' are all part of one email message
 //  that needs to be assembled depending on different options.  Please translate all of them.
 // @since 1.1.0
 $email['reservation_activity_1'] = "%s,\r\n<br />"
-			. "You have successfully %s reservation #%s.\r\n\r\n<br/><br/>"
-			. "Please use this reservation number when contacting the administrator with any questions.\r\n\r\n<br/><br/>"
-			. "A reservation between %s %s and %s %s for %s"
-			. " located at %s has been %s.\r\n\r\n<br/><br/>";
+			. "U hebt succesvol de reservatie  %s met nummer #%s.\r\n\r\n<br/><br/>"
+			. "Gebruik dit reservatienummer steeds wanneer u de administrator contacteert i.v.m. deze reservatie.\r\n\r\n<br/><br/>"
+			. "Een reservatie van %s %s tot %s %s voor %s"
+			. " te %s werd %s.\r\n\r\n<br/><br/>";
 $email['reservation_activity_2'] = "Deze reservatie werd herhaald op volgende data:\r\n<br/>";
 $email['reservation_activity_3'] = "Alle herhaalde reservaties in deze groep werden eveneens %s.\r\n\r\n<br/><br/>";
 $email['reservation_activity_4'] = "De volgende commentaar werd toegevoegd aan deze reservatie:\r\n<br/>%s\r\n\r\n<br/><br/>";
@@ -711,10 +712,10 @@ $email['reservation_activity_5'] = "Indien dit een vergissing is, gelieve de beh
 $email['reservation_activity_6'] = "Gelieve alle technische vragen te richten aan <a href=\"mailto:%s\">%s</a>.\r\n\r\n<br/><br/>";
 // @since 1.1.0
 $email['reservation_activity_7'] = "%s,\r\n<br />"
-			. "Reservation #%s has been approved.\r\n\r\n<br/><br/>"
-			. "Please use this reservation number when contacting the administrator with any questions.\r\n\r\n<br/><br/>"
-			. "A reservation between %s %s and %s %s for %s"
-			. " located at %s has been %s.\r\n\r\n<br/><br/>";
+			. "Reservatie #%s werd goedgekeurd.\r\n\r\n<br/><br/>"
+			. "Gebruik dit reservatienummer steeds wanneer u de administrator contacteert i.v.m. deze reservatie.\r\n\r\n<br/><br/>"
+			. "Een reservatie van %s %s tot %s %s voor %s"
+			. " te %s werd %s.\r\n\r\n<br/><br/>";
 			
 // Email that the user gets when the administrator changes their password
 $email['password_reset'] = "Je %s wachtwoord werd gewijzigd door de beheerder.\r\n\r\n"
@@ -737,26 +738,26 @@ $email['new_password'] = "%s,\r\n"
 			
 // @since 1.1.0
 // Email that is sent to invite users to a reservation
-$email['reservation_invite'] = "%s has invited you to participate in the following reservation:\r\n\r\n"
-		. "Resource: %s\r\n"
-		. "Start Date: %s\r\n"
-		. "Start Time: %s\r\n"
-		. "End Date: %s\r\n"
-		. "End Time: %s\r\n"
-		. "Summary: %s\r\n"
-		. "Repeated Dates (if present): %s\r\n\r\n"
-		. "To accept this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
-		. "To decline this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
-		. "To accept select dates or manage your invitations at a later time, please log into %s at %s";
+$email['reservation_invite'] = "%s heeft je uitgenodigd om aan volgende reservatie deel te nemen:\r\n\r\n"
+		. "Bron: %s\r\n"
+		. "Startdatum: %s\r\n"
+		. "Starttijd: %s\r\n"
+		. "Einddatum: %s\r\n"
+		. "Eindtijd: %s\r\n"
+		. "Samenvatting: %s\r\n"
+		. "Herhalingsdata (indien aanwezig): %s\r\n\r\n"
+		. "Om deze uitnodiging te aanvaarden klikt u op deze link (kopieren en plakken indien geen actieve link) %s\r\n"
+		. "Om deze uitnodiging te weigeren klikt u op deze link (kopieren en plakken indien geen actieve link) %s\r\n"
+		. "Om bepaalde data te aanvaarden of uw uitnodigingen te beheren op een later ogenblik logt u in op %s at %s";
 
 // @since 1.1.0
 // Email that is sent when a user is removed from a reservation
-$email['reservation_removal'] = "You have been removed from the following reservation:\r\n\r\n"
-		. "Resource: %s\r\n"
-		. "Start Date: %s\r\n"
-		. "Start Time: %s\r\n"
-		. "End Date: %s\r\n"
-		. "End Time: %s\r\n"
-		. "Summary: %s\r\n"
-		. "Repeated Dates (if present): %s\r\n\r\n";	
+$email['reservation_removal'] = "U werd uit de volgende reservatie verwijderd:\r\n\r\n"
+		. "Bron: %s\r\n"
+		. "Startdatum: %s\r\n"
+		. "Starttid: %s\r\n"
+		. "Einddatum: %s\r\n"
+		. "Eindtijd: %s\r\n"
+		. "Samenvatting: %s\r\n"
+		. "Herhalingsdata (indien aanwezig): %s\r\n\r\n";	
 ?>

@@ -3,7 +3,8 @@
 * UsageDB class
 * Provides database functions for usage.php
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-02-05
+* @author Attila <atoth@cmr.sote.hu>
+* @version 05-04-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -72,7 +73,7 @@ class UsageDB extends DBEngine {
 	* @param int $endtimeMax maximum end time value
 	* @return mixed array of reservations or false if none are found
 	*/
-	function get_reservations($scheduleids, $memberids, $machids, $startDateMin, $startDateMax, $endDateMin, $endDateMax, $starttimeMin, $starttimeMax, $endtimeMin, $endtimeMax) {
+	function get_reservations($scheduleids, $memberids, $machids, $startDateMin, $startDateMax, $endDateMin, $endDateMax, $starttimeMin, $starttimeMax, $endtimeMin, $endtimeMax, $summarysearch, $searchtype) {
 		
 		// Limit columns as much as possible to speed up query
 		$query = 'SELECT l.memberid, l.fname, l.lname,
@@ -192,6 +193,17 @@ class UsageDB extends DBEngine {
 		$where .= ($machids[0] != 'all') ? ') AND ' : '';
 		// Join resources/reservations on machid
 		$where .= ' (res.machid=rs.machid) ';
+		
+		// Summary search clause
+		if (!empty($summarysearch)) {
+			if ($searchtype != 'beginning') {
+				$where .= ' AND res.summary LIKE "%' . $summarysearch . '%" ';
+			}
+			else {
+				$where .= ' AND res.summary LIKE "' . $summarysearch . '%" ';
+			}
+		}
+		
 		// Put query together
 		$query .= $where . $order;
 		

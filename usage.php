@@ -4,7 +4,8 @@
 * This file either prints a form or performs a search
 *  on form criteria, printing results in a table.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-11-06
+* @author Attila <atoth@cmr.sote.hu>
+* @version 05-04-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -38,7 +39,7 @@ $link = CmnFns::getNewLink();	// Get Link object
 
 // Perform function based on if search button has been pressed
 if ( isset($_POST['search']) || isset($_GET['text']) ) {
-	search($_POST['outputtype']);
+	search($_POST['outputtype'], $_POST['searchtype']);
 }
 else {
 	showForm( 	$db->get_min_max(),
@@ -54,7 +55,7 @@ $t->printHTMLFooter();	// Print HTML footer
 /****** END MAIN CODE ******/
 
 $timer->stop();
-$timer->printComment();
+$timer->print_comment();
 
 /**
 * Perform search and print out results
@@ -73,29 +74,31 @@ $timer->printComment();
 * @global $_POST['starttime'] double starting time
 * @global $_POST['endtime'] double ending time
 */
-function search($type) {
+function search($type, $searchtype) {
     global $db;
 	global $link;
 
 	$html = ($type == 'html');
 
     // Store form vars for easy access
-	$scheduleids= $_POST['scheduleid'];	// Array of scheduleids
-    $memberids  = $_POST['memberid'];   // Array of memberID's
-    $machids    = $_POST['machid'];     // Array of machID's
-    $startDateMin  = mktime(0,0,0, intval($_POST['startMonthMin']), intval($_POST['startDayMin']), intval($_POST['startYearMin']));
-	$startDateMax  = mktime(0,0,0, intval($_POST['startMonthMax']), intval($_POST['startDayMax']), intval($_POST['startYearMax']));
-    $endDateMin    = mktime(0,0,0, intval($_POST['endMonthMin']), intval($_POST['endDayMin']), intval($_POST['endYearMin']));
-	$endDateMax    = mktime(0,0,0, intval($_POST['endMonthMax']), intval($_POST['endDayMax']), intval($_POST['endYearMax']));
-    $starttimeMin  = intval($_POST['starttimeMin']);
-	$starttimeMax  = intval($_POST['starttimeMax']);
-    $endtimeMin    = intval($_POST['endtimeMin']);
-	$endtimeMax    = intval($_POST['endtimeMax']);
-	$percent	   = 0;
+	$scheduleids = $_POST['scheduleid'];	// Array of scheduleids
+    $memberids = $_POST['memberid'];   // Array of memberID's
+    $machids = $_POST['machid'];     // Array of machID's
+    $startDateMin = mktime(0,0,0, intval($_POST['startMonthMin']), intval($_POST['startDayMin']), intval($_POST['startYearMin']));
+	$startDateMax = mktime(0,0,0, intval($_POST['startMonthMax']), intval($_POST['startDayMax']), intval($_POST['startYearMax']));
+    $endDateMin = mktime(0,0,0, intval($_POST['endMonthMin']), intval($_POST['endDayMin']), intval($_POST['endYearMin']));
+	$endDateMax = mktime(0,0,0, intval($_POST['endMonthMax']), intval($_POST['endDayMax']), intval($_POST['endYearMax']));
+    $starttimeMin = intval($_POST['starttimeMin']);
+	$starttimeMax = intval($_POST['starttimeMax']);
+    $endtimeMin = intval($_POST['endtimeMin']);
+	$endtimeMax = intval($_POST['endtimeMax']);
+	$percent = 0;
+	$summarysearch = $_POST['summarysearch'];
+	$summarytype = $_POST['summarytype'];
 
 	//die($startDateMin . ' ' . $startDateMax . ' ' . $endDateMin . ' ' . $endDateMax);
 
-	$res = $db->get_reservations($scheduleids, $memberids, $machids, $startDateMin, $startDateMax, $endDateMin, $endDateMax, $starttimeMin, $starttimeMax, $endtimeMin, $endtimeMax);
+	$res = $db->get_reservations($scheduleids, $memberids, $machids, $startDateMin, $startDateMax, $endDateMin, $endDateMax, $starttimeMin, $starttimeMax, $endtimeMin, $endtimeMax, $summarysearch, $summarytype);
 
 	$rs_hours = $db->get_resource_times($machids);
 

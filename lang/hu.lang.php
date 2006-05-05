@@ -294,7 +294,7 @@ $strings['Reset Password for'] = '%s Jelszavának visszaállítása';
 $strings['Please edit your profile'] = 'Kérem hajtsa végre Profilján a kívánt változtatásokat';
 $strings['Please register'] = 'Kérem Regisztráljon';
 $strings['Email address (this will be your login)'] = 'Email cím (ez lesz az Azonosítója)';
-$strings['Keep me logged in'] = 'A Rendszer õrizen meg bejelentkezett állapotban <br/>(cookie támogatás szükséges)';
+$strings['Keep me logged in'] = 'A Rendszer õrizzen meg bejelentkezett állapotban <br/>(cookie támogatás szükséges)';
 $strings['Edit Profile'] = 'Profil Szerkesztése';
 $strings['Register'] = 'Regisztráció';
 $strings['Please Log In'] = 'Kérem Jelentkezzen Be';
@@ -332,7 +332,7 @@ $strings['Manage Resources'] = 'Kontingens Kezelés';
 $strings['Manage Users'] = 'Felhasználó Kezelés';
 $strings['Manage Reservations'] = 'Vizsgálat Kezelés';
 $strings['Manage Blackout Times'] = 'Tiltott Idõszak Kezelés';
-$strings['Mass Email Users'] = 'Mass Email Users';
+$strings['Mass Email Users'] = 'Köremail küldése';
 $strings['Search Scheduled Resource Usage'] = 'Keresés a kontingensek kihasználtsági adatai között';
 $strings['Export Database Content'] = 'Adatbázis Tartalom Exportálása';
 $strings['View System Stats'] = 'Rendszer Statisztika Megtekintése';
@@ -346,13 +346,13 @@ $strings['I prefer'] = 'Elõnyben részesül:';
 $strings['Your email preferences were successfully saved'] = 'Az email beállítások sikeresen tárolásra kerültek!';
 $strings['Return to My Control Panel'] = 'Vissza a Vezérlõ Pulthoz';
 
-$strings['Please select the starting and ending times'] = 'Kérem válassza ki a kezdõ és befejezõ idõpontot:';
-$strings['Please change the starting and ending times'] = 'Kérem módosítsa a kezdõ és a befejezõ idõpontot:';
+$strings['Please select the starting and ending times'] = 'Választhat egy kezdõ és egy befejezõ idõpontot:';
+$strings['Please change the starting and ending times'] = 'Módosíthatja a kezdõ és a befejezõ idõpontot:';
 $strings['Reserved time'] = 'Fenntartott idõtartam:';
 $strings['Minimum Reservation Length'] = 'Minimum Vizsgálati Idõ:';
 $strings['Maximum Reservation Length'] = 'Maximum Vizsgálati Idõ:';
 $strings['Reserved for'] = 'Fenntartva:';
-$strings['Will be reserved for'] = 'Nem kerül kiosztásra:';
+$strings['Will be reserved for'] = 'Vizsgálatot elõjegyzõ felhasználó:';
 $strings['N/A'] = 'N/A';
 $strings['Update all recurring records in group'] = 'Ismételt Elõfordulás(ok) Frissítése';
 $strings['Delete?'] = 'Törlés?';
@@ -366,7 +366,7 @@ $strings['Second Days'] = 'Második napon';
 $strings['Third Days'] = 'Harmadik napon';
 $strings['Fourth Days'] = 'Negyedik napon';
 $strings['Last Days'] = 'Utolsó nap';
-$strings['Repeat every'] = 'Ismételt elõfordulás minden:';
+$strings['Repeat every'] = 'Ismételt elõfordulás:';
 $strings['Repeat on'] = 'Ismétlõdjön:';
 $strings['Repeat until date'] = 'Ismétlõdjön a következõ idõpontig:';
 $strings['Choose Date'] = 'Válasszon dátumot';
@@ -423,7 +423,7 @@ $strings['Reservations'] = 'Vizsgálati elõjegyzések';
 $strings['Return to top'] = 'Vissza a tetejére';
 $strings['for'] = 'miatt';
 
-$strings['Select Search Criteria'] = 'Select Search Criteria';
+$strings['Select Search Criteria'] = 'Keresési Feltétel Kiválasztása';
 $strings['Schedules'] = 'Elõjegyzések:';
 $strings['All Schedules'] = 'Összes Elõjegyzés';
 $strings['Hold CTRL to select multiple'] = 'Többszörös választáshoz tartsa lenyomva a CTRL-t';
@@ -470,7 +470,7 @@ $strings['You have successfully registered'] = 'Sikeres Regisztráció!';
 $strings['Continue'] = 'Folytatás...';
 $strings['Your profile has been successfully updated!'] = 'A Profil sikeresen frissítésre került!';
 $strings['Please return to My Control Panel'] = 'Kérem térjen vissza a Vezérlõ Pulthoz';
-$strings['Valid email address is required.'] = '- ValÃ³s email cím megadása szükséges.';
+$strings['Valid email address is required.'] = '- Valós email cím megadása szükséges.';
 $strings['First name is required.'] = '- Vezetéknév megadása kötelezõ.';
 $strings['Last name is required.'] = '- Keresztnév megadása kötelezõ.';
 $strings['Phone number is required.'] = '- Telefonszám megadása kötelezõ.';
@@ -492,7 +492,7 @@ $strings['Start time must be less than end time'] = 'A Kezdõ Idõpontnak korábbin
 $strings['Current start time is'] = 'Aktuális Kezdõ Idõpont:';
 $strings['Current end time is'] = 'Aktuális Befejezõ Idõpont:';
 $strings['Reservation length does not fall within this resource\'s allowed length.'] = 'A Vizsgálat megadott hossza nem teljesíti az idõtartammal kapcsolatban\ meghatározott feltételeket.';
-$strings['Your reservation is'] = 'Az Ön Vizsgalata:';
+$strings['Your reservation is'] = 'Az Ön Vizsgálata:';
 $strings['Minimum reservation length'] = 'Minimális Vizsgálati Idõtartam:';
 $strings['Maximum reservation length'] = 'Maximális Vizsgálati Idõtartam:';
 $strings['You do not have permission to use this resource.'] = 'Nincs Jogosultsága az adott Kontingens használatához.';
@@ -527,7 +527,7 @@ $strings['Password Reset'] = 'Jelszó Visszaállítva';
 
 $strings['This will change your password to a new, randomly generated one.'] = 'Ezzel Jelszava véletlenszerûre fog változni.';
 $strings['your new password will be set'] = 'Miután megadta az Email címét és a "Jelszó Megváltoztatása" gombra kattint, az újdonsült Jelszavát a rendszer regisztrálja és elküldi önnek Email-ben.';
-$strings['Change Password'] = 'JelszÃ³ MegvÃ¡ltoztatÃ¡sa';
+$strings['Change Password'] = 'Jelszó Megváltoztatása';
 $strings['Sorry, we could not find that user in the database.'] = 'Sajnos a megadott Felhasználó nem található meg az adatbázisban.';
 $strings['Your New Password'] = 'Az Ön Új %s Jelszava';
 $strings['Your new passsword has been emailed to you.'] = 'Elkészült!<br />'
@@ -571,8 +571,8 @@ $strings['This will populate the required fields for phpScheduleIt 1.0.0 and pat
 		. '<br />Csak akkor szükséges lefuttatni, ha kézi SQL frissítést hajtott végre, vagy 0.9.9-rõl korszerûsít';
 
 // @since 1.0.0 RC1
-$strings['If no value is specified, the default password set in the config file will be used.'] = 'If no value is specified, the default password set in the config file will be used.';
-$strings['Notify user that password has been changed?'] = 'Notify user that password has been changed?';
+$strings['If no value is specified, the default password set in the config file will be used.'] = 'Ha nincs megadva jelszó, akkor a rendszer konfigurációs fájlban tárolt alapértelmezett jelszót fogja használni.';
+$strings['Notify user that password has been changed?'] = 'Kapjon értesítést a felhasználó a jelszó változásról?';
 
 // @since 1.1.0
 $strings['This system requires that you have an email address.'] = 'A rendszer használatának elõfeltétele, hogy legyen egy email címe.';
@@ -645,8 +645,8 @@ $strings['Confirm reservation participation'] = 'Elõjegyzésben való részvétel me
 $strings['Confirm'] = 'Megerõsítés';
 $strings['Do for all reservations in the group?'] = 'Alkalmazza a csoportban szereplõ összes Elõjegyzésre?';
 
-$strings['My Calendar'] = 'Naptár';
-$strings['View My Calendar'] = 'Naptár Megtekintése';
+$strings['My Calendar'] = 'Saját Naptár';
+$strings['View My Calendar'] = 'Saját Naptár Megtekintése';
 $strings['Participant'] = 'Résztvevõ(k)';
 $strings['Recurring'] = 'Ismétlõdõ';
 $strings['Multiple Day'] = 'Többnapos';
@@ -655,7 +655,7 @@ $strings['Day View'] = 'Napi Bontás';
 $strings['Week View'] = 'Heti Bontás';
 $strings['Month View'] = 'Havi Bontás';
 $strings['Resource Calendar'] = 'Kontingens Naptár';
-$strings['View Resource Calendar'] = 'Kontingens &amp; Naptár Megtekintése';
+$strings['View Resource Calendar'] = 'Kontingens Naptár Megtekintése';
 $strings['Signup View'] = 'Lista Nézet';
 
 $strings['Select User'] = 'Felhasználó Kiválasztása';
@@ -667,8 +667,8 @@ $strings['phpScheduleIt is already up to date'] = 'A phpScheduleIt naprakész áll
 $strings['Migrating reservations'] = 'Elõjegyzések Átvétele';
 
 $strings['Admin'] = 'Adminisztrátor';
-$strings['Manage Announcements'] = 'Manage Announcements';
-$strings['There are no announcements'] = 'There are no announcements';
+$strings['Manage Announcements'] = 'Bejelentés Kezelés';
+$strings['There are no announcements'] = 'Nincs érvényes Bejelentés';
 // end since 1.1.0
 
 /***

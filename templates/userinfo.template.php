@@ -48,9 +48,10 @@ function printUI(&$user) {
             <td class="rowHeaders" valign="top"><?php echo translate('Permissions')?></td>
             <td class="cellColor">
 				<?php
-				$training = $user->get_perms();
-				foreach ($training as $machid => $name)
+				$perms = $user->get_perms();
+				foreach ($perms as $machid => $name) {
 					echo $name . '<br />';
+				}
 				?></td>
           </tr>
         </table>

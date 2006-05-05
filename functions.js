@@ -98,12 +98,18 @@ function reserve(type, machid, start_date, resid, scheduleid, is_blackout, read_
 
 function checkDate() {
 	var formStr = document.getElementById("jumpWeek");
-	var dayNum = new Array();
-	dayNum = [31,28,31,30,31,30,31,31,30,31,30,31];
 	
 	var month = document.getElementById("jumpMonth").value;
 	var day = document.getElementById("jumpDay").value;
 	var year = document.getElementById("jumpYear").value;
+	
+	var dayNum = new Array();
+	if ( year%4 == 0 ) {
+		dayNum = [31,29,31,30,31,30,31,31,30,31,30,31];
+	} 
+	else {
+		dayNum = [31,28,31,30,31,30,31,31,30,31,30,31];
+	}
 	
 	if ( (month > 12) || (day > dayNum[month-1]) ) {
 		alert("Please enter valid date value");

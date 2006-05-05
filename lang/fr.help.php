@@ -4,6 +4,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator J. Pe. <jpe@chez.com>
+* @translator Benoit Mortier <benoit.mortier@opensides.be>
 * @version 07-10-04
 * @package Languages
 *
@@ -27,7 +28,7 @@
 ///////////////////////////////////////////////////////////
 ?>
 <div align="center"> 
-  <h3><a name="top" id="top"></a>Introduction to phpScheduleIt</h3>
+  <h3><a name="top" id="top"></a>Introduction à phpScheduleIt</h3>
   <p><a href="http://phpscheduleit.sourceforge.net" target="_blank">http://phpscheduleit.sourceforge.net</a></p>
   <table width="100%" border="0" cellspacing="0" cellpadding="5" style="border: solid #CCCCCC 1px">
     <tr> 
@@ -39,25 +40,25 @@
             <li><a href="#logging_in">Connexion</a></li>
             <li><a href="#language">Choisir ma langue</a></li>
             <li><a href="#manage_profile">Modification des identifiants et du mot de passe</a></li>
-            <li><a href="#resetting_password">Ré initialisation de votre mot de passe oublié</a></li>
+            <li><a href="#resetting_password">Ré-initialisation de votre mot de passe oublié</a></li>
             <li><a href="#getting_support">Obtenir de l'aide</a></li>
           </ul>
           <li><a href="#my_control_panel"><b>Mon panneau de contrôle</b></a></li>
           <ul>
-            <li><a href="#my_announcements">Mes publications</a></li>
+            <li><a href="#my_announcements">Mes annonces</a></li>
             <li><a href="#my_reservations">Mes réservations</a></li>
             <li><a href="#my_training">Mes privilèges</a></li>
             <li><a href="#quick_links">Mes liens rapides</a></li>
           </ul>
           <li><a href="#using_the_scheduler"><b>Utilisation du planificateur</b></a></li>
           <ul>
-			<li><a href="#read_only">Version en lecture seule</a></li>
+      <li><a href="#read_only">Version en lecture seule</a></li>
             <li><a href="#making_a_reservation">Effectuer une réservation</a></li>
             <li><a href="#modifying_deleting_a_reservation">Modification/Effacement d'une réservation</a></li>
             <li><a href="#navigating">Se déplacer dans le planificateur</a></li>
           </ul>
         </ul>
-		<hr width="95%" size="1" noshade="noshade" />
+    <hr width="95%" size="1" noshade="noshade" />
         <h4><a name="getting_started" id="getting_started"></a>Préliminaires</h4>
         <p>Afin d'utiliser phpScheduleIt, au préalable, vous devez vous enregistrer.
           Si vous etes déjà enregistré, alors vous devez vous connecter avant d'utiliser 
@@ -77,7 +78,7 @@
           <p><font color="#FF0000">Attention:</font> Si vous utilisez Norton Personal
             Firewal en même temps que phpScheduleIt, il est possible que vous rencontriez
             des difficultés. S'il vous plait désactivez Norton Personal Firewal pendant 
-            l'utilisation de phpScheduleIt et ré activez le ensuite.</p>
+            l'utilisation de phpScheduleIt et ré-activez le ensuite.</p>
           <p align="right"><a href="#top">Top</a></p>
         <h5><a name="registering" id="registering"></a>Enregistrement</h5>
         <p>Pour vous enregistrer, en premier lieu positionnez vous sur
@@ -111,7 +112,7 @@
           cette langue. Cela ne traduira pas tout texte entré par votre administrateur ou un quelconque 
           utilisateur ; cela ne traduira que les message du système. Vous aurez à vous déconnecter pour 
           sélectionner une autre langue.</p>
-        <p align="right"><a href="#top">Top</a></p>        
+        <p align="right"><a href="#top">Top</a></p>
         <h5><a name="manage_profile" id="manage_profile"></a>Modification des identifiants et du mot de passe</h5>
         <p>Pour effectuer des modifications de vos identifiants (nom, adresse électronique, etc.)
           ou de votre mot de passe, premièrement vous devez vous connecter au système. Puis à
@@ -125,16 +126,16 @@
           , et ainsi, vos modifications seront prises en compte. Vous serez ensuite conduit de nouveau
           à Mon panneau de contrôle. </p>
         <p align="right"><a href="#top">Top</a></p>
-        <h5><a name="resetting_password" id="resetting_password"></a>Ré initialisation de votre mot de passe oublié</h5>
+        <h5><a name="resetting_password" id="resetting_password"></a>Ré-initialisation de votre mot de passe oublié</h5>
         <p>Si vous avez oublié votre mot de passe, vous avez la possibilité de le faire annuler, 
-          et de vous en faire adresser un nouveau par email. Pour cela, sur la page d'accueil initiale, cliquer
+          et de vous en faire adresser un nouveau par email. Pour cela, sur la page d'accueil initiale, cliquez
           sur &quot;J'ai oublié mon mot de passe&quot; situé sous le formulaire de connexion. Il vous sera 
           présenté une page nouvelle dans laquelle vous serez invité à indiquer votre adresse de messagerie.
           Après avoir cliqué sur le bouton &quot;Envoyer&quot;, un nouveau mot de passe généré de façon aléatoire
           sera créé. Ce nouveau mot de passe sera placé dans la base de donnée et vous sera communiqué par message
           électronique. A la réception de ce message électronique, merci de bien vouloir effectuer un copier/coller
           de ce mot de passe à <a href="#logging_in">Connexion</a>. Ensuite ne tardez pas à en changer la valeur
-          à <a href="#manage_profile">Modifier mes caractéristiques et/ou mon Password  </a>.</p>
+          à <a href="#manage_profile">Modifier mes caractéristiques et/ou mon mot de passe  </a>.</p>
         <p align="right"><a href="#top">Top</a></p>
         <h5><a name="getting_support" id="getting_support"></a>Obtenir de l'aide</h5>
         <p>Si vous n'avez pas les privilèges suffisants pour utiliser une ressource, si vous avez des questions
@@ -147,7 +148,7 @@
           dans le système de réservation. C'est là que vous pouvez passer en revue, modifier, ou annuler
           vos réservations. Dans &quot;Mon panneau de contrôle&quot; figurent également les <a href="#quick_links">liens rapides</a>
           permettant d'accéder &quot;Allez sur le planificateur en ligne&quot; 
-          &quotModifier mes caractéristiques et/ou mon Password  &quot;
+          &quotModifier mes caractéristiques et/ou mon mot de passe  &quot;
           &quot; Gestion de mes adresses électroniques préférées  &quot;
           &quot;  Envoi d'un message électronique à l'administrateur  &quot;
           et une option pour &quot;Quitter&quot; le système.  </p>
@@ -162,7 +163,7 @@
           il vous est possible de modifier ou d'annuler une réservation, simplement en cliquant sur 
           &quot;Modification&quot; ou &quot;Effacement&quot; à la fin de chaque ligne de réservation. Ces deux 
           options ouvriront une fenêtre ou il vous sera demandé de confirmer votre choix. Cliquer sur la date
-          de réservation ouvrira une fenêtre dans laquelle seront visibles les caractéristiques de la rérservation.</p>
+          de réservation ouvrira une fenêtre dans laquelle seront visibles les caractéristiques de la réservation.</p>
          <p> Pour trier vos réservations sur une colonne particulière, cliquer sur le signe &#150 ou le signe + dans 
          l'entête de chaque colonne. Le signe moins triera les réservations en ordre décroissant sur le texte contenu
          par la colonne, le signe plus en ordre croissant.</p>
@@ -182,14 +183,14 @@
           Le premier &quot;Allez sur le planificateur en ligne&quot; vous conduit au planificateur de ressource.
           Vous pourrez y consulter les planifications existantes, y réserver des ressources, et mettre à jour
           vos réservations déjà effectuées.</p>
-         <p>&quot;Modifier mes caractéristiques et/ou mon Password&quot; vous conduit à une page où il vous 
+         <p>&quot;Modifier mes caractéristiques et/ou mon mot de passe&quot; vous conduit à une page où il vous 
           sera possible de modifier vos caractéristiques telles que l'adresse de messagerie, le nom, le numéro de 
           téléphone, et le mot de passe. Toutes ces informations figureront dans un formulaire, à partir duquel 
           vous pourrez les modifier, si vous remplacez une information par des blancs, cela équivaudra à n'en pas 
           demander la modification.</p>
          <p>&quot;Gestion de mes adresses électroniques préférées&quot; vous présente une page sur laquelle vous
           pourrez choisir les type de messages électroniques que vous souhaitez recevoir du système. Par défaut, 
-          vous recevez un message électronique de format HTML chaque fois que vous ajoutez, modifiez, annulez une 
+          vous recevez un message électronique au format HTML chaque fois que vous ajoutez, modifiez, annulez une 
           réservation.</p>
          <p>&quot;Envoi d'un message électronique à l'administrateur&quot; Ouvre votre gestionnaire de messagerie
           sur la création d'un message à destination de l'administrateur du système.
@@ -220,22 +221,21 @@
            sur le jour de début de réservation. Un fois le jour localisé dans le tableau, cliquez sur
            le nom de la ressource. Dans une nouvelle fenêtre vous serez invité à choisir la durée pendant
            laquelle vous souhaitez effectuer la réservation. </p>
-        <p>Vous y trouverez un message vous indiquant de quelle durée la réservation peut elle être.
-          Si la durée de votre réservation est supérieure ou inférieur à ce qui est permis, la réservation
+        <p>Vous y trouverez un message vous indiquant la durée minimale/maximale de la réservation.
+          Si la durée de votre réservation est supérieure ou inférieure aux durées indiquées, la réservation
           ne sera pas acceptée.</p>
-        <p>Vous pouvez, si vous le désirez, choisir de répéter cette réservation. Pour ce faire, 
+        <p>Vous pouvez, si vous le désirez, choisir de répéter cette réservation. Pour ce faire,
           choisissez le jour pour lequel elle doit être répétée, puis choisissez la durée pendant laquelle
           vous souhaitez que soit réalisée la répétition. La réservation sera effectuée pour le jour de départ
           choisi, plus tous les jours correspondants au choix de répétition. Toutes les dates pour lesquelles
           la réservation n'aura pu être effectuée du fait d'un conflit seront listées. </p>
         <p>Vous pouvez ajouter un résumé de cette réservation en remplissant la boite de texte résumé. Le résumé
-          sera disponible à la lecture pour les autres utilisateurs.</p>        
+          sera disponible à la lecture pour les autres utilisateurs.</p>
         <p>Après avoir spécifié des heures de début et de fin valides pour la réservation voulue, après avoir
           si nécessaire spécifié les paramètres de répétition cliquez sur le bouton &quot;Sauvegarde&quot;.
           Une message vous sera envoyé si la réservation n'a pu aboutir vous informant de la date pour laquelle
-          la réservation n'a pu avoir lieu. Dans ce cas faire machine arrière, et corriger afin qu'il n'y ait plus
-          de conflit. Après que votre réservation ait abouti, la planification est automatiquement ré affichée. 
-          c'est nécessaire pour ré afficher toutes les nouvelles informations contenues par la base de données.</p>
+          la réservation n'a pu avoir lieu. Dans ce cas il faut modifier la répétition afin qu'il n'y ait plus
+          de conflit. Après que votre réservation ait abouti, la planification est automatiquement ré-affichée.</p>
         <p>Il ne vous est pas possible de réserver une ressource à une date appartenant au passé, pour laquelle vous 
            n'avez pas les privilèges, ou qui a été déclaré inactive par l'administrateur. Ces ressources seront grisées
            et ne seront pas accessibles.</p>
@@ -264,7 +264,7 @@
         <p>Passer de semaine en semaine via &quot;Sem. préc.&quot; et &quot;Sem. Suiv.&quot; au bas de la 
            fenêtre du planificateur.</p>
         <p>Passer directement à n'importe quelle date en la composant dans les boites prévues au bas de la
-		   fenêtre du planificateur.</p>
+       fenêtre du planificateur.</p>
         <p>Choisir une date dans le calendrier de navigation &quot;Visualisation du calendrier&quot; au
            bas de la fenêtre du planificateur, pour que ce dernier se positionne sur cette date.</p>
         <p align="right"><a href="#top">Top</a></p>

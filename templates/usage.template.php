@@ -4,7 +4,8 @@
 *  on /db_query/usage_db.php for database access
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-11-06
+* @author Attila <atoth@cmr.sote.hu>
+* @version 05-04-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -283,6 +284,14 @@ function showForm($min_max, $users, $machs, $schedules) {
               </select>
             </td>
           </tr>
+		  <tr class="cellColor">
+			<td class="formNames"><?php echo translate('Summary')?>:</td>
+			<td>
+				<input type="radio" name="summarytype" value="anywhere" checked="checked" /><?php echo translate('Contains')?>
+				<input type="radio" name="summarytype" value="beginning" /><?php echo translate('Begins with')?>
+				<input type="text" name="searchsummary" class="textbox" />
+			</td>
+		</tr>
 		  <tr class="cellColor">
 		    <td class="formNames"><?php echo translate('Output Type')?></td>
 			<td>

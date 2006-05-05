@@ -2,6 +2,7 @@
 /**
 * LDAPEngine class
 * @author David Poole <David.Poole@fccc.edu>
+* @author William P.O'Sullivan
 * @version 03-30-06
 * @package LDAPEngine
 *
@@ -33,52 +34,70 @@ class LDAPEngine {
 	var $password;
 
 	/**
+	 * Added by POS
+	 */
+	var $AD_lookupid;		// LDAP lookup dn
+	var $AD_lookuppwd;		// LDAP lookup password
+
+	/**
 	* LDAPEngine constructor to initialize object
 	* @param string $uid user id
 	* @param string $password password associated with uid
 	*/
 	function LDAPEngine( $uid, $password ) {
-		global $conf;
+	   global $conf;
 
-		$this->connected = false;
+	   $this->connected = false;
 
-		if( strlen( $uid ) == 0 || strlen( $password ) == 0 ) {
-			return;
-		}
+	   if( strlen( $uid ) == 0 || strlen( $password ) == 0 ) {
+	   	  return;
+	   }
 
-		$this->host = $conf['ldap']['host'];
-		$this->port = $conf['ldap']['port'];
-		$this->basedn = $conf['ldap']['basedn'];
+	   $this->host = $conf['ldap']['host'];
+	   $this->port = $conf['ldap']['port'];
+	   $this->basedn = $conf['ldap']['basedn'];
+	   $this->AD_lookupid = $conf['ldap']['lookupid'];
+	   $this->AD_lookuppwd = $conf['ldap']['lookuppwd'];
 
-		$this->ldap = ldap_connect( $this->host, $this->port ) or die( "Could not connect to LDAP server." );
+	   $this->ldap = ldap_connect( $this->host, $this->port ) or die( "Could not connect to LDAP server." );
 
-		$this->uid = $uid;
-
-		if( $rdnSearch = @ldap_bind( $this->ldap ) ) {
-	   		if( $resID = ldap_search( $this->ldap, $this->basedn, "uid=$uid" ) ) {
-				if( ldap_count_entries( $this->ldap, $resID ) == 1 ) {
-					if( $firstEntry = ldap_first_entry( $this->ldap, $resID ) ) {
-						$uid = ldap_get_dn( $this->ldap, $firstEntry );
-					}
-				}
-			}
-		}
+	   $this->uid = $uid;
 
 	   if( $this->ldap ) {
-	       $bind = @ldap_bind( $this->ldap, $uid, $password );
 
-	       if( $bind ) {
-	           // authenication was a success, try to load user information
-	           $this->binddn = $uid;
+			$bind = @ldap_bind( $this->ldap, $this->AD_lookupid, $this->AD_lookuppwd );
 
-	           if( $this->loadUserData() ) {
-	               $this->connected = true;
-	               $this->password = $password;
-	           } else {
-	               ldap_close( $this->ldap );
-	           }
+	       	if( $bind ) {
+
+	            // System authentication was a success, lookup user's dn via uid= filter
+				$result = ldap_search( $this->ldap, $this->basedn, "uid"."=".$this->uid);
+				if (ldap_count_entries($this->ldap, $result)<=0) {
+					print "<p>LDAPEngine: Search in LDAP failed. uid=$this->uid<p>";
+					ldap_close( $this->ldap );
+					return;
+				} else {
+					$this->binddn = ldap_get_dn($this->ldap, ldap_first_entry($this->ldap, $result));
+					//print "<p>LDAPEngine: User binding as dn=".$this->binddn."<p>";
+					$bind2 = @ldap_bind( $this->ldap, $this->binddn, $password );
+					if ($bind2) {
+						//print "<p>LDAPEngine: bind using user credentials successful.</p>";
+					} else {
+						//print "<p>LDAPEngine: bind using user credentials failed.</p>";
+						ldap_close( $this->ldap );
+						return;
+					}
+				}
+				// ------------------------------------
+
+				if( $this->loadUserData() ) {
+				   $this->connected = true;
+				   $this->password = $password;
+				} else {
+				   ldap_close( $this->ldap );
+				}
 
             } else {
+				die("LDAPEngine: Attempt to bind to:".$this->host." using systemid:".$this->lookupid." failed.");
                 ldap_close( $this->ldap );
             }
         }

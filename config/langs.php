@@ -4,7 +4,7 @@
 *  translating the text
 * A few ideas and techniques were taken from the phpMyAdmin project
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-16-06
+* @version 05-04-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -42,6 +42,7 @@
 
 $languages = array (
 	//'ca'	=> array('ca([-_][[:alpha:]]{2})?|catalan','ca.lang.php', 'ca', 'Catal&agrave;'),
+	'zh_TW'	=> array('zh([-_]tw)?|chinese', 'zh_TW.lang.php', 'zh', 'Chinese (Traditional) (&#x6b63;&#x9ad4;&#x4e2d;&#x6587;)'),
 	'cs'	=> array('cs([-_][[:alpha:]]{2})?|czech', 'cs.lang.php', 'cs', 'Czech (&#x010c;esky)'),
 	'de'	=> array('de([-_][[:alpha:]]{2})?|german', 'de.lang.php', 'de', 'Deutsch'),
 	'en_US'	=> array('en([-_]us)?|english', 'en_US.lang.php', 'en', 'English US'),
