@@ -3,21 +3,18 @@
 * Authorization and login functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-30-06
+* @version 05-06-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
 
-include_once('db/AuthDB.class.php');
-include_once('User.class.php');
-include_once('PHPMailer.class.php');
-include_once(BASE_DIR . '/templates/auth.template.php');
+$basedir = dirname(__FILE__) . '/..';
+include_once($basedir . '/lib/db/AuthDB.class.php');
+include_once($basedir . '/lib/User.class.php');
+include_once($basedir . '/lib/PHPMailer.class.php');
+include_once($basedir . '/templates/auth.template.php');
 
 /**
 * This class provides all authoritiative and verification
@@ -247,9 +244,9 @@ class Auth {
 	* exist and then stores all user data in the login table.
 	* It will also set a cookie if the user wants
 	* @param array $data array of user data
-	* @param bool $allowSelfRegistration if the application lets users register themselves or if the admin has to
+	* @param bool $adminCreated if the user was created by an admin
 	*/
-	function do_register_user($data, $allowSelfRegistration) {
+	function do_register_user($data, $adminCreated) {
 		global $conf;
 		// Verify user data
 		$msg = $this->check_all_values($data, false);
@@ -305,7 +302,7 @@ class Auth {
 			$mailer->Send();
 		}
 
-		if ($allowSelfRegistration) {
+		if (!$adminCreated) {
 				// If the user wants to set a cookie, set it
 				// for their ID and fname.  Expires in 30 days (2592000 seconds)
 				if (isset($data['setCookie'])) {
@@ -330,7 +327,7 @@ class Auth {
 		
 		if( !$conf['ldap']['authentication'] ) {
 			$url = 'ctrlpnl.php';
-			if (!(bool)$conf['app']['allowSelfRegistration']){
+			if ($adminCreated){
 				$url = 'admin.php?tool=users';
 			}
 			CmnFns::redirect($url, 1, false);
@@ -347,8 +344,9 @@ class Auth {
 	/**
 	* Edits user data
 	* @param array $data array of user data
+	* @param bool if the admin is updating user data
 	*/
-	function do_edit_user($data) {
+	function do_edit_user($data, $adminUpdate) {
 		global $conf;
 
 		// Verify user data
@@ -357,28 +355,32 @@ class Auth {
 			return $msg;
 		}
 
-		$this->db->update_user($_SESSION['sessionID'], $data);
+		$this->db->update_user($data['memberid'], $data);
 		
-		$adminemail = strtolower($conf['app']['adminEmail']);
-		// If it is the admin, set session variable
-		if ($data['emailaddress'] == $adminemail) {
-			$_SESSION['sessionAdmin'] = $adminemail;
+		if (!$adminUpdate) {
+			$adminemail = strtolower($conf['app']['adminEmail']);
+			// If it is the admin, set session variable
+			if ($data['emailaddress'] == $adminemail) {
+				$_SESSION['sessionAdmin'] = $adminemail;
+			}
+	
+			// Set other session variables
+			$_SESSION['sessionName'] = $data['fname'];
+			$_SESSION['hourOffset'] = $data['timezone'] - $conf['app']['timezone'];
 		}
-
-		// Set other session variables
-		$_SESSION['sessionName'] = $data['fname'];
-		$_SESSION['hourOffset'] = $data['timezone'] - $conf['app']['timezone'];
-
-		// Write log file
+		
 		CmnFns::write_log('User data modified. Data provided: fname- ' . $data['fname'] . ' lname- ' . $data['lname']
 						. ' email- '. $data['emailaddress'] . ' phone- ' . $data['phone'] . ' institution- ' . $data['institution']
-						. ' position- ' . $data['position'], $_SESSION['sessionID']);
+						. ' position- ' . $data['position'], $data['memberid']);
 		
 		$link = CmnFns::getNewLink();
 		
-        $this->success = translate('Your profile has been successfully updated!') . '<br/>'
-				. $link->getLink('ctrlpnl.php', translate('Please return to My Control Panel'));
-	
+		$url = 'ctrlpnl.php';
+		if ($adminUpdate){
+			$url = 'admin.php?tool=users';
+		}
+		
+		$this->success = translate('Your profile has been successfully updated!') . '<br/>' . $link->getLink($url, translate('Continue'));	
 	}
 
 
@@ -428,7 +430,7 @@ class Auth {
 
             // Make sure email isnt in database (and is not current users email)
             if ($is_edit) {
-                $user = new User($_SESSION['sessionID']);
+                $user = new User($data['memberid']);
                 if (!$use_logonname) {
 					if ($this->db->userExists($data['emailaddress']) && ($data['emailaddress'] != $user->get_email()) ) {
 						$msg .= translate('That email is taken already.') . '<br/>';

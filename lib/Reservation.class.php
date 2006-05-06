@@ -117,8 +117,7 @@ class Reservation {
 		$this->reminder_minutes_prior = $reminder->getMinutuesPrior($this);
 
 		$this->users = $this->db->get_res_users($this->id);
-		print_r($this->users);
-		die();
+
 		// Store the memberid of the owner
 		for ($i = 0; $i < count($this->users); $i++) {
 			if ($this->users[$i]['owner'] == 1) {

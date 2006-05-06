@@ -17,29 +17,33 @@ include_once('lib/Template.class.php');
 // Auth included in Template.php
 $auth = new Auth();
 $t = new Template();
+$curUser = new User(Auth::getCurrentID());
 
 $edit = isset($_GET['edit']) && (bool)$_GET['edit'];
+$id = null;
 
 if ( isset($_GET['memberid']) && !empty($_GET['memberid']) ) {
 	$id = $_GET['memberid'];
 }
-else if ( isset($_SESSION['sessionID']) && !empty($_SESSION['sessionID']) ) {
-	$id = $_SESSION['sessionID'];
-}
-else {
-	$id = null;
+
+if ( isset($_SESSION['sessionID']) && !empty($_SESSION['sessionID']) ) {
+	if ($id == null) {
+		// No id was passed in, so use the current user's id
+		$id = $_SESSION['sessionID'];
+	}
 }
 
 $msg = '';
 $show_form = true;
 
 // Check login status
-if ($edit && !$auth->is_logged_in()) {
+if ($edit && !Auth::is_logged_in()) {
 	$auth->print_login_msg(true);
 	$auth->clean();			// Clean out any lingering sessions
 }
 else if ( !$edit && !(bool)$conf['app']['allowSelfRegistration'] ) {
-	if ( !$user->is_group_admin(array($_GET['memberid'])) && !$auth->isAdmin() ) {
+	$isAdmin = ($curUser->is_group_admin(array($id)) || Auth::isAdmin());
+	if ( !$isAdmin ) {
 		// Only the administrator can create users
 		CmnFns::do_error_box(translate('This is only accessable to the administrator'), '', true);
 	}
@@ -57,11 +61,13 @@ else {
 
 if (isset($_POST['register'])) {	// New registration
 	$data['lang'] = determine_language();
-	$msg = $auth->do_register_user($data, (bool)$conf['app']['allowSelfRegistration']);
+	$adminCreated = (Auth::is_logged_in() && Auth::isAdmin());
+	$msg = $auth->do_register_user($data, $adminCreated);
 	$show_form = false;
 }
 else if (isset($_POST['update'])) {	// Update registration
-	$msg = $auth->do_edit_user($data);
+	$adminUpdate = ( ($curUser->get_id() != $id) && (Auth::isAdmin() || $curUser->is_group_admin(array($id))) );
+	$msg = $auth->do_edit_user($data, $adminUpdate);
 	$show_form = false;
 }
 

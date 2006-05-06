@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-27-06
+* @version 05-06-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -978,7 +978,7 @@ function print_manage_groups(&$pager, $groups, $err) {
         </tr>";
 
 	if (!$groups)
-		echo '<tr class="cellColor0"><td colspan="4" style="text-align: center;">' . $err . '</td></tr>' . "\n";
+		echo '<tr class="cellColor0"><td colspan="5" style="text-align: center;">' . $err . '</td></tr>' . "\n";
 
     for ($i = 0; is_array($groups) && $i < count($groups); $i++) {
 		$cur = $groups[$i];

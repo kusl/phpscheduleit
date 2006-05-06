@@ -56,6 +56,7 @@ function print_register_form($edit, $data = array(), $msg = '', $memberid = '') 
 		</td>
 		<td>
 		  <input type="text" name="emailaddress" class="textbox" value="<?php echo isset($data['emailaddress']) ? $data['emailaddress'] : ''?>" maxlength="75" />
+		  <input type="hidden" name="memberid" value="<?php echo isset($data['memberid']) ? $data['memberid'] : ''?>"/>
 		</td>
 	  </tr>
 	  <tr bgcolor="#FFFFFF">
