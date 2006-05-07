@@ -5,7 +5,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-28-06
+* @version 05-07-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -567,7 +567,7 @@ class AdminDB extends DBEngine {
 		$values[] = $rs['rphone'];
 		$values[] = $rs['notes'];
 		$values[] = $rs['minres'];
-		$values[] = $rs['maxRes'];
+		$values[] = $rs['maxres'];
 		$values[] = intval(isset($rs['autoassign']));
 		$values[] = intval(isset($rs['approval']));
 		$values[] = intval(isset($rs['allow_multi']));
@@ -577,7 +577,7 @@ class AdminDB extends DBEngine {
 		$values[] = $rs['machid'];
 
 		$sql = 'UPDATE '. $this->get_table(TBL_RESOURCES) . ' SET '
-				. 'scheduleid=?, name=?, location=?, rphone=?, notes=?, minres=?, maxRes=?, autoassign=?, approval=?, allow_multi=?, max_participants=?, min_notice_time=?, max_notice_time=? '
+				. 'scheduleid=?, name=?, location=?, rphone=?, notes=?, minres=?, maxres=?, autoassign=?, approval=?, allow_multi=?, max_participants=?, min_notice_time=?, max_notice_time=? '
 				. 'WHERE machid=?';
 
 		$q = $this->db->prepare($sql);

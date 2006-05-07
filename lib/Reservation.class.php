@@ -566,11 +566,12 @@ class Reservation {
 
 		$is_private = $conf['app']['privacyMode'] && !$this->adminMode;
 
-		$day_has_passed = !$this->check_startdate();// intval($this->start_date) < intval(mktime(0,0,0, date('m'), date('d') + $this->sched['dayoffset']));
+		$day_has_passed = !$this->check_startdate();
 
 		if (!$this->adminMode && !$this->is_blackout && $day_has_passed )  {
 			$this->type = RES_TYPE_VIEW;
 		}
+		
 		if (Auth::getCurrentID() != $this->user->get_id() && !$this->adminMode) { $this->type = RES_TYPE_VIEW; };
 
 		$rs = $this->resource->properties;

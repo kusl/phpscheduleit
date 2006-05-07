@@ -72,7 +72,7 @@ function reserve(type, machid, start_date, resid, scheduleid, is_blackout, read_
 		if (is_blackout == null) { is_blackout = 0; }
 		
 		if (is_blackout != 1) {
-			w = (type == 'r') ? 600 : 520;
+			w = (type == 'r' || type == 'm') ? 600 : 520;
 			h = (type == 'm') ? 610 : 570;
 		}
 		else {

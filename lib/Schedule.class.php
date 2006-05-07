@@ -496,7 +496,7 @@ class Schedule {
         // If this is the user who made the reservation or the admin,
         //  and time has not passed, allow them to edit it
         //  else only allow view
-        $mod_view = ( ($is_mine || Auth::isAdmin()) && $viewable_date) ? 'm' : 'v';    // To use in javascript edit/view box
+        $mod_view = ( ($is_mine && $viewable_date) || Auth::isAdmin()) ? 'm' : 'v';    // To use in javascript edit/view box
         $showsummary = (($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlySummary'])) && $this->showsummary && !$is_private);
         $viewable = ($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlyDetails']));
         $summary->visible = $showsummary;

@@ -6,7 +6,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 05-04-06
+* @version 05-07-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -713,6 +713,8 @@ $strings['hours prior to the start time'] = 'hours prior to the start time';
 $strings['hours from the current time'] = 'hours from the current time';
 $strings['Contains'] = 'Contains';
 $strings['Begins with'] = 'Begins with';
+$strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
+$strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
 // end since 1.2.0
 
 /***

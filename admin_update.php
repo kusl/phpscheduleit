@@ -3,7 +3,7 @@
 * Provides interface for making all administrative database changes
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-28-06
+* @version 05-07-06
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -626,7 +626,7 @@ function check_resource_data($data) {
 		$maxRes = intval($data['maxH'] * 60 + $data['maxM']);
 	}
 	$data['minres']	= $minres;
-	$data['maxRes']	= $maxRes;
+	$data['maxres']	= $maxRes;
 
 	if (empty($data['name'])) {
 		$msg[] = translate('Resource name is required.');
@@ -647,7 +647,7 @@ function check_resource_data($data) {
 	}
 	else {
 		$rs['minres']	= $minres;
-		$rs['maxRes']	= $maxRes;
+		$rs['maxres']	= $maxRes;
 	}
 
 	$rs['rphone']	= $data['rphone'];
@@ -677,14 +677,14 @@ function check_resource_data($data) {
 		$rs['max_participants'] = null;
 	}
 	
-	if (!empty($data['min_notice_time'])) {
+	if (trim($data['min_notice_time']) != '') {
 		$rs['min_notice_time'] = abs(intval($data['min_notice_time']));
 	}
 	else {
 		$msg[] = translate('Minimum booking notice is required.');
 	}
 	
-	if (!empty($data['max_notice_time'])) {
+	if (trim($data['max_notice_time']) != '') {
 		$rs['max_notice_time'] = abs(intval($data['max_notice_time']));
 	}
 	else {
