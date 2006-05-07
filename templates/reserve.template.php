@@ -185,8 +185,9 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 				echo '<td>' . translate('No advanced options available') . '</td>';
 			}
 			else {
-				echo '<td width="200" align="center">';
 				if ($is_owner) {
+					echo '<td width="200" align="center">';
+				
 					// Print select boxes
 					echo translate('All Resources');
 					?>
@@ -222,15 +223,21 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 						}
 					?>
 					</select>
+					</td>
 					<?php
 				}
 				else {
+					echo '<td><p style="font-weight:bold;">' . translate('Resources') . '</p>';
+					if (count($res->resources) <= 0) {
+						echo translate('None');
+					}
+					
 					// Print additional resource info
 					for ($i = 0; $i < count($res->resources); $i++) {
 						echo "<p>{$res->resources[$i]['name']}</p>";
 					}
+					echo '</td>';
 				}
-				echo '</td>';
 			}
 		  ?>
 			<!-- End content -->
