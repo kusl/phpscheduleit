@@ -1,6 +1,6 @@
 =================================================
-=      phpScheduleIt 1.1.0  Release Notes       =
-=                  04/21/2005                   =
+=   phpScheduleIt 1.2.0 beta 1  Release Notes   =
+=                  05/07/2006                   =
 =                                               =
 =     http://phpscheduleit.sourceforge.net      =
 =        lqqkout13@users.sourceforge.net        =
@@ -10,29 +10,41 @@
 -------------------------------------------------
 -                   Overview                    -
 -------------------------------------------------
-	The purpose of this document is to describe the 1.1.0
+	The purpose of this document is to describe the 1.2.0
 release and how to contribute to the project.
+
 Please see the readme.html file for setup instructions,
 general program information, and the changelog.
 
 -------------------------------------------------
--              Changes from 1.1.0               -
+-                   Important                   -
+-------------------------------------------------
+	This is a beta release and is not meant for production.
+This version is for testing and evaluation purposes and
+should not be used with any production data.
+
+-------------------------------------------------
+-              Changes from 1.2.0               -
 -------------------------------------------------
 +               Summary of changes              +
 
-- Login name support
-- LDAP support
-- Web-configurable announcements
-- Reservation approval support
-- Multiple day reservation support
-- Reservation invitations
-- Day/week/month calendar view for personal reservations, schedule reservations, resource reservations
-- Signup sheet view for resources
-- Administrator can place reservations for users, change reservation owner
-- Clickable time slots for creating new reservations
-- Multiple administrator support
-- Update to PEAR version 1.82.2.6
-- New languages Greek, Portuguese, Portuguese (Brazil), Slovenian, Swedish, Turkish
+
+- User groups
+- Email reminders
+- Ability to check reservation availability
+- iCalendar/vCalendar exports 
+- Minimum and maximum reservation dates
+- Support for user-specific timezones
+- Non-invited users can participate in a reservation
+- Non-registered users can participate in a reservation
+- Resource specific maximum number of reservation participants
+- Admin/group admin can add and edit user profile data
+- Ability to reserve additional resources on a reservation
+- RSS feeds
+- Update to PEAR version 1.4.9
+- Update to DB version 1.7.6
+- New language: Chinese (Traditional)
+- Minor bugfixes
 
 -------------------------------------------------
 -          Instructions for translators         -
@@ -43,7 +55,7 @@ general program information, and the changelog.
 New translations need to complete the entire language file.
 
 Existing translations need to complete all strings noted
-with a "//@since 1.1.0" comment.
+with a "//@since 1.2.0" comment.
 
 -------------------------------------------------
 -                Contributing                  -
@@ -69,18 +81,11 @@ I want to thank everyone beforehand for helping with this huge task.
 -------------------------------------------------
 -            phpScheduleIt Roadmap              -
 -------------------------------------------------
-1.1.1
-	- Bugfixes
-
 1.2.0
-	- User/groups
-	- Quotas
-	- Reserve multiple resources at once
-	- Full PostgreSQL support
-	- Reservation window auto-population after error
-	- General code cleanup
-	- User-defined default schedule
-	- Email reminders
-	- Minimum/maximum reservation dates (resource specific)
-	- Extend resource invites to allow non-registered users
-	- Resource participant capacity
+	- Full release
+1.2.1
+	- Bugfixes
+2.0.0
+	- Code rewrite
+	- UI rewrite
+	- Plugin support for 3rd-party authentication

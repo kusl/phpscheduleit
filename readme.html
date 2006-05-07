@@ -67,7 +67,7 @@
 						and install at least these versions.</p>
 					<p>2) Copy all of the phpScheduleIt files provided into a desired web directory. 
 						Remember this directory because we will need it in the next two steps.</p>
-					<p>3) Edit your config/config.php file to be sure it is correct for your web server 
+					<p>3) Rename config/config.new.php to config/config.php and edit the file to be sure it is correct for your web server 
 						set up. Most importantly, make sure that the 'weburi', 'dbType', 'dbUser', 
 						'dbPass' and 'dbName' settings are correct.</p>
 					<p>4) Follow the proper set of instructions below for your type of setup. If you 
@@ -160,8 +160,7 @@
 					<p><em>If you are installing on a remotely hosted server, please see <a href="install/remote_host_install.html">
 								Instructions for Installing on a Remote Host</a></em></p>
 					<p>Note: A new configuration file is used in this release. Config files from 
-						earlier versions will not work. Please copy over any settings from the old 
-						config file to the new config file.</p>
+						earlier versions will not work. Please copy everything in config/config.new.php between the START COPY and END COPY comments. </p>
 					<p>Please refer to the release notes in the install directory for any additional 
 						information.</p>
 					<h5><strong>Web&nbsp;Based&nbsp;Update</strong></h5>
@@ -679,6 +678,25 @@
 						manually. <i>Manually editing the database can lead to data corruption and render 
 							the system unstable or useless.</i></p>
 					<h4>Changelog</h4>
+					<p>Version 1.2.0 (TBD)</p>
+					<p>- User groups<br />
+			      - Email reminders<br />
+		          - Ability to check reservation availability<br />
+					    - iCalendar/vCalendar exports
+				      <br />
+					  - Minimum and maximum reservation dates<br />
+					  - Support for user-specific timezones<br />
+					  - 
+			         Non-invited users can participate in a reservation<br />
+			         - Non-registered users can participate in a reservation<br />
+			         - Resource specific maximum number of reservation participants<br />
+					- Admin/group admin can add and edit user profile data<br />
+					- Ability to reserve additional resources on a reservation<br />
+					- RSS feeds<br />
+					- Update to PEAR version 1.4.9<br />
+					- Update to DB version 1.7.6<br />
+					- New language: Chinese (Traditional)<br />
+					- Minor bugfixes</p>
 					<p>Version 1.1.0 (2005-04-21)</p>
 					<p>- Login name support<br>
 						- LDAP support<br>
@@ -701,23 +719,19 @@
 						- Updated <a href="http://phpmailer.sourceforge.net">PHPMailer</a> to version 
 						1.72
 						<br>
-						- Bug 
-						fix-Reservationemailbodybug.http://sourceforge.net/tracker/index.php?func=detail&amp;aid=969023&amp;group_id=95547&amp;atid=611778<br>
-						- Bug 
-						fix-Monthlycalendarnavigationbug.http://sourceforge.net/tracker/index.php?func=detail&amp;aid=966476&amp;group_id=95547&amp;atid=611778<br>
+						- Bugfix-Reservationemailbodybug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=969023&amp;group_id=95547&amp;atid=611778<br>
+						- Bugfix-Monthly calendar navigation bug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=966476&amp;group_id=95547&amp;atid=611778<br>
 						- 
-						Bugfix-Reservationmodificationbug.http://sourceforge.net/tracker/index.php?func=detail&amp;aid=962880&amp;group_id=95547&amp;atid=611778<br>
-						- Bug 
-						fix-Userinfo404bug.http://sourceforge.net/tracker/index.php?func=detail&amp;aid=953562&amp;group_id=95547&amp;atid=611778<br>
-						- Bug 
-						fix/patch-Obsoletepermissiondatabug.http://sourceforge.net/tracker/index.php?func=detail&amp;aid=951374&amp;group_id=95547&amp;atid=611778
+						Bugfix - Reservation modification bug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=962880&amp;group_id=95547&amp;atid=611778<br>
+						- Bugfix- Userinfo 404bug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=953562&amp;group_id=95547&amp;atid=611778<br>
+						- Bugfix/patch - Obsoletepermissiondatabug.http://sourceforge.net/tracker/index.php?func=detail&amp;aid=951374&amp;group_id=95547&amp;atid=611778
 						<br>
-						- Bug fix/patch - Add better support for PostgreSQL<br>
+						- Bugfix/patch - Add better support for PostgreSQL<br>
 						- Security updates and patches</p>
 					<p>Version 0.9.9 (2005-05-09)</p>
 					<p>- Blackout times have been implemented<br>
 						- Reservation 
-						classbughasbeenfixed.(Seehttp://sourceforge.net/tracker/index.php?func=detail&amp;aid=902323&amp;group_id=95547&amp;atid=611780 
+						class bug has been fixed. (See http://sourceforge.net/tracker/index.php?func=detail&amp;aid=902323&amp;group_id=95547&amp;atid=611780 
 						for more info)<br>
 						- Reservation summaries have been added with a configurable option to display 
 						them on the schedule<br>

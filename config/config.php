@@ -258,13 +258,15 @@ $conf['ldap']['port'] = 389;
 // typically ou=people,o=domain.com.
 $conf['ldap']['basedn'] = "ou=people,o=domain.com";
 
+/// START COPY FOR VERSION 1.2.0 ///
+
 // This will allow or disable user self-registration.  If this is disabled, the admin will only be able to create users [1]
 $conf['app']['allowSelfRegistration'] = 1;
 
 // This will allow or disable the generation of RSS feeds for users to view their reservation data [1]
 $conf['app']['allowRss'] = 1;
 
-// The GMT hour difference for the server
+// The GMT hour difference for the server [0]
 $conf['app']['timezone'] = 0;
 
 // The amount of minutes before a reservation that a user can get a reminder [array()]
@@ -276,14 +278,5 @@ $conf['app']['allowed_reminder_times'] = array(5, 10, 30);
 $conf['ui']['participant_res'][]		= array ('color' => 'CE56D6', 'hover' => 'E174E8', 'text' => 'FFFFFF');
 $conf['ui']['participant_past_res'][]	= array ('color' => '641293', 'hover' => '7B25AC', 'text' => 'FFFFFF');
 
-//////////////////////////
-// End common variables //
-//////////////////////////
-
-if (isset($_SERVER['HTTP_HOST'])) {
-	include_once('init.php');
-}
-else {
-	include_once('cmdinit.php');
-}
+/// END COPY FOR VERSION 1.2.0 ///
 ?>

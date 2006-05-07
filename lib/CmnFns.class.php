@@ -8,16 +8,20 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
 
-include_once(BASE_DIR . '/config/config.php');
-include_once('Link.class.php');
-include_once('Pager.class.php');
-include_once('Timer.class.php');
-include_once('Time.class.php');
+$basedir = dirname(__FILE__) . '/..';
+
+require_once($basedir . '/config/config.php');
+if (isset($_SERVER['HTTP_HOST'])) {
+	require_once($basedir . '/config/init.php');
+}
+else {
+	require_once($basedir . '/config/cmdinit.php');
+}
+require_once($basedir . '/lib/Link.class.php');
+require_once($basedir . '/lib/Pager.class.php');
+require_once($basedir . '/lib/Timer.class.php');
+require_once($basedir . '/lib/Time.class.php');
 
 /**
 * Provides functions common to most pages

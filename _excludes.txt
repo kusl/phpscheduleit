@@ -5,5 +5,8 @@ test*
 **.build
 nant.bat
 **/_*.*
-**/tests/*
-**/docs/*
+**/tests/**
+**/docs/**
+lib/config
+lib/config/**
+**/configupdate.php

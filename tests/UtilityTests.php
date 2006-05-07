@@ -100,20 +100,5 @@ class UtilityTests extends PHPUnit_TestCase
 		$orig = array('id5', 'id3', 'id4', 'id6', 'id7');
 		return $orig;
 	}
-	/*
-	function testUtilityBuildsCorrectQueryStringWhenOrigQueryStringIsEmpty() {
-		$util = new Utility();
-		$query_string = '';
-		
-		$util->
-	}
-	
-	function testUtilityBuildsCorrectQueryStringWhenManyParamsExist() {
-		$util = new Utility();
-		$query_string = "?order=lname&page=2&vert=ASC&otherthing=f";
-		
-		$util->
-	}
-	*/
 }
 ?>
