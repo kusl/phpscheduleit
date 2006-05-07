@@ -2,7 +2,7 @@
 /**
 * Provides ability to generate an iCalendar export file for a reservation or reservations within a date range
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-29-06
+* @version 05-07-06
 * @package phpScheduleIt.iCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -12,6 +12,8 @@
 require_once('../lib/pagebase/download/StreamDownload.php');
 require_once('../lib/icalendar/ICalExport.php');
 require_once('../lib/icalendar/ICalReservationFormatter.php');
+require_once('../lib/vcalendar/VCalExport.php');
+require_once('../lib/vcalendar/VCalReservationFormatter.php');
 require_once('../lib/ReservationSearch.php');
 require_once('../lib/Auth.class.php');
 
@@ -31,10 +33,10 @@ $page->download();
 function getExport() {
 	$results = getResults();
 	if (isset($_GET['type']) && $_GET['type'] == VCAL) {
-		return new ICalExport($results);
+		return new VCalExport($results);
 	}
 	else {
-		return new VCalExport($results);
+		return new ICalExport($results);
 	}
 }
 
