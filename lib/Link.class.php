@@ -3,7 +3,7 @@
 * XHTML link class
 * Creates or prints an XHTML valid link
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 10-08-05
+* @version 05-07-06
 * @package Link
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -204,7 +204,15 @@ class Link {
 	*/
 	function getLink($url=null, $text=null, $class=null, $style=null, $text_on_over=null) {
 		$text_on_over = (!is_null($text_on_over)) ? $text_on_over : $text;	// Use passed in text on mouse over, else just use link text
-		return "<a href=\"$url\" class=\"$class\" style=\"$style\" onmouseover=\"javascript: window.status='" . addslashes($text_on_over) . "'; return true;\" onmouseout=\"javascript: window.status=''; return true;\">$text</a>\n";
+		$class_text = '';
+		if ($class != null) {
+			$class_text = "class=\"$class\"";
+		}
+		$style_text = '';
+		if ($style != null) {
+			$style_text = "style=\"$style\"";
+		}
+		return "<a href=\"$url\" $class_text $style_text>$text</a>\n";
 	}
 	
 	/**
@@ -216,7 +224,7 @@ class Link {
 	*/
 	function getImageLink($url = null, $img_src = null, $alt = null, $text_on_over = null) {
 		$text_on_over = (!is_null($text_on_over)) ? $text_on_over : $alt;	// Use passed in text on mouse over, else just use link text
-		return "<a href=\"$url\" onmouseover=\"javascript: window.status='" . addslashes($text_on_over) . "'; return true;\" onmouseout=\"javascript: window.status=''; return true;\"><img src=\"$img_src\" alt=\"$alt\" title=\"$alt\" border=\"0\"/></a>\n";
+		return "<a href=\"$url\"><img src=\"$img_src\" alt=\"$alt\" title=\"$alt\" border=\"0\"/></a>\n";
 	}
 }
 ?>
