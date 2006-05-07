@@ -535,7 +535,7 @@ class AdminDB extends DBEngine {
 		$values[] = $rs['notes'];
 		$values[] = 'a';
 		$values[] = $rs['minres'];
-		$values[] = $rs['maxRes'];
+		$values[] = $rs['maxres'];
 		$values[] = intval(isset($rs['autoassign']));
 		$values[] = intval(isset($rs['approval']));
 		$values[] = intval(isset($rs['allow_multi']));

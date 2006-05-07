@@ -419,7 +419,7 @@ function doCreate() {
 							  reminder_time BIGINT NOT NULL
 							  )", 'Creating table reminders'),
 					// Create reminders indexes
-					array ('CREATE INDEX reminders_date ON reminders (reminder_date)', 'Creating index'),
+					array ('CREATE INDEX reminders_time ON reminders (reminder_time)', 'Creating index'),
 					array ('CREATE INDEX reminders_memberid ON reminders (memberid)', 'Creating index'),
 					array ('CREATE INDEX reminders_resid ON reminders (resid)', 'Creating index'),
 					// Create database user/permission

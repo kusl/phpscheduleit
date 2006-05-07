@@ -227,7 +227,7 @@ CREATE TABLE reminders (
   reminder_time BIGINT NOT NULL
   );
 
-CREATE INDEX reminders_date ON reminders (reminder_date);
+CREATE INDEX reminders_time ON reminders (reminder_time);
 CREATE INDEX reminders_memberid ON reminders (memberid);
 CREATE INDEX reminders_resid ON reminders (resid);
 

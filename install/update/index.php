@@ -362,7 +362,7 @@ function doUpdate($version) {
 							  groupid CHAR(16) NOT NULL PRIMARY KEY,
 							  group_name VARCHAR(50) NOT NULL,
 							  group_admin CHAR(16)
-							  ), 'Create groups table');
+							  )', 'Create groups table');
 
 	$create_user_groups = array('CREATE TABLE user_groups (
 							  groupid CHAR(16) NOT NULL,
