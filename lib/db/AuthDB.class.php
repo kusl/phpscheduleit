@@ -10,21 +10,16 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/../..');
-/**
-* DBEngine class
-*/
-include_once(BASE_DIR . '/lib/DBEngine.class.php');
+
+$basedir = dirname(__FILE__) . '/../..';
+include_once($basedir . '/lib/DBEngine.class.php');
 
 /**
 * Provide all database access/manipulation functionality
 * @see DBEngine
 */
 class AuthDB extends DBEngine {
-	
+
 	/**
 	* Returns whether a user exists or not
 	* @param string $email users email address
@@ -48,7 +43,7 @@ class AuthDB extends DBEngine {
 
 		return (!empty($result['memberid'])) ? $result['memberid'] : false;
 	}
-	
+
 	/**
 	* Returns whether the password associated with this username
 	*  is correct or not
@@ -64,9 +59,9 @@ class AuthDB extends DBEngine {
 		$result = $this->db->getRow('SELECT count(*) as num FROM ' . $this->get_table('login') . " WHERE (email=? OR logon_name=?) AND password=?", $data);
 		$this->check_for_error($result);
 
-		return ($result['num'] > 0 );	
+		return ($result['num'] > 0 );
 	}
-	
+
 	/**
 	* Inserts a new user into the database
 	* @param array $data user information to insert
@@ -74,7 +69,7 @@ class AuthDB extends DBEngine {
 	*/
 	function insertMember($data) {
 		$id = $this->get_new_id();
-	
+
 		// Put data into a properly formatted array for insertion
 		$to_insert = array();
 		array_push($to_insert, $id);
@@ -94,20 +89,20 @@ class AuthDB extends DBEngine {
 		array_push($to_insert, 0);	// is_admin
 		array_push($to_insert, $data['lang']);
 		array_push($to_insert, $data['timezone']);
-		
+
 		$q = $this->db->prepare('INSERT INTO ' . $this->get_table('login') . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 		$result = $this->db->execute($q, $to_insert);
 		$this->check_for_error($result);
-		
+
 		return $id;
 	}
-	
+
 	/**
 	* Updates user data
 	* @param string $userid id of user to update
 	* @param array $data array of new data
 	*/
-	function update_user($userid, $data) {		
+	function update_user($userid, $data) {
 		$to_insert = array();
 
 		array_push($to_insert, strtolower($data['emailaddress']));
@@ -118,8 +113,8 @@ class AuthDB extends DBEngine {
 		array_push($to_insert, $data['position']);
 		array_push($to_insert, isset($data['logon_name']) ? $data['logon_name'] : null);	// Push the logon name if we are using it
 		array_push($to_insert, $data['timezone']);
-		
-		$sql = 'UPDATE ' . $this->get_table('login') 
+
+		$sql = 'UPDATE ' . $this->get_table('login')
 			. ' SET email=?,'
 			. ' fname=?,'
 			. ' lname=?,'
@@ -128,22 +123,22 @@ class AuthDB extends DBEngine {
 			. ' position=?,'
 			. ' logon_name=?,'
 			. ' timezone=?';
-		
+
 		if (isset($data['password']) && !empty($data['password'])) {	// If they are changing passwords
 			$sql .= ', password=?';
 			array_push($to_insert, $this->make_password($data['password']));
 		}
-		
+
 		array_push($to_insert, $userid);
-		
+
 		$sql .= ' WHERE memberid=?';
-		
+
 		$q = $this->db->prepare($sql);
 		$result = $this->db->execute($q, $to_insert);
-		$this->check_for_error($result);		
+		$this->check_for_error($result);
 	}
-	
-	
+
+
     /**
 	* Checks to see if User information in DB is synched with LDAP Info
 	* @param string $id user to check
@@ -151,10 +146,10 @@ class AuthDB extends DBEngine {
 	* @author FCCC
 	*/
 	function check_updates( $id, $ldap ) {
-		
+
 		$result = $this->db->getRow('SELECT email, fname, lname, phone FROM ' . $this->get_table('login') . ' WHERE memberid=?', array($id));
 		$this->check_for_error($result);
-		
+
         if( $result['email'] != $ldap['emailaddress'] ) {
 			return true;
 		}
@@ -168,7 +163,7 @@ class AuthDB extends DBEngine {
 			return true;
         }
 
-        return false;   
+        return false;
 	}
 
 	/**
@@ -179,20 +174,20 @@ class AuthDB extends DBEngine {
 	function verifyID($id) {
 		$result = $this->db->getRow('SELECT count(*) as num FROM ' . $this->get_table('login') . ' WHERE memberid=?', array($id));
 		$this->check_for_error($result);
-		
+
 		return ($result['num'] > 0 );
 	}
-	
+
 	/**
 	* Gives full resource permissions to a user upon registration
 	* @param string $id id of user to auto assign
-	*/ 
+	*/
 	function autoassign($id) {
-		$sql = 'INSERT INTO ' . $this->get_table('permission') . ' (memberid, machid) SELECT "' . $id . '", machid FROM ' . $this->get_table('resources') . ' WHERE autoassign=1'; 
- 
-		$q = $this->db->prepare($sql); 
-		$result = $this->db->execute($q); 
-		$this->check_for_error($result); 
+		$sql = 'INSERT INTO ' . $this->get_table('permission') . ' (memberid, machid) SELECT "' . $id . '", machid FROM ' . $this->get_table('resources') . ' WHERE autoassign=1';
+
+		$q = $this->db->prepare($sql);
+		$result = $this->db->execute($q);
+		$this->check_for_error($result);
 	}
 }
 ?>
