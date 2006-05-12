@@ -4,23 +4,21 @@
 *  data and settings in phpScheduleIt
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-01-06
+* @version 05-12-06
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
 
-include_once('lib/Utility.class.php');
-include_once('db/AdminDB.class.php');
-include_once('Auth.class.php');
-include_once('AdditionalResource.class.php');
-include_once('Group.class.php');
-include_once(BASE_DIR . '/templates/admin.template.php');
+$basedir = dirname(__FILE__) . '/..';
+
+include_once($basedir . '/lib/Utility.class.php');
+include_once($basedir . '/lib/db/AdminDB.class.php');
+include_once($basedir . '/lib/Auth.class.php');
+include_once($basedir . '/lib/AdditionalResource.class.php');
+include_once($basedir . '/lib/Group.class.php');
+include_once($basedir . '/templates/admin.template.php');
 
 
 class Admin {
@@ -257,12 +255,12 @@ class Admin {
 	*/
 	function managePerms() {
 		$user = new User($_GET['memberid']);	// User object
-		if (!$this->user->is_group_admin($user->get_groupids())) {
-			print_not_allowed();
-		}
-		else {
+		if (Auth::isAdmin() || $this->user->is_group_admin($user->get_groupids())) {
 			$rs = $this->db->get_mach_ids();
 			print_manage_perms($user, $rs, $this->db->get_err());
+		}
+		else {
+			print_not_allowed();
 		}
 	}
 
