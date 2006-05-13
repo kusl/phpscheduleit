@@ -71,8 +71,7 @@ ALTER TABLE schedules CHANGE isDefault isdefault SMALLINT(1);
 # Add support for groups #
 CREATE TABLE groups (
   groupid CHAR(16) NOT NULL PRIMARY KEY,
-  group_name VARCHAR(50) NOT NULL,
-  group_admin CHAR(16)
+  group_name VARCHAR(50) NOT NULL
   );
 
 CREATE TABLE user_groups (

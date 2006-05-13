@@ -3,7 +3,7 @@
 * Update program for phpScheduleIt
 *
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-14-05
+* @version 05-13-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -360,8 +360,7 @@ function doUpdate($version) {
 
 	$create_groups = array('CREATE TABLE groups (
 							  groupid CHAR(16) NOT NULL PRIMARY KEY,
-							  group_name VARCHAR(50) NOT NULL,
-							  group_admin CHAR(16)
+							  group_name VARCHAR(50) NOT NULL
 							  )', 'Create groups table');
 
 	$create_user_groups = array('CREATE TABLE user_groups (
