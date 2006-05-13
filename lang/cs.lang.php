@@ -1,12 +1,12 @@
 <?php
 /**
-* English (en) translation file.
+* Czech (cs) translation file.
 * This also serves as the base translation file from which to derive
 *  all other translations.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.address.net>
-* @version 02-27-05
+* @version 05-13-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -323,11 +323,11 @@ $strings['Last Modified'] = 'Poslední zmìna';
 $strings['View this reservation'] = 'Zobraz tuto rezervaci';
 $strings['Modify this reservation'] = 'Zmìò tuto rezervaci';
 $strings['Delete this reservation'] = 'Odstranit tuto rezervaci';
-$strings['Go to the Online Scheduler'] = 'Bì¾te na Online Plánovaè';
-$strings['Change My Profile Information/Password'] = 'Zmìnit mùj profil &amp; heslo';
-$strings['Manage My Email Preferences'] = 'Správa mých emailových nastavení';
-$strings['Mass Email Users'] = 'Hromadný email u¾ivatelùm';
-$strings['Search Scheduled Resource Usage'] = 'Vyhledat rezervované vyu¾ití zdroje';
+$strings['Bookings'] = 'Bookings';											// @since 1.2.0
+$strings['Change My Profile Information/Password'] = 'Change Profile';		// @since 1.2.0
+$strings['Manage My Email Preferences'] = 'Email Preferences';				// @since 1.2.0
+$strings['Mass Email Users'] = 'Mass Email Users';
+$strings['Search Scheduled Resource Usage'] = 'Search Reservations';		// @since 1.2.0
 $strings['Export Database Content'] = 'Export obsahu databáze';
 $strings['View System Stats'] = 'Zobrazit statistiku systému';
 $strings['Email Administrator'] = 'Email administrátorovi';
@@ -423,7 +423,7 @@ $strings['All Schedules'] = 'V¹echny rozvrhy';
 $strings['Hold CTRL to select multiple'] = 'Dr¾te CTRL k vícenásobnému výbìru';
 $strings['Users'] = 'U¾ivatelé:';
 $strings['All Users'] = 'V¹ichni u¾ivatelé';
-$strings['Resources'] = 'Zdroje:';
+$strings['Resources'] = 'Zdroje';
 $strings['All Resources'] = 'V¹echny zdroje';
 $strings['Starting Date'] = 'Poèáteèní datum:';
 $strings['Ending Date'] = 'Koncové datum:';
@@ -644,7 +644,7 @@ $strings['Day View'] = 'Zobrazení dne';
 $strings['Week View'] = 'Zobrazení týdne';
 $strings['Month View'] = 'Zobrazení mìsíce';
 $strings['Resource Calendar'] = 'Kalendáø zdrojù';
-$strings['View Resource Calendar'] = 'Zobrazit rozvrh &amp; kalendáø zdrojù';
+$strings['View Resource Calendar'] = 'Schedule Calendar';	// @since 1.2.0
 $strings['Signup View'] = 'Zobrazení registrace';
 
 $strings['Select User'] = 'Vybrat u¾ivatele';
@@ -659,6 +659,63 @@ $strings['Admin'] = 'Admin';
 $strings['Manage Announcements'] = 'Správa oznámìní';
 $strings['There are no announcements'] = 'Nejsou ¾ádná oznámení';
 // end since 1.1.0
+
+// @since 1.2.0
+$strings['Maximum Participant Capacity'] = 'Maximum Participant Capacity';
+$strings['Leave blank for unlimited'] = 'Leave blank for unlimited';
+$strings['Maximum of participants'] = 'This resource has a maximum capacity of %s participants';
+$strings['That reservation is at full capacity.'] = 'That reservation is at full capacity.';
+$strings['Allow registered users to join?'] = 'Allow registered users to join?';
+$strings['Allow non-registered users to join?'] = 'Allow non-registered users to join?';
+$strings['Join'] = 'Join';
+$strings['My Participation Options'] = 'My Participation Options';
+$strings['Join Reservation'] = 'Join Reservation';
+$strings['Join All Recurring'] = 'Join All Recurring';
+$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'You are not participating on the following reservation dates because they are at full capacity.';
+$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'You are already invited to this reservation. Please follow participation instructions previously sent to your email.';
+$strings['Additional Tools'] = 'Additional Tools';
+$strings['Create User'] = 'Create User';
+$strings['Check Availability'] = 'Check Availability';
+//$strings['Add Resources'] = 'Add Resources';
+$strings['Manage Additional Resources'] = 'Manage Additional Resources';
+$strings['All Additional Resources'] = 'All Additional Resources';
+$strings['Number Available'] = 'Number Available';
+$strings['Unlimited'] = 'Unlimited';
+$strings['Add Additional Resource'] = 'Add Additional Resource';
+$strings['Edit Additional Resource'] = 'Edit Additional Resource';
+$strings['Checking'] = 'Checking';
+$strings['You did not select anything to delete.'] = 'You did not select anything to delete.';
+$strings['Added Resources'] = 'Added Resources';
+$strings['Additional resource is reserved'] = 'The additional resource %s only has %s available at a time';
+$strings['All Groups'] = 'All Groups';
+$strings['Group Name'] = 'Group Name';
+$strings['Delete Groups'] = 'Delete Groups';
+$strings['Manage Groups'] = 'Manage Groups';
+$strings['None'] = 'None';
+$strings['Group name is required.'] = 'Group name is required.';
+$strings['Groups'] = 'Groups';
+$strings['Current Groups'] = 'Current Groups';
+$strings['Group Administration'] = 'Group Administration';
+$strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
+$strings['Reminder'] = 'Reminder';
+$strings['before reservation'] = 'before reservation';
+$strings['My Participation'] = 'My Participation';
+$strings['My Past Participation'] = 'My Past Participation';
+$strings['Timezone'] = 'Timezone';
+$strings['Export'] = 'Export';
+$strings['Select reservations to export'] = 'Select reservations to export';
+$strings['Export Format'] = 'Export Format';
+$strings['This resource cannot be reserved less than x hours in advance'] = 'This resource cannot be reserved less than %s hours in advance';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'This resource cannot be reserved more than %s hours in advance';
+$strings['Minimum Booking Notice'] = 'Minimum Booking Notice';
+$strings['Maximum Booking Notice'] = 'Maximum Booking Notice';
+$strings['hours prior to the start time'] = 'hours prior to the start time';
+$strings['hours from the current time'] = 'hours from the current time';
+$strings['Contains'] = 'Contains';
+$strings['Begins with'] = 'Begins with';
+$strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
+$strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
+// end since 1.2.0
 
 /***
   EMAIL MESSAGES
@@ -757,5 +814,9 @@ $email['reservation_removal'] = "Byl jste odstranìn z následujících rezervace:\r
 		. "Koncové datum: %s\r\n"
 		. "Koncový èas: %s\r\n"
 		. "Souhrn: %s\r\n"
-		. "Opakovaná data (pokud jsou pøítomna): %s\r\n\r\n";	
+		. "Opakovaná data (pokud jsou pøítomna): %s\r\n\r\n";
+		
+// @since 1.2.0
+// Email body that is sent for reminders
+$email['Reminder Body'] = "Your reservation for %s from %s %s to %s %s is approaching.";
 ?>

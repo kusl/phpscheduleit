@@ -323,7 +323,7 @@ $strings['Last Modified'] = 'Last Modified';
 $strings['View this reservation'] = 'View this reservation';
 $strings['Modify this reservation'] = 'Modify this reservation';
 $strings['Delete this reservation'] = 'Delete this reservation';
-$strings['Bookings'] = 'Bookings';
+$strings['Bookings'] = 'Bookings';											// @since 1.2.0
 $strings['Change My Profile Information/Password'] = 'Change Profile';		// @since 1.2.0
 $strings['Manage My Email Preferences'] = 'Email Preferences';				// @since 1.2.0
 $strings['Mass Email Users'] = 'Mass Email Users';
@@ -676,7 +676,6 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'Additional Tools';
 $strings['Create User'] = 'Create User';
 $strings['Check Availability'] = 'Check Availability';
-//$strings['Add Resources'] = 'Add Resources';
 $strings['Manage Additional Resources'] = 'Manage Additional Resources';
 $strings['All Additional Resources'] = 'All Additional Resources';
 $strings['Number Available'] = 'Number Available';
