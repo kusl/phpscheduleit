@@ -4,7 +4,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Attila <atoth@cmr.sote.hu>
-* @version 04-04-05
+* @version 05-14-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -325,15 +325,15 @@ $strings['View this reservation'] = 'Vizsgálat megtekintése';
 $strings['Modify this reservation'] = 'Vizsgálat módosítása';
 $strings['Delete this reservation'] = 'Vizsgálat törlése';
 $strings['Bookings'] = 'Könyves';
-$strings['Change My Profile Information/Password'] = 'Profil Szerkesztés/Jelszó Váltás';
-$strings['Manage My Email Preferences'] = 'Email Beállítások Szerkesztése';
+$strings['Change My Profile Information/Password'] = 'Change Profile';		// @since 1.2.0
+$strings['Manage My Email Preferences'] = 'Email Preferences';				// @since 1.2.0
 $strings['Manage Schedules'] = 'Elõjegyzés Kezelés';
 $strings['Manage Resources'] = 'Kontingens Kezelés';
 $strings['Manage Users'] = 'Felhasználó Kezelés';
 $strings['Manage Reservations'] = 'Vizsgálat Kezelés';
 $strings['Manage Blackout Times'] = 'Tiltott Idõszak Kezelés';
 $strings['Mass Email Users'] = 'Köremail küldése';
-$strings['Search Scheduled Resource Usage'] = 'Keresés a kontingensek kihasználtsági adatai között';
+$strings['Search Scheduled Resource Usage'] = 'Search Reservations';		// @since 1.2.0
 $strings['Export Database Content'] = 'Adatbázis Tartalom Exportálása';
 $strings['View System Stats'] = 'Rendszer Statisztika Megtekintése';
 $strings['Email Administrator'] = 'Email Küldése az Adminisztrátornak';
@@ -429,7 +429,7 @@ $strings['All Schedules'] = 'Összes Elõjegyzés';
 $strings['Hold CTRL to select multiple'] = 'Többszörös választáshoz tartsa lenyomva a CTRL-t';
 $strings['Users'] = 'Felhasználók:';
 $strings['All Users'] = 'Összes Felhasználó';
-$strings['Resources'] = 'Kontingens:';
+$strings['Resources'] = 'Kontingens';
 $strings['All Resources'] = 'Összes Kontingens';
 $strings['Starting Date'] = 'Kezdõ Dátum:';
 $strings['Ending Date'] = 'Befejezõ Dátum:';
@@ -655,7 +655,7 @@ $strings['Day View'] = 'Napi Bontás';
 $strings['Week View'] = 'Heti Bontás';
 $strings['Month View'] = 'Havi Bontás';
 $strings['Resource Calendar'] = 'Kontingens Naptár';
-$strings['View Resource Calendar'] = 'Kontingens Naptár Megtekintése';
+$strings['View Resource Calendar'] = 'Schedule Calendar';	// @since 1.2.0
 $strings['Signup View'] = 'Lista Nézet';
 
 $strings['Select User'] = 'Felhasználó Kiválasztása';
@@ -670,6 +670,62 @@ $strings['Admin'] = 'Adminisztrátor';
 $strings['Manage Announcements'] = 'Bejelentés Kezelés';
 $strings['There are no announcements'] = 'Nincs érvényes Bejelentés';
 // end since 1.1.0
+
+// @since 1.2.0
+$strings['Maximum Participant Capacity'] = 'Maximum Participant Capacity';
+$strings['Leave blank for unlimited'] = 'Leave blank for unlimited';
+$strings['Maximum of participants'] = 'This resource has a maximum capacity of %s participants';
+$strings['That reservation is at full capacity.'] = 'That reservation is at full capacity.';
+$strings['Allow registered users to join?'] = 'Allow registered users to join?';
+$strings['Allow non-registered users to join?'] = 'Allow non-registered users to join?';
+$strings['Join'] = 'Join';
+$strings['My Participation Options'] = 'My Participation Options';
+$strings['Join Reservation'] = 'Join Reservation';
+$strings['Join All Recurring'] = 'Join All Recurring';
+$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'You are not participating on the following reservation dates because they are at full capacity.';
+$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'You are already invited to this reservation. Please follow participation instructions previously sent to your email.';
+$strings['Additional Tools'] = 'Additional Tools';
+$strings['Create User'] = 'Create User';
+$strings['Check Availability'] = 'Check Availability';
+$strings['Manage Additional Resources'] = 'Manage Additional Resources';
+$strings['All Additional Resources'] = 'All Additional Resources';
+$strings['Number Available'] = 'Number Available';
+$strings['Unlimited'] = 'Unlimited';
+$strings['Add Additional Resource'] = 'Add Additional Resource';
+$strings['Edit Additional Resource'] = 'Edit Additional Resource';
+$strings['Checking'] = 'Checking';
+$strings['You did not select anything to delete.'] = 'You did not select anything to delete.';
+$strings['Added Resources'] = 'Added Resources';
+$strings['Additional resource is reserved'] = 'The additional resource %s only has %s available at a time';
+$strings['All Groups'] = 'All Groups';
+$strings['Group Name'] = 'Group Name';
+$strings['Delete Groups'] = 'Delete Groups';
+$strings['Manage Groups'] = 'Manage Groups';
+$strings['None'] = 'None';
+$strings['Group name is required.'] = 'Group name is required.';
+$strings['Groups'] = 'Groups';
+$strings['Current Groups'] = 'Current Groups';
+$strings['Group Administration'] = 'Group Administration';
+$strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
+$strings['Reminder'] = 'Reminder';
+$strings['before reservation'] = 'before reservation';
+$strings['My Participation'] = 'My Participation';
+$strings['My Past Participation'] = 'My Past Participation';
+$strings['Timezone'] = 'Timezone';
+$strings['Export'] = 'Export';
+$strings['Select reservations to export'] = 'Select reservations to export';
+$strings['Export Format'] = 'Export Format';
+$strings['This resource cannot be reserved less than x hours in advance'] = 'This resource cannot be reserved less than %s hours in advance';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'This resource cannot be reserved more than %s hours in advance';
+$strings['Minimum Booking Notice'] = 'Minimum Booking Notice';
+$strings['Maximum Booking Notice'] = 'Maximum Booking Notice';
+$strings['hours prior to the start time'] = 'hours prior to the start time';
+$strings['hours from the current time'] = 'hours from the current time';
+$strings['Contains'] = 'Contains';
+$strings['Begins with'] = 'Begins with';
+$strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
+$strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
+// end since 1.2.0
 
 /***
   EMAIL MESSAGES
@@ -769,4 +825,8 @@ $email['reservation_removal'] = "Az Ön következõ Elõjegyzése eltávolításra kerül
 		. "Befejezõ Idõpont: %s\r\n"
 		. "Összegzés: %s\r\n"
 		. "Ismételt Elõfordulás (amennyiben érvényes): %s\r\n\r\n";	
+
+// @since 1.2.0
+// Email body that is sent for reminders
+$email['Reminder Body'] = "Your reservation for %s from %s %s to %s %s is approaching.";
 ?>

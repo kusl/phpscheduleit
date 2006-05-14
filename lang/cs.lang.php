@@ -676,7 +676,6 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'Additional Tools';
 $strings['Create User'] = 'Create User';
 $strings['Check Availability'] = 'Check Availability';
-//$strings['Add Resources'] = 'Add Resources';
 $strings['Manage Additional Resources'] = 'Manage Additional Resources';
 $strings['All Additional Resources'] = 'All Additional Resources';
 $strings['Number Available'] = 'Number Available';
