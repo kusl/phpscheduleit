@@ -4,23 +4,21 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-28-06
+* @version 05-15-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
 
-require_once('db/ResDB.class.php');
-require_once('User.class.php');
-require_once('Resource.class.php');
-require_once('PHPMailer.class.php');
-require_once('Reminder.class.php');
-require_once(BASE_DIR . '/templates/reserve.template.php');
+$basedir = dirname(__FILE__) . '/..';
+
+require_once($basedir . '/lib/db/ResDB.class.php');
+require_once($basedir . '/lib/User.class.php');
+require_once($basedir . '/lib/Resource.class.php');
+require_once($basedir . '/lib/PHPMailer.class.php');
+require_once($basedir . '/lib/Reminder.class.php');
+require_once($basedir . '/templates/reserve.template.php');
 
 
 class Reservation {
@@ -49,6 +47,8 @@ class Reservation {
 	var $allow_participation = 0;		//
 	var $allow_anon_participation = 0;	//
 	var $reminderid	= null;				//
+	var $invited_users = array();
+	var $participating_users = array();	
 
 	var $errors     = array();
 	var $word		= null;
@@ -122,7 +122,12 @@ class Reservation {
 		for ($i = 0; $i < count($this->users); $i++) {
 			if ($this->users[$i]['owner'] == 1) {
 				$this->user = new User($this->users[$i]['memberid']);
-				break;
+			}
+			else if ($this->users[$i]['invited'] == 1) {
+				$this->invited_users[] = $this->users[$i];
+			}
+			else {
+				$this->participating_users[] = $this->users[$i];
 			}
 		}
 
@@ -671,7 +676,8 @@ class Reservation {
 
         if ($mod == 'approved') {
             $text = translate_email('reservation_activity_7', $uname, $this->id, $start_date, $start, $end_date, $end, $name, $location, translate($mod));
-        } else {
+        }
+		else {
             $text = translate_email('reservation_activity_1', $uname, translate($mod), $this->id, $start_date, $start, $end_date, $end, $name, $location, translate($mod));
         }
 

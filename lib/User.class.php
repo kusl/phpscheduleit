@@ -3,7 +3,7 @@
 * This file contains the User class for viewing
 *  and manipulating user data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 03-30-06
+* @version 05-15-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -91,7 +91,9 @@ class User {
 	* @return the memberid, if it exists
 	*/
 	function get_id_by_email($email) {
-		if ($this->db == null) { $this->db = new UserDB(); }
+		if ($this->db == null) { 
+			$this->db = new UserDB();
+		}
 		return $this->db->get_id_by_email($email);
 	}
 	

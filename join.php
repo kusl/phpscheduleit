@@ -2,7 +2,7 @@
 /**
 * Handles the self activation for users joining a reservation
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-21-05
+* @version 05-15-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -32,8 +32,6 @@ $found_user = false;
 $res = new Reservation($resid);
 
 if ($res != null && !empty($resid)) {
-	//$resource = new Resource();
-	//$max_participants = $resource->get_property('max_participants', $res->get_machid());
 
 	if (!empty($userid)) {	
 		$user = new User($userid);
@@ -51,21 +49,18 @@ if ($res != null && !empty($resid)) {
 	//else {
 		// Validate data
 		if (validate_data($userid, $fname, $lname, $email) == '') {
-			
+			$user = new User();
 			// Load get the userid or create one if the data is ok
 			// First see if we have a user with this email address
-			if ( ($userid = User::get_id_by_email($email)) != false ) {
+			if ( ($userid = $user->get_id_by_email($email)) != false ) {
 				// Invite the user we found in the database
 				$user = new User($userid);
 				$userid = $user->get_id();
 				$found_user = true;
 			}
 			else if ( ($userid = AnonymousUser::get_id_by_email($email)) != false ) {
-				
-				// There is an anonymous user with this email already
-				// Update info
+				// There is an anonymous user with this email already, update info
 				$a_user = new AnonymousUser($userid);
-				//$a_user->userid = $userid;
 				$a_user->fname = $fname;
 				$a_user->lname = $lname;
 				$a_user->email = $email;
@@ -109,7 +104,6 @@ if ($res != null && !empty($resid)) {
 					$res->add_participant($user->userid, $accept_code);
 					// Send the invite email
 					$res->invite_users(array($user->userid  . '|' . $user->email), array(), $user, $accept_code);
-					echo 'res invite sent';
 				}
 				else {
 					CmnFns::do_error_box(translate('You are already invited to this reservation. Please follow participation instructions previously sent to your email.'), '', false);

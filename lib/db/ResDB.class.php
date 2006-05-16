@@ -4,14 +4,15 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 03-25-06
+* @version 05-15-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-@define('BASE_DIR', dirname(__FILE__) . '/../..');
-include_once(BASE_DIR . '/lib/DBEngine.class.php');
+
+$basedir = dirname(__FILE__) . '/../..';
+include_once($basedir  . '/lib/DBEngine.class.php');
 
 /**
 * Provide all access to database to manage reservations
@@ -538,9 +539,10 @@ class ResDB extends DBEngine {
 	function confirm_user($memberid, $resid, $parentid, $update_all, $max_participants = 0) {
 		$values = array(0, $memberid);
 		$sql = 'UPDATE ' . $this->get_table(TBL_RESERVATION_USERS) . ' SET invited=? WHERE memberid=? ';
+		$failed = array();
+		
 		if ($update_all && $parentid != null) {
-			$r = array();
-			$failed = array();
+			$r = array();		
 			$result = $this->db->query('SELECT resid, start_date FROM ' . $this->get_table(TBL_RESERVATIONS) . ' WHERE parentid=?', array($parentid));
 			$this->check_for_error($result);
 			while ($rs = $result->fetchRow()) {

@@ -2,15 +2,13 @@
 /**
 * Interface form for accepting/declining reservations
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-19-05
+* @version 05-15-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Template class
-*/
+
 include_once('lib/Template.class.php');
 include_once('lib/Reservation.class.php');
 include_once('lib/Resource.class.php');
@@ -54,7 +52,7 @@ if (isset($_POST['y'])) {
 			$max_participants = $resource->get_property('max_participants', $res->get_machid());
 			
 			// If the total number of users (minus the owner) already participating is less than the max, let this user participate
-			if ($max_participants == '' || count($res->users)-1 < $max_participants) {
+			if ( $action == INVITE_DECLINE || ($max_participants == '' || count($res->participating_users) < $max_participants) ) {
 	
 				$found_user = false;
 				$owner_id = false;
@@ -125,12 +123,13 @@ else if (isset($_POST['n'])) {
 }
 else {
 	$resid = $_GET['id'];
+	$action = $_GET['action'];
 	$res = new Reservation($resid);
 	$resource = new Resource();
 	$max_participants = $resource->get_property('max_participants', $res->get_machid());
-		
+
 	// If the total number of users (minus the owner) already participating is less than the max, let this user participate
-	if ($max_participants == '' || count($res->users)-1 < $max_participants) {
+	if ( $action == INVITE_DECLINE || ($max_participants == '' || count($res->participating_users) < $max_participants) ) {
 		$msg = '<h5>' . translate('Confirm reservation participation') . '</h5><br/>';
 		$word = ($_GET['action'] == INVITE_ACCEPT) ? 'Accept' : 'Decline';
 		$msg .= '<input type="submit" class="button" name="y" value="' . translate($word) . '"/>';
