@@ -374,7 +374,6 @@ class Reservation {
 	* @param bool $mod_recur if we should update all reservations in this group
 	*/
 	function approve_res($mod_recur) {
-
 		$this->type = RES_TYPE_APPROVE;
 
 		$this->db->approve_res($this, $mod_recur);
@@ -628,8 +627,9 @@ class Reservation {
 		global $conf;
 
 		// Dont bother if nobody wants email
-		if (!$this->user->wants_email($type) && !$conf['app']['emailAdmin'])
+		if (!$this->user->wants_email($type) && !$conf['app']['emailAdmin']) {
 			return;
+		}
 
 		// Email addresses
 		$adminemail = $this->sched['adminemail'];

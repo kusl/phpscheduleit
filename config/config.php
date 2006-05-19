@@ -6,7 +6,7 @@
 *  are set in this file.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 05-04-06
+* @version 05-18-06
 * @package phpScheduleIt
 */
 /***************************************
@@ -277,6 +277,11 @@ $conf['app']['allowed_reminder_times'] = array(5, 10, 30);
 // See time block customization above
 $conf['ui']['participant_res'][]		= array ('color' => 'CE56D6', 'hover' => 'E174E8', 'text' => 'FFFFFF');
 $conf['ui']['participant_past_res'][]	= array ('color' => '641293', 'hover' => '7B25AC', 'text' => 'FFFFFF');
+
+// Account for lookup on LDAP server
+$conf['ldap']['lookupid'] = 'jwt-unique=userName,ou=internal,ou=people,dc=domain,dc=com'; 
+// LDAP password
+$conf['ldap']['lookuppwd'] = 'userPassword';
 
 /// END COPY FOR VERSION 1.2.0 ///
 ?>

@@ -3,18 +3,15 @@
 * LDAPEngine class
 * @author David Poole <David.Poole@fccc.edu>
 * @author William P.O'Sullivan
-* @version 03-30-06
+* @version 05-18-06
 * @package LDAPEngine
 *
 * Copyright (C) 2004 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
+$basedir = dirname(__FILE__) . '/..';
 
-include_once('CmnFns.class.php');
+include_once($basedir '/lib/CmnFns.class.php');
 
 class LDAPEngine {
 
@@ -31,6 +28,8 @@ class LDAPEngine {
     var $lname;
     var $mail;
     var $phone;
+    var $institution;
+    var $title;
 	var $password;
 
 	/**
@@ -121,7 +120,7 @@ class LDAPEngine {
 	*/
 	function loadUserData() {
 
-		$attributes = array( "sn", "givenname", "mail", "telephonenumber" );
+		$attributes = array( "sn", "givenname", "mail", "telephonenumber", "physicaldeliveryofficename", "title" );
 
         $result = ldap_search( $this->ldap, $this->binddn, "uid=". $this->uid, $attributes );
         $entries = ldap_get_entries( $this->ldap, $result );
@@ -130,7 +129,18 @@ class LDAPEngine {
             $this->fname = $entries[0]['givenname'][0];
             $this->lname = $entries[0]['sn'][0];
             $this->mail = strtolower( $entries[0]['mail'][0] );
-            $this->phone = $entries[0]['telephonenumber'][0];
+            
+            $this->phone = isset($entries[0]['telephonenumber']) ? $entries[0]['telephonenumber'][0] : '';
+            if ( isset($entries[0]['physicaldeliveryofficename']) ) {
+            	$this->institution = $entries[0]['physicaldeliveryofficename'][0];
+            } else {
+            	$this->institution = "";
+            }
+            if ( isset($entries[0]['title']) ) {
+            	$this->title = $entries[0]['title'][0];
+            } else {
+            	$this->title = "";
+            }
         } else {
             return false;
         }
@@ -151,11 +161,14 @@ class LDAPEngine {
             'lname' => $this->lname,
             'emailaddress' => $this->mail,
             'phone' => $this->phone,
+            'institution' => $this->institution,
+			'title' => $this->title,
             'logon_name' => $this->uid,
             'password' => $this->password,
             'password2' => $this->password,
             'position' => null,
             'institution' => null,
+            'lang' => $conf['app']['defaultLanguage'],
 			'timezone' => $conf['app']['timezone']
         );
 
