@@ -1,8 +1,6 @@
 <?php
 /**
 * Russian (ru) translation file.
-* This also serves as the base translation file from which to derive
-*  all other translations.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Sergey Salnikov <salnsg@gmail.com>

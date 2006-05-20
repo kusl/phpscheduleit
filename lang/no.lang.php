@@ -4,7 +4,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Flemming Sørensen <flemming@bestservice.no>
-* @version 03-13-05
+* @version 05-20-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt

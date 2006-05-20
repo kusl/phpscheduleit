@@ -4,7 +4,7 @@
 *  translating the text
 * A few ideas and techniques were taken from the phpMyAdmin project
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-04-06
+* @version 05-20-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -42,7 +42,7 @@
 
 $languages = array (
 	//'ca'	=> array('ca([-_][[:alpha:]]{2})?|catalan','ca.lang.php', 'ca', 'Catal&agrave;'),
-	'zh_TW'	=> array('zh([-_]tw)?|chinese', 'zh_TW.lang.php', 'zh', 'Chinese (Traditional) (&#x6b63;&#x9ad4;&#x4e2d;&#x6587;)'),
+	'zh_TW'	=> array('zh([-_]tw)?|chinese', 'zh_TW.lang.php', 'zh', 'Chinese Traditional (&#x6b63;&#x9ad4;&#x4e2d;&#x6587;)'),
 	'cs'	=> array('cs([-_][[:alpha:]]{2})?|czech', 'cs.lang.php', 'cs', 'Czech (&#x010c;esky)'),
 	'de'	=> array('de([-_][[:alpha:]]{2})?|german', 'de.lang.php', 'de', 'Deutsch'),
 	'en_US'	=> array('en([-_]us)?|english', 'en_US.lang.php', 'en', 'English US'),
@@ -56,9 +56,10 @@ $languages = array (
 	'nl'	=> array('nl([-_][[:alpha:]]{2})?|dutch', 'nl.lang.php', 'nl', 'Nederlands'),
 	'pt_PT'	=> array('pr([-_]PT)|portuguese', 'pt_PT.lang.php', 'pt', 'Portugu&ecirc;s'),
 	'pt_BR'	=> array('pr([-_]BR)|portuguese', 'pt_BR.lang.php', 'pt', 'Portugu&ecirc;s Brasileiro'),
+	'ru'	=> array('ru([-_][[:alpha:]]{2})?|russian', 'ru.lang.php', 'ru', 'Russian (&#x0420;&#x0443;&#x0441;&#x0441;&#x043a;&#x0438;&#x0439;)'),
+	'sk'	=> array('sk([-_][[:alpha:]]{2})?|slovakian', 'sk.lang.php', 'sk', 'Slovak (Sloven&#x010d;ina)'),
 	'sl'	=> array('sl([-_][[:alpha:]]{2})?|slovenian', 'sl.lang.php', 'sl', 'Slovensko'),
 	'fi'	=> array('fi([-_][[:alpha:]]{2})?|finnish', 'fi.lang.php', 'fi', 'Suomi'),
-	'ru'	=> array('ru([-_][[:alpha:]]{2})?|russian', 'ru.lang.php', 'ru', 'Russian (&#x0420;&#x0443;&#x0441;&#x0441;&#x043a;&#x0438;&#x0439;)'),
 	'sv'	=> array('sv([-_][[:alpha:]]{2})?|swedish', 'sv.lang.php', 'sv', 'Swedish'),
 	'tr'	=> array('fi([-_][[:alpha:]]{2})?|turkish', 'tr.lang.php', 'tr', 'T&uuml;rk&ccedil;e')
 );

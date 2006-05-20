@@ -4,7 +4,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Socrates Katsoudas <mx5gr@hotmail.com>
-* @version 04-13-2005
+* @version 05-20-06
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt

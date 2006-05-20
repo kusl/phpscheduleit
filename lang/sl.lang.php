@@ -1,8 +1,6 @@
 <?php
 /**
-* English (en) translation file.
-* This also serves as the base translation file from which to derive
-*  all other translations.
+* Slovenian (sl) translation file.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator E. Dras <e.dras@hidra.si>

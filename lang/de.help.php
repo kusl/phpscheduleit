@@ -1,7 +1,6 @@
 <?php
 /**
 * Deutsch (de) translation file.
-* This also serves as the base translation file from which to derive
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator B.Orttenburger <info@orttenburger.org>

@@ -1,11 +1,9 @@
 <?php
 /**
 * Czech (cs) translation file.
-* This also serves as the base translation file from which to derive
-*  all other translations.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @translator Your Name <your@email.address.net>
+* @translator <jindrich@natur.cuni.cz>
 * @version 05-13-06
 * @package Languages
 *

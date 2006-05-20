@@ -1,8 +1,6 @@
 <?php
 /**
-* Triditional Chinese (zh_TW) translation file.
-* This also serves as the base translation file from which to derive
-*  all other translations.
+* Traditional Chinese (zh_TW) translation file.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Jing-Jong Shyue <shyue@mail.shyue.idv.tw>
