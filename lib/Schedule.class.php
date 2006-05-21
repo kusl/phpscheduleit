@@ -16,11 +16,11 @@
 /**
 * Base directory of application
 */
-@define('BASE_DIR', dirname(__FILE__) . '/..');
-include_once('db/ScheduleDB.class.php');
-include_once('Calendar.class.php');
-include_once('Summary.class.php');
-include_once(BASE_DIR . '/templates/schedule.template.php');
+$basedir = dirname(__FILE__) . '/..';
+include_once($basedir . '/lib/db/ScheduleDB.class.php');
+include_once($basedir . '/lib/Calendar.class.php');
+include_once($basedir . '/lib/Summary.class.php');
+include_once($basedir . '/templates/schedule.template.php');
 
 class Schedule {
 
@@ -165,7 +165,7 @@ class Schedule {
 
 			$min_date = mktime(0,0,0, date('m'), date('d') + $min_days);
 
-			if ($current_date < $min_date)
+			if ($current_date <= $min_date)
 			{
 				return false;
 			}

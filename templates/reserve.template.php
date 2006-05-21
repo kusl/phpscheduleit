@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-29-06
+* @version 05-19-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -620,7 +620,7 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 		$end_date = Time::getAdjustedDate($res->get_end_date(), $res->get_end());
         
 		// Show reserved time or select boxes depending on type
-        if ( ($type == RES_TYPE_ADD) || ($type == RES_TYPE_MODIFY) ) {
+        if ( ($type == RES_TYPE_ADD) || ($type == RES_TYPE_MODIFY) || ($type == RES_TYPE_APPROVE) ) {
             // Start time select box
             echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($start_date) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '" onchange="checkCalendarDates();"/>';
 			if ($allow_multi) {
@@ -900,10 +900,12 @@ function print_summary($summary, $type) {
 		<tr>
 		<td class="cellColor" style="text-align: left;">
 		<?php
-		if ($type == 'r' || $type == 'm')
+		if ($type == RES_TYPE_ADD || $type == RES_TYPE_MODIFY || $type == RES_TYPE_APPROVE) {
 			echo '<div style="text-align:center;" id="summary_div"><textarea class="textbox" name="summary" rows="3" cols="40">' . $summary . '</textarea></div>';
-		else
+		}
+		else {
 			echo (!empty($summary) ? CmnFns::html_activate_links($summary) : translate('N/A'));
+		}
 		?>
 		</td>
 	   </tr>

@@ -844,7 +844,9 @@ EOT;
 		$mailer->Body = $msg;
 		$mailer->IsHTML($this->user->wants_html());
 
-		if ($send) $mailer->Send();
+		if ($send) {
+			$mailer->Send();
+		}
 
 		$headers = null;
 		unset($headers, $msg, $fields);
