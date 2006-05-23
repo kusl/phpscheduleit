@@ -1,7 +1,7 @@
 <?php
 /**
 * German (de) translation file.
-*  
+*
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Ilja Kogan <ilja@kogan-family.de>
 * @translator Anna <majestic_12@users.sourceforge.net>
@@ -15,7 +15,7 @@
 // INSTRUCTIONS
 ///////////////////////////////////////////////////////////
 // This file contains all of the strings that are used throughout phpScheduleit.
-// 
+//
 // To make phpScheduleIt available in another language, simply translate each
 //  of the following strings into the appropriate one for the language.  Please be sure
 //  to make the proper additions the /config/langs.php file (instructions are in the file).
@@ -58,7 +58,7 @@ global $days_letter;		  //
 $charset = 'iso-8859-1';
 /***
   DAY NAMES
-  All of these arrays MUST start with Sunday as the first element 
+  All of these arrays MUST start with Sunday as the first element
    and go through the seven day week, ending on Saturday
 ***/
 
@@ -102,7 +102,7 @@ $dates['schedule_daily'] = '%A,<br/>%d.%m.%Y';
 $dates['header'] = '%A, %B %d, %Y';
 // Jump box format on bottom of the schedule page
 // This must only include %m %d %Y in the proper order,
-//  other specifiers will be ignored and will corrupt the jump box 
+//  other specifiers will be ignored and will corrupt the jump box
 $dates['jumpbox'] = '%d %m %Y';
 
 /***
@@ -297,7 +297,7 @@ $strings['Register'] = 'Registrieren';
 $strings['Please Log In'] = 'Bitte Loggen Sie sich ein';
 $strings['Email address'] = 'E-Mail Addresse';
 $strings['Password'] = 'Passwort';
-$strings['First time user'] = 'Das erste mal hier?'; 
+$strings['First time user'] = 'Das erste mal hier?';
 $strings['Click here to register'] = 'Klicken Sie hier um sich zu registrieren.';
 $strings['Register for phpScheduleIt'] = ' In phpScheduleIt registrieren';
 $strings['Log In'] = 'Log-in';
@@ -372,7 +372,7 @@ $strings['My Past Reservations'] = 'Meine vergangene Reservierungen';
 $strings['Other Reservations'] = 'Andere Reservierungen';
 $strings['Other Past Reservations'] = 'Andere vergangene Reservierungen';
 $strings['Blacked Out Time'] = 'Geblockte Zeiten';
-$strings['Set blackout times'] = 'Geblockte Zeit setzen von %s bis %s'; 
+$strings['Set blackout times'] = 'Geblockte Zeit setzen von %s bis %s';
 $strings['Reserve on'] = 'Reserviere %s am %s';
 $strings['Prev Week'] = '&laquo; Vorherige Woche';
 $strings['Jump 1 week back'] = '1 Woche zurück springen';
@@ -556,7 +556,7 @@ $strings['Thank you for using phpScheduleIt'] = ' Bitte vergewissern Sie sich si
 	. ' Das ist sehr wichtig, da er die Passwörter für die Datenbank und andere sensible Informationen enthält.'
 	. ' Wenn Sie den Ordner da lassen, schaffen sie damit ein riesiges Einfalstor für Angreifer!'
 	. '<br /><br />'
-	. 'Danke, dass sie phpScheduleIt verwenden.'; 
+	. 'Danke, dass sie phpScheduleIt verwenden.';
 
 $strings['This will update your version of phpScheduleIt from 0.9.3 to 1.0.0.'] = 'Dies wird Ihre phpScheduleIt Version von 0.9.3 auf 1.0.0. updaten';
 /* Why two times?
@@ -565,7 +565,7 @@ $strings['This will update your version of phpScheduleIt from 0.9.3 to 1.0.0.'] 
 	. ' Das versäumen des Entfernens führt dazu, das die Pforte für jeden Angreifer meilenweit offen ist um die Datenbnk anzugreifen!'
 	. '<br /><br />'
 	. 'Danke, für das Benutzen von phpScheduleIt!'; */
-	
+
 $strings['There is no way to undo this action'] = 'Es gibt keine Möglichkeit diese Handlung rückgängig zu machen!';
 $strings['Click to proceed'] = 'Klicken Sie um fortzusetzen';
 $strings['This version has already been upgraded to 1.0.0.'] = 'Diese Version wurde bereits zu  1.0.0. upgedated';
@@ -731,10 +731,10 @@ $strings['Contains'] = 'Enthält';
 $strings['Begins with'] = 'Beginnt mit';
 $strings['Minimum booking notice is required.'] = 'Minimale Buchungsnotiz wird zwingend benötigt.';
 $strings['Maximum booking notice is required.'] = 'Maximale Buchungsnotiz wird zwingend benötigt.';
-$strings['Accessory Name'] = 'Accessory Name';
-$strings['Accessories'] = 'Accessories';
-$strings['All Accessories'] = 'All Accessories';
-$strings['Added Accessories'] = 'Added Accessories';
+$strings['Accessory Name'] = 'Zubehör Name';
+$strings['Accessories'] = 'Zubehör';
+$strings['All Accessories'] = 'Das ganze Zubehör';
+$strings['Added Accessories'] = 'Hinzugefügtes Zubehör';
 // end since 1.2.0
 
 /***

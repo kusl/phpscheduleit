@@ -1,7 +1,7 @@
 <?php
 /**
 * Slovak (sk) translation file.
-*  
+*
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Marián Murín <murin@netkosice.sk>
 * @version 05-20-06
@@ -15,7 +15,7 @@
 ///////////////////////////////////////////////////////////
 // This file contains all of the strings that are used throughout phpScheduleit.
 // Please save the translated file as '2 letter language code'.lang.php.  For example, en.lang.php.
-// 
+//
 // To make phpScheduleIt available in another language, simply translate each
 //  of the following strings into the appropriate one for the language.  If there
 //  is no direct translation, please provide the closest translation.  Please be sure
@@ -61,7 +61,7 @@ $charset = 'windows-1250';
 
 /***
   DAY NAMES
-  All of these arrays MUST start with Sunday as the first element 
+  All of these arrays MUST start with Sunday as the first element
    and go through the seven day week, ending on Saturday
 ***/
 // The full day name
@@ -104,7 +104,7 @@ $dates['schedule_daily'] = '%A,<br/>%d/%m/%Y';
 $dates['header'] = '%A, %B %d, %Y';
 // Jump box format on bottom of the schedule page
 // This must only include %m %d %Y in the proper order,
-//  other specifiers will be ignored and will corrupt the jump box 
+//  other specifiers will be ignored and will corrupt the jump box
 $dates['jumpbox'] = '%d %m %Y';
 
 /***
@@ -370,7 +370,7 @@ $strings['My Past Reservations'] = 'Moje minulé rezervácie';
 $strings['Other Reservations'] = 'Ïalšie rezervácie';
 $strings['Other Past Reservations'] = 'Ïalšie minulé rezervácie';
 $strings['Blacked Out Time'] = 'Vıpadkovı èas';
-$strings['Set blackout times'] = 'Nastavi vıpadkové èasy pre %s na %s'; 
+$strings['Set blackout times'] = 'Nastavi vıpadkové èasy pre %s na %s';
 $strings['Reserve on'] = 'Rezervova %s na %s';
 $strings['Prev Week'] = '&laquo; Predchádzajúci tıdeò';
 $strings['Jump 1 week back'] = 'Skoèit 1 tıdeò spä';
@@ -674,12 +674,11 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'Doplnkové nástroje';
 $strings['Create User'] = 'Vytvori uívate¾a';
 $strings['Check Availability'] = 'Skontrolova dostupnos';
-$strings['Manage Additional Resources'] = 'Spravovanie dodatoènıch zdrojov';
-$strings['All Additional Resources'] = 'Všetky dodatoèné zdroje';
+$strings['Manage Additional Resources'] = 'Správa dodatocnıch zdrojov';
 $strings['Number Available'] = 'Poèet dostupnıch';
 $strings['Unlimited'] = 'Neobmedzenı';
-$strings['Add Additional Resource'] = 'Prida dodatoènı zdroj';
-$strings['Edit Additional Resource'] = 'Zmeni dodatoènı zdroj';
+$strings['Add Additional Resource'] = 'Pridat dodatocnı zdroj';
+$strings['Edit Additional Resource'] = 'Zmenit dodatocnı zdroj';
 $strings['Checking'] = 'Overenie';
 $strings['You did not select anything to delete.'] = 'Nevybrali ste niè na zmazanie.';
 $strings['Added Resources'] = 'Pridané zdroje';
@@ -712,10 +711,10 @@ $strings['Contains'] = 'Obsahuje';
 $strings['Begins with'] = 'Zaèína s';
 $strings['Minimum booking notice is required.'] = 'Minimálny poèet oznamov pre rezerváciu je poadovanı.';
 $strings['Maximum booking notice is required.'] = 'Maximálny poèet oznamov pre rezerváciu je poadovanı.';
-$strings['Accessory Name'] = 'Accessory Name';
-$strings['Accessories'] = 'Accessories';
-$strings['All Accessories'] = 'All Accessories';
-$strings['Added Accessories'] = 'Added Accessories';
+$strings['Accessory Name'] = 'Meno doplnku';
+$strings['Accessories'] = 'Doplnky';
+$strings['All Accessories'] = 'Všetky doplnky';
+$strings['Added Accessories'] = 'Pridané doplnky';
 // end since 1.2.0
 
 /***
@@ -815,7 +814,7 @@ $email['reservation_removal'] = "Boli ste odstránenı z následujúcej rezervácie:\
 		. "Koncovı dátum: %s\r\n"
 		. "Koncovı èas: %s\r\n"
 		. "Súhrn: %s\r\n"
-		. "Opakované dáta (pokia¾ sú dostupné): %s\r\n\r\n";	
+		. "Opakované dáta (pokia¾ sú dostupné): %s\r\n\r\n";
 
 // @since 1.2.0
 // Email body that is sent for reminders

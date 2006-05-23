@@ -1,7 +1,7 @@
 <?php
 /**
 * Greek (el) translation file.
-*  
+*
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Socrates Katsoudas <mx5gr@hotmail.com>
 * @version 05-20-06
@@ -15,7 +15,7 @@
 ///////////////////////////////////////////////////////////
 // This file contains all of the strings that are used throughout phpScheduleit.
 // Please save the translated file as '2 letter language code'.lang.php.  For example, en.lang.php.
-// 
+//
 // To make phpScheduleIt available in another language, simply translate each
 //  of the following strings into the appropriate one for the language.  If there
 //  is no direct translation, please provide the closest translation.  Please be sure
@@ -661,12 +661,11 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'Πρόσθετα Εργαλεία';
 $strings['Create User'] = 'Δημιουργία Χρήστη';
 $strings['Check Availability'] = 'Ελεγχος Διαθεσιμότητας';
-$strings['Manage Additional Resources'] = 'Διαχείριση Πρόσθετων Πόρων';
-$strings['All Additional Resources'] = 'Ολοι οι Πρόσθετοι Πόροι';
+$strings['Manage Additional Resources'] = 'Διαχείριση Επιπρόσθετων Πόρων';
 $strings['Number Available'] = 'Διαθέσιμος Αριθμός';
 $strings['Unlimited'] = 'Απεριόριστο';
-$strings['Add Additional Resource'] = 'Πρόσθεση Πρόσθετου Πόρου';
-$strings['Edit Additional Resource'] = 'Επεξεργασία Πρόσθετου Πόρου';
+$strings['Add Additional Resource'] = 'Προσθήκη Επιπρόσθετου Πόρου';
+$strings['Edit Additional Resource'] = 'Επεξεργασία Επιπρόσθετου Πόρου';
 $strings['Checking'] = 'Ελεγχος';
 $strings['You did not select anything to delete.'] = 'Δεν επελέγη κάτι προς διαγραφή.';
 $strings['Added Resources'] = 'Πρόσθετοι Πόροι';
@@ -699,10 +698,10 @@ $strings['Contains'] = 'Περιέχει';
 $strings['Begins with'] = 'Αρχίζει με';
 $strings['Minimum booking notice is required.'] = 'Απαιτείται η ελάχιστη ενημέρωση κράτησης.';
 $strings['Maximum booking notice is required.'] = 'Απαιτείται η μέγιστη ενημέρωση κράτησης.';
-$strings['Accessory Name'] = 'Accessory Name';
-$strings['Accessories'] = 'Accessories';
-$strings['All Accessories'] = 'All Accessories';
-$strings['Added Accessories'] = 'Added Accessories';
+$strings['Accessory Name'] = 'Ονομα Επιπρόσθετου Πόρου';
+$strings['Accessories'] = 'Επιπρόσθετοι Πόροι';
+$strings['All Accessories'] = 'Ολοι οι Επιπρόσθετοι Πόροι';
+$strings['Added Accessories'] = 'Επιπρόσθετοι Πόροι';
 // end since 1.2.0
 
 /***
@@ -759,7 +758,7 @@ $email['reservation_activity_7'] = "%s,\r\n<br />"
 			. "Παρακαλούμε χρησιμοποιείστε αυτόν τον αριθμό κράτησης οταν επικοινωνείτε με τον Διαχειριστή με οιαδήποτε ερώτηση.\r\n\r\n<br/><br/>"
 			. "Μια κράτηση μεταξύ %s %s και %s %s για %s"
 			. " βρισκόμενη σε %s εχει %s.\r\n\r\n<br/><br/>";
-			
+
 // Email that the user gets when the administrator changes their password
 $email['password_reset'] = "Το συνθηματικό σας άλλαξε από τον Διαχειριστή Συστήματος.\r\n\r\n"
 			. "Το προσωρινό σας συνθηματικό είναι:\r\n\r\n %s\r\n\r\n"

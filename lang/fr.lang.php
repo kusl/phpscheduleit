@@ -2,7 +2,7 @@
 /**
 * French (fr) translation file.
 * This also serves as the base translation file from which to derive
-*  
+*
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator J. Pe. <jpe@chez.com>
 * @translator Kim Phan <kimphan@users.sourceforge.net>
@@ -17,7 +17,7 @@
 // INSTRUCTIONS
 ///////////////////////////////////////////////////////////
 // This file contains all of the strings that are used throughout phpScheduleit.
-// 
+//
 // To make phpScheduleIt available in another language, simply translate each
 //  of the following strings into the appropriate one for the language.  Please be sure
 //  to make the proper additions the /config/langs.php file (instructions are in the file).
@@ -61,7 +61,7 @@ $charset = 'iso-8859-1';
 
 /***
   DAY NAMES
-  All of these arrays MUST start with Sunday as the first element 
+  All of these arrays MUST start with Sunday as the first element
    and go through the seven day week, ending on Saturday
 ***/
 // The full day name
@@ -104,7 +104,7 @@ $dates['schedule_daily'] = '%A,<br/>%d/%m/%Y';
 $dates['header'] = '%A, %B %d, %Y';
 // Jump box format on bottom of the schedule page
 // This must only include %m %d %Y in the proper order,
-//  other specifiers will be ignored and will corrupt the jump box 
+//  other specifiers will be ignored and will corrupt the jump box
 $dates['jumpbox'] = '%d %m %Y';
 
 /***
@@ -374,7 +374,7 @@ $strings['My Past Reservations'] = 'Mes anciennes réservations';
 $strings['Other Reservations'] = 'Les autres reservations';
 $strings['Other Past Reservations'] = 'Les autes anciennes réservations';
 $strings['Blacked Out Time'] = 'Temps masqué';
-$strings['Set blackout times'] = 'Etablissement du temps masqué %s sur %s'; 
+$strings['Set blackout times'] = 'Etablissement du temps masqué %s sur %s';
 $strings['Reserve on'] = 'Reserve %s sur %s';
 $strings['Prev Week'] = '&laquo; Sem. Préc.';
 $strings['Next Week'] = 'Sem. Suiv. &raquo;';
@@ -568,7 +568,7 @@ $strings['This will populate the required fields for phpScheduleIt 1.0.0 and pat
 
 // @since 1.0.0 RC1
 $strings['If no value is specified, the default password set in the config file will be used.'] = 'Si aucune valeur n\'est précisée, le mot de passe par défaut spécifié dans le fichier de configuration (config.php) sera utilisé.';
-$strings['Notify user that password has been changed?'] = 'L\'utilisateur doit il être prévenu que son mot de passe a été changé ?'; 
+$strings['Notify user that password has been changed?'] = 'L\'utilisateur doit il être prévenu que son mot de passe a été changé ?';
 
 // @since 1.1.0
 $strings['This system requires that you have an email address.'] = 'Pour ce système il est impératif que vous possédiez une adresse de messagerie électronique';
@@ -682,12 +682,11 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'Outils additionnels';
 $strings['Create User'] = 'Créer un utilisateur';
 $strings['Check Availability'] = 'Vérifier la disponibilité';
-$strings['Manage Additional Resources'] = 'Gèrer des ressources supplémentaires';
-$strings['All Additional Resources'] = 'Rajouter des ressources supplémentaires';
+$strings['Manage Additional Resources'] = 'Gèrer les accessoires';
 $strings['Number Available'] = 'Nombre disponible';
 $strings['Unlimited'] = 'Illimité';
-$strings['Add Additional Resource'] = 'Ajouter une ressource supplémentaire';
-$strings['Edit Additional Resource'] = 'Editer une ressource supplémentaire';
+$strings['Add Additional Resource'] = 'Ajouter l'accessoire';
+$strings['Edit Additional Resource'] = 'Editer l'accessoire';
 $strings['Checking'] = 'Vérifier';
 $strings['You did not select anything to delete.'] = 'Vous n\'avez rien à sélectionné pour l\'effacement.';
 $strings['Added Resources'] = 'Ressources ajoutées';
@@ -718,12 +717,12 @@ $strings['hours prior to the start time'] = 'heures avant l\'heure de début';
 $strings['hours from the current time'] = 'heures à partir de l\'heure actuelle';
 $strings['Contains'] = 'Contient';
 $strings['Begins with'] = 'Commence avec';
-$strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
-$strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
-$strings['Accessory Name'] = 'Accessory Name';
-$strings['Accessories'] = 'Accessories';
-$strings['All Accessories'] = 'All Accessories';
-$strings['Added Accessories'] = 'Added Accessories';
+$strings['Minimum booking notice is required.'] = 'L'avertissement si la réservation est presque vide est obligatoire.';
+$strings['Maximum booking notice is required.'] = 'L'avertissement si la réservation est complète est obligatoire.';
+$strings['Accessory Name'] = 'Nom de l'accessoire';
+$strings['Accessories'] = 'Accessoires';
+$strings['All Accessories'] = 'Tout les accessoires';
+$strings['Added Accessories'] = 'Accessoires rajoutés';
 // end since 1.2.0
 
 /***
@@ -780,7 +779,7 @@ $email['reservation_activity_7'] = "%s,\r\n<br />"
       . "Merci d\'utiliser ce numéro de réservation lors de toute question à l\'administrateur.\r\n\r\n<br/><br/>"
       . "Une réservation entre %s %s et %s %s pour %s"
       . " située à %s a été %s.\r\n\r\n<br/><br/>";
-      
+
 // Email that the user gets when the administrator changes their password
 $email['password_reset'] = "Votre mot de passe %s a été ré-initialisé par l'administrateur.\r\n\r\n"
       . "Votre mot de passe temporaire est :\r\n\r\n %s\r\n\r\n"

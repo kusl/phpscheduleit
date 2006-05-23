@@ -1,7 +1,7 @@
 <?php
 /**
 * Hungarian (hu) translation file.
-*  
+*
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Attila <atoth@cmr.sote.hu>
 * @version 04-04-05
@@ -15,7 +15,7 @@
 ///////////////////////////////////////////////////////////
 // This file contains all of the strings that are used throughout phpScheduleit.
 // Please save the translated file as '2 letter language code'.lang.php.  For example, en.lang.php.
-// 
+//
 // To make phpScheduleIt available in another language, simply translate each
 //  of the following strings into the appropriate one for the language.  If there
 //  is no direct translation, please provide the closest translation.  Please be sure
@@ -61,7 +61,7 @@ $charset = 'iso-8859-2';
 
 /***
   DAY NAMES
-  All of these arrays MUST start with Sunday as the first element 
+  All of these arrays MUST start with Sunday as the first element
    and go through the seven day week, ending on Saturday
 ***/
 // The full day name
@@ -104,7 +104,7 @@ $dates['schedule_daily'] = '%Y.%m.%d.<br/>%A';
 $dates['header'] = '%Y. %B %d. %A';
 // Jump box format on bottom of the schedule page
 // This must only include %m %d %Y in the proper order,
-//  other specifiers will be ignored and will corrupt the jump box 
+//  other specifiers will be ignored and will corrupt the jump box
 $dates['jumpbox'] = '%Y.%m.%d.';
 
 /***
@@ -370,7 +370,7 @@ $strings['My Past Reservations'] = 'Lejárt Saját Vizsgálat';
 $strings['Other Reservations'] = 'Egyéb Vizsgálat';
 $strings['Other Past Reservations'] = 'Lejárt Egyéb Vizsgálat';
 $strings['Blacked Out Time'] = 'Tiltott Idõpont';
-$strings['Set blackout times'] = 'Idõpont Tiltása %s %s'; 
+$strings['Set blackout times'] = 'Idõpont Tiltása %s %s';
 $strings['Reserve on'] = 'Reserve %s on %s';
 $strings['Prev Week'] = '&laquo; Elõzõ Hét';
 $strings['Jump 1 week back'] = '1 Héttel Vissza';
@@ -674,13 +674,11 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'További Eszközök';
 $strings['Create User'] = 'Felhasználó Létrehozása';
 $strings['Check Availability'] = 'Elérhetõség ellenõrzése';
-//$strings['Add Resources'] = 'Add Resources';
-$strings['Manage Additional Resources'] = 'Kiegészítõ Kontingensek Kezelése';
-$strings['All Additional Resources'] = 'Összes Kiegészítõ Kontingens';
+$strings['Manage Additional Resources'] = 'Kiegészíto Hozzáadása';
 $strings['Number Available'] = 'Számú Elérhetõ';
 $strings['Unlimited'] = 'Korlátlan';
 $strings['Add Additional Resource'] = 'Kiegészítõ Kontingens Hozzáadása';
-$strings['Edit Additional Resource'] = 'Kiegészítõ Kontingens Kezelés';
+$strings['Edit Additional Resource'] = 'Kiegészíto Szerkesztése';
 $strings['Checking'] = 'Ellenõrzés';
 $strings['You did not select anything to delete.'] = 'Nem választott ki semmi törlendõt.';
 $strings['Added Resources'] = 'Hozzáadott Kontingensek';
@@ -712,10 +710,10 @@ $strings['Contains'] = 'Tartalmazza';
 $strings['Begins with'] = 'Kezdõdik';
 $strings['Minimum booking notice is required.'] = 'Minimum elõjegyzési figyelmeztetés szükséges.';
 $strings['Maximum booking notice is required.'] = 'Maximum elõjegyzési figyelmeztetés szükséges.';
-$strings['Accessory Name'] = 'Accessory Name';
-$strings['Accessories'] = 'Accessories';
-$strings['All Accessories'] = 'All Accessories';
-$strings['Added Accessories'] = 'Added Accessories';
+$strings['Accessory Name'] = 'Kiegészíto Neve';
+$strings['Accessories'] = 'Kiegészítok';
+$strings['All Accessories'] = 'Összes Kiegészíto';
+$strings['Added Accessories'] = 'Hozzáadott Kiegészíto(k)';
 // end since 1.2.0
 
 /***
@@ -815,8 +813,8 @@ $email['reservation_removal'] = "Az Ön következõ Elõjegyzése eltávolításra kerül
 		. "Befejezõ Dátum: %s\r\n"
 		. "Befejezõ Idõpont: %s\r\n"
 		. "Összegzés: %s\r\n"
-		. "Ismételt Elõfordulás (amennyiben érvényes): %s\r\n\r\n";	
-		
+		. "Ismételt Elõfordulás (amennyiben érvényes): %s\r\n\r\n";
+
 // @since 1.2.0
 // Email body that is sent for reminders
 $email['Reminder Body'] = "A következõ vizsgálati elõjegyzés ideje közeleg: %s, %s %s - %s %s.";
