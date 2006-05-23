@@ -718,6 +718,10 @@ $strings['Contains'] = 'Contains';
 $strings['Begins with'] = 'Begins with';
 $strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
 $strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
+$strings['Accessory Name'] = 'Accessory Name';
+$strings['Accessories'] = 'Accessories';
+$strings['All Accessories'] = 'All Accessories';
+$strings['Added Accessories'] = 'Added Accessories';
 // end since 1.2.0
 
 /***

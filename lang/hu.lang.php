@@ -4,7 +4,7 @@
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Attila <atoth@cmr.sote.hu>
-* @version 05-14-06
+* @version 04-04-05
 * @package Languages
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -79,7 +79,7 @@ $days_letter = array('V', 'H', 'K', 'S', 'C', 'P', 'Z');
    and go through the twelve months of the year, ending on December
 ***/
 // The full month name
-$months_full = array('Január', 'Február', 'Március', 'Április', 'MÁjus', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December');
+$months_full = array('Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December');
 // The three letter month name
 $months_abbr = array('Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sze', 'Okt', 'Nov', 'Dec');
 
@@ -149,8 +149,8 @@ $strings['Modify My Profile'] = 'Profil Módosítása';
 $strings['Register'] = 'Regisztráció';
 $strings['Processing Blackout'] = 'Tiltott Idõszak Feldolgozása';
 $strings['Processing Reservation'] = 'Vizsgálat Feldolgozása';
-$strings['Online Scheduler [Read-only Mode]'] = 'Online Elõjegyzés [Csak Olvasható Mód]';
-$strings['Online Scheduler'] = 'Online Elõjegyzés';
+$strings['Online Scheduler [Read-only Mode]'] = 'Elõjegyzés [Csak Olvasható Mód]';
+$strings['Online Scheduler'] = 'Elõjegyzés';
 $strings['phpScheduleIt Statistics'] = 'phpScheduleIt Statisztikák';
 $strings['User Info'] = 'Felhasználói Információ:';
 
@@ -164,7 +164,7 @@ $strings['You did not select any resources to delete.'] = 'Nem választotta ki a 
 $strings['Schedule title is required.'] = 'Az Elõjegyzés tartalmának megadása kötelezõ.';
 $strings['Invalid start/end times'] = 'Érvénytelen kezdõ/befejezõ idõpont';
 $strings['View days is required'] = 'Megjelenítendõ napok számának megadása kötelezõ';
-$strings['Day offset is required'] = 'Az elõjegyzés minimális idõbeli távolságának megadása kötelezõ';
+$strings['Day offset is required'] = 'Az Elõjegyzés minimális idõbeli távolságának megadása kötelezõ';
 $strings['Admin email is required'] = 'Az Adminisztrátor email címének megadása kötelezõ';
 $strings['Resource name is required.'] = 'A Kontingens megnevezése kötelezõ.';
 $strings['Valid schedule must be selected'] = 'Érvényes Elõjegyzés nevének megadása kötelezõ';
@@ -189,7 +189,7 @@ $strings['Reset'] = 'Visszaállít';
 $strings['Edit'] = 'Szerkesztés';
 $strings['Delete'] = 'Törlés';
 $strings['Cancel'] = 'Mégse';
-$strings['View'] = 'Nézet';
+$strings['View'] = 'Megtekint';
 $strings['Modify'] = 'Módosítás';
 $strings['Save'] = 'Mentés';
 $strings['Back'] = 'Vissza';
@@ -220,7 +220,7 @@ $strings['Send email to'] = 'Email küldése a következõ felhasználónak: %s %s';
 $strings['Reset password for'] = 'A következõ felhasználó jelszavának átállítása: %s %s';
 $strings['Edit permissions for'] = 'A következõ felhasználó jogosultságainak szerkesztése: %s %s';
 $strings['Position'] = 'Beosztás';
-$strings['Password (6 char min)'] = 'Jelszó (minimum %s betû)';
+$strings['Password (6 char min)'] = 'Jelszó (minimum %s betû)'; // @since 1.1.0
 $strings['Re-Enter Password'] = 'A jelszó ismételt megadása';
 
 $strings['Sort by descending last name'] = 'Csökkenõ sorrend a Keresztnév alapján';
@@ -237,12 +237,10 @@ $strings['Sort by ascending location'] = 'Emelkedõ sorrend Helyszín alapján';
 $strings['Sort by ascending schedule title'] = 'Emelkedõ sorrend az Elõjegyzés megnevezése alapján';
 $strings['Sort by descending date'] = 'Csökkenõ sorrend a dátum alapján';
 $strings['Sort by descending user name'] = 'Csökkenõ sorrend Felhasználói név alapján';
-$strings['Sort by descending resource name'] = 'Csökkenõ sorrend a Kontingens neve alapján';
 $strings['Sort by descending start time'] = 'Csökkenõ sorrend a Kezdõ idõpont alapján';
 $strings['Sort by descending end time'] = 'Csökkenõ sorrend a Befejezõ idõpont alapján';
 $strings['Sort by ascending date'] = 'Emelkedõ sorrend dátum alapján';
 $strings['Sort by ascending user name'] = 'Emelkedõ sorrend a Felhasználó név alapján';
-$strings['Sort by ascending resource name'] = 'Emelkedõ sorrend a Kontingens neve alapján';
 $strings['Sort by ascending start time'] = 'Emelkedõ sorrend a Kezdõ idõpont alapján';
 $strings['Sort by ascending end time'] = 'Emelkedõ sorrend a Befejezõ idõpont alapján';
 $strings['Sort by descending created time'] = 'Csökkenõ sorrend a Létrehozás dátuma alapján';
@@ -293,7 +291,6 @@ $strings['Export Data'] = 'Adatok Exportálása';
 $strings['Reset Password for'] = '%s Jelszavának visszaállítása';
 $strings['Please edit your profile'] = 'Kérem hajtsa végre Profilján a kívánt változtatásokat';
 $strings['Please register'] = 'Kérem Regisztráljon';
-$strings['Email address (this will be your login)'] = 'Email cím (ez lesz az Azonosítója)';
 $strings['Keep me logged in'] = 'A Rendszer õrizzen meg bejelentkezett állapotban <br/>(cookie támogatás szükséges)';
 $strings['Edit Profile'] = 'Profil Szerkesztése';
 $strings['Register'] = 'Regisztráció';
@@ -319,21 +316,16 @@ $strings['My Quick Links'] = 'Gyors Linkek';
 $strings['Announcements as of'] = 'Bejelentések %s';
 $strings['There are no announcements.'] = 'Nincsen Bejelentés.';
 $strings['Resource'] = 'Kontingens';
-$strings['Created'] = 'Létrehozva';
-$strings['Last Modified'] = 'Utoljára Módosítva';
+$strings['Created'] = 'Létrehozás';
+$strings['Last Modified'] = 'Utolsó Módosítás';
 $strings['View this reservation'] = 'Vizsgálat megtekintése';
 $strings['Modify this reservation'] = 'Vizsgálat módosítása';
 $strings['Delete this reservation'] = 'Vizsgálat törlése';
-$strings['Bookings'] = 'Könyves';
-$strings['Change My Profile Information/Password'] = 'Change Profile';		// @since 1.2.0
-$strings['Manage My Email Preferences'] = 'Email Preferences';				// @since 1.2.0
-$strings['Manage Schedules'] = 'Elõjegyzés Kezelés';
-$strings['Manage Resources'] = 'Kontingens Kezelés';
-$strings['Manage Users'] = 'Felhasználó Kezelés';
-$strings['Manage Reservations'] = 'Vizsgálat Kezelés';
-$strings['Manage Blackout Times'] = 'Tiltott Idõszak Kezelés';
+$strings['Bookings'] = 'Elõjegyzés';
+$strings['Change My Profile Information/Password'] = 'Profil Szerkesztés/Jelszó Váltás'; // @since 1.2.0
+$strings['Manage My Email Preferences'] = 'Email Beállítások Szerkesztése'; // @since 1.2.0
 $strings['Mass Email Users'] = 'Köremail küldése';
-$strings['Search Scheduled Resource Usage'] = 'Search Reservations';		// @since 1.2.0
+$strings['Search Scheduled Resource Usage'] = 'Keresés a kontingensek kihasználtsági adatai között'; // @since 1.2.0
 $strings['Export Database Content'] = 'Adatbázis Tartalom Exportálása';
 $strings['View System Stats'] = 'Rendszer Statisztika Megtekintése';
 $strings['Email Administrator'] = 'Email Küldése az Adminisztrátornak';
@@ -342,7 +334,7 @@ $strings['Email me when'] = 'Email küldése a következõ esetben:';
 $strings['I place a reservation'] = 'Vizsgálat elõjegyzése';
 $strings['My reservation is modified'] = 'Elõjegyzett vizsgálat módosíttása';
 $strings['My reservation is deleted'] = 'Elõjegyzett vizsgálat törlése';
-$strings['I prefer'] = 'Elõnyben részesül:';
+$strings['I prefer'] = 'Elõnyben részesített formátum:';
 $strings['Your email preferences were successfully saved'] = 'Az email beállítások sikeresen tárolásra kerültek!';
 $strings['Return to My Control Panel'] = 'Vissza a Vezérlõ Pulthoz';
 
@@ -401,7 +393,7 @@ $strings['Max Reservation'] = 'Maximum Vizsgálat:';
 $strings['Min Reservation'] = 'Minimum Vizsgálat:';
 $strings['Avg Reservation'] = 'Átlagos Vizsgálat:';
 $strings['Most Active Resource'] = 'Legaktívabb Kontingens:';
-$strings['Most Active User'] = 'Legaktívabb Felhasználók:';
+$strings['Most Active User'] = 'Legaktívabb Felhasználó:';
 $strings['System Stats'] = 'Rendszer Statisztika';
 $strings['phpScheduleIt version'] = 'phpScheduleIt verzió:';
 $strings['Database backend'] = 'Adatbázis backend:';
@@ -419,9 +411,9 @@ $strings['CC email addresses'] = 'CC email cím:';
 $strings['Reservation start time'] = 'Vizsgálat kezdõ idõpont:';
 $strings['Reservation end time'] = 'Vizsgálat befejezõ idõpont:';
 $strings['Days shown at a time'] = 'Egyszerre megjelnített napok:';
-$strings['Reservations'] = 'Vizsgálati elõjegyzések';
+$strings['Reservations'] = 'Vizsgálati elõjegyzés';
 $strings['Return to top'] = 'Vissza a tetejére';
-$strings['for'] = 'miatt';
+$strings['for'] = ':';
 
 $strings['Select Search Criteria'] = 'Keresési Feltétel Kiválasztása';
 $strings['Schedules'] = 'Elõjegyzések:';
@@ -429,7 +421,7 @@ $strings['All Schedules'] = 'Összes Elõjegyzés';
 $strings['Hold CTRL to select multiple'] = 'Többszörös választáshoz tartsa lenyomva a CTRL-t';
 $strings['Users'] = 'Felhasználók:';
 $strings['All Users'] = 'Összes Felhasználó';
-$strings['Resources'] = 'Kontingens';
+$strings['Resources'] = 'Kontingens:'; // @since 1.2.0
 $strings['All Resources'] = 'Összes Kontingens';
 $strings['Starting Date'] = 'Kezdõ Dátum:';
 $strings['Ending Date'] = 'Befejezõ Dátum:';
@@ -442,10 +434,10 @@ $strings['Total hours'] = 'Összesített órák:';
 $strings['% of total resource time'] = '%-a az összes Vizsgálati Idõnek';
 $strings['View these results as'] = 'Az eredmények megtekintése a következõképpen:';
 $strings['Edit this reservation'] = 'A Vizsgálat szerkesztése';
-$strings['Search Results'] = 'Keresési Eredmények';
+$strings['Search Results'] = 'Keresés Eredménye';
 $strings['Search Resource Usage'] = 'Kontingens Kihasználtság szerinti keresés';
-$strings['Search Results found'] = 'Keresési Eredmények: %d Találat';
-$strings['Try a different search'] = 'Próbálkozzon másik kereséssel';
+$strings['Search Results found'] = 'Keresés Eredménye: %d Találat';
+$strings['Try a different search'] = 'Másik keresés';
 $strings['Search Run On'] = 'Keresés a Következõn Futott:';
 $strings['Member ID'] = 'Felhasználói Azonosító';
 $strings['Previous User'] = '&laquo; Elõzõ Felhasználó';
@@ -560,15 +552,11 @@ $strings['Thank you for using phpScheduleIt'] = 'Kérem bizonyosodjon meg róla, h
 	. ' Elmulasztása széles biztonsági rést hagy nyitva, melyen át bármikor betörhetnek az adatbázisba!'
 	. '<br /><br />'
 	. 'Köszönet, amiért a phpScheduleIt-et választotta!';
-$strings['This will update your version of phpScheduleIt from 0.9.3 to 1.0.0.'] = 'A phpScheduleIt Rendszer ennek segítségével 0.9.3-rÃ³l 1.0.0-ra Korszerûsíthetõ.';
 $strings['There is no way to undo this action'] = 'A következõ beavatkozás visszaállítására nincs lehetõség!';
 $strings['Click to proceed'] = 'Kattintson a továbblépéshez';
-$strings['This version has already been upgraded to 1.0.0.'] = 'A jelen Rendszer már most is 1.0.0-s verziójú.';
 $strings['Please delete this file.'] = 'Kérem törölje ezt a fájlt.';
 $strings['Successful update'] = 'A Korszerûsítés sikerrel járt';
 $strings['Patch completed successfully'] = 'A foltozás sikeresen befejezõdött';
-$strings['This will populate the required fields for phpScheduleIt 1.0.0 and patch a data bug in 0.9.9.'] = 'A következõ betölti a phpScheduleIt 1.0.0 számára szükséges mezõket és 0.9.9-es verzióban megtalálható néhány hibát foltoz.'
-		. '<br />Csak akkor szükséges lefuttatni, ha kézi SQL frissítést hajtott végre, vagy 0.9.9-rõl korszerûsít';
 
 // @since 1.0.0 RC1
 $strings['If no value is specified, the default password set in the config file will be used.'] = 'Ha nincs megadva jelszó, akkor a rendszer konfigurációs fájlban tárolt alapértelmezett jelszót fogja használni.';
@@ -577,10 +565,10 @@ $strings['Notify user that password has been changed?'] = 'Kapjon értesítést a f
 // @since 1.1.0
 $strings['This system requires that you have an email address.'] = 'A rendszer használatának elõfeltétele, hogy legyen egy email címe.';
 $strings['Invalid User Name/Password.'] = 'Érvénytelen Felhasználó Név/Jelszó.';
-$strings['Pending User Reservations'] = 'Az Elõjegyzés(ek) bejegyzése a jóváhagyás(uk)ig felfüggesztésre került';
+$strings['Pending User Reservations'] = 'Az Vizsgálat(ok) bejegyzése a jóváhagyás(uk)ig felfüggesztésre került';
 $strings['Approve'] = 'Jóváhagyás';
-$strings['Approve this reservation'] = 'Az Elõjegyzés jóváhagyása';
-$strings['Approve Reservations'] ='Elõjegyzések jóváhagyása';
+$strings['Approve this reservation'] = 'A vizsgálat jóváhagyása';
+$strings['Approve Reservations'] ='Vizsgálat(ok) jóváhagyása';
 
 $strings['Announcement'] = 'Bejelentés';
 $strings['Number'] = 'Szám';
@@ -588,21 +576,20 @@ $strings['Add Announcement'] = 'Bejelentés Hozzáadása';
 $strings['Edit Announcement'] = 'Bejelentés Szerkesztése';
 $strings['All Announcements'] = 'Minden Bejelentés';
 $strings['Delete Announcements'] = 'Bejelentés Törlése';
-$strings['Manage Announcements'] = 'Bejelentés Kezelés';
 $strings['Use start date/time?'] = 'Használjon kezdõ dátumot/idõpontot?';
 $strings['Use end date/time?'] = 'Használjon befejezõ dátumot/idõpontot?';
 $strings['Announcement text is required.'] = 'A Bejelentés szövegének megadása kötelezõ.';
 $strings['Announcement number is required.'] = 'A Bejelentés számának megadása kötelezõ.';
 
 $strings['Pending Approval'] = 'A Jóváhagyás függõben van';
-$strings['My reservation is approved'] = 'Az Elõjegyzés Jóváhagyásra került';
-$strings['This reservation must be approved by the administrator.'] = 'Az Elõjegyzést az Adminisztrátornak jóvá kell hagynia.';
+$strings['My reservation is approved'] = 'A vizsgálata jóváhagyásra került';
+$strings['This reservation must be approved by the administrator.'] = 'A vizsgálatot az Adminisztrátornak jóvá kell hagynia.';
 $strings['Approval Required'] = 'Jóváhagyás Szükséges';
-$strings['No reservations requiring approval'] = 'Nincsen olyan Elõjegyzés, amelyet Jóvá kell hagyni';
-$strings['Your reservation was successfully approved'] = 'Az Elõjegyzése sikeresen Jóváshagyásra került';
-$strings['Reservation approved for'] = 'Az Elõjegyzés Jóváhagyásra került a következõ számára: %s';
+$strings['No reservations requiring approval'] = 'Nincsen olyan vizsgálat, amely jóváhagyásra vár';
+$strings['Your reservation was successfully approved'] = 'A vizsgálatát sikeresen jóváhagyták';
+$strings['Reservation approved for'] = 'A vizsgálat jóváhagyásra került a következõ számára: %s';
 $strings['approved'] = 'Jóváhagyva';
-$strings['Reservation approved'] = 'Az Elõjegyzés Jóváhagyva.';
+$strings['Reservation approved'] = 'Vizsgálat jóváhagyva.';
 
 $strings['Valid username is required'] = 'Érvényes Felhasználó Név szükséges';
 $strings['That logon name is taken already.'] = 'A Felhasználó Név már foglalt.';
@@ -617,15 +604,15 @@ $strings['That starting date has already passed'] = 'A Kezdõ idõpont már elmúlt'
 $strings['Basic'] = 'Alap';
 $strings['Participants'] = 'Résztvevõk';
 $strings['Close'] = 'Bezárás';
-$strings['Start Date'] = 'Kezdõ idõpont';
-$strings['End Date'] = 'Befejezõ idõpont';
+$strings['Start Date'] = 'Kezdõ dátum';
+$strings['End Date'] = 'Befejezõ dátum';
 $strings['Minimum'] = 'Minimum';
 $strings['Maximum'] = 'Maximum';
-$strings['Allow Multiple Day Reservations'] = 'Többnapos Elõjegyzések enegedélyezése';
+$strings['Allow Multiple Day Reservations'] = 'Többnapos Vizsgálatok enegedélyezése';
 $strings['Invited Users'] = 'Meghívott Felhasználók';
 $strings['Invite Users'] = 'Felhasználó(k) Meghívása';
 $strings['Remove Participants'] = 'Résztvevõ(k) Eltávolítása';
-$strings['Reservation Invitation'] = 'Meghívásos Elõjegyzés';
+$strings['Reservation Invitation'] = 'Meghívásos Vizsgálat';
 $strings['Manage Invites'] = 'Meghívások kezelése';
 $strings['No invite was selected'] = 'Nem jelölt ki Meghívást';
 $strings['reservation accepted'] = '%s elfogadta a Meghívását a következõre: %s';
@@ -641,9 +628,9 @@ $strings['End Participation'] = 'Részvétel Vége';
 $strings['Owner'] = 'Tulajdonos';
 $strings['Particpating Users'] = 'Résztvevõ Felhasználók';
 $strings['No advanced options available'] = 'Nincs elérhetõ további opció';
-$strings['Confirm reservation participation'] = 'Elõjegyzésben való részvétel megerõsítése';
+$strings['Confirm reservation participation'] = 'Vizsgálati elõjegyzésben való részvétel megerõsítése';
 $strings['Confirm'] = 'Megerõsítés';
-$strings['Do for all reservations in the group?'] = 'Alkalmazza a csoportban szereplõ összes Elõjegyzésre?';
+$strings['Do for all reservations in the group?'] = 'Alkalmazza a csoportban szereplõ összes vizsgálatra?';
 
 $strings['My Calendar'] = 'Saját Naptár';
 $strings['View My Calendar'] = 'Saját Naptár Megtekintése';
@@ -655,7 +642,7 @@ $strings['Day View'] = 'Napi Bontás';
 $strings['Week View'] = 'Heti Bontás';
 $strings['Month View'] = 'Havi Bontás';
 $strings['Resource Calendar'] = 'Kontingens Naptár';
-$strings['View Resource Calendar'] = 'Schedule Calendar';	// @since 1.2.0
+$strings['View Resource Calendar'] = 'Kontingens Naptár Megtekintése';
 $strings['Signup View'] = 'Lista Nézet';
 
 $strings['Select User'] = 'Felhasználó Kiválasztása';
@@ -664,7 +651,7 @@ $strings['Change'] = 'Módosítás';
 $strings['Update'] = 'Frissítés';
 $strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'phpScheduleIt Korszerûsítés csak 1.0.0 vagy késõbbi változathoz elérhetõ';
 $strings['phpScheduleIt is already up to date'] = 'A phpScheduleIt naprakész állapotban van';
-$strings['Migrating reservations'] = 'Elõjegyzések Átvétele';
+$strings['Migrating reservations'] = 'Vizsgálatok Átvétele';
 
 $strings['Admin'] = 'Adminisztrátor';
 $strings['Manage Announcements'] = 'Bejelentés Kezelés';
@@ -672,59 +659,63 @@ $strings['There are no announcements'] = 'Nincs érvényes Bejelentés';
 // end since 1.1.0
 
 // @since 1.2.0
-$strings['Maximum Participant Capacity'] = 'Maximum Participant Capacity';
-$strings['Leave blank for unlimited'] = 'Leave blank for unlimited';
-$strings['Maximum of participants'] = 'This resource has a maximum capacity of %s participants';
-$strings['That reservation is at full capacity.'] = 'That reservation is at full capacity.';
-$strings['Allow registered users to join?'] = 'Allow registered users to join?';
-$strings['Allow non-registered users to join?'] = 'Allow non-registered users to join?';
-$strings['Join'] = 'Join';
-$strings['My Participation Options'] = 'My Participation Options';
-$strings['Join Reservation'] = 'Join Reservation';
-$strings['Join All Recurring'] = 'Join All Recurring';
-$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'You are not participating on the following reservation dates because they are at full capacity.';
-$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'You are already invited to this reservation. Please follow participation instructions previously sent to your email.';
-$strings['Additional Tools'] = 'Additional Tools';
-$strings['Create User'] = 'Create User';
-$strings['Check Availability'] = 'Check Availability';
-$strings['Manage Additional Resources'] = 'Manage Additional Resources';
-$strings['All Additional Resources'] = 'All Additional Resources';
-$strings['Number Available'] = 'Number Available';
-$strings['Unlimited'] = 'Unlimited';
-$strings['Add Additional Resource'] = 'Add Additional Resource';
-$strings['Edit Additional Resource'] = 'Edit Additional Resource';
-$strings['Checking'] = 'Checking';
-$strings['You did not select anything to delete.'] = 'You did not select anything to delete.';
-$strings['Added Resources'] = 'Added Resources';
-$strings['Additional resource is reserved'] = 'The additional resource %s only has %s available at a time';
-$strings['All Groups'] = 'All Groups';
-$strings['Group Name'] = 'Group Name';
-$strings['Delete Groups'] = 'Delete Groups';
-$strings['Manage Groups'] = 'Manage Groups';
-$strings['None'] = 'None';
-$strings['Group name is required.'] = 'Group name is required.';
-$strings['Groups'] = 'Groups';
-$strings['Current Groups'] = 'Current Groups';
-$strings['Group Administration'] = 'Group Administration';
-$strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
-$strings['Reminder'] = 'Reminder';
-$strings['before reservation'] = 'before reservation';
-$strings['My Participation'] = 'My Participation';
-$strings['My Past Participation'] = 'My Past Participation';
-$strings['Timezone'] = 'Timezone';
-$strings['Export'] = 'Export';
-$strings['Select reservations to export'] = 'Select reservations to export';
-$strings['Export Format'] = 'Export Format';
-$strings['This resource cannot be reserved less than x hours in advance'] = 'This resource cannot be reserved less than %s hours in advance';
-$strings['This resource cannot be reserved more than x hours in advance'] = 'This resource cannot be reserved more than %s hours in advance';
+$strings['Maximum Participant Capacity'] = 'Résztvevõk Maximális Száma';
+$strings['Leave blank for unlimited'] = 'Hagyja szabadon korlátlan számú Résztvevõhöz';
+$strings['Maximum of participants'] = 'A vizsgálati elõjegyzésnek maximum %s résztvevõje lehet';
+$strings['That reservation is at full capacity.'] = 'A vizsgálati elõjegyzés elérte a maximális résztvevõ számot.';
+$strings['Allow registered users to join?'] = 'Engedélyezi regisztrált felhasználók részvételét?';
+$strings['Allow non-registered users to join?'] = 'Engedélyezi nem regisztrált felhasználók részvételét?';
+$strings['Join'] = 'Csatlakozás';
+$strings['My Participation Options'] = 'Részvételi Beállítások';
+$strings['Join Reservation'] = 'Csatlakozás a vizsgálati elõjegyzéshez';
+$strings['Join All Recurring'] = 'Csatlakozás Minden Ismétlõdõhöz';
+$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'Nem csatlakozhat a következõ vizsgálati elõjegyzés(ek)hez a résztvevõk maximális száma miatt.';
+$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'Már meghivták ehhez a vizsgálati elõjegyzéshez. Kérem kövesse a részvételi utasításokat, melyeket korábban emailben kapott.';
+$strings['Additional Tools'] = 'További Eszközök';
+$strings['Create User'] = 'Felhasználó Létrehozása';
+$strings['Check Availability'] = 'Elérhetõség ellenõrzése';
+//$strings['Add Resources'] = 'Add Resources';
+$strings['Manage Additional Resources'] = 'Kiegészítõ Kontingensek Kezelése';
+$strings['All Additional Resources'] = 'Összes Kiegészítõ Kontingens';
+$strings['Number Available'] = 'Számú Elérhetõ';
+$strings['Unlimited'] = 'Korlátlan';
+$strings['Add Additional Resource'] = 'Kiegészítõ Kontingens Hozzáadása';
+$strings['Edit Additional Resource'] = 'Kiegészítõ Kontingens Kezelés';
+$strings['Checking'] = 'Ellenõrzés';
+$strings['You did not select anything to delete.'] = 'Nem választott ki semmi törlendõt.';
+$strings['Added Resources'] = 'Hozzáadott Kontingensek';
+$strings['Additional resource is reserved'] = 'A(z) %s kiegészítõ kontingensbõl egyszerre csak %s érhetõ el';
+$strings['All Groups'] = 'Minden Csoport';
+$strings['Group Name'] = 'Csoport Név';
+$strings['Delete Groups'] = 'Csoport Törlése';
+$strings['Manage Groups'] = 'Csoport Kezelés';
+$strings['None'] = 'Nincs';
+$strings['Group name is required.'] = 'Csoport nevének megadása szükségeltetik.';
+$strings['Groups'] = 'Csoportok';
+$strings['Current Groups'] = 'Aktuális Csoportok';
+$strings['Group Administration'] = 'Csoport Karbantartás';
+$strings['Reminder Subject'] = 'Vizsgálati elõjegyzés emlékeztetõ - %s, %s %s';
+$strings['Reminder'] = 'Emlékeztetõ';
+$strings['before reservation'] = 'elõjegyzett vizsgálat elõtt';
+$strings['My Participation'] = 'Részvétel';
+$strings['My Past Participation'] = 'Korábbi Részvétel';
+$strings['Timezone'] = 'Idõzóna';
+$strings['Export'] = 'Exportálás';
+$strings['Select reservations to export'] = 'Válassza ki az exportálni kívánt vizsgálatot';
+$strings['Export Format'] = 'Export formátum';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'Ebbe a kontingensbe nem jegyezhet elõ %s órával korábban';
 $strings['Minimum Booking Notice'] = 'Minimum Booking Notice';
 $strings['Maximum Booking Notice'] = 'Maximum Booking Notice';
-$strings['hours prior to the start time'] = 'hours prior to the start time';
-$strings['hours from the current time'] = 'hours from the current time';
-$strings['Contains'] = 'Contains';
-$strings['Begins with'] = 'Begins with';
-$strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
-$strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
+$strings['hours prior to the start time'] = 'órányira a kezdõ idõpontig';
+$strings['hours from the current time'] = 'órányira mostantól';
+$strings['Contains'] = 'Tartalmazza';
+$strings['Begins with'] = 'Kezdõdik';
+$strings['Minimum booking notice is required.'] = 'Minimum elõjegyzési figyelmeztetés szükséges.';
+$strings['Maximum booking notice is required.'] = 'Maximum elõjegyzési figyelmeztetés szükséges.';
+$strings['Accessory Name'] = 'Accessory Name';
+$strings['Accessories'] = 'Accessories';
+$strings['All Accessories'] = 'All Accessories';
+$strings['Added Accessories'] = 'Added Accessories';
 // end since 1.2.0
 
 /***
@@ -781,7 +772,7 @@ $email['reservation_activity_7'] = "%s,\r\n<br />"
 			. "Kérem hivatkozzon a megadott számra, ha kapcsolatba kíván lépni az Adminsztrátorral.\r\n\r\n<br/><br/>"
 			. "A %s %s és %s %s közötti %s elõjegyzés, amely"
 			. " a következõ helyen található: %s, %s.\r\n\r\n<br/><br/>";
-			
+
 // Email that the user gets when the administrator changes their password
 $email['password_reset'] = "Az Ön %s Jelszavát az Adminisztrátor Visszaállította.\r\n\r\n"
 			. "Az Ön ideiglenes jelszava:\r\n\r\n %s\r\n\r\n"
@@ -800,7 +791,7 @@ $email['new_password'] = "%s,\r\n"
             . "Profil Szerkesztése/Jelszó Megváltoztatása menüpontot "
             . "a Vezérlõ Pultban.\r\n\r\n"
             . "Kérdéseivel forduljon a következõhöz: %s.";
-			
+
 // @since 1.1.0
 // Email that is sent to invite users to a reservation
 $email['reservation_invite'] = "%s Meghívta Önt Résztvevõnek a következõ Elõjegyzésbe:\r\n\r\n"
@@ -825,8 +816,8 @@ $email['reservation_removal'] = "Az Ön következõ Elõjegyzése eltávolításra kerül
 		. "Befejezõ Idõpont: %s\r\n"
 		. "Összegzés: %s\r\n"
 		. "Ismételt Elõfordulás (amennyiben érvényes): %s\r\n\r\n";	
-
+		
 // @since 1.2.0
 // Email body that is sent for reminders
-$email['Reminder Body'] = "Your reservation for %s from %s %s to %s %s is approaching.";
+$email['Reminder Body'] = "A következõ vizsgálati elõjegyzés ideje közeleg: %s, %s %s - %s %s.";
 ?>

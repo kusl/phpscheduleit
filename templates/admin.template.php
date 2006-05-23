@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-06-06
+* @version 05-22-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -562,11 +562,11 @@ function print_manage_additional_resources($pager, $resources, $err) {
     <td class="tableBorder">
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr>
-          <td colspan="4" class="tableTitle">&#8250; <?php echo translate('All Additional Resources')?></td>
+          <td colspan="4" class="tableTitle">&#8250; <?php echo translate('All Accessories')?></td>
         </tr>
 		<?php echo "
         <tr class=\"rowHeaders\">
-          <td>" . $link->getLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'name'), translate('Resource Name')) . "</td>
+          <td>" . $link->getLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'name'), translate('Accessory Name')) . "</td>
           <td width=\"15%\">" . translate('Number Available') . "</td>
           <td width=\"7%\">" . translate('Edit') . "</td>
 		  <td width=\"7%\">" . translate('Delete') . "</td>
@@ -613,7 +613,7 @@ function print_additional_resource_edit($resource, $edit, &$pager) {
     <td class="tableBorder">
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr>
-          <td width="200" class="formNames"><?php echo translate('Resource Name');?></td>
+          <td width="200" class="formNames"><?php echo translate('Accessory Name');?></td>
           <td class="cellColor"><input type="text" name="name" class="textbox" value="<?php echo $resource->get_name() ?>" />
           </td>
         </tr>

@@ -679,12 +679,12 @@ $strings['You are already invited to this reservation. Please follow participati
 $strings['Additional Tools'] = 'Additional Tools';
 $strings['Create User'] = 'Create User';
 $strings['Check Availability'] = 'Check Availability';
-$strings['Manage Additional Resources'] = 'Manage Additional Resources';
-$strings['All Additional Resources'] = 'All Additional Resources';
+$strings['Manage Additional Resources'] = 'Manage Accessories';
+$strings['All Additional Resources'] = 'All Accessories';
 $strings['Number Available'] = 'Number Available';
 $strings['Unlimited'] = 'Unlimited';
-$strings['Add Additional Resource'] = 'Add Additional Resource';
-$strings['Edit Additional Resource'] = 'Edit Additional Resource';
+$strings['Add Additional Resource'] = 'Add Accessory';
+$strings['Edit Additional Resource'] = 'Edit Accessory';
 $strings['Checking'] = 'Checking';
 $strings['You did not select anything to delete.'] = 'You did not select anything to delete.';
 $strings['Added Resources'] = 'Added Resources';
@@ -715,6 +715,12 @@ $strings['hours prior to the start time'] = 'hours prior to the start time';
 $strings['hours from the current time'] = 'hours from the current time';
 $strings['Contains'] = 'Contains';
 $strings['Begins with'] = 'Begins with';
+$strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
+$strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
+$strings['Accessory Name'] = 'Accessory Name';
+$strings['Accessories'] = 'Accessories';
+$strings['All Accessories'] = 'All Accessories';
+$strings['Added Accessories'] = 'Added Accessories';
 // end since 1.2.0
 
 /***

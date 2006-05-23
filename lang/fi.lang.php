@@ -694,6 +694,10 @@ $strings['hours prior to the start time'] = 'hours prior to the start time';
 $strings['hours from the current time'] = 'hours from the current time';
 $strings['Contains'] = 'Contains';
 $strings['Begins with'] = 'Begins with';
+$strings['Accessory Name'] = 'Accessory Name';
+$strings['Accessories'] = 'Accessories';
+$strings['All Accessories'] = 'All Accessories';
+$strings['Added Accessories'] = 'Added Accessories';
 // end since 1.2.0
 
 /***

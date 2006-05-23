@@ -1,8 +1,6 @@
 <?php
 /**
-* English (en) help translation file.
-* This also serves as the base translation file from which to derive
-*  all other translations.
+* Hungarian (hu) help translation file.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator Your Name <your@email.com>
@@ -87,7 +85,7 @@
         <h5><a name="registering" id="registering"></a>Regisztráció</h5> 
         <p>Regisztrációhoz menjen a Regisztrációs oldalra. Ez elérhetõ egy link 
           segítségével a bejelentkezõ oldalon. Töltsön ki minden szükséges mezõt.
-          A megadott email cím lesz egyben a Felhasználói Neve is. A megadott 
+          A megadott email cím lehet egyben a Felhasználói Neve is. A megadott 
           adatokat bármikor megváltoztathatja: <a href="#quick_links">Profil 
           Megváltoztatása</a>. Ha bejelöli az &quot;Õrizzen meg bejelentkezett állapotban&quot; 
           opciót, akkor a rendszer sütiket fog használni az ön azonosítására minden alkalommal, 
@@ -118,7 +116,7 @@
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>        
         <h5><a name="manage_profile" id="manage_profile"></a>Profil Szerkesztés/Jelszó Váltás</h5>
         <p>Ha az adatait módosítani szeretné (név, email cím, stb.) vagy jelszót váltana, 
-          elsõként jelentkezzen be. Az <a href="#my_control_panel">Irányító Pulton 
+          elsõként jelentkezzen be. Az <a href="#my_control_panel">Irányító Pulton
           </a>, a <a href="#quick_links">Gyors Linkek</a> között, klikkeljen a &quot;Profil 
           Szerkesztése/Jelszó Váltás&quot; linkre. Ez egy olyan oldalra viszi, 
           ahol az adatai vannak felsorolva. Szerkessze azokat tetszése szerint. Az üresen 
@@ -146,7 +144,7 @@
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>        <p align="right">&nbsp;</p>
         <hr width="95%" size="1" noshade="noshade" />
         <h4><a name="my_control_panel" id="my_control_panel"></a>Irányító Pult</h4>
-        <p>Az Irányító Pult az Õn &quot;Kiinduló pontja&quot; az Elõjegyzési Rendszer 
+        <p>Az Irányító Pult az Ön &quot;Kiinduló pontja&quot; az Elõjegyzési Rendszer 
           kezeléséhez. Itt megtekintheti, módosíthatja, vagy törölheti Elõjegyzéseit. 
           Az Irányító Pult is tartalmaz <a href="#using_the_scheduler">Elõjegyzés</a>, 
           és <a href="#quick_links">Profil Módosítása</a> linket és egy opciót is, amivel 
@@ -154,15 +152,15 @@
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
         <h5><a name="quick_links" id="quick_links"></a>Gyors Linkek</h5>
         <p>A Gyors Linkek révén egy helyen megtalálhatók a legfontosabb linkek.
-          Az elsõ, az &quot;Ugrás az Online Elõjegyzésre&quot; az alapértelmezett
+          Az elsõ az &quot;Elõjegyzés&quot;, mely az alapértelmezett
           Elõjegyzéshez vezet. Itt megtekintheti és átnézheti a Kontingenseit, 
           és módosíthatja Elõjegyzéseit.</p>
         <p>A &quot;Saját Naptár Megtekintése&quot; az Elõjegyzés Naptár Nézetéhez vezet,
-          melyben szerepelnek az Elõjegyzések, melyekben Ön is Résztvevõ. Megtekinthetõ
-          Napi, Heti, vagy Havi Bontásban.</p>
+          melyben azok az Elõjegyzések szerepelnek, melyekben Ön is Résztvevõ. Megtekinthetõ
+          Napi, Heti, vagy Havi Bontásban is.</p>
         <p>A &quot;Kontingens Naptár Megtekintése&quot; elviszi Önt a Rendszer
-          Naptárához, amelyben az összes, vagy egy kiválasztott Kontingens 
-          Elõjegyzéseit tekintheti meg. Ha kiválaszt egy Kontingenst a Napi Nézetben,
+          Naptárához, amelyben az összes, vagy egy kiválasztott Elõjegyzés 
+          Vizsgálatait tekintheti meg. Ha kiválaszt egy Elõjegyzést a Napi Nézetben,
           lehetõsége van kinyomtatni a &quot;Lista Nézetet&quot;, amennyiben
           a jegyzettömb ikonra kattint, a Kontingens melletti legördülõ menüben.</p>
         <p>A &quot;Profil Szerkesztése/Jelszó Váltás&quot; link egy olyan oldalra
@@ -246,7 +244,7 @@
         <h5><a name="making_a_reservation" id="making_a_reservation"></a>Elõjegyzés Létrehozása</h5>
         <p>Egy elõjegyzés létrehozásához elsõként arra a napra kell navigálnia,
           amelyikre az Elõjegyzést létre szeretné hozni. Amikor megtalálta a kiválasztott
-          naphoz tartozó oldalt, kattintson a Kontingens nevére. Ekkor egy elõre
+          naphoz tartozó oldalt, kattintson a Kontingens nevére, vagy a kivánt idõpontra. Ekkor egy elõre
           ugró ablakban kiválaszthatja a Kezdõ és Befejezõ idõpontot (ha engedélyezett)
           amelyek között Elõjegyzését létre szeretné hozni.</p>
         <p>Az Elõjegyzés hosszára vonatkozó információkat tartalmazó üzenetet találhat
@@ -256,7 +254,7 @@
           Elsõként válassza ki, hogy mely napokon szeretné, hogy az Elõjegyzés ismétlõdjön,
           majd meg kell adnia, hogy milyen hosszú idõszakra vonatkozzon. Az Elõjegyzés
           bejegyzésre kerül a kiinduló napra és minden további megadott napra
-          a meghatározott idõszakon belül. Minden olyan alakalmat, amikor valamilyen okból
+          a meghatározott idõszakon belül. Minden olyan alkalmat, amikor valamilyen okból
           nem hozható létre Ismételt Elõfordulás a Rendszer kijelez. Ha Többnapos Elõjegyzések
           létrehozásakor Ismételt Elõfordulás nem választható.</p>
         <p>Az Elõjegyzéséhez tartozó adatokat a Megjegyzés mezõben közölje.
@@ -269,9 +267,9 @@
            tudta teljesíteni a kérést. Sikertelen próbálkozás esetén menjen vissza és 
            változtassa meg az Idõpontokat oly módon, hogy ne forduljon elõ átfedés más
            Elõjegyzéssel. Az Elõjegyzés elfogadása esetén a Rendszer automatikusan
-           frissül. Ez elõfeltétele, hogy minen új információ kijelzésre kerüljön.</p>
+           frissül. Ez elõfeltétele, hogy minden új információ kijelzésre kerüljön.</p>
         <p>Nem hozhat létre Elõjegyzést olyan idõpontra, amelyik már elmúlt, továbbá olyan
-           Kontingensbe, amelyhez nincsen irási Jogosultsága vagy olyan Elõjegyzésbe
+           Kontingensbe, amelyhez nincsen írási Jogosultsága vagy olyan Elõjegyzésbe
            amely Inaktív. Ilyen esetben a Kontingens szürkén jelenik meg és nem érhetõ
            el olyan link, amely elõhozná az elõre ugró ablakot.</p>
         <p align="right"><a href="#top">Ugrás a tetejére</a></p>
@@ -286,7 +284,7 @@
           látható ablakhoz hasonló elõre ugró ablak jelenik meg. Két választása
           van: a Kezdõ és a Befejezõ idõpontok Módosítása után választhatja a &quot;Módosítás&quot;
           gombot az oldal alján, az Elõjegyzés törléséhez pedig ez elõtt a &quot;Törlés&quot;
-          opciót ki kell kiválasztania. A megadott új adatok ellenõrzésre kerülnek a
+          opciót is be kell jelölnie. A megadott új adatok ellenõrzésre kerülnek a
           Rendszerben a többi Elõjegyzéshez képest és a Rendszer visszajelzést
           ad, hogy sikeres volt-e a változtatás. Ha az idõpontok nem stimmelnek
           térjen vissza a Módosítás ablakba, hogy kijavíthassa az átfedéseket 

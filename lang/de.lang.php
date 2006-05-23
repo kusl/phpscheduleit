@@ -323,11 +323,11 @@ $strings['Last Modified'] = 'Letzte Veränderung';
 $strings['View this reservation'] = 'Reservierung anschauen';
 $strings['Modify this reservation'] = 'Reservierung verändern';
 $strings['Delete this reservation'] = 'Reservierung löschen';
-$strings['Bookings'] = 'Anmeldungen';										// @since 1.2.0
-$strings['Change My Profile Information/Password'] = 'Change Profile';		// @since 1.2.0
-$strings['Manage My Email Preferences'] = 'Email Preferences';				// @since 1.2.0
+$strings['Bookings'] = 'Buchungen';										// @since 1.2.0
+$strings['Change My Profile Information/Password'] = 'Benutzerdaten ändern';		// @since 1.2.0
+$strings['Manage My Email Preferences'] = 'Email Einstellungen ändern';				// @since 1.2.0
 $strings['Mass Email Users'] = 'Massen-E-Mail an Benutzer';
-$strings['Search Scheduled Resource Usage'] = 'Search Reservations';		// @since 1.2.0
+$strings['Search Scheduled Resource Usage'] = 'Reservierungen suchen';		// @since 1.2.0
 $strings['Export Database Content'] = 'Datenbankinhalt exportieren';
 $strings['View System Stats'] = 'System-Statisitken anschauen';
 $strings['Email Administrator'] = 'E-Mail an Administrator';
@@ -660,7 +660,7 @@ $strings['Day View'] = 'Tagesansicht';
 $strings['Week View'] = 'Wochenansicht';
 $strings['Month View'] = 'Monatsansicht';
 $strings['Resource Calendar'] = 'Ressourcen Kalender';
-$strings['View Resource Calendar'] = 'Schedule Calendar';	// @since 1.2.0
+$strings['View Resource Calendar'] = 'Ressourcen Kalender ansehen';	// @since 1.2.0
 $strings['Signup View'] = 'Anmeldeansicht';
 
 $strings['Select User'] = 'Benutzer auswählen';
@@ -677,60 +677,64 @@ $strings['There are no announcements'] = 'There are no announcements';
 // end since 1.1.0
 
 // @since 1.2.0
-$strings['Maximum Participant Capacity'] = 'Maximum Participant Capacity';
-$strings['Leave blank for unlimited'] = 'Leave blank for unlimited';
-$strings['Maximum of participants'] = 'This resource has a maximum capacity of %s participants';
-$strings['That reservation is at full capacity.'] = 'That reservation is at full capacity.';
-$strings['Allow registered users to join?'] = 'Allow registered users to join?';
-$strings['Allow non-registered users to join?'] = 'Allow non-registered users to join?';
-$strings['Join'] = 'Join';
-$strings['My Participation Options'] = 'My Participation Options';
-$strings['Join Reservation'] = 'Join Reservation';
-$strings['Join All Recurring'] = 'Join All Recurring';
-$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'You are not participating on the following reservation dates because they are at full capacity.';
-$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'You are already invited to this reservation. Please follow participation instructions previously sent to your email.';
-$strings['Additional Tools'] = 'Additional Tools';
-$strings['Create User'] = 'Create User';
+$strings['Maximum Participant Capacity'] = 'Maximale Teilnehmerzahl';
+$strings['Leave blank for unlimited'] = 'Leer lassen für unbegrenzt.';
+$strings['Maximum of participants'] = 'Diese Ressource hat maximal %s Teilnehmer';
+$strings['That reservation is at full capacity.'] = 'Diese Ressource ist ausgebucht.';
+$strings['Allow registered users to join?'] = 'Sind registrierte Benutzer erlaubt?';
+$strings['Allow non-registered users to join?'] = 'Sind nicht registrierte Benutzer erlaubt?';
+$strings['Join'] = 'Teilnehmen';
+$strings['My Participation Options'] = 'Meine Teilnahme Optionen';
+$strings['Join Reservation'] = 'An Reservierung teilnehmen';
+$strings['Join All Recurring'] = 'An allen wiederkehrenden Terminen teilnehmen';
+$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'Sie können an folgenden Terminen nicht teilnehmen, weil sie bereits ausgebucht sind.';
+$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'Sie wurden hierzu bereits eingeladen. Bitte folgen Sie den Anweisungen zum Teilnehmen in der vorgehend gesendeten Email.';
+$strings['Additional Tools'] = 'Zusätzliche Funktionen';
+$strings['Create User'] = 'Benutzer anlegen';
 $strings['Check Availability'] = 'Check Availability';
 //$strings['Add Resources'] = 'Add Resources';
-$strings['Manage Additional Resources'] = 'Manage Additional Resources';
-$strings['All Additional Resources'] = 'All Additional Resources';
-$strings['Number Available'] = 'Number Available';
-$strings['Unlimited'] = 'Unlimited';
-$strings['Add Additional Resource'] = 'Add Additional Resource';
-$strings['Edit Additional Resource'] = 'Edit Additional Resource';
-$strings['Checking'] = 'Checking';
-$strings['You did not select anything to delete.'] = 'You did not select anything to delete.';
-$strings['Added Resources'] = 'Added Resources';
-$strings['Additional resource is reserved'] = 'The additional resource %s only has %s available at a time';
-$strings['All Groups'] = 'All Groups';
-$strings['Group Name'] = 'Group Name';
-$strings['Delete Groups'] = 'Delete Groups';
-$strings['Manage Groups'] = 'Manage Groups';
-$strings['None'] = 'None';
-$strings['Group name is required.'] = 'Group name is required.';
-$strings['Groups'] = 'Groups';
-$strings['Current Groups'] = 'Current Groups';
-$strings['Group Administration'] = 'Group Administration';
-$strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
-$strings['Reminder'] = 'Reminder';
-$strings['before reservation'] = 'before reservation';
-$strings['My Participation'] = 'My Participation';
-$strings['My Past Participation'] = 'My Past Participation';
-$strings['Timezone'] = 'Timezone';
+$strings['Manage Additional Resources'] = 'Zubehör verwalten';
+$strings['All Additional Resources'] = 'Alles Zubehör';
+$strings['Number Available'] = 'Verfügbare Anzahl';
+$strings['Unlimited'] = 'Unbegrenzt';
+$strings['Add Additional Resource'] = 'Zubehör hinzufügen';
+$strings['Edit Additional Resource'] = 'Zubehör bearbeiten';
+$strings['Checking'] = 'Prüfe';
+$strings['You did not select anything to delete.'] = 'Sie haben nichts zum löschen ausgewählt.';
+$strings['Added Resources'] = 'Hinzugefügtes Zubehör';
+$strings['Additional resource is reserved'] = 'Das Zubehör %s kann nur %s gleichzeitig gebucht werden.';
+$strings['All Groups'] = 'Alle Gruppen';
+$strings['Group Name'] = 'Gruppen Name';
+$strings['Delete Groups'] = 'Gruppen löschen';
+$strings['Manage Groups'] = 'Gruppen verwalten';
+$strings['None'] = 'Nichts';
+$strings['Group name is required.'] = 'Gruppenname wird zwingend benötigt.';
+$strings['Groups'] = 'Gruppen';
+$strings['Current Groups'] = 'Gegenwärtige Gruppe';
+$strings['Group Administration'] = 'Gruppen Verwaltung';
+$strings['Reminder Subject'] = 'Reservierungserinnerung- %s, %s %s';
+$strings['Reminder'] = 'Erinnerung';
+$strings['before reservation'] = 'vor der Reservierung';
+$strings['My Participation'] = 'Meine Teilnahme';
+$strings['My Past Participation'] = 'Meine vergangene Teilnahme';
+$strings['Timezone'] = 'Zeitzone';
 $strings['Export'] = 'Export';
-$strings['Select reservations to export'] = 'Select reservations to export';
+$strings['Select reservations to export'] = 'Wählen Sie die zu exportierenden Reservierungen';
 $strings['Export Format'] = 'Export Format';
-$strings['This resource cannot be reserved less than x hours in advance'] = 'This resource cannot be reserved less than %s hours in advance';
-$strings['This resource cannot be reserved more than x hours in advance'] = 'This resource cannot be reserved more than %s hours in advance';
-$strings['Minimum Booking Notice'] = 'Minimum Booking Notice';
-$strings['Maximum Booking Notice'] = 'Maximum Booking Notice';
-$strings['hours prior to the start time'] = 'hours prior to the start time';
-$strings['hours from the current time'] = 'hours from the current time';
-$strings['Contains'] = 'Contains';
-$strings['Begins with'] = 'Begins with';
-$strings['Minimum booking notice is required.'] = 'Minimum booking notice is required.';
-$strings['Maximum booking notice is required.'] = 'Maximum booking notice is required.';
+$strings['This resource cannot be reserved less than x hours in advance'] = 'Diese Ressource kann nicht weniger als %s Stunden im voraus aufgehoben werden';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'Diese Ressource kann nicht mehr als %s Stunden im voraus aufgehoben werden';
+$strings['Minimum Booking Notice'] = 'Minimale Buchungsmöglichkeit';
+$strings['Maximum Booking Notice'] = 'Maximale Buchungsmöglichkeit';
+$strings['hours prior to the start time'] = 'Stunden vor der Startzeit';
+$strings['hours from the current time'] = 'Stunden von der aktuellen Uhrzeit';
+$strings['Contains'] = 'Enthält';
+$strings['Begins with'] = 'Beginnt mit';
+$strings['Minimum booking notice is required.'] = 'Minimale Buchungsnotiz wird zwingend benötigt.';
+$strings['Maximum booking notice is required.'] = 'Maximale Buchungsnotiz wird zwingend benötigt.';
+$strings['Accessory Name'] = 'Accessory Name';
+$strings['Accessories'] = 'Accessories';
+$strings['All Accessories'] = 'All Accessories';
+$strings['Added Accessories'] = 'Added Accessories';
 // end since 1.2.0
 
 /***
@@ -771,12 +775,12 @@ $email['register_admin'] = "Administrator,\r\n\r\n"
 $email['reservation_activity_1'] = "%s,\r\n<br />"
 			. "Sie haben erfolgreich  %s Reservierung  #%s.\r\n\r\n<br/><br/>"
 			. "Bitte benutzen Sie diese Reservierungsnummer, wenn Sie den Administrator für Fragen kontaktieren.\r\n\r\n<br/><br/>"
-			. "Eine Reservierung vonn %s zwischen %s und %s für %s"
+			. "Eine Reservierung von %s zwischen %s und %s für %s"
 			. " befindlich int %s wurde %s.\r\n\r\n<br/><br/>";
 $email['reservation_activity_2'] = "Diese Reservierung wurde an folgenden Daten wiederholt:\r\n<br/>";
 $email['reservation_activity_3'] = "Alle wiederkehrenden Reservierungen in dieser Gruppe wurden auch %s.\r\n\r\n<br/><br/>";
-$email['reservation_activity_4'] = "Die folgende Zusammenfassung wurde geliefert fü diese Reservierung: \r\n<br/>%s\r\n\r\n<br/><br/>";
-$email['reservation_activity_5'] = "Wenn das ein Fehler sein sollte, bitte kontaktieren Sie den Administrator über : %s"
+$email['reservation_activity_4'] = "Die folgende Zusammenfassung wurde geliefert für folgende Reservierung: \r\n<br/>%s\r\n\r\n<br/><br/>";
+$email['reservation_activity_5'] = "Wenn dies ein Fehler sein sollte, bitte kontaktieren Sie den Administrator über : %s"
 			. " oder rufen Sie ihn an : %s.\r\n\r\n<br/><br/>"
 			. "Die Reservierungsdaten können jederzeit angeschaut und verändert werden durch "
 			. " das einloggen in %s auf:\r\n<br/>"
@@ -806,5 +810,5 @@ $email['new_password'] = "%s,\r\n"
 
 // @since 1.2.0
 // Email body that is sent for reminders
-$email['Reminder Body'] = "Your reservation for %s from %s %s to %s %s is approaching.";
+$email['Reminder Body'] = "Ihre Reservierung für %s von %s %s bis %s %s beginnt gleich.";
 ?>

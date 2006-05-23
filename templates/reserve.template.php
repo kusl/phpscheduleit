@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-19-06
+* @version 05-22-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -40,7 +40,7 @@ function begin_container() {
 <tr class="tab-row">
 <td class="tab-selected" id="tab_basic" onclick="javacript: clickTab(this, 'pnl_basic');"><a href="javascript:void(0);"><?php echo translate('Basic')?></a></td>
 <td class="tab-not-selected" id="tab_advanced" onclick="javacript: clickTab(this, 'pnl_advanced');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Participants')?></a></td>
-<td class="tab-not-selected" id="tab_additional" onclick="javacript: clickTab(this, 'pnl_additional');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Resources')?></a></td>
+<td class="tab-not-selected" id="tab_additional" onclick="javacript: clickTab(this, 'pnl_additional');" style="border-left-width:0px;"><a href="javascript:void(0);"><?php echo translate('Accessories')?></a></td>
 <td class="tab-filler">&nbsp;</td>
 </tr>
 </table>
@@ -189,7 +189,7 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 					echo '<td width="200" align="center">';
 				
 					// Print select boxes
-					echo translate('All Resources');
+					echo translate('All Accessories');
 					?>
 					<br/><select name="all_resources[]" id="all_resources" class="textbox" multiple="multiple" size="10" style="width:195px;">
 					<?php
@@ -207,7 +207,7 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 					<button type="button" id="remove_from_additionalresource" class="button" onclick="javascript: moveSelectItems('selected_resources','all_resources');" style="width:75px;font-size:12px;">&laquo;&laquo;</button>
 					</td>
 					<td width="200" align="center">
-					<?php echo translate('Added Resources')?><br/>
+					<?php echo translate('Added Accessories')?><br/>
 					<select name="selected_resources[]" id="selected_resources" class="textbox" multiple="multiple" size="10" style="width:195px;">
 						<?php
 						for ($i = 0; $i < count($res->resources); $i++) {

@@ -3,7 +3,7 @@
 * Initialization file.  Please do not edit.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 10-08-05
+* @version 05-22-06
 * @package phpScheduleIt
 */
 /**
@@ -41,7 +41,7 @@ session_start();
 // Turn off magic quotes (do not edit!)
 set_magic_quotes_runtime(0);
 
-$conf['app']['version'] = '1.2.0 beta';
+$conf['app']['version'] = '1.2.0 RC1';
 
 include_once('constants.php');
 include_once('langs.php');
