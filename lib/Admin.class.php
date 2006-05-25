@@ -4,7 +4,7 @@
 *  data and settings in phpScheduleIt
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-12-06
+* @version 05-24-06
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -431,7 +431,7 @@ class Admin {
 	*/
 	function reset_password() {
 		$user = new User($_GET['memberid']);	// User object
-		if (!$this->user->is_group_admin($user->get_groupids())) {
+		if (Auth::isAdmin() || $this->user->is_group_admin($user->get_groupids())) {
 			print_not_allowed();
 		}
 		else {
