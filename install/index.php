@@ -216,7 +216,7 @@ function dbConnect() {
 function doCreate() {
 	global $db;
 	global $conf;
-	
+
 	$sqls = array (
 					// Create new database
 					array ("create database {$conf['db']['dbName']}", 'Creating database'),
@@ -366,7 +366,7 @@ function doCreate() {
 							  email VARCHAR(75) NOT NULL,
 							  fname VARCHAR(30) NOT NULL,
 							  lname VARCHAR(30) NOT NULL
-							  )", 'Creating table anonymous_users'),							  
+							  )", 'Creating table anonymous_users'),
 					// Create reservation/user association table
 					array ("CREATE TABLE additional_resources (
 							  resourceid CHAR(16) NOT NULL PRIMARY KEY,
@@ -376,7 +376,7 @@ function doCreate() {
 							  )", 'Creating table additional_resources'),
 					// Create reservation/user association indexes
 					array ('CREATE INDEX ar_name ON additional_resources (name)', 'Creating index'),
-					array ('CREATE INDEX ar_status ON additional_resources (status)', 'Creating index'),						
+					array ('CREATE INDEX ar_status ON additional_resources (status)', 'Creating index'),
 					// Create reservation_resources table
 					array ("CREATE TABLE reservation_resources (
 							  resid CHAR(16) NOT NULL,
@@ -395,7 +395,7 @@ function doCreate() {
 					// Insert needed values
 					array ('INSERT INTO mutex VALUES (0)', 'Insert values'),
 					array ('INSERT INTO mutex VALUES (1)', 'Insert values'),
-					// Create groups table 
+					// Create groups table
 					array ("CREATE TABLE groups (
 							  groupid CHAR(16) NOT NULL PRIMARY KEY,
 							  group_name VARCHAR(50) NOT NULL
@@ -437,12 +437,12 @@ function doCreate() {
 		$result = $db->query($sql[0]);
 		check_result($result);
 	}
-	
+
 	// Create default schedule
 	$dbe = new DBEngine();
 	echo 'Creating default schedule...';
 	$scheduleid = $dbe->get_new_id();
-	$result = $dbe->db->query('INSERT INTO schedules VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', array($scheduleid,'default',480,1200,30,12,0,7,0,0,1,$conf['app']['adminEmail'],1));
+	$result = $dbe->db->query('INSERT INTO schedules VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', array($scheduleid,'default',480,1200,30,12,0,7,0,0,1,$conf['app']['adminEmail'],1,0));
 	check_result($result);
 }
 
@@ -454,7 +454,7 @@ function check_result($result) {
 	global $failed;
 	if (DB::isError($result)) {
 		echo '<span style=\"color: #FF0000; font-weight: bold;\">Failed: </span>' . $result->getMessage() . "</span><br/><br/>\n";
-		$failed = true;	
+		$failed = true;
 	}
 	else
 		echo "<span style=\"color: #00CD00;\">Success</span><br/><br/>\n";

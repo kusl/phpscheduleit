@@ -11,7 +11,7 @@
 */
 $basedir = dirname(__FILE__) . '/..';
 
-include_once($basedir '/lib/CmnFns.class.php');
+include_once($basedir . '/lib/CmnFns.class.php');
 
 class LDAPEngine {
 
@@ -129,7 +129,7 @@ class LDAPEngine {
             $this->fname = $entries[0]['givenname'][0];
             $this->lname = $entries[0]['sn'][0];
             $this->mail = strtolower( $entries[0]['mail'][0] );
-            
+
             $this->phone = isset($entries[0]['telephonenumber']) ? $entries[0]['telephonenumber'][0] : '';
             if ( isset($entries[0]['physicaldeliveryofficename']) ) {
             	$this->institution = $entries[0]['physicaldeliveryofficename'][0];
@@ -155,7 +155,7 @@ class LDAPEngine {
 	*/
     function getUserData() {
 		global $conf;
-		
+
         $return = array(
             'fname' => $this->fname,
             'lname' => $this->lname,
