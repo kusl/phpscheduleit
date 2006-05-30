@@ -3,7 +3,7 @@
 * Update program for phpScheduleIt
 *
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-13-06
+* @version 05-31-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -311,12 +311,12 @@ function doUpdate($version) {
 											  lname VARCHAR(30) NOT NULL
 											  )', 'Create anonymous_users table');
 
-	$create_additional_resources = array('CREATE TABLE additional_resources (
+	$create_additional_resources = array("CREATE TABLE additional_resources (
 											  resourceid CHAR(16) NOT NULL PRIMARY KEY,
 											  name VARCHAR(75) NOT NULL,
 											  status CHAR(1) NOT NULL DEFAULT 'a',
 											  number_available INTEGER NOT NULL DEFAULT -1
-											  )', 'Create additional_resources table';
+											  )", 'Create additional_resources table');
 
 	$create_ar_name_index = array('CREATE INDEX ar_name ON additional_resources (name)', 'Create index');
 	$create_ar_status_index = array('CREATE INDEX ar_status ON additional_resources (status)', 'Create index');
