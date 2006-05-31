@@ -661,7 +661,7 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 						. '<td colspan="2">' . translate('Minimum Reservation Length') . ' ' . Time::minutes_to_hours($rs['minres'])
 						. '</td></tr>'
 						. '<tr class="cellColor">'
-						. '<td colspan="2">' . translate('Maximum Reservation Length') . ' ' . Time::minutes_to_hours($rs['maxRes'])
+						. '<td colspan="2">' . translate('Maximum Reservation Length') . ' ' . Time::minutes_to_hours($rs['maxres'])
 						. '</td>';
 			}
         }

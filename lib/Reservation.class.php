@@ -876,9 +876,10 @@ EOT;
 		$end    = Time::formatTime($this->get_end());
 
 		$dates_text = '';
-		for ($d = 1; $d < count($dates); $d++)
+		for ($d = 1; $d < count($dates); $d++) {
 			$dates_text .= Time::formatDate($dates) . ",";
-
+		}
+		
 		foreach ($userinfo as $memberid => $email) {
 			// Create and send the email
 

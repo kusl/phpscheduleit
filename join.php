@@ -2,7 +2,7 @@
 /**
 * Handles the self activation for users joining a reservation
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-15-06
+* @version 05-31-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -103,7 +103,8 @@ if ($res != null && !empty($resid)) {
 					// Add the user to the invite list in the db
 					$res->add_participant($user->userid, $accept_code);
 					// Send the invite email
-					$res->invite_users(array($user->userid  . '|' . $user->email), array(), $user, $accept_code);
+					$info[$user->userid] = $user->email;
+					$res->invite_users($info, array(), $user, $accept_code);
 				}
 				else {
 					CmnFns::do_error_box(translate('You are already invited to this reservation. Please follow participation instructions previously sent to your email.'), '', false);

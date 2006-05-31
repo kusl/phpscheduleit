@@ -442,7 +442,7 @@ function doCreate() {
 	$dbe = new DBEngine();
 	echo 'Creating default schedule...';
 	$scheduleid = $dbe->get_new_id();
-	$result = $dbe->db->query('INSERT INTO schedules VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', array($scheduleid,'default',480,1200,30,12,0,7,0,0,1,$conf['app']['adminEmail'],1,0));
+	$result = $dbe->db->query('INSERT INTO schedules VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', array($scheduleid,'default',480,1200,30,12,0,7,0,0,1,$conf['app']['adminEmail'],1));
 	check_result($result);
 }
 

@@ -3,7 +3,7 @@
 * Authorization and login functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-06-06
+* @version 05-31-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -135,7 +135,7 @@ class Auth {
                                          
                     } else {
                         $data = $ldap->getUserData();
-                        $id = $this->do_register_user( $data );
+                        $id = $this->do_register_user( $data, false );
                     }
                     
                     $ok_user = true; $ok_pass = true;

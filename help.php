@@ -12,6 +12,7 @@
 */
 
 include_once('config/config.php');
+require_once('config/init.php');
 
 global $languages;
 global $lang;

@@ -164,7 +164,7 @@ class Schedule {
 			$min_days = intval($min_notice / 24);
 
 			$min_date = mktime(0,0,0, date('m'), date('d') + $min_days);
-
+			
 			if ($current_date <= $min_date)
 			{
 				return false;
