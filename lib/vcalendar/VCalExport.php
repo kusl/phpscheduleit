@@ -2,7 +2,7 @@
 /**
 * Exports a list of Reservations formatted for vCalendar
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-24-06
+* @version 05-31-06
 * @package phpScheduleIt.vCalendar
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -10,7 +10,7 @@
 */
 
 $basedir = dirname(__FILE__) . '/../..';
-require_once($basedir . '/lib/icalendar/ICalExport');
+require_once($basedir . '/lib/icalendar/ICalExport.php');
 
 class VCalExport extends ICalExport
 {
@@ -21,7 +21,7 @@ class VCalExport extends ICalExport
 
 	function _parse() {
 		$builder = new StringBuilder();
-		
+
 		for ($i = 0; $i < count($this->_reservations); $i++) {
 			$this->_formatter->setReservation($this->_reservations[$i]);
 			$builder->append($this->_formatter->format());
@@ -35,10 +35,10 @@ class VCalExport extends ICalExport
 		$builder->append($this->getHeader());
 		$builder->append($this->_parse());
 		$builder->append($this->getFooter());
-		
+
 		return $builder->toString();
 	}
-	
+
 	function getHeader() {
 		global $conf;
 		return "BEGIN:VCALENDAR\r\n\r\nPRODID:-//phpScheduleIt//{$conf['app']['version']}//EN\r\nVERSION:1.0\r\n";
