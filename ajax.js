@@ -1,4 +1,4 @@
-var http_request = createRequestObject();
+var http_request = null;
 
 function createRequestObject() {
 	var request_obj = false;
@@ -27,6 +27,7 @@ function checkReservation(url, formid, txt) {
 	var div = document.getElementById("checkDiv");
 	var f = document.getElementById(formid);
 	
+	http_request = createRequestObject();	
 	http_request.onreadystatechange = showCheckResults;
 	http_request.open('POST', url + document.location.search.substring(0), true);
 	http_request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
