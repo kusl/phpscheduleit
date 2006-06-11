@@ -7,7 +7,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-27-06
+* @version 06-02-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -160,22 +160,20 @@ class Schedule {
 	* @return if this reservation link is available to view
 	*/
     function isViewableDate($current_date, $min_notice, $max_notice) {
-		if ($min_notice != 0) {
-			$min_days = intval($min_notice / 24);
+		$min_days = intval($min_notice / 24);
 
-			$min_date = mktime(0,0,0, date('m'), date('d') + $min_days);
-			
-			if ($current_date <= $min_date)
-			{
-				return false;
-			}
+		$min_date = mktime(0,0,0, date('m'), date('d') + $min_days);
+		
+		if ($current_date < $min_date)
+		{
+			return false;
 		}
 
 		if ($max_notice != 0) {
 			$max_days = intval($max_notice / 24);
-
+	
 			$max_date = mktime(0,0,0, date('m'), date('d') + $max_days);
-
+	
 			if ($current_date > $max_date)
 			{
 				return false;

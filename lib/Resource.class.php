@@ -9,12 +9,10 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
 
-include_once('db/ResourceDB.class.php');
+$basedir = dirname(__FILE__) . '/..';
+
+include_once($basedir . '/lib/db/ResourceDB.class.php');
 
 class Resource {
 	

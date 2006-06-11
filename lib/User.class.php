@@ -9,14 +9,10 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* UserDB class
-*/
-include_once('db/UserDB.class.php');
+
+$basedir = dirname(__FILE__) . '/..';
+
+include_once($basedir . '/lib/db/UserDB.class.php');
 
 class User {
 	var $userid;		// Properties

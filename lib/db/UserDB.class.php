@@ -9,14 +9,9 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/../..');
-/**
-* DBEngine class
-*/
-include_once(BASE_DIR . '/lib/DBEngine.class.php');
+$basedir = dirname(__FILE__) . '/../..';
+
+include_once($basedir . '/lib/DBEngine.class.php');
 
 /**
 * Provide functionality for getting and setting user data

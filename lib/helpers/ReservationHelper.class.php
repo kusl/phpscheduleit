@@ -10,7 +10,6 @@
 */
 class ReservationHelper
 {
-
 	function ReservationHelper() { }
 	
 	/**

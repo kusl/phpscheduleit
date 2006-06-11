@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-15-06
+* @version 06-02-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -251,8 +251,7 @@ class Reservation {
 	}
 
 	/**
-	* Modifies a current reservation, setting new start and end times
-	*  or deleting it
+	* Modifies a current reservation, setting new start and end times or deleting it
 	* @param array $all_invited_users array of all invited users to be used for DB insertion
 	* @param array $users_to_invite array of newly invited users to be used for invitation emails
 	* @param array $users_to_remove array of users that will be removed from invitation/participating in this reservation
@@ -324,7 +323,7 @@ class Reservation {
 
 					$dates[] = $this->start_date;
 					$valid_resids[] = $this->id;
-					CmnFns::write_log($this->word . ' ' . $this->id . ' modified.  machid:' . $this->machid .', dates:' . $this->start_date . ' - ' . $this->end_date . ', start:' . $this->start . ', end:' . $this->end, $this->memberid, $_SERVER['REMOTE_ADDR']);
+					CmnFns::write_log($this->word . ' ' . $this->id . ' modified.  machid:' . $this->get_machid() .', dates:' . $this->start_date . ' - ' . $this->end_date . ', start:' . $this->start . ', end:' . $this->end, $this->memberid, $_SERVER['REMOTE_ADDR']);
 				}
 			}
 		}
@@ -445,17 +444,15 @@ class Reservation {
 		$hour = $date_vals['hours'];
 		$min = $date_vals['minutes'];
 
-		if ($min_notice != 0) {
-			$min_days = intval($min_notice / 24);
-			$min_time = ((intval($min_notice % 24) + $hour) * 60) + $min;
-			$min_date = mktime(0,0,0, $month, $day + $min_days);			
-			
-			if ( ($this->start_date < $min_date) ||
-				 ($this->start_date == $min_date && $this->start < $min_time) )
-			{
-				$dates_valid = false;
-				$this->add_error( translate('This resource cannot be reserved less than x hours in advance', array($min_notice)) );
-			}
+		$min_days = intval($min_notice / 24);
+		$min_time = ((intval($min_notice % 24) + $hour) * 60) + $min;
+		$min_date = mktime(0,0,0, $month, $day + $min_days);			
+		
+		if ( ($this->start_date < $min_date) ||
+			 ($this->start_date == $min_date && $this->start < $min_time) )
+		{
+			$dates_valid = false;
+			$this->add_error( translate('This resource cannot be reserved less than x hours in advance', array($min_notice)) );
 		}
 
 		if ($max_notice != 0 && $dates_valid) {
@@ -881,14 +878,13 @@ EOT;
 		}
 		
 		foreach ($userinfo as $memberid => $email) {
-			// Create and send the email
-
 			$accept_url = $url . "/manage_invites.php?id={$this->id}&memberid=$memberid&accept_code=$accept_code&action=" . INVITE_ACCEPT;
 			$decline_url= $url . "/manage_invites.php?id={$this->id}&memberid=$memberid&accept_code=$accept_code&action=" . INVITE_DECLINE;
 
 			$mailer->ClearAllRecipients();
 			$mailer->AddAddress($email);
 			$mailer->Body = translate_email('reservation_invite', $this->user->get_name(), $this->resource->properties['name'], $start_date, $start, $end_date, $end, $this->summary, $dates_text, $accept_url, $decline_url, $conf['app']['title'], $url);
+			echo 'body ' . $mailer->Body;
 			$mailer->Send();
 		}
 	}

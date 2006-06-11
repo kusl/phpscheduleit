@@ -1,41 +1,16 @@
-<html>
-<head>
-<script language="JavaScript" type="text/javascript" src="functions.js"></script>
-<script>
-function showHere(parent, id) {
-	var element = document.getElementById(id);
-	var x;
-	var y;
-	
-	x = parent.offsetLeft;
-	y = parent.offsetTop;
-	element.style.left = parseInt(x) + "px";
-    element.style.top = parseInt(y-60) + "px";
-	element.style.display = "inline";
-}
-</script>
-
-<style type="text/css">
-.export_menu {
-	display:none;
-	position:absolute;
-	width:35px;
-	height:60px;	
-}
-</style>
-</head>
-<body style="margin-top:200px;">
-<a href="javascript:void(0);" onClick="showHere(this, 'export_menu', event);">export</a>
-
-<div id="export_menu" class="export_menu" onMouseOut="showHide('export_menu');">
-<table width="35">
-	<tr>
-		<td>iCalendar</td>
-	</tr>
-	<tr>
-		<td>vCalendar</td>
-	</tr>
-</table>
-</div>
-</body>
-</html>
+<?php
+$txt = "%s has invited you to participate in the following reservation:\r\n\r\n"
+		. "Resource: %s\r\n"
+		. "Start Date: %s\r\n"
+		. "Start Time: %s\r\n"
+		. "End Date: %s\r\n"
+		. "End Time: %s\r\n"
+		. "Summary: %s\r\n"
+		. "Repeated Dates (if present): %s\r\n\r\n"
+		. "To accept this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
+		. "To decline this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
+		. "To accept select dates or manage your invitations at a later time, please log into %s at %s";
+$sprintf_args = "'Nick Korbel','Resource 1','06/02/2006','9:00am','06/02/2006','10:30am','','','http://localhost/phpScheduleIt/manage_invites.php?id=sc1447cd03f6f4a6&memberid=sc1447cdae95d446&accept_code=sc1447fb2dfa89c3&action=accept','http://localhost/phpScheduleIt/manage_invites.php?id=sc1447cd03f6f4a6&memberid=sc1447cdae95d446&accept_code=sc1447fb2dfa89c3&action=decline','phpScheduleIt','http://localhost/phpScheduleIt'";
+eval('echo sprintf("' . str_replace('"','\"', $txt) . "\",$sprintf_args);");
+		
+?>

@@ -9,11 +9,10 @@
 * License: GPL, see LICENSE
 */
 
-include_once('lib/Template.class.php');
-include_once('lib/Reservation.class.php');
-include_once('lib/User.class.php');
-include_once('lib/Resource.class.php');
-include_once('lib/AnonymousUser.class.php');
+$basedir = dirname(__FILE__);
+include_once($basedir . '/lib/Template.class.php');
+include_once($basedir . '/lib/Reservation.class.php');
+include_once($basedir . '/lib/AnonymousUser.class.php');
 
 $t = new Template(translate('Join Reservation'));
 $t->printHTMLHeader();
@@ -46,78 +45,81 @@ if ($res != null && !empty($resid)) {
 			$found_user = false;
 		}
 	}
-	//else {
-		// Validate data
-		if (validate_data($userid, $fname, $lname, $email) == '') {
+	// Validate data
+	if (validate_data($userid, $fname, $lname, $email) == '') {
+		$user = new User();
+		// Load get the userid or create one if the data is ok
+		// First see if we have a user with this email address
+		if ( ($userid = $user->get_id_by_email($email)) != false ) {
+			// Invite the user we found in the database
+			$user = new User($userid);
+			$userid = $user->get_id();
+			$found_user = true;
+		}
+		else if ( ($userid = AnonymousUser::get_id_by_email($email)) != false ) {
+			// There is an anonymous user with this email already, update info
+			$a_user = new AnonymousUser($userid);
+			$a_user->fname = $fname;
+			$a_user->lname = $lname;
+			$a_user->email = $email;
+			$a_user->save();
+			
+			// Create temporary User object for inviting them			
 			$user = new User();
-			// Load get the userid or create one if the data is ok
-			// First see if we have a user with this email address
-			if ( ($userid = $user->get_id_by_email($email)) != false ) {
-				// Invite the user we found in the database
-				$user = new User($userid);
-				$userid = $user->get_id();
-				$found_user = true;
+			$user->userid = $userid;
+			$user->fname = $fname;
+			$user->lname = $lname;
+			$user->email = $email;
+			$found_user = true;
+		}
+		else {
+			// Create the anonymous user
+			$a_user = AnonymousUser::getNewUser();
+			$a_user->fname = $fname;
+			$a_user->lname = $lname;
+			$a_user->email = $email;
+			$a_user->save();
+			
+			$user = new User();
+			$user->userid = $userid;
+			$user->fname = $fname;
+			$user->lname = $lname;
+			$user->email = $email;
+			$found_user = true;
+		}
+		if ($found_user) {
+			$participating = false;
+			// See if the user is already in the participation list
+			for ($i = 0; $i < count($res->users); $i++) {
+				if ($res->users[$i]['memberid'] == $userid) {
+					$participating = true;
+					break;
+				}
 			}
-			else if ( ($userid = AnonymousUser::get_id_by_email($email)) != false ) {
-				// There is an anonymous user with this email already, update info
-				$a_user = new AnonymousUser($userid);
-				$a_user->fname = $fname;
-				$a_user->lname = $lname;
-				$a_user->email = $email;
-				$a_user->save();
-				
-				// Create temporary User object for inviting them			
-				$user = new User();
-				$user->userid = $userid;
-				$user->fname = $fname;
-				$user->lname = $lname;
-				$user->email = $email;
-				$found_user = true;
+			if (!$participating) {	
+				$accept_code = $res->db->get_new_id();
+				// Add the user to the invite list in the db
+				echo '<pre>';
+				print_r($res);
+				echo '</pre>';
+				$res->add_participant($user->userid, $accept_code);
+				// Send the invite email
+				$info[$user->userid] = $user->email;
+				echo 'before';
+				$res->invite_users($info, array(), $accept_code);
+				die('after');
 			}
 			else {
-				// Create the anonymous user
-				$a_user = AnonymousUser::getNewUser();
-				$a_user->fname = $fname;
-				$a_user->lname = $lname;
-				$a_user->email = $email;
-				$a_user->save();
-				
-				$user = new User();
-				$user->userid = $userid;
-				$user->fname = $fname;
-				$user->lname = $lname;
-				$user->email = $email;
-				$found_user = true;
-			}
-			if ($found_user) {
-				$participating = false;
-				// See if the user is already in the participation list
-				for ($i = 0; $i < count($res->users); $i++) {
-					if ($res->users[$i]['memberid'] == $userid) {
-						$participating = true;
-						break;
-					}
-				}
-				if (!$participating) {			
-					$accept_code = $res->db->get_new_id();
-					// Add the user to the invite list in the db
-					$res->add_participant($user->userid, $accept_code);
-					// Send the invite email
-					$info[$user->userid] = $user->email;
-					$res->invite_users($info, array(), $user, $accept_code);
-				}
-				else {
-					CmnFns::do_error_box(translate('You are already invited to this reservation. Please follow participation instructions previously sent to your email.'), '', false);
-				}
-			}
-			else {
-				CmnFns::do_error_box(translate('Sorry, we could not find that user in the database.'), '', false);		
+				CmnFns::do_error_box(translate('You are already invited to this reservation. Please follow participation instructions previously sent to your email.'), '', false);
 			}
 		}
 		else {
-			CmnFns::do_error_box(translate('Please go back and correct any errors.'), '', false);
+			CmnFns::do_error_box(translate('Sorry, we could not find that user in the database.'), '', false);		
 		}
-	//}
+	}
+	else {
+		CmnFns::do_error_box(translate('Please go back and correct any errors.'), '', false);
+	}
 }
 else {
 	CmnFns::do_error_box(translate('That record could not be found.'), '', false);

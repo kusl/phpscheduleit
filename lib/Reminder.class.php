@@ -9,9 +9,9 @@
 * License: GPL, see LICENSE
 */
 
-@define('BASE_DIR', dirname(__FILE__) . '/..');
+$basedir = dirname(__FILE__) . '/..';
 
-require_once('db/ReminderDB.class.php');
+require_once($basedir . '/lib/db/ReminderDB.class.php');
 
 class Reminder
 {

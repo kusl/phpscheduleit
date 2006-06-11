@@ -9,12 +9,10 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
 
-include_once('CmnFns.class.php');
+$basedir = dirname(__FILE__) . '/..';
+
+include_once($basedir . '/lib/CmnFns.class.php');
 /**
 * Pear::DB
 */

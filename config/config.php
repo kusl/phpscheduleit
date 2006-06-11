@@ -73,7 +73,7 @@ $conf['app']['adminEmail'] = 'admin@email.com';
 $conf['app']['defaultLanguage'] = 'en_US';
 
 // If you are running PHP in safe mode, set this value to 1.  Otherwise keep the default. [0]
-$conf['app']['safeMode'] = 0;
+$conf['app']['safeMode'] = 1;
 
 // This will hide all personal data from normal users.  Admins will still see full data. [0]
 $conf['app']['privacyMode'] = 0;

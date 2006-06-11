@@ -9,14 +9,10 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* UserDB class
-*/
-include_once('db/AnonymousUserDB.class.php');
+
+$basedir = dirname(__FILE__) . '/..';
+
+include_once($basedir . '/lib/db/AnonymousUserDB.class.php');
 
 class AnonymousUser {
 	var $userid;		// Properties

@@ -12,8 +12,8 @@
 /**
 * Base directory of application
 */
-@define('BASE_DIR', dirname(__FILE__) . '/..');
-include_once('db/AdditionalResourceDB.class.php');
+$basedir = dirname(__FILE__) . '/..';
+include_once($basedir . '/lib/db/AdditionalResourceDB.class.php');
 
 class AdditionalResource {
 	var $id = null;

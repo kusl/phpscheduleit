@@ -9,14 +9,10 @@
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/..');
-/**
-* Include Auth class
-*/
-include_once('Auth.class.php');
+
+$basedir = dirname(__FILE__) . '/..';
+
+include_once($basedir . '/lib/Auth.class.php');
 
 /**
 * Provides functions for outputting template HTML
