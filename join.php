@@ -2,7 +2,7 @@
 /**
 * Handles the self activation for users joining a reservation
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-31-06
+* @version 06-11-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -22,7 +22,7 @@ $resid = htmlspecialchars($_POST['h_join_resid']);
 $userid = htmlspecialchars($_POST['h_join_userid']);
 $fname = htmlspecialchars(trim($_POST['h_join_fname']));
 $lname = htmlspecialchars(trim($_POST['h_join_lname']));
-$email = htmlspecialchars(trim($_POST['h_join_email']));
+$email_address = htmlspecialchars(trim($_POST['h_join_email']));
 $join_all = isset($_POST['join_parentid']);
 
 $found_user = false;
@@ -31,14 +31,13 @@ $found_user = false;
 $res = new Reservation($resid);
 
 if ($res != null && !empty($resid)) {
-
 	if (!empty($userid)) {	
 		$user = new User($userid);
 		if ($user != null) {
 			$userid = $user->get_id();
 			$fname = $user->get_fname();
 			$lname = $user->get_lname();
-			$email = $user->get_email();
+			$email_address = $user->get_email();
 			$found_user = true;
 		}
 		else {
@@ -61,7 +60,7 @@ if ($res != null && !empty($resid)) {
 			$a_user = new AnonymousUser($userid);
 			$a_user->fname = $fname;
 			$a_user->lname = $lname;
-			$a_user->email = $email;
+			$a_user->email = $email_address;
 			$a_user->save();
 			
 			// Create temporary User object for inviting them			
@@ -69,7 +68,7 @@ if ($res != null && !empty($resid)) {
 			$user->userid = $userid;
 			$user->fname = $fname;
 			$user->lname = $lname;
-			$user->email = $email;
+			$user->email = $email_address;
 			$found_user = true;
 		}
 		else {
@@ -77,14 +76,14 @@ if ($res != null && !empty($resid)) {
 			$a_user = AnonymousUser::getNewUser();
 			$a_user->fname = $fname;
 			$a_user->lname = $lname;
-			$a_user->email = $email;
+			$a_user->email = $email_address;
 			$a_user->save();
 			
 			$user = new User();
 			$user->userid = $userid;
 			$user->fname = $fname;
 			$user->lname = $lname;
-			$user->email = $email;
+			$user->email = $email_address;
 			$found_user = true;
 		}
 		if ($found_user) {
@@ -99,15 +98,10 @@ if ($res != null && !empty($resid)) {
 			if (!$participating) {	
 				$accept_code = $res->db->get_new_id();
 				// Add the user to the invite list in the db
-				echo '<pre>';
-				print_r($res);
-				echo '</pre>';
 				$res->add_participant($user->userid, $accept_code);
 				// Send the invite email
 				$info[$user->userid] = $user->email;
-				echo 'before';
 				$res->invite_users($info, array(), $accept_code);
-				die('after');
 			}
 			else {
 				CmnFns::do_error_box(translate('You are already invited to this reservation. Please follow participation instructions previously sent to your email.'), '', false);

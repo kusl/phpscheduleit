@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-22-06
+* @version 06-11-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -25,7 +25,7 @@ function print_title($name) {
 * @param bool $is_blackout if this is a blackout
 */
 function begin_reserve_form($show_repeat, $is_blackout = false) {
-	echo '<form name="reserve" id="reserve" method="post" action="' . $_SERVER['PHP_SELF'] . '?is_blackout=' . intval($is_blackout) . '" style="margin: 0px"' . ">\n";	
+	echo '<form name="reserve" id="reserve" method="post" action="' . $_SERVER['PHP_SELF'] . '?is_blackout=' . intval($is_blackout) . '" style="margin: 0px"' . " onsubmit=\"return check_reservation_form(this);\">\n";	
 }
 
 /**

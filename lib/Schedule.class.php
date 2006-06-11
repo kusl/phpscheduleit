@@ -7,7 +7,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 06-02-06
+* @version 06-11-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -498,8 +498,10 @@ class Schedule {
         $showsummary = (($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlySummary'])) && $this->showsummary && !$is_private);
         $viewable = ($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlyDetails']));
         $summary->visible = $showsummary;
+		
+		$is_pending = Auth::isAdmin() ? 0 : $rs['is_pending'];
 
-		write_reservation($colspan, $color_select, $mod_view, $rs['resid'], $summary, $viewable, $this->scheduleType == READ_ONLY, $rs['is_pending']);
+		write_reservation($colspan, $color_select, $mod_view, $rs['resid'], $summary, $viewable, $this->scheduleType == READ_ONLY, $is_pending);
     }
 
     /**

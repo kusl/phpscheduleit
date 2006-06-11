@@ -5,7 +5,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 05-07-06
+* @version 06-11-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -82,9 +82,9 @@ class AdminDB extends DBEngine {
 			rs.name,
 			l.fname, l.lname, l.memberid
 			FROM ' . $this->get_table(TBL_RESERVATIONS) . ' as res'
+			. ' INNER JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' as ru ON res.resid = ru.resid'
 			. ' INNER JOIN ' . $this->get_table(TBL_LOGIN) . ' as l ON ru.memberid=l.memberid'
 			. ' INNER JOIN ' . $this->get_table(TBL_RESOURCES) . ' as rs ON res.machid=rs.machid'
-			. ' INNER JOIN ' . $this->get_table(TBL_RESERVATION_USERS) . ' as ru ON res.resid = ru.resid'
 			. $group_inner
 			. ' WHERE ru.owner = 1 AND res.is_blackout <> 1' . $group_and;
 

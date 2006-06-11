@@ -127,7 +127,7 @@ CREATE TABLE schedules (
   );
   
 # Create DEFAULT schedule #
-INSERT INTO schedules VALUES ('sc1423642970aa9f','default',480,1200,30,12,0,7,0,0,1,'admin@email.com',1,0);
+INSERT INTO schedules VALUES ('sc1423642970aa9f','default',480,1200,30,12,0,7,0,0,1,'admin@email.com',1);
 
 # Create indexes ON schedules table #
 CREATE INDEX sh_hidden ON schedules (ishidden);

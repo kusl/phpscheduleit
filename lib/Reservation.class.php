@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 06-02-06
+* @version 06-11-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -374,6 +374,8 @@ class Reservation {
 	*/
 	function approve_res($mod_recur) {
 		$this->type = RES_TYPE_APPROVE;
+		
+		$this->is_repeat = $mod_recur;
 
 		$this->db->approve_res($this, $mod_recur);
 		$where = 'WHERE resid = ?';
@@ -388,7 +390,7 @@ class Reservation {
 		for ($d = 0; $d < count($ds); $d++) {
 			$dates[] = $ds[$d]['start_date'];
 		}
-
+		
 		$this->send_email('e_app', $dates);
 
 		// Send out invites, if needed
@@ -400,9 +402,10 @@ class Reservation {
 					$userinfo[] = $this->users[$i]['memberid'] . '|' . $this->users[$i]['email'];
 				}
 			}
-			$this->invite_users($userinfo, $dates, $accept_code);
+			if (!empty($userinfo)) {
+				$this->invite_users($userinfo, $dates, $accept_code);
+			}
 		}
-
 		$this->print_success('approved', $dates);
 	}
 
@@ -681,8 +684,9 @@ class Reservation {
 		if ($this->is_repeat && count($repeat_dates) > 1) {
 			// Start at index = 1 because at index 0 is the parent date
 			$text .= translate_email('reservation_activity_2');
-			for ($d = 1; $d < count($repeat_dates); $d++)
+			for ($d = 1; $d < count($repeat_dates); $d++) {
 				$text .= Time::formatDate($repeat_dates[$d]) . "\r\n<br/>";
+			}
 			$text .= "\r\n<br/>";
 		}
 
@@ -884,7 +888,6 @@ EOT;
 			$mailer->ClearAllRecipients();
 			$mailer->AddAddress($email);
 			$mailer->Body = translate_email('reservation_invite', $this->user->get_name(), $this->resource->properties['name'], $start_date, $start, $end_date, $end, $this->summary, $dates_text, $accept_url, $decline_url, $conf['app']['title'], $url);
-			echo 'body ' . $mailer->Body;
 			$mailer->Send();
 		}
 	}
