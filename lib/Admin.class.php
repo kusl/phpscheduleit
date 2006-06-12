@@ -4,7 +4,7 @@
 *  data and settings in phpScheduleIt
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-24-06
+* @version 06-08-06
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -325,7 +325,7 @@ class Admin {
 	function sendMessage() {
 		global $conf;
 		$success = $fail = array();
-		$isWin32 = strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'win32');
+		//$isWin32 = strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'win32');
 
 		$usr = $_SESSION['usr'];
 		$msg = $_SESSION['msg'];
@@ -338,10 +338,10 @@ class Admin {
 		$mailer->From = $to;
 		// If emailAdmin is set to true, put them in cc
 		for ($i = 0; $i < count($usr); $i++) {
-			if ($isWin32 !== false)
+			//if ($isWin32 !== false)
 				$mailer->AddBCC($usr[$i]);
-			else
-				$mailer->AddAddress($usr[$i]);
+			//else
+			//	$mailer->AddAddress($usr[$i]);
 		}
 		$mailer->Subject = $sub;
 		$mailer->Body = $msg;
