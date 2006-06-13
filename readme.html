@@ -4,7 +4,8 @@
 	<head>
 		<title>Introduction to phpScheduleIt</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-		<style type="text/css"> <!-- li { font-size: 12px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; }
+		<style type="text/css"> 
+		<!-- li { font-size: 12px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; }
 	body { font-family: Verdana, Arial, Helvetica, sans-serif; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; background-color: #F0F0F0; }
 	p { font-size: 12px; margin-left: 25px; margin-top: 3px; }
 	h5 { margin-left: 10px; }
@@ -14,7 +15,8 @@
 	.row { background-color: #FFFFFF; color: #666666; padding-left: 10px; padding-right: 10px; font-size: 11px; padding-top: 1px; padding-bottom: 1px; }
 	.code { font-family: "Courier New", Courier, mono; }
 	.variable { font-size: 14px; font-weight: bold; margin-bottom: 0px; margin-top: 3px; }
-	--></style>
+	-->
+		</style>
 	</head>
 	<body bgcolor="#ffffff" text="#000000">
 		<h3 align="center"><a name="top" id="top"></a>Welcome to phpScheduleIt</h3>
@@ -113,8 +115,7 @@
 						(typing <i><b>mysql</b></i> at the shell prompt). Please note that all commands 
 						entered in the MySQL Monitor end with a semicolon. At the mysql prompt, type <i><b>show 
 								databases;</b></i>. You will be informed that the database has been 
-						changed.
-					</p>
+						changed.					</p>
 					<p>If the database that you just created is listed, then the installation was 
 						successful.</p>
 					<p>Type <b><i>quit;</i></b> to exit the MySQL Monitor.</p>
@@ -136,8 +137,7 @@
 						function, find the line that starts with "<span class="code">$this-&gt;dbs
         = array (xxxx);</span>" For each additional database that you want to associate with this 
 						version phpScheduleIt, add a comma and then the name of the database, in single 
-						quotes. For example, to use 2 databases the line would look like this:
-					</p>
+						quotes. For example, to use 2 databases the line would look like this:					</p>
 					<p class="code">$this-&gt;dbs = array ($GLOBALS['conf']['db']['dbName'], 
 						'name_of_database2');</p>
 					<p>Further down, find function
@@ -279,8 +279,7 @@
 					<p class="variable">$conf['app']['qmailPath']</p>
 					<p>
 						This defines the path to qmail. This only needs to be set if the emailType is 
-						'qmail' and the default value of '/var/qmail/bin/sendmail' will usually work.
-					</p>
+						'qmail' and the default value of '/var/qmail/bin/sendmail' will usually work.					</p>
 					<p class="variable">$conf['app']['defaultPassword']</p>
 					<p>This value is the default password that is used when the administrator resets a 
 						password for a user. This value is only used if the admin does not enter a new 
@@ -551,8 +550,7 @@
 						based on that column name. The sorting order will be preserved throughout 
 						pages.</p>
 					<p>To add a resource, enter the resource data into the Add Resource table at the 
-						bottom of the Manage Resources page.
-					</p>
+						bottom of the Manage Resources page.					</p>
 					<p>You will need to specify which schedule this resource belongs to. You will also 
 						need to set the minimum and maximum reservation lengths. Users will not be able 
 						to make reservations that are shorter than the minimum or longer than the 
@@ -621,8 +619,13 @@
 							Check Repeat Task and enter Every 5 minutes for 24 hours </LI>
 					</OL>
 					<P>For more info: <A href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/agent_change_schedule.mspx?mfr=true">
-							http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/agent_change_schedule.mspx?mfr=true</A></P>
+					  http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/agent_change_schedule.mspx?mfr=true</A></P>
 					<P>Linux Steps</P>
+					<ol><li>Open your crontab editor: crontab &ndash;e<br />
+			          </li>
+				      <li>Add a line to the crontab entry of    the user running the web server process to run the email reminder script. Replace the directory structure below with your phpScheduleIt install path: <br />
+					    <span class="code">1 * * * * cd /web/directory/phpscheduleit/cmd; ./send_reminders.php </span></li>
+				  </ol>
 					<h4>Other Admin Tools</h4>
 					<p>The administrator's Quick Links table is different than all others. <i>Manage Users</i>
 						and <i>Manage Resources</i> have been described already. The rest will be 
@@ -678,7 +681,7 @@
 						manually. <i>Manually editing the database can lead to data corruption and render 
 							the system unstable or useless.</i></p>
 					<h4>Changelog</h4>
-					<p>Version 1.2.0 (TBD)</p>
+					<p>Version 1.2.0 (2006-06-12)</p>
 					<p>- User groups<br />
 			      - Email reminders<br />
 		          - Ability to check reservation availability<br />
@@ -693,8 +696,8 @@
 					- Admin/group admin can add and edit user profile data<br />
 					- Ability to reserve additional resources on a reservation<br />
 					- RSS feeds<br />
-					- Update to PEAR version 1.4.9<br />
-					- Update to DB version 1.7.6<br />
+					- Update to <a href="pear.php.net" target="_blank">PEAR</a> version 1.98<br />
+					- Update to DB version 1.80<br />
 					- New language: Chinese (Traditional)<br />
 					- Minor bugfixes</p>
 					<p>Version 1.1.0 (2005-04-21)</p>
@@ -787,8 +790,7 @@
 					<h4>Credits</h4>
 					<p><em>Application Code</em></p>
 					<p>Nick Korbel &lt;lqqkout13@users.sourceforge.net&gt;<br>
-						David Poole &lt;David.Poole@fccc.edu&gt;
-					</p>
+						David Poole &lt;David.Poole@fccc.edu&gt;					</p>
 					<p><em>External Projects</em></p>
 					<p>PEAR Framework<br>
 						- <a href="http://pear.php.net">http://pear.php.net</a></p>
@@ -796,49 +798,50 @@
 						- <a href="http://sourceforge.net/projects/jscalendar/">http://sourceforge.net/projects/jscalendar/</a><br>
 						- <a href="http://dynarch.com/mishoo/">http://dynarch.com/mishoo/</a></p>
 					<p><em>Translations</em></p>
-					<p>Finnish (fi) translation<br>
-						- Veli-Matti Koukeri &lt;vmkoukeri@saunalahti.fi&gt;</p>
-					<p>French (fr) translation<br>
+					<p>Traditional Chinese (zh_TW)<br />
+					- Jing-Jong Shyue &lt;shyue@mail.shyue.idv.tw&gt;</p>
+					<p>Czech (cs)<br />
+					- &lt;jindrich@natur.cuni.cz&gt;</p>
+					<p>Finnish (fi)<br>
+					  - Veli-Matti Koukeri &lt;vmkoukeri@saunalahti.fi&gt;</p>
+					<p>French (fr)<br>
 						Application/Unit Testing<br>
 						- J. Pe. &lt;jpe@chez.com&gt;</p>
-					<p>German (de) translation<br>
+					<p>German (de)<br>
 						- Ilja Kogan &lt;ilja@linux.io&gt;<br>
 						- Anna &lt;majestic_12@users.sourceforge.net&gt;</p>
-					<p>Greek (el) translation<br>
-						- Socrates Katsoudas &lt;mx5gr@hotmail.com&gt;
-					</p>
-					<p>Hungarian (hu) translation<br>
+					<p>Greek (el)<br>
+						- Socrates Katsoudas &lt;mx5gr@hotmail.com&gt;					</p>
+					<p>Hungarian (hu)<br>
 						- Attila &lt;atoth@cmr.sote.hu&gt;</p>
-					<p>Italian (it) translation<br>
+					<p>Italian (it)<br>
 						- &lt;emiliano.meneghin@tin.it&gt;</p>
-					<p>Netherlands (nl) translation<br>
+					<p>Netherlands (nl)<br>
 						- &lt;gerbrand@teomech.ugent.be&gt;</p>
-					<p>European Portuguese (pt_PT) translation<br>
-						- Pedro Ramos &lt;pedro.ramos@tugatech.pt&gt;
-					</p>
-					<p>Brazillian Portuguese (pt_BR) translation<br>
-						- Thiago Moesch &lt;tmoesch@terra.com.br&gt;
-					</p>
-					<p>Spanish (es) translation<br>
-						- Josue Rojas &lt;josue_rojas@hotmail.com&gt;</p>
-					<p>Slovenian (sl) translation<br>
-						- Ernest Dras &lt;e.dras@hidra.si&gt;
-					</p>
-					<p>Swedish (sv) translation<br>
-						- Johan Sundström &lt;johan.sundstrom@vasterbottensmuseum.se&gt;
-					</p>
-					<p>Turkish (tr) translation<br>
-						- Ozcan Dogan &lt;ozcandogan@gmail.com&gt;
-					</p>
+					<p>European Portuguese (pt_PT)<br>
+						- Pedro Ramos &lt;pedro.ramos@tugatech.pt&gt;					</p>
+					<p>Brazillian Portuguese (pt_BR)<br>
+						- Thiago Moesch &lt;tmoesch@terra.com.br&gt;					</p>
+					<p>Russian (ru)<br />
+					- Sergey Salnikov &lt;salnsg@gmail.com&gt;</p>
+					<p>Spanish (es)<br>
+					  - Josue Rojas &lt;josue_rojas@hotmail.com&gt;</p>
+					<p>Slovak (sk)<br />
+					- Mari&aacute;n Mur&iacute;n &lt;murin@netkosice.sk&gt;</p>
+					<p>Slovenian (sl)<br>
+					  - Ernest Dras &lt;e.dras@hidra.si&gt;					</p>
+					<p>Swedish (sv)<br>
+						- Johan Sundström &lt;johan.sundstrom@vasterbottensmuseum.se&gt;					</p>
+					<p>Turkish (tr)<br>
+						- Ozcan Dogan &lt;ozcandogan@gmail.com&gt;					</p>
 					<h4>Resources</h4>
 					<p>
 						<a href="http://phpscheduleit.sourceforge.net" target="_blank">http://phpscheduleit.sourceforge.net</a><br>
 						<a href="http://www.php.net" target="_blank">http://www.php.net</a><br>
 						<a href="http://www.mysql.com" target="_blank">http://www.mysql.com</a><br>
 						<a href="http://www.pear.php.net" target="_blank">http://www.pear.php.net</a><br>
-						<a href="http://www.oracle.com" target="_blank">http://www.oracle.com</a></p>
-				</td>
-			</tr>
+						<a href="http://www.oracle.com" target="_blank">http://www.oracle.com</a></p>				</td>
+		  </tr>
 		</table>
 	</body>
 </html>
