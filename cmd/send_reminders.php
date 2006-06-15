@@ -3,17 +3,17 @@
 * Sends all pending email reminders
 * This file is meant to be run from the command line and has no HTML output
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-06-06
+* @version 06-14-06
 * @package phpScheduleIt Command Line
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
 
-$basedir = dirname(__FILE__) . '/../';
-include_once($basedir . 'lib/db/ReminderDB.class.php');
-include_once($basedir . 'lib/Reminder.class.php');
-include_once($basedir . 'lib/ReminderEmail.class.php');
+$basedir = dirname(__FILE__) . '/..';
+require_once($basedir . '/lib/Reminder.class.php');
+require_once($basedir . '/lib/db/ReminderDB.class.php');
+require_once($basedir . '/lib/ReminderEmail.class.php');
 
 $max_date = date(REMINDER_DATE_FORMAT);
 $reminder = new Reminder();
