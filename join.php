@@ -2,7 +2,7 @@
 /**
 * Handles the self activation for users joining a reservation
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 06-11-06
+* @version 06-17-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -31,31 +31,20 @@ $found_user = false;
 $res = new Reservation($resid);
 
 if ($res != null && !empty($resid)) {
-	if (!empty($userid)) {	
-		$user = new User($userid);
-		if ($user != null) {
-			$userid = $user->get_id();
-			$fname = $user->get_fname();
-			$lname = $user->get_lname();
-			$email_address = $user->get_email();
-			$found_user = true;
-		}
-		else {
-			$found_user = false;
-		}
-	}
+	$found_user = findUser($userid);
+	
 	// Validate data
 	if (validate_data($userid, $fname, $lname, $email) == '') {
 		$user = new User();
 		// Load get the userid or create one if the data is ok
 		// First see if we have a user with this email address
-		if ( ($userid = $user->get_id_by_email($email)) != false ) {
+		if ( ($userid == $user->get_id_by_email($email)) != false ) {
 			// Invite the user we found in the database
 			$user = new User($userid);
 			$userid = $user->get_id();
 			$found_user = true;
 		}
-		else if ( ($userid = AnonymousUser::get_id_by_email($email)) != false ) {
+		else if ( ($userid == AnonymousUser::get_id_by_email($email)) != false ) {
 			// There is an anonymous user with this email already, update info
 			$a_user = new AnonymousUser($userid);
 			$a_user->fname = $fname;
@@ -98,9 +87,9 @@ if ($res != null && !empty($resid)) {
 			if (!$participating) {	
 				$accept_code = $res->db->get_new_id();
 				// Add the user to the invite list in the db
-				$res->add_participant($user->userid, $accept_code);
+				$res->add_participant($userid, $accept_code);
 				// Send the invite email
-				$info[$user->userid] = $user->email;
+				$info[$userid] = $user->email;
 				$res->invite_users($info, array(), $accept_code);
 			}
 			else {
@@ -123,6 +112,28 @@ echo '<p align="center"><a href="javascript:close();">' . translate('Close') . '
 
 $t->endMain();
 $t->printHTMLFooter();
+
+
+function findUser($userid) {
+	$found_user = false;
+	
+	if (!empty($userid)) {	
+		$user = new User($userid);
+		if ($user != null) {
+			$userid = $user->get_id();
+			$fname = $user->get_fname();
+			$lname = $user->get_lname();
+			$email_address = $user->get_email();
+			$found_user = true;
+		}
+		else {
+			$found_user = false;
+		}
+	}
+	
+	return $found_user;
+}
+
 
 /**
 * Makes sure that the data entered is ok

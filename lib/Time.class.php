@@ -2,7 +2,7 @@
 /**
 * Time formatting and calculation functions
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-11-06
+* @version 05-17-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -101,12 +101,11 @@ class Time
 		$start_ts = $res_ts + (60 * $res_time);
 		$res_ts = Time::getAdjustedTime($start_ts);
 
-		if (empty($format)) {
-			$key = empty($format_key) ? 'general_date' : $format_key;
-			$format = $dates[$key];
+		if (empty($format_key)) {
+			$format_key = 'general_date';
 		}
 
-		return strftime($format, $res_ts);
+		return translate_date($format_key, $res_ts);
 	}
 
 	/**

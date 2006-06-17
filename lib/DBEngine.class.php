@@ -69,6 +69,7 @@ class DBEngine {
 
         // Make persistant connection to database
         $db = DB::connect($dsn, true);
+		$db->setOption('portability', DB_PORTABILITY_ALL);
     
         // If there is an error, print to browser, print to logfile and kill app
         if (DB::isError($db)) {

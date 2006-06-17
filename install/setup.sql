@@ -7,7 +7,7 @@ use phpScheduleIt;
 CREATE TABLE announcements (
     announcementid CHAR(16) NOT NULL PRIMARY KEY,
     announcement VARCHAR(255) NOT NULL DEFAULT '',
-    number SMALLINT(3) NOT NULL DEFAULT '0',
+    number SMALLINT NOT NULL DEFAULT '0',
     start_datetime INTEGER,
     end_datetime INTEGER
 );
@@ -32,7 +32,7 @@ CREATE TABLE login (
   e_app CHAR(1) NOT NULL DEFAULT 'y',
   e_html CHAR(1) NOT NULL DEFAULT 'y',
   logon_name VARCHAR(30),
-  is_admin SMALLINT(1) DEFAULT 0,
+  is_admin SMALLINT DEFAULT 0,
   lang VARCHAR(5),
   timezone FLOAT NOT NULL DEFAULT 0
   );
@@ -54,11 +54,11 @@ CREATE TABLE reservations (
   created INTEGER NOT NULL,
   modified INTEGER,
   parentid CHAR(16),
-  is_blackout SMALLINT(1) NOT NULL DEFAULT 0,
-  is_pending SMALLINT(1) NOT NULL DEFAULT 0,
+  is_blackout SMALLINT NOT NULL DEFAULT 0,
+  is_pending SMALLINT NOT NULL DEFAULT 0,
   summary TEXT,
-  allow_participation SMALLINT(1) NOT NULL DEFAULT 0,
-  allow_anon_participation SMALLINT(1) NOT NULL DEFAULT 0
+  allow_participation SMALLINT NOT NULL DEFAULT 0,
+  allow_anon_participation SMALLINT NOT NULL DEFAULT 0
   );
 
 # Create indexes ON reservations table #
@@ -85,9 +85,9 @@ CREATE TABLE resources (
   status CHAR(1) NOT NULL DEFAULT 'a',
   minres INTEGER NOT NULL,
   maxres INTEGER NOT NULL,
-  autoassign SMALLINT(1),
-  approval SMALLINT(1),
-  allow_multi SMALLINT(1),
+  autoassign SMALLINT,
+  approval SMALLINT,
+  allow_multi SMALLINT,
   max_participants INTEGER,
   min_notice_time INTEGER,
   max_notice_time INTEGER
@@ -119,11 +119,11 @@ CREATE TABLE schedules (
   timeformat INTEGER NOT NULL,
   weekdaystart INTEGER NOT NULL,
   viewdays INTEGER NOT NULL,
-  usepermissions SMALLINT(1),
-  ishidden SMALLINT(1),
-  showsummary SMALLINT(1),
+  usepermissions SMALLINT,
+  ishidden SMALLINT,
+  showsummary SMALLINT,
   adminemail VARCHAR(75),
-  isdefault SMALLINT(1)
+  isdefault SMALLINT
   );
   
 # Create DEFAULT schedule #
@@ -148,10 +148,10 @@ CREATE INDEX sp_memberid ON schedule_permission (memberid);
 CREATE TABLE reservation_users (
   resid CHAR(16) NOT NULL,
   memberid CHAR(16) NOT NULL,
-  owner SMALLINT(1),
-  invited SMALLINT(1),
-  perm_modify SMALLINT(1),
-  perm_delete SMALLINT(1),
+  owner SMALLINT,
+  invited SMALLINT,
+  perm_modify SMALLINT,
+  perm_delete SMALLINT,
   accept_code CHAR(16),
   PRIMARY KEY(resid, memberid)
   );
@@ -184,7 +184,7 @@ CREATE INDEX ar_status ON additional_resources (status);
 CREATE TABLE reservation_resources (
   resid CHAR(16) NOT NULL,
   resourceid CHAR(16) NOT NULL,
-  owner SMALLINT(1),
+  owner SMALLINT,
   PRIMARY KEY(resid, resourceid)
   );
 
@@ -211,7 +211,7 @@ CREATE TABLE groups (
 CREATE TABLE user_groups (
   groupid CHAR(16) NOT NULL,
   memberid CHAR(50) NOT NULL,
-  is_admin SMALLINT(1) NOT NULL DEFAULT 0,
+  is_admin SMALLINT NOT NULL DEFAULT 0,
   PRIMARY KEY(groupid, memberid)
   );
 

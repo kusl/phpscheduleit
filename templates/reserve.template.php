@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 06-11-06
+* @version 06-17-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -443,7 +443,7 @@ function print_join_form_tags() {
 	<input type="hidden" name="h_join_userid" value=""/>
 	<input type="hidden" name="h_join_resid" value=""/>
 </form>
-<form name="reserve_check" id="reserve_check" method="post" action="reserve.php" style="margin:0px;"
+<form name="reserve_check" id="reserve_check" method="post" action="reserve.php" style="margin:0px;">
 </form>
 <?php
 }

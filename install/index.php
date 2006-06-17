@@ -10,7 +10,7 @@
 * making them database independent.
 *
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-13-06
+* @version 06-17-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -167,6 +167,7 @@ function doLogin() {
 
     // Make connection to database
     $db = DB::connect($dsn);
+	$db->setOption('portability', DB_PORTABILITY_ALL);
 
     // If there is an error, print to browser, print to logfile and kill app
     if (DB::isError($db)) {
@@ -226,7 +227,7 @@ function doCreate() {
 					array( "CREATE TABLE announcements (
 								announcementid CHAR(16) NOT NULL PRIMARY KEY,
 								announcement VARCHAR(255) NOT NULL DEFAULT '',
-								number SMALLINT(3) NOT NULL DEFAULT '0',
+								number SMALLINT NOT NULL DEFAULT '0',
 								start_datetime INTEGER,
 								end_datetime INTEGER
 							)", 'Creating announcement table'),
@@ -248,7 +249,7 @@ function doCreate() {
 							  e_app CHAR(1) NOT NULL DEFAULT 'y',
 							  e_html CHAR(1) NOT NULL DEFAULT 'y',
 							  logon_name VARCHAR(30),
-							  is_admin SMALLINT(1) DEFAULT 0,
+							  is_admin SMALLINT DEFAULT 0,
 							  lang VARCHAR(5),
 							  timezone FLOAT NOT NULL DEFAULT 0
 							  )", 'Creating login table'),
@@ -268,11 +269,11 @@ function doCreate() {
 							  created INTEGER NOT NULL,
 							  modified INTEGER,
 							  parentid CHAR(16),
-							  is_blackout SMALLINT(1) NOT NULL DEFAULT 0,
-							  is_pending SMALLINT(1) NOT NULL DEFAULT 0,
+							  is_blackout SMALLINT NOT NULL DEFAULT 0,
+							  is_pending SMALLINT NOT NULL DEFAULT 0,
 							  summary TEXT,
-							  allow_participation SMALLINT(1) NOT NULL DEFAULT 0,
-							  allow_anon_participation SMALLINT(1) NOT NULL DEFAULT 0
+							  allow_participation SMALLINT NOT NULL DEFAULT 0,
+							  allow_anon_participation SMALLINT NOT NULL DEFAULT 0
 							  )', 'Creating reservations table'),
 					// Create reservations indexes
 					array ('CREATE INDEX res_machid ON reservations (machid)', 'Creating index'),
@@ -297,9 +298,9 @@ function doCreate() {
 							  status CHAR(1) NOT NULL DEFAULT 'a',
 							  minres INTEGER NOT NULL,
 							  maxres INTEGER NOT NULL,
-							  autoassign SMALLINT(1),
-							  approval SMALLINT(1),
-							  allow_multi SMALLINT(1),
+							  autoassign SMALLINT,
+							  approval SMALLINT,
+							  allow_multi SMALLINT,
 							  max_participants INTEGER,
 							  min_notice_time INTEGER,
 							  max_notice_time INTEGER
@@ -327,11 +328,11 @@ function doCreate() {
 							  timeformat INTEGER NOT NULL,
 							  weekdaystart INTEGER NOT NULL,
 							  viewdays INTEGER NOT NULL,
-							  usepermissions SMALLINT(1),
-							  ishidden SMALLINT(1),
-							  showsummary SMALLINT(1),
+							  usepermissions SMALLINT,
+							  ishidden SMALLINT,
+							  showsummary SMALLINT,
 							  adminemail VARCHAR(75),
-							  isdefault SMALLINT(1)
+							  isdefault SMALLINT
 							  )", 'Creating table schedules'),
 					// Create schedule indexes
 					array ('CREATE INDEX sh_hidden ON schedules (ishidden)', 'Creating index'),
@@ -349,10 +350,10 @@ function doCreate() {
 					array ("CREATE TABLE reservation_users (
 							  resid CHAR(16) NOT NULL,
 							  memberid CHAR(16) NOT NULL,
-							  owner SMALLINT(1),
-							  invited SMALLINT(1),
-							  perm_modify SMALLINT(1),
-							  perm_delete SMALLINT(1),
+							  owner SMALLINT,
+							  invited SMALLINT,
+							  perm_modify SMALLINT,
+							  perm_delete SMALLINT,
 							  accept_code CHAR(16),
 							  PRIMARY KEY(resid, memberid)
 							  )", 'Creating table reservation_users'),
@@ -381,7 +382,7 @@ function doCreate() {
 					array ("CREATE TABLE reservation_resources (
 							  resid CHAR(16) NOT NULL,
 							  resourceid CHAR(16) NOT NULL,
-							  owner SMALLINT(1),
+							  owner SMALLINT,
 							  PRIMARY KEY(resid, resourceid)
 							  )", 'Creating table reservation_resources'),
 					// Create reservation_resources indexes
@@ -404,7 +405,7 @@ function doCreate() {
 					array ("CREATE TABLE user_groups (
 							  groupid CHAR(16) NOT NULL,
 							  memberid CHAR(50) NOT NULL,
-							  is_admin SMALLINT(1) NOT NULL DEFAULT 0,
+							  is_admin SMALLINT NOT NULL DEFAULT 0,
 							  PRIMARY KEY(groupid, memberid)
 							  )", 'Creating table user_groups'),
 					// Create user/group relationship indexes

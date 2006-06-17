@@ -4,10 +4,10 @@ USE phpscheduleIt;
 ALTER TABLE resources ADD COLUMN max_participants INTEGER;
 
 # Add support for uninvited participation
-ALTER TABLE reservations ADD COLUMN allow_participation SMALLINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE reservations ADD COLUMN allow_participation SMALLINT NOT NULL DEFAULT 0;
 
 # Add support for anonymous participation
-ALTER TABLE reservations ADD COLUMN allow_anon_participation SMALLINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE reservations ADD COLUMN allow_anon_participation SMALLINT NOT NULL DEFAULT 0;
 
 # Create anonymous user table #
 CREATE TABLE anonymous_users (
@@ -33,7 +33,7 @@ CREATE INDEX ar_status ON additional_resources (status);
 CREATE TABLE reservation_resources (
   resid CHAR(16) NOT NULL,
   resourceid CHAR(16) NOT NULL,
-  owner SMALLINT(1),
+  owner SMALLINT,
   PRIMARY KEY(resid, resourceid)
   );
 
@@ -53,7 +53,7 @@ ALTER TABLE reservations CHANGE startTime starttime INTEGER NOT NULL;
 ALTER TABLE reservations CHANGE endTime endtime INTEGER NOT NULL;
 ALTER TABLE resources CHANGE minRes minres INTEGER NOT NULL;
 ALTER TABLE resources CHANGE maxRes maxres INTEGER NOT NULL;
-ALTER TABLE resources CHANGE autoAssign autoassign SMALLINT(1);
+ALTER TABLE resources CHANGE autoAssign autoassign SMALLINT;
 
 ALTER TABLE schedules CHANGE scheduleTitle scheduletitle CHAR(75);
 ALTER TABLE schedules CHANGE dayStart daystart INTEGER NOT NULL;
@@ -62,11 +62,11 @@ ALTER TABLE schedules CHANGE timeSpan timespan INTEGER NOT NULL;
 ALTER TABLE schedules CHANGE timeFormat timeformat INTEGER NOT NULL;
 ALTER TABLE schedules CHANGE weekDayStart weekdaystart INTEGER NOT NULL;
 ALTER TABLE schedules CHANGE viewDays viewdays INTEGER NOT NULL;
-ALTER TABLE schedules CHANGE usePermissions usepermissions SMALLINT(1);
-ALTER TABLE schedules CHANGE isHidden ishidden SMALLINT(1);
-ALTER TABLE schedules CHANGE showSummary showsummary SMALLINT(1);
+ALTER TABLE schedules CHANGE usePermissions usepermissions SMALLINT;
+ALTER TABLE schedules CHANGE isHidden ishidden SMALLINT;
+ALTER TABLE schedules CHANGE showSummary showsummary SMALLINT;
 ALTER TABLE schedules CHANGE adminEmail adminemail CHAR(75);
-ALTER TABLE schedules CHANGE isDefault isdefault SMALLINT(1);
+ALTER TABLE schedules CHANGE isDefault isdefault SMALLINT;
 
 # Add support for groups #
 CREATE TABLE groups (
@@ -77,7 +77,7 @@ CREATE TABLE groups (
 CREATE TABLE user_groups (
   groupid CHAR(16) NOT NULL,
   memberid CHAR(50) NOT NULL,
-  is_admin SMALLINT(1) NOT NULL DEFAULT 0
+  is_admin SMALLINT NOT NULL DEFAULT 0
   );
 
 CREATE INDEX usergroups_groupid ON user_groups (groupid);
