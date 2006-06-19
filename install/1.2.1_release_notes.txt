@@ -1,6 +1,6 @@
 =================================================
-=   phpScheduleIt 1.2.0         Release Notes   =
-=                  06/12/2006                   =
+=   phpScheduleIt 1.2.1         Release Notes   =
+=                  06/19/2006                   =
 =                                               =
 =     http://phpscheduleit.sourceforge.net      =
 =        lqqkout13@users.sourceforge.net        =
@@ -10,7 +10,7 @@
 -------------------------------------------------
 -                   Overview                    -
 -------------------------------------------------
-	The purpose of this document is to describe the 1.2.0
+	The purpose of this document is to describe the 1.2.1
 release and how to contribute to the project.
 
 Please see the readme.html file for setup instructions,
@@ -18,27 +18,17 @@ general program information, and the changelog.
 
 
 -------------------------------------------------
--              Changes from 1.1.0               -
+-              Changes from 1.2.0               -
 -------------------------------------------------
 +               Summary of changes              +
 
 
-- User groups
-- Email reminders
-- Ability to check reservation availability
-- iCalendar/vCalendar exports 
-- Minimum and maximum reservation dates
-- Support for user-specific timezones
-- Non-invited users can participate in a reservation
-- Non-registered users can participate in a reservation
-- Resource specific maximum number of reservation participants
-- Admin/group admin can add and edit user profile data
-- Ability to reserve additional resources on a reservation
-- RSS feeds
-- Update to PEAR version 1.98
-- Update to DB version 1.80
-- New language: Chinese (Traditional)
-- Minor bugfixes
+This is a bugfix only release and contains no new features.
+- Bugfix: Web-based update was missing needed SQL calls
+- Bugfix: Participation self-join failed
+- Bugfix: Update to all installs for better PostgreSQL support
+- Bugfix: Date translation was using PHP's localization
+- Bugfix: Reminder emails were failing
 
 -------------------------------------------------
 -          Instructions for translators         -
@@ -56,7 +46,7 @@ with a "//@since 1.2.0" comment.
 -------------------------------------------------
 FEATURES/BUGFIXES
 	If you have written a new feature or fixed a bug in the code,
-please submit all changed files or a diff file to nkorbel@php.brickhost.com.
+please submit all changed files or a diff file to lqqkout13@users.sourceforge.net.
 	
 TRANSLATIONS
 	If you have a translation complete, please email the language
