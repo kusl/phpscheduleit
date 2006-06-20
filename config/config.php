@@ -11,7 +11,7 @@
 */
 /***************************************
 * phpScheduleIt                        *
-* Version 1.2.0 beta                   *
+* Version 1.2.1                        *
 * http://phpscheduleit.sourceforge.net *
 *                                      *
 * Nick Korbel                          *
@@ -192,7 +192,7 @@ $conf['db']['hostSpec'] = 'localhost';
 
 // If we should drop (or overwrite) an existing database with the same name during installation [0]
 // Can be 0 (for no) or 1 (for yes)
-$conf['db']['drop_old'] = 1;
+$conf['db']['drop_old'] = 0;
 
 // Prefix to attach to all program-generated primary keys [sc1]
 // This will be used to create unique primary keys when multiple databases are being used
