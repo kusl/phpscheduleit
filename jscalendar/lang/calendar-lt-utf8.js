@@ -1,4 +1,4 @@
-// ** I18N
+﻿// ** I18N
 
 // Calendar LT language
 // Author: Martynas Majeris, <martynas@solmetra.lt>
@@ -16,7 +16,7 @@ Calendar._DN = new Array
  "Antradienis",
  "Trečiadienis",
  "Ketvirtadienis",
- "Pentadienis",
+ "Penktadienis",
  "Šeštadienis",
  "Sekmadienis");
 
@@ -42,6 +42,10 @@ Calendar._SDN = new Array
  "Pen",
  "Šeš",
  "Sek");
+
+// First day of the week. "0" means display Sunday first, "1" means display
+// Monday first, etc.
+Calendar._FD = 1;
 
 // full month names
 Calendar._MN = new Array
@@ -103,6 +107,12 @@ Calendar._TT["DRAG_TO_MOVE"] = "Tempkite";
 Calendar._TT["PART_TODAY"] = " (šiandien)";
 Calendar._TT["MON_FIRST"] = "Pirma savaitės diena - pirmadienis";
 Calendar._TT["SUN_FIRST"] = "Pirma savaitės diena - sekmadienis";
+
+// This may be locale-dependent.  It specifies the week-end days, as an array
+// of comma-separated numbers.  The numbers are from 0 to 6: 0 means Sunday, 1
+// means Monday, etc.
+Calendar._TT["WEEKEND"] = "0,6";
+
 Calendar._TT["CLOSE"] = "Uždaryti";
 Calendar._TT["TODAY"] = "Šiandien";
 Calendar._TT["TIME_PART"] = "Spustelkite arba tempkite jei norite pakeisti";
