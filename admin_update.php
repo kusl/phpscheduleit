@@ -479,14 +479,14 @@ function check_schedule_data($data) {
 	if (intval($data['daystart']) >= intval($data['dayend']))
 		array_push($msg, translate('Invalid start/end times'));
 	else {
-		$rs['daystart']	= $data['daystart'];
-		$rs['dayend']	= $data['dayend'];
+		$rs['daystart']	= intval($data['daystart']);
+		$rs['dayend']	= intval($data['dayend']);
 	}
 
-	$rs['weekdaystart']	= $data['weekdaystart'];
-	$rs['timespan'] = $data['timespan'];
-	$rs['ishidden'] = $data['ishidden'];
-	$rs['showsummary'] = $data['showsummary'];
+	$rs['weekdaystart']	= intval($data['weekdaystart']);
+	$rs['timespan'] = intval($data['timespan']);
+	$rs['ishidden'] = intval($data['ishidden']);
+	$rs['showsummary'] = intval($data['showsummary']);
 
 	if (empty($data['viewdays']) || $data['viewdays'] <= 0)
 		array_push($msg, translate('View days is required'));
