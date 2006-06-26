@@ -23,7 +23,7 @@ function print_calendars(&$prev, &$next, &$curr) {
 <!-- Start calendars -->
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="center" valign="top"><?$prev->printCalendar()?></td>
+    <td align="center" valign="top"><?php $prev->printCalendar()?></td>
 	<?php
 	if ($curr != null) {
 		echo '<td align="center" valign="top">';
@@ -31,7 +31,7 @@ function print_calendars(&$prev, &$next, &$curr) {
 		echo '</td>';
 	}
 	?>
-	<td align="center" valign="top"><?$next->printCalendar()?></td>
+	<td align="center" valign="top"><?php $next->printCalendar()?></td>
   </tr>
 </table>
 <!-- End calendars -->
