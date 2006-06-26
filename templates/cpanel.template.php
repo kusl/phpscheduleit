@@ -50,7 +50,7 @@ function showAnnouncementTable($announcements) {
               <?php
 				// Cycle through and print out announcements
                 if (!$announcements) {
-                    echo "<li>There are no announcements.</li>\n";
+                    echo "<li>".translate('There are no announcements').".</li>\n";
                 } else {
                     // For each reservation, clean up the date/time and print it
                     for ($i = 0; is_array($announcements) && $i < count($announcements); $i++) {
