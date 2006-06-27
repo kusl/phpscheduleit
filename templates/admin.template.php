@@ -917,7 +917,9 @@ function print_announce_edit($rs, $edit, &$pager) {
 					$s_min = ($start_date_ok) ? date('i', $rs['start_datetime']) : '';
 					$s_pm = ($start_date_ok) ? intval(date('H', $rs['start_datetime'])) >= 12 : false;
 					echo ' @ <input type="text" maxlength="2" size="2" class="textbox" name="start_hour" value="' . $s_hour . '"/> : <input type="text" maxlength="2" size="2" class="textbox" name="start_min" value="' . $s_min . '"/>';
-					echo ' <select name="start_ampm" class="textbox"><option value="am">' . translate('am') . '</option><option value="pm"' . (($s_pm) ? ' selected="selected"' : '') . '>' . translate('pm') . '</option></select>';
+					if ($conf['app']['timeFormat'] == 12) {
+						echo ' <select name="start_ampm" class="textbox"><option value="am">' . translate('am') . '</option><option value="pm"' . (($s_pm) ? ' selected="selected"' : '') . '>' . translate('pm') . '</option></select>';
+					}
 					echo ' <input type="checkbox" name="use_start_time"' . ($start_date_ok ? ' checked="checked"' : ''). '/> ' . translate('Use start date/time?');
 				?>
 			</td>
@@ -930,7 +932,9 @@ function print_announce_edit($rs, $edit, &$pager) {
 					$s_min = ($end_date_ok) ? date('i', $rs['end_datetime']) : '';
 					$s_pm = ($end_date_ok) ? intval(date('H', $rs['end_datetime'])) >= 12 : false;
 					echo ' @ <input type="text" maxlength="2" size="2" class="textbox" name="end_hour" value="' . $s_hour . '"/> : <input type="text" maxlength="2" size="2" class="textbox" name="end_min" value="' . $s_min . '"/>';
-					echo ' <select name="end_ampm" class="textbox"><option value="am">' . translate('am') . '</option><option value="pm"' . (($s_pm) ? ' selected="selected"' : '') . '>' . translate('pm') . '</option></select>';
+					if ($conf['app']['timeFormat'] == 12) {
+						echo ' <select name="end_ampm" class="textbox"><option value="am">' . translate('am') . '</option><option value="pm"' . (($s_pm) ? ' selected="selected"' : '') . '>' . translate('pm') . '</option></select>';
+					}
 					echo ' <input type="checkbox" name="use_end_time"' . ($end_date_ok ? ' checked="checked"' : ''). '/> ' . translate('Use end date/time?');
 				?>
 			</td>
