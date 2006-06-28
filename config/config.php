@@ -172,6 +172,7 @@ $conf['app']['minPasswordLength'] = 6;
     sybase -> SyBase
     ifx    -> Informix
     fbsql  -> FrontBase
+    ibm_db2-> IBM DB2 UDB
 */
 $conf['db']['dbType'] = 'mysql';
 
