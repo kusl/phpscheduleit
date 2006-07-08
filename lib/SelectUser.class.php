@@ -4,7 +4,7 @@
 * Allow searching and selection of a user
 * Perform user specified function when selected
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-02-05
+* @version 07-08-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -43,9 +43,9 @@ class SelectUser {
 		$this->pager->setViewLimitSelect(false);
 
 		if (!empty($fname) || !empty($lname)) {
-			$num   = $this->db->get_num_search_recs($fname, $lname);
+			$num = $this->db->get_num_user_recs($fname, $lname);
 			$this->pager->setTotRecords($num);
-			$this->users = $this->db->search_users($fname, $lname, $this->pager, $orders);	
+			$this->users = $this->db->search_users($this->pager, $orders, $fname, $lname);	
 		}
 		else {
 			$num = $this->db->get_num_admin_recs('login');	// Get number of records

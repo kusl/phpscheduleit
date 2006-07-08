@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 06-17-06
+* @version 07-08-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -185,7 +185,7 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 				echo '<td>' . translate('No advanced options available') . '</td>';
 			}
 			else {
-				if ($is_owner) {
+				if ($is_owner && $res->type != RES_TYPE_APPROVE && $res->type != RES_TYPE_DELETE) {
 					echo '<td width="200" align="center">';
 				
 					// Print select boxes

@@ -5,21 +5,15 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 06-11-06
+* @version 07-08-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
-/**
-* Base directory of application
-*/
-@define('BASE_DIR', dirname(__FILE__) . '/../..');
 
-/**
-* DBEngine class
-*/
-include_once(BASE_DIR . '/lib/DBEngine.class.php');
+$basedir = dirname(__FILE__) . '/../..';
+include_once($basedir . '/lib/DBEngine.class.php');
 
 class AdminDB extends DBEngine {
 
@@ -380,9 +374,9 @@ class AdminDB extends DBEngine {
 		$inner_join = '';
 		$where = '';
 		$values = array();
-		$group_list = $this->make_in_list($groupids);
-
+				
 		if (!empty($groupids)) {
+			$group_list = $this->make_in_list($groupids);
 			$inner_join = ' INNER JOIN ' . $this->get_table(TBL_USER_GROUPS) . ' ug ON l.memberid = ug.memberid AND ug.groupid IN (' . $group_list . ')';
 		}
 		if (!empty($fname) || !empty($lname) ) {
@@ -409,9 +403,9 @@ class AdminDB extends DBEngine {
 		$inner_join = '';
 		$where = '';
 		$values = array();
-		$group_list = $this->make_in_list($groupids);
 
 		if (!empty($groupids)) {
+			$group_list = $this->make_in_list($groupids);
 			$inner_join = ' INNER JOIN ' . $this->get_table(TBL_USER_GROUPS) . ' ug ON l.memberid = ug.memberid AND ug.groupid IN (' . $group_list . ')';
 		}
 		if (!empty($fname) || !empty($lname) ) {
