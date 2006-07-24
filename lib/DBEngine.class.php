@@ -211,7 +211,7 @@ class DBEngine {
 			$orders = substr($orders, 0, strlen($orders)-1);
 		}
         
-		$query = 'SELECT res.*, resusers.*, rs.name, rs.location, rs.rphone FROM '
+		$query = 'SELECT res.*, resusers.*, rs.name, rs.rphone FROM '
                     . $this->get_table('reservations') . ' as res INNER JOIN '
                     . $this->get_table('resources') . ' as rs ON rs.machid=res.machid INNER JOIN '
                     . $this->get_table('reservation_users') . ' as resusers ON resusers.resid=res.resid'
@@ -466,10 +466,12 @@ class DBEngine {
     * @param object $result result object of query
     */
     function check_for_error($result) {
-        if (DB::isError($result))
+        if (DB::isError($result)) {
             CmnFns::do_error_box(translate('There was an error executing your query') . '<br />'
-                . $result->getMessage()
+                . $result->getMessage() . ' ' . $result->getDebugInfo()
                 . '<br />' . '<a href="javascript: history.back();">' . translate('Back') . '</a>');
+			CmnFns::write_log($result->getMessage().' '.$result->getDebugInfo());               
+        }               
         return false;
     }
     

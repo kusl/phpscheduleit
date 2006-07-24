@@ -183,6 +183,19 @@ function checkAddResource(f) {
 	return true;
 }
 
+function checkAddLocation(f) {
+	var msg = "";
+	
+	if (f.street1.value=="")
+		msg+="-Street1 value is required.\n";
+	if (msg!="") {
+		alert("You have the following errors:\n\n"+msg);
+		return false;
+	}
+	
+	return true;
+}
+
 function checkAddSchedule() {
 	var f = document.addSchedule;
 	var msg = "";

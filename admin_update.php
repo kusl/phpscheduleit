@@ -54,7 +54,11 @@ $tools = array (
 
 				'addGroup' => 'add_group',
 				'editGroup' => 'edit_group',
-				'delGroup' => 'del_group'
+				'delGroup' => 'del_group',
+
+				'addLocation' => 'add_location',
+				'editLocation' => 'edit_location',
+				'delLocation' => 'del_location'
 				 );
 
 if (!isset($tools[$fn]) && !isset($tools[$fn])) {		// Validate tool
@@ -254,6 +258,51 @@ function del_resource() {
 
 	$db->del_resource($_POST['machid']);
 	CmnFns::write_log('Resources deleted. ' . join(', ', $_POST['machid']), $_SESSION['sessionID']);
+	print_success();
+}
+
+/**
+* Adds a location to the database
+* @param none
+*/
+function add_location() {
+	global $db;
+	global $conf;
+
+	$location = check_location_data(CmnFns::cleanPostVals());
+	$id = $db->add_location($location);
+
+	CmnFns::write_log('Location added. ' . $location['street1'], $_SESSION['sessionID']);
+	print_success();
+}
+
+/**
+* Edits location data
+* @param none
+*/
+function edit_location() {
+	global $db;
+
+	$location = check_location_data(CmnFns::cleanPostVals());
+	$db->edit_location($location);
+
+	CmnFns::write_log('Location edited. ' . $location['name'] . ' ' . $location['machid'], $_SESSION['sessionID']);
+	print_success();
+}
+
+/**
+* Deletes a list of locations
+* @param none
+*/
+function del_location() {
+	global $db;
+
+	// Make sure machids are checked
+	if (empty($_POST['machid']))
+		print_fail(translate('You did not select any locations to delete.'));
+
+	$db->del_location($_POST['machid']);
+	CmnFns::write_log('Locations deleted. ' . join(', ', $_POST['machid']), $_SESSION['sessionID']);
 	print_success();
 }
 
@@ -651,7 +700,12 @@ function check_resource_data($data) {
 	}
 
 	$rs['rphone']	= $data['rphone'];
-	$rs['location'] = $data['location'];
+	if (empty($data['locid'])) {
+		$msg[] = translate('Valid location must be selected');
+	}
+	else {
+		$rs['locid'] = $data['locid'];
+	}
 	$rs['notes']	= $data['notes'];
 
 	if (isset($data['autoassign'])) {
@@ -689,6 +743,40 @@ function check_resource_data($data) {
 	}
 	else {
 		$msg[] = translate('Maximum booking notice is required.');
+	}
+
+	if (!empty($msg)) {
+		print_fail($msg, $data);
+	}
+
+	return $rs;
+}
+
+/**
+* Validates location data
+* Throws an error if it is not valid
+* @param array $data array of data to validate
+* @return validated data
+*/
+function check_location_data($data) {
+	$rs = array();
+	$msg = array();
+
+	if (empty($data['street1'])) {
+		$msg[] = translate('Street1 value is required.');
+	}
+	else {
+		$rs['street1'] = $data['street1'];
+	}
+
+	$rs['street2']	= $data['street2'];
+	$rs['city']	= $data['city'];
+	$rs['state']	= $data['state'];
+	$rs['zip']	= $data['zip'];
+	$rs['country']	= $data['country'];
+
+	if (isset($data['locid'])) {
+		$rs['locid'] = $data['locid'];
 	}
 
 	if (!empty($msg)) {
