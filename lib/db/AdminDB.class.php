@@ -685,6 +685,10 @@ class AdminDB extends DBEngine {
 		// Delete permissions
 		$result = $this->db->query('DELETE FROM ' . $this->get_table(TBL_PERMISSION) . ' WHERE machid IN (' . $rs_list . ')');
 		$this->check_for_error($result);
+		
+		// Delete out of the location_resources table
+		$result = $this->db->query('DELETE FROM ' . $this->get_table(TBL_LOCATION_RESOURCES) . ' WHERE resid IN (' . $rs_list . ')');
+		$this->check_for_error($result);
 	}
 
 	/**
@@ -757,41 +761,35 @@ class AdminDB extends DBEngine {
 
 	/**
 	* Deletes a list of locations from the database
-	* @param array $rs list of machids to delete
+	* @param array $rs list of locids to delete
 	*/
 	function del_location($rs) {
 		$rs_list = $this->make_del_list($rs);
 
-//		// Get all the ids of reservations that are associated with these schedules
-//		$result = $this->db->query('SELECT resid FROM ' . $this->get_table(TBL_RESERVATIONS) . ' WHERE machid IN (' . $rs_list . ')');
-//		$this->check_for_error($result);
-//		$results = array();
-//		while ($rs = $result->fetchRow()) {
-//			$results[] = $rs['resid'];
-//		}
-//
-//		$resids = $this->make_del_list($results);
-//		$result->free();
-//
-//		// Delete out of the reservation_users table
-//		$result = $this->db->query('DELETE FROM ' . $this->get_table(TBL_RESERVATION_USERS) . ' WHERE resid IN (' . $resids . ')');
-//		$this->check_for_error($result);
-//
-//		// Delete out of the reservations table
-//		$result = $result = $this->db->query('DELETE FROM ' . $this->get_table(TBL_RESERVATIONS) . ' WHERE machid IN (' . $rs_list . ')');
-//		$this->check_for_error($result);
-//
-//		// Delete resources
-//		$result = $this->db->query('DELETE FROM ' . $this->get_table(TBL_RESOURCES) . ' WHERE machid IN (' . $rs_list . ')');
-//		$this->check_for_error($result);
-//
-//		// Delete all reservations and the associated record in reservation_users using these resources
-//		//$result = $this->db->query('DELETE r, ru FROM ' . $this->get_table('reservations') . ' r LEFT JOIN ' . $this->get_table('reservation_users') . ' ru ON r.resid = ru.resid WHERE r.machid IN (' . $rs_list . ')');
-//		//$this->check_for_error($result);
-//
-//		// Delete permissions
-//		$result = $this->db->query('DELETE FROM ' . $this->get_table(TBL_PERMISSION) . ' WHERE machid IN (' . $rs_list . ')');
-//		$this->check_for_error($result);
+		// Select first already associated locations to resources
+		$result = $this->db->query('SELECT locid FROM ' . $this->get_table(TBL_LOCATION_RESOURCES) . ' WHERE locid IN (' . $rs_list . ')');
+		$this->check_for_error($result);
+		$results = array();
+		while ($rs = $result->fetchRow()) {
+			$results[] = $rs['locid'];
+		}
+		
+		$locids = $this->make_del_list($results);
+		
+		// Select only unassociated locations to resources
+		$result = $this->db->query('SELECT locid FROM ' . $this->get_table(TBL_LOCATIONS) . ' WHERE locid NOT IN (' . $locids . ')');
+		$this->check_for_error($result);
+		$results = array();
+		while ($rs = $result->fetchRow()) {
+			$results[] = $rs['locid'];
+		}
+
+		$locids = $this->make_del_list($results);
+		$result->free();
+
+		// Delete out of the locations table
+		$result = $this->db->query('DELETE FROM ' . $this->get_table(TBL_LOCATIONS) . ' WHERE locid IN (' . $locids . ')');
+		$this->check_for_error($result);
 	}
 
 	/**

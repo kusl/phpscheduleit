@@ -298,11 +298,11 @@ function del_location() {
 	global $db;
 
 	// Make sure machids are checked
-	if (empty($_POST['machid']))
+	if (empty($_POST['locid']))
 		print_fail(translate('You did not select any locations to delete.'));
 
-	$db->del_location($_POST['machid']);
-	CmnFns::write_log('Locations deleted. ' . join(', ', $_POST['machid']), $_SESSION['sessionID']);
+	$db->del_location($_POST['locid']);
+	CmnFns::write_log('Locations deleted. ' . join(', ', $_POST['locid']), $_SESSION['sessionID']);
 	print_success();
 }
 
