@@ -79,7 +79,6 @@ CREATE TABLE resources (
   machid CHAR(16) NOT NULL PRIMARY KEY,
   scheduleid CHAR(16) NOT NULL,
   name VARCHAR(75) NOT NULL,
-  location VARCHAR(250),
   rphone VARCHAR(16),
   notes TEXT,
   status CHAR(1) NOT NULL DEFAULT 'a',
