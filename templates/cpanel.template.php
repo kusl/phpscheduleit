@@ -83,6 +83,7 @@ function showAnnouncementTable($announcements) {
 */
 function showReservationTable($res, $err) {
 	global $link;
+	global $conf;
 	$order = array('start_date', 'end_date', 'name', 'starttime', 'endtime', 'created', 'modified');
 	$util = new Utility();
 ?>
@@ -137,12 +138,17 @@ function showReservationTable($res, $err) {
 
     // For each reservation, clean up the date/time and print it
 	for ($i = 0; is_array($res) && $i < count($res); $i++) {
+		$bgcolor = '';
 		$rs = $res[$i];
 		$class = 'cellColor' . ($i%2);
+		if ($res[$i]['is_pending']) {
+			$class = 'cpanelCell';
+			$bgcolor = '#' . $conf['ui']['pending'][0]['color'];
+		}
         $modified = (isset($rs['modified']) && !empty($rs['modified'])) ?
 		Time::formatDateTime($rs['modified']) : 'N/A';
-        echo "        <tr class=\"$class\" align=\"center\">"
-					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
+        echo "        <tr class=\"$class\" align=\"center\" style=\"background-color:$bgcolor;\">"
+					. "          <td>" . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['start_date'], $rs['starttime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td>' . $link->getLink("javascript: reserve('v','','','" . $rs['resid']. "');", Time::formatReservationDate($rs['end_date'], $rs['endtime']), '', '', translate('View this reservation')) . '</td>'
 					. '          <td style="text-align:left;">' . $rs['name'] . '</td>'
 					. '          <td>' . Time::formatTime($rs['starttime']) . '</td>'
@@ -416,7 +422,6 @@ function showQuickLinks($is_admin = false, $is_group_admin = false) {
 				'<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=schedules', translate('Manage Schedules')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('blackouts.php', translate('Manage Blackout Times')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=resources', translate('Manage Resources')) . "</p>\n"				
-				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=locations', translate('Manage Locations')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=announcements', translate('Manage Announcements')) . "</p>\n"
 				. '<p style="margin-top:10px;"><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=groups', translate('Manage Groups')) . "</p>\n";
 			}

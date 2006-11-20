@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 06-11-06
+* @version 09-16-06
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -297,7 +297,9 @@ class Reservation {
 		$reminder->setDB(new ReminderDB());
 
 		$tmp_valid = false;
-
+		
+		$this->is_pending = $this->resource->get_property('approval');
+		
 		if ($this->is_repeat) {				// Check and place all recurring reservations
 			$recurs = $this->db->get_recur_ids($this->parentid, mktime(0,0,0));
 
@@ -420,7 +422,7 @@ class Reservation {
 			. '</script>';
 		$date_text = '';
 		for ($i = 0; $i < count($dates); $i++) {
-			$date_text .= Time::formatDate($dates[$i]) . '<br/>';
+			$date_text .= Time::formatReservationDate($dates[$i], $this->start) . '<br/>';
 		}
 		CmnFns::do_message_box(translate('Your ' . $this->word . ' was successfully ' . $verb)
 					. (($this->type != 'd') ? ' ' . translate('for the follwing dates') . '<br /><br />' : '.')
@@ -637,8 +639,8 @@ class Reservation {
 		$url        = CmnFns::getScriptURL();
 
 		// Format date
-		$start_date   = Time::formatDate($this->start_date);
-		$end_date	  = Time::formatDate($this->end_date);
+		$start_date   = Time::formatReservationDate($this->start_date, $this->start);
+		$end_date	  = Time::formatReservationDate($this->end_date, $this->end);
 		$start  = Time::formatTime($this->get_start());
 		$end    = Time::formatTime($this->get_end());
 

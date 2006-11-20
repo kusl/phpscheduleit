@@ -214,8 +214,8 @@ class Pager {
 	function initQueryString() {
 	    if (isset($_SERVER['QUERY_STRING'])) {
 			// Remove page from query string and convert all "&" to "&amp;"
-			$this->query_string = str_replace('&', '&amp;', preg_replace("/(&|&amp;)?$this->page_var=\d*/",'',$_SERVER['QUERY_STRING']));
-			
+			$this->query_string = str_replace('&', '&amp;', preg_replace("/(&|&amp;)?$this->page_var=\d*(&|&amp;)/",'',$_SERVER['QUERY_STRING']));
+
 			// Insert limit into querystring, if it's not there
 			if ( !strstr($this->query_string, "$this->limit_var=") )
 				$this->query_string .= "&amp;$this->limit_var=" . $this->limit;

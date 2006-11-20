@@ -3,7 +3,7 @@
 * DBEngine class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-27-06
+* @version 08-08-06
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -69,7 +69,7 @@ class DBEngine {
 
         // Make persistant connection to database
         $db = DB::connect($dsn, true);
-		$db->setOption('portability', DB_PORTABILITY_ALL);
+		@$db->setOption('portability', DB_PORTABILITY_ALL);
     
         // If there is an error, print to browser, print to logfile and kill app
         if (DB::isError($db)) {
@@ -211,7 +211,7 @@ class DBEngine {
 			$orders = substr($orders, 0, strlen($orders)-1);
 		}
         
-		$query = 'SELECT res.*, resusers.*, rs.name, rs.rphone FROM '
+		$query = 'SELECT res.*, resusers.*, rs.name, rs.location, rs.rphone FROM '
                     . $this->get_table('reservations') . ' as res INNER JOIN '
                     . $this->get_table('resources') . ' as rs ON rs.machid=res.machid INNER JOIN '
                     . $this->get_table('reservation_users') . ' as resusers ON resusers.resid=res.resid'
@@ -466,12 +466,10 @@ class DBEngine {
     * @param object $result result object of query
     */
     function check_for_error($result) {
-        if (DB::isError($result)) {
+        if (DB::isError($result))
             CmnFns::do_error_box(translate('There was an error executing your query') . '<br />'
-                . $result->getMessage() . ' ' . $result->getDebugInfo()
+                . $result->getMessage()
                 . '<br />' . '<a href="javascript: history.back();">' . translate('Back') . '</a>');
-			CmnFns::write_log($result->getMessage().' '.$result->getDebugInfo());               
-        }               
         return false;
     }
     

@@ -112,6 +112,11 @@ Table border color
     background-color: #36648B;
 }
 
+.cpanelCell td {
+    padding: 2px;
+    font-size: 11px;
+}
+
 /*
 Common data cell settings
 */
@@ -479,14 +484,14 @@ div.mycal_div {
 	cursor: default;
 } 
 
-.export_menu td.export_menu_over {
+.export_menu, td.export_menu_over {
 	background-color: #FFFFFF;
 	cursor:pointer;
 }
 
 div.textbox, div.blur_textbox {
 	border: solid 1px #666666;
-	padding: 2px;"
+	padding: 2px;
 }
 
 div.blur_textbox {

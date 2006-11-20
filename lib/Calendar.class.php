@@ -206,7 +206,7 @@ class Calendar {
 			
 		$prevMonth = $this->month-1;
         ?>
-        		<td style="width: 33%;" class="navMonthStyle"><a href="javascript: changeDate(<?php echo $prevMonth . ',' . $prevYear?>);"><?php echo "&lt; " . strftime("%b",mktime(0,0,0,$prevMonth,1,$prevYear))  ?></a></td>
+        		<td style="width: 33%;" class="navMonthStyle"><a href="javascript: changeDate(<?php echo $prevMonth . ',' . $prevYear?>);"><?php echo "&lt; " . substr($months_full[date('n',mktime(0,0,0,$prevMonth,1,$prevYear))-1],0,3)  ?></a></td>
         		<td style="width: 33%">
         		  <select name="monthselect" onchange="document.forms[0].month.value=document.forms[0].monthselect.options[monthselect.selectedIndex].value; document.forms[0].submit();" class="selectBoxStyle">
         <?php
@@ -222,7 +222,7 @@ class Calendar {
 				  <input type="hidden" name="month" value="<?php echo $this->month ?>" />
 				  <input type="hidden" name="scheduleid" value="<?php echo $this->scheduleid?>" />
         		</td>
-        		<td style="width: 33%;" class="navMonthStyle"><a href="javascript: changeDate(<?php echo $nextMonth . ',' . $nextYear?>);"><?php echo strftime("%b",mktime(0,0,0,$nextMonth,1,$nextYear)) . " &gt;" ?></a></td>
+        		<td style="width: 33%;" class="navMonthStyle"><a href="javascript: changeDate(<?php echo $nextMonth . ',' . $nextYear?>);"><?php echo substr($months_full[date('n',mktime(0,0,0,$nextMonth,1,$nextYear))-1],0,3) . " &gt;" ?></a></td>
         	  </tr>
             </table>
           </form>

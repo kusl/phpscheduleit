@@ -183,19 +183,6 @@ function checkAddResource(f) {
 	return true;
 }
 
-function checkAddLocation(f) {
-	var msg = "";
-	
-	if (f.street1.value=="")
-		msg+="-Street1 value is required.\n";
-	if (msg!="") {
-		alert("You have the following errors:\n\n"+msg);
-		return false;
-	}
-	
-	return true;
-}
-
 function checkAddSchedule() {
 	var f = document.addSchedule;
 	var msg = "";
@@ -235,7 +222,7 @@ function check_reservation_form(f) {
 	var is_repeat = false;
 	var msg = "";
 	
-	if (f.interval.value != "none") {
+	if ((typeof f.interval != 'undefined') && f.interval.value != "none") {
 		is_repeat = true;
 		if (f.interval.value == "week" || f.interval.value == "month_day") {
 			for (var i=0; i < f.elements["repeat_day[]"].length; i++) {
@@ -719,14 +706,14 @@ function openExport(type, id, start, end) {
 	var qs = 'type=' + type;
 	
 	if (id.length > 0) {
-		qs += "resid=" + id;
+		qs += "&resid=" + id;
 	}
 	else {
 		if (start.length > 0) {
-			qs += "start_date=" + start; 	
+			qs += "&start_date=" + start; 	
 		}
 		if (end.length >0) {
-			qs += "end_date=" + end;	
+			qs += "&end_date=" + end;	
 		}
 	}
 	

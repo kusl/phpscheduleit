@@ -59,7 +59,7 @@ class Auth {
 	function is_logged_in() {
 		return isset($_SESSION['sessionID']);
 	}
-	
+
 	/**
 	* Returns the currently logged in user's userid
 	* @param none
@@ -82,14 +82,14 @@ class Auth {
 	function doLogin($uname, $pass, $cookieVal = null, $isCookie = false, $resume = '', $lang = '') {
 		global $conf;
 		$msg = '';
-		
+
 		if (empty($resume)) $resume = 'ctrlpnl.php';		// Go to control panel by default
 
 		$_SESSION['sessionID'] = null;
 		$_SESSION['sessionName'] = null;
 		$_SESSION['sessionAdmin'] = null;
 		$_SESSION['hourOffset'] = null;
-			
+
 		$uname = stripslashes($uname);
 		$pass = stripslashes($pass);
 		$ok_user = $ok_pass = false;
@@ -109,48 +109,48 @@ class Auth {
 			}
 		}
 		else {
-		
+
 		  if( $conf['ldap']['authentication'] ) {
-		  
+
 		    // Include LDAPEngine class
             include_once('LDAPEngine.class.php');
-		  
+
             $ldap = new LDAPEngine($uname, $pass);
-                       
+
 	        if( $ldap->connected() ) {
-            
+
                 $mail = $ldap->getUserEmail();
-                
+
                 if( $mail ) {
-                
+
                     $id = $this->db->userExists( $mail );
-                    
+
                     if( $id ) {
                         // check if LDAP and local DB are in consistancy.
                         $updates = $ldap->getUserData();
-                        
+
                         if( $this->db->check_updates( $id, $updates ) ) {
                             $this->db->update_user( $id, $updates );
                         }
-                                         
+
                     } else {
                         $data = $ldap->getUserData();
                         $id = $this->do_register_user( $data, false );
                     }
-                    
+
                     $ok_user = true; $ok_pass = true;
-                
+
                 }
 				else {
                     $msg .= translate('This system requires that you have an email address.');
-            	}               
+            	}
             }
 			else {
                 $msg .= translate('Invalid User Name/Password.');
             }
-            
+
             $ldap->disconnect();
-		  
+
 		  }
 		  else {
 			// If we cant find email, set message and flag
@@ -171,14 +171,14 @@ class Auth {
 		  }
         }
 
-        
+
 		// If the login failed, notify the user and quit the app
 		if (!$ok_user || !$ok_pass) {
 			$msg .= translate('You can try');
 			return $msg;
 		}
 		else {
-		
+
 			$this->is_loggedin = true;
 			$user = new User($id);	// Get user info
 
@@ -198,14 +198,14 @@ class Auth {
 			$_SESSION['sessionID'] = $user->get_id();
 			$_SESSION['sessionName'] = $user->get_fname();
 			$_SESSION['hourOffset'] = $user->get_timezone() - $conf['app']['timezone'];
-			
+
 			if ($lang != '') {
 				set_language($lang);
 				if ($lang != $user->get_lang()) {
 					$user->set_lang($lang);		// Language changed so update the DB
-				}			
+				}
 			}
-			
+
 			// Send them to the control panel
 			CmnFns::redirect(urldecode($resume));
 		}
@@ -231,7 +231,7 @@ class Auth {
 
 			// Clear out all cookies
 			setcookie('ID', '', time()-3600, '/');
-			
+
 			// Refresh page
 			CmnFns::redirect($_SERVER['PHP_SELF']);
 		}
@@ -262,16 +262,16 @@ class Auth {
 		$id = $this->db->insertMember($data);
 
 		$this->db->autoassign($id);		// Give permission on auto-assigned resources
-		
+
 		$mailer = new PHPMailer();
 		$mailer->IsHTML(false);
-		
+
 		// Email user informing about successful registration
 		$subject = $conf['ui']['welcome'];
 		$msg = translate_email('register',
 								$data['fname'], $conf['ui']['welcome'],
-								$data['fname'], $data['lname'],
 								(isset($data['logon_name']) ? $data['logon_name'] : $data['emailaddress']),
+								$data['fname'], $data['lname'],
 								$data['phone'],
 								$data['institution'],
 								$data['position'],
@@ -294,7 +294,7 @@ class Auth {
 								$data['phone'],
 								$data['institution'],
 								$data['position']);
-			
+
 			$mailer->ClearAllRecipients();
 			$mailer->AddAddress($adminemail);
 			$mailer->Subject = $subject;
@@ -308,12 +308,12 @@ class Auth {
 				if (isset($data['setCookie'])) {
 					setcookie('ID', $id, time() + 2592000, '/');
 				}
-		
+
 				// If it is the admin, set session variable
 				if ($data['emailaddress'] == $adminemail) {
 					$_SESSION['sessionAdmin'] = $adminemail;
 				}
-		
+
 				// Set other session variables
 				$_SESSION['sessionID'] = $id;
 				$_SESSION['sessionName'] = $data['fname'];
@@ -324,7 +324,7 @@ class Auth {
 		CmnFns::write_log('New user registered. Data provided: fname- ' . $data['fname'] . ' lname- ' . $data['lname']
 						. ' email- '. $data['emailaddress'] . ' phone- ' . $data['phone'] . ' institution- ' . $data['institution']
 						. ' position- ' . $data['position'], $id);
-		
+
 		if( !$conf['ldap']['authentication'] ) {
 			$url = 'ctrlpnl.php';
 			if ($adminCreated){
@@ -332,7 +332,7 @@ class Auth {
 			}
 			CmnFns::redirect($url, 1, false);
 			$link = CmnFns::getNewLink();
-			
+
 			$this->success = translate('You have successfully registered') . '<br/>' . $link->getLink($url, translate('Continue'));
 		}
 		else {
@@ -356,31 +356,31 @@ class Auth {
 		}
 
 		$this->db->update_user($data['memberid'], $data);
-		
+
 		if (!$adminUpdate) {
 			$adminemail = strtolower($conf['app']['adminEmail']);
 			// If it is the admin, set session variable
 			if ($data['emailaddress'] == $adminemail) {
 				$_SESSION['sessionAdmin'] = $adminemail;
 			}
-	
+
 			// Set other session variables
 			$_SESSION['sessionName'] = $data['fname'];
 			$_SESSION['hourOffset'] = $data['timezone'] - $conf['app']['timezone'];
 		}
-		
+
 		CmnFns::write_log('User data modified. Data provided: fname- ' . $data['fname'] . ' lname- ' . $data['lname']
 						. ' email- '. $data['emailaddress'] . ' phone- ' . $data['phone'] . ' institution- ' . $data['institution']
 						. ' position- ' . $data['position'], $data['memberid']);
-		
+
 		$link = CmnFns::getNewLink();
-		
+
 		$url = 'ctrlpnl.php';
 		if ($adminUpdate){
 			$url = 'admin.php?tool=users';
 		}
-		
-		$this->success = translate('Your profile has been successfully updated!') . '<br/>' . $link->getLink($url, translate('Continue'));	
+
+		$this->success = translate('Your profile has been successfully updated!') . '<br/>' . $link->getLink($url, translate('Continue'));
 	}
 
 
@@ -392,9 +392,9 @@ class Auth {
 	function check_all_values(&$data, $is_edit) {
 		global $conf;
 		$use_logonname = (bool)$conf['app']['useLogonName'];
-	
+
 		$msg = '';
-		
+
 		if ($use_logonname && empty($data['logon_name'])) {
 			$msg .= translate('Valid username is required') . '<br/>';
 		}
@@ -417,10 +417,10 @@ class Auth {
 		}
 		if(!empty($data['phone'])) {
 			$data['phone'] = htmlspecialchars($data['phone']);
-		}		
+		}
 		if (!empty($data['institution'])) {
 			$data['institution'] = htmlspecialchars($data['institution']);
-		}		
+		}
 		if (!empty($data['position'])) {
 			$data['position'] = htmlspecialchars($data['position']);
 		}
@@ -441,14 +441,14 @@ class Auth {
 						$msg .= translate('That logon name is taken already.') . '<br/>';
 					}
 				}
-    
+
                 if (!empty($data['password'])) {
                     if (strlen($data['password']) < $conf['app']['minPasswordLength'])
                         $msg .= translate('Min 6 character password is required.', array($conf['app']['minPasswordLength'])) . '<br/>';
                     if ($data['password'] != $data['password2'])
                         $msg .= translate('Passwords do not match.') . '<br/>';
                 }
-    
+
                 unset($user);
             }
             else {
@@ -466,7 +466,7 @@ class Auth {
 				}
             }
         }
-        
+
 		return $msg;
 	}
 	/**
@@ -528,7 +528,7 @@ class Auth {
 	function print_login_msg($kill = true) {
 		CmnFns::redirect(CmnFns::getScriptURL() . '/index.php?auth=no&resume=' . urlencode($_SERVER['PHP_SELF']) . '?' . urlencode($_SERVER['QUERY_STRING']));
 	}
-	
+
 	/**
 	* Prints out the latest success box
 	* @param none

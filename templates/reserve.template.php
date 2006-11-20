@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 07-08-06
+* @version 10-05-06
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -605,6 +605,9 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
             default : $msg = translate('Reserved time');
                 break;
         }
+		if ((bool)$res->get_pending()) {
+			$msg .= ' (' . translate('Pending Approval') . ')';		
+		}
         echo $msg;
 ?>
         </h5>
@@ -616,13 +619,16 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 	   </tr>
       <tr>
 <?php
-		$start_date = Time::getAdjustedDate($res->get_start_date(), $res->get_start());
-		$end_date = Time::getAdjustedDate($res->get_end_date(), $res->get_end());
-        
+		$start_date = $res->get_start_date();
+		$end_date = $res->get_end_date();
+		
+		$display_start_date = Time::getAdjustedDate($res->get_start_date(), $res->get_start());
+		$display_end_date = Time::getAdjustedDate($res->get_end_date(), $res->get_end());
+		
 		// Show reserved time or select boxes depending on type
         if ( ($type == RES_TYPE_ADD) || ($type == RES_TYPE_MODIFY) || ($type == RES_TYPE_APPROVE) ) {
             // Start time select box
-            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($start_date) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '" onchange="checkCalendarDates();"/>';
+            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($display_start_date, '', false) . '</div><input type="hidden" id="hdn_start_date" name="start_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $start_date) . '" onchange="checkCalendarDates();"/>';
 			if ($allow_multi) {
 				echo '<a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_start_date" alt="' . translate('Start') . '"/></a>'
                    . '<br/><br/>';
@@ -640,7 +646,7 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
             echo "</select>\n</td>\n";
 
             // End time select box
-            echo '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . Time::formatDate($end_date) . '</div><input type="hidden" id="hdn_end_date" name="end_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $end_date) . '" onchange="checkCalendarDates();"/>';
+            echo '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . Time::formatDate($display_end_date, '', false) . '</div><input type="hidden" id="hdn_end_date" name="end_date" value="' . date('m' . INTERNAL_DATE_SEPERATOR . 'd' . INTERNAL_DATE_SEPERATOR . 'Y', $end_date) . '" onchange="checkCalendarDates();"/>';
 			if ($allow_multi) {
 			echo '<a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_end_date" alt="' . translate('End') . '"/></a>'
                    . '<br/><br/>';
@@ -666,8 +672,8 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 			}
         }
         else {
-            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($start_date) . '</div>' . Time::formatTime($res->get_start()) . "</td>\n"
-			      . '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . Time::formatDate($end_date) . '</div>' . Time::formatTime($res->get_end()) . "</td>\n";
+            echo '<td class="formNames" width="50%"><div id="div_start_date" style="float:left;width:86px;">' . Time::formatDate($start_date, '', false) . '</div>' . Time::formatTime($res->get_start()) . "</td>\n"
+			      . '<td class="formNames"><div id="div_end_date" style="float:left;width:86px;">' . Time::formatDate($end_date, '', false) . '</div>' . Time::formatTime($res->get_end()) . "</td>\n";
 
         }
         // Close off table

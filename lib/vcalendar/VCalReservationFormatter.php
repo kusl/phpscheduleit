@@ -10,16 +10,16 @@
 */
 
 $basedir = dirname(__FILE__) . '/../..';
-require_once($basedir . '/interfaces/ICalReservationFormatter.php');
+require_once($basedir . '/lib/icalendar/ICalReservationFormatter.php');
 
 class VCalReservationFormatter extends ICalReservationFormatter
 {
 	var $_reservation;
 
 	function VCalReservationFormatter() {
-		
+
 	}
-	
+
 	function setReservation(&$reservation) {
 		$this->_reservation = $reservation;
 	}
@@ -44,13 +44,13 @@ class VCalReservationFormatter extends ICalReservationFormatter
 
 	function formatReminder() {
 		$builder = new StringBuilder();
-		
+
 		if ($this->_reservation->reminder_minutes_prior != 0) {
 			$reminder_time = $this->_reservation->start + ($this->_reservation->start * 60) - ($this->_reservation->reminder_minutes_prior * 60);
 			$adjusted = Time::getAdjustedTime($reminder_time);
 			$builder->append( sprintf(
-							"DALARM:%sT%sZ\r\n", 
-							date('Ymd', $adjusted), 
+							"DALARM:%sT%sZ\r\n",
+							date('Ymd', $adjusted),
 							date('His', $adjusted)
 							));
 		}

@@ -1,7 +1,7 @@
 <?php
 /**
 * Italian (it) translation file
-*  
+*
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @translator <emiliano.meneghin@tin.it>
 * @translator <paolo.ponzano@gmail.com>
@@ -15,7 +15,7 @@
 // INSTRUCTIONS
 ///////////////////////////////////////////////////////////
 // This file contains all of the strings that are used throughout phpScheduleit.
-// 
+//
 // To make phpScheduleIt available in another language, simply translate each
 //  of the following strings into the appropriate one for the language.  Please be sure
 //  to make the proper additions the /config/langs.php file (instructions are in the file).
@@ -59,7 +59,7 @@ $charset = 'iso-8859-1';
 
 /***
   DAY NAMES
-  All of these arrays MUST start with Sunday as the first element 
+  All of these arrays MUST start with Sunday as the first element
    and go through the seven day week, ending on Saturday
 ***/
 // The full day name
@@ -103,7 +103,7 @@ $dates['schedule_daily'] = '%A,<br/>%d/%m/%Y';
 $dates['header'] = '%A, %B %d, %Y';
 // Jump box format on bottom of the schedule page
 // This must only include %m %d %Y in the proper order,
-//  other specifiers will be ignored and will corrupt the jump box 
+//  other specifiers will be ignored and will corrupt the jump box
 $dates['jumpbox'] = '%d %m %Y';
 
 /***
@@ -371,7 +371,7 @@ $strings['My Past Reservations'] = 'Le Mie Prenotazioni Passate';
 $strings['Other Reservations'] = 'Altre Prenotazioni';
 $strings['Other Past Reservations'] = 'Altre Prenotazioni Passate';
 $strings['Blacked Out Time'] = 'Blacked Out Time';
-$strings['Set blackout times'] = 'Imposta blackout per %s su %s'; 
+$strings['Set blackout times'] = 'Imposta blackout per %s su %s';
 $strings['Reserve on'] = 'Riserva %s su %s';
 $strings['Prev Week'] = '&laquo; Settimana Prec';
 $strings['Jump 1 week back'] = 'Salta 1 settimana indietro';
@@ -777,7 +777,7 @@ $email['reservation_activity_7'] = "%s,\r\n<br />"
 			. "Please use this reservation number when contacting the administrator with any questions.\r\n\r\n<br/><br/>"
 			. "A reservation between %s %s and %s %s for %s"
 			. " located at %s has been %s.\r\n\r\n<br/><br/>";
-			
+
 // Email that the user gets when the administrator changes their password
 $email['password_reset'] = "La tua  %s password è stata resettata dall'amministratore.\r\n\r\n"
 			. "La tua password temporanea è:\r\n\r\n %s\r\n\r\n"
@@ -808,9 +808,17 @@ $email['reservation_removal'] = "You have been removed from the following reserv
 		. "End Date: %s\r\n"
 		. "End Time: %s\r\n"
 		. "Summary: %s\r\n"
-		. "Repeated Dates (if present): %s\r\n\r\n";	
+		. "Repeated Dates (if present): %s\r\n\r\n";
 
 // @since 1.2.0
 // Email body that is sent for reminders
 $email['Reminder Body'] = "Your reservation for %s from %s %s to %s %s is approaching.";
+
+// Email that the user gets when they change their lost password using the 'Password Reset' form
+$email['new_password'] = "%s,\r\n\r\n"
+. "la tua nuova password di %s è: "
+. "%s\r\n\r\n\r\n"
+. "Ora puoi accedere su: %s utilizzando la nuova password.\r\n\r\n"
+. "Ricordati però di cambiarla appena possibile cliccando su \"Pannello di Controllo\" -> \"Cambia Profilo\".\r\n\r\n"
+. "Per maggiori informazioni scrivi a: %s.\r\n\r\n\r\n";
 ?>
