@@ -4,7 +4,7 @@
 *  data and settings in phpScheduleIt
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 07-08-06
+* @version 01-25-07
 * @package Admin
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -90,7 +90,7 @@ class Admin {
 	*/
 	function isUserAllowed() {
 		$allowed = false;
-		
+
 		if ($this->user->get_isadmin()) {
 			$allowed = true;
 		}
@@ -178,7 +178,7 @@ class Admin {
 		if (isset($_GET['groupid'])) {
 			 $groupids = array($_GET['groupid']);
 		}
-		else if ($this->user->is_group_admin()) {
+		else if (!Auth::isAdmin() && $this->user->is_group_admin()) {
 			$groupids = $this->user->get_admin_groups();
 		}
 

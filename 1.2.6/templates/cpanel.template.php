@@ -6,7 +6,7 @@
 * @author Adam Moore
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-01-06
+* @version 01-25-07
 * @package Templates
 *
 * Copyright (C) 2003 - 2006 phpScheduleIt
@@ -86,6 +86,7 @@ function showReservationTable($res, $err) {
 	global $conf;
 	$order = array('start_date', 'end_date', 'name', 'starttime', 'endtime', 'created', 'modified');
 	$util = new Utility();
+	$qs = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
   <tr>
@@ -93,7 +94,7 @@ function showReservationTable($res, $err) {
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr>
           <td class="tableTitle" width="120">
-		  	<a href="javascript: void(0);" onclick="showHideCpanelTable('reservation');">&#8250; <?php echo translate('My Reservations')?></a></div>		
+		  	<a href="javascript: void(0);" onclick="showHideCpanelTable('reservation');">&#8250; <?php echo translate('My Reservations')?></a></div>
 		  </td>
 		  <td class="tableTitle" width="20">
 		  	<?php $link->doImageLink('export.php', 'img/export.gif', 'Export Reservations'); ?>
@@ -109,22 +110,22 @@ function showReservationTable($res, $err) {
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr class="rowHeaders">
           <td width="10%">
-		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'start_date'), translate('Start Date')); ?>
+		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($qs, 'start_date'), translate('Start Date')); ?>
 		  </td>
 		  <td width="10%">
-		 	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'end_date'), translate('End Date')); ?>
-		  </td> 
+		 	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($qs, 'end_date'), translate('End Date')); ?>
+		  </td>
           <td width="23%">
-		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'name'), translate('Resource')); ?>
+		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($qs, 'name'), translate('Resource')); ?>
 		  </td>
           <td width="10%">
-		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'starttime'), translate('Start Time')); ?> 
+		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($qs, 'starttime'), translate('Start Time')); ?>
 		  </td>
-          <td width="10%">  
-		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'endtime'), translate('End Time')); ?> 
+          <td width="10%">
+		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($qs, 'endtime'), translate('End Time')); ?>
 		  </td>
-          <td width="20%"> 
-		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($_SERVER['QUERY_STRING'], 'created'), translate('Created')); ?> 
+          <td width="20%">
+		  	<?php $link->doLink($_SERVER['PHP_SELF'] . $util->getSortingUrl($qs, 'created'), translate('Created')); ?>
 		  </td>
           <td width="8%"><?php echo translate('Modify')?></td>
           <td width="8%"><?php echo translate('Delete')?></td>
@@ -254,7 +255,7 @@ function showInvitesTable($res, $err) {
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr class="rowHeaders">
           <td width="10%"><?php echo translate('Start Date')?></td>
-		  <td width="10%"><?php echo translate('End Date')?></td> 
+		  <td width="10%"><?php echo translate('End Date')?></td>
           <td width="23%"><?php echo translate('Resource')?></td>
           <td width="10%"><?php echo translate('Start Time')?></td>
           <td width="10%"><?php echo translate('End Time')?></td>
@@ -322,7 +323,7 @@ function showParticipatingTable($res, $err) {
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr class="rowHeaders">
           <td width="10%"><?php echo translate('Start Date')?></td>
-		  <td width="10%"><?php echo translate('End Date')?></td> 
+		  <td width="10%"><?php echo translate('End Date')?></td>
           <td width="23%"><?php echo translate('Resource')?></td>
           <td width="10%"><?php echo translate('Start Time')?></td>
           <td width="10%"><?php echo translate('End Time')?></td>
@@ -418,21 +419,21 @@ function showQuickLinks($is_admin = false, $is_group_admin = false) {
 				echo '<p style="margin-top:7px;font-weight:bold;text-align:center;">' . translate('Group Administration') . '</p>';
 			}
 			if ($is_admin) {
-				echo			
+				echo
 				'<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=schedules', translate('Manage Schedules')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('blackouts.php', translate('Manage Blackout Times')) . "</p>\n"
-				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=resources', translate('Manage Resources')) . "</p>\n"				
+				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=resources', translate('Manage Resources')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=announcements', translate('Manage Announcements')) . "</p>\n"
 				. '<p style="margin-top:10px;"><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=groups', translate('Manage Groups')) . "</p>\n";
 			}
 			if ($is_admin || $is_group_admin) {
-				echo 
+				echo
 				'<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=users', translate('Manage Users')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=reservations', translate('Manage Reservations')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=approval', translate('Approve Reservations')) . "</p>\n";
 			}
 			if ($is_admin) {
-				echo 
+				echo
 				'<p style="margin-top:10px;"><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=email', translate('Mass Email Users')) . "</p>\n"
                 . '<p><b>&raquo;</b> ' .  $link->getLink('usage.php', translate('Search Scheduled Resource Usage')) . "</p>\n"
 				. '<p><b>&raquo;</b> ' .  $link->getLink('admin.php?tool=export', translate('Export Database Content')) . "</p>\n"
