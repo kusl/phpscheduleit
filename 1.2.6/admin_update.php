@@ -6,7 +6,7 @@
 * @version 05-07-06
 * @package Admin
 *
-* Copyright (C) 2003 - 2006 phpScheduleIt
+* Copyright (C) 2003 - 2007 phpScheduleIt
 * License: GPL, see LICENSE
 */
 
@@ -76,7 +76,7 @@ else {
 * @return if the user can access the update page
 */
 function validate_function(&$user, $function) {
-	if (Auth::isAdmin() || $user->is_admin()) {
+	if (Auth::isAdmin() || $user->get_isadmin()) {
 		return true;
 	}
 

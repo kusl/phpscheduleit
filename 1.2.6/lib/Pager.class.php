@@ -5,7 +5,7 @@
 * @version 01-28-06
 * @package Pager
 *
-* Copyright (C) 2003 - 2006 phpScheduleIt
+* Copyright (C) 2003 - 2007 phpScheduleIt
 * License: GPL, see LICENSE
 * /
 /**

@@ -2,10 +2,10 @@
 /**
 * Provide all of the presentation functions for the ResCalendar class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 10-28-06
+* @version 01-28-07
 * @package Templates
 *
-* Copyright (C) 2003 - 2006 phpScheduleIt
+* Copyright (C) 2003 - 2007 phpScheduleIt
 * License: GPL, see LICENSE
 */
 

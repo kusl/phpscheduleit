@@ -5,10 +5,10 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 06-11-06
+* @version 01-28-07
 * @package DBEngine
 *
-* Copyright (C) 2003 - 2006 phpScheduleIt
+* Copyright (C) 2003 - 2007 phpScheduleIt
 * License: GPL, see LICENSE
 */
 /**
@@ -939,7 +939,14 @@ class AdminDB extends DBEngine {
 		$q = $this->db->prepare($sql);
 		$result = $this->db->execute($q, $values);
 
-		if (!empty($adminid)) {
+		// Clear previous admin
+		$values = array($groupid);
+		$sql = 'UPDATE ' . $this->get_table(TBL_USER_GROUPS) . ' SET is_admin = 0 WHERE groupid = ?';
+		$q = $this->db->prepare($sql);
+		$result = $this->db->execute($q, $values);
+		
+		if (!empty($adminid)) {			
+			// Set new admin
 			$values = array($groupid, $adminid);
 			$sql = 'UPDATE ' . $this->get_table(TBL_USER_GROUPS) . ' SET is_admin = 1 WHERE groupid = ? AND memberid = ?';
 			$q = $this->db->prepare($sql);
