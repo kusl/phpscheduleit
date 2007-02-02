@@ -24,7 +24,6 @@
 				<exclude name="config/config.php" />
 			</fileset>
 		</copy>
-		<copy file="config/config.php" tofile="${stagingdir}/config/config.new.php"/>
 		
 		<delete dir="${zipdirectory}" failonerror="false" />
 		<mkdir dir="${zipdirectory}" failonerror="false"/>
