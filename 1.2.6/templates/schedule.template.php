@@ -6,7 +6,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 04-06-06
+* @version 02-04-07
 * @package Templates
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -130,9 +130,12 @@ function get_hour_header($th, $startDay, $endDay, $timespan) {
 
     // Compute total # of cols
     $totCol = intval(($endDay - $startDay) / $timespan);
+    $width = (100/$totCol);
     // Create the fraction hour minute marks
     for ($x = 0; $x < $totCol; $x++)
-        $header .= '<td>&nbsp;</td>';
+    {
+        $header .= "<td width=\"$width%\">&nbsp;</td>";
+    }
 
     return $header;
 }
@@ -262,10 +265,9 @@ function write_reservation($colspan, $color_select, $mod_view, $resid, $summary 
 		}
     }
 
-    $summary_text = $summary->toScheduleCell($chars);
+    $summary_text = $summary->toScheduleCell();
 
-    // Write reserved time cell
-    echo "<td colspan=\"$colspan\" style=\"color: $text; background-color: $color;\" $js>$summary_text</td>";
+    echo "<td colspan=\"$colspan\" style=\"color: $text; background-color: $color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
 }
 
 /**
@@ -286,23 +288,19 @@ function write_blackout($colspan, $viewable, $blackoutid, $summary = '', $showsu
 
     if ($viewable) {
         $js = "onclick=\"reserve('m','','','$blackoutid','','1');\" ";
-        if ($showsummary && $summary != '')
-            $js .= "onmouseover=\"resOver(this, '$hover'); showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary)) . "');\" onmouseout=\"resOut(this, '$color'); hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+        if ($showsummary && $summary->isVisible())
+            $js .= "onmouseover=\"resOver(this, '$hover'); showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this, '$color'); hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
         else
             $js .="onmouseover=\"resOver(this, '$hover');\" onmouseout=\"resOut(this, '$color');\"";
     }
     else {
-        if ($showsummary != 0 && $summary != '')
-            $js = "onmouseover=\"showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary)) . "');\" onmouseout=\"hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+        if ($showsummary != 0 && $summary->isVisible())
+            $js = "onmouseover=\"showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
     }
 
-    if ($showsummary) {
-        $summary_text = ($summary != '' && $colspan > 1) ? substr($summary, 0, $chars) . ((strlen($summary) > $chars) ? '...' : '') : '&nbsp;';
-    }
-    else
-        $summary_text = '&nbsp;';
+    $summary_text = $summary->toScheduleCell();
 
-    echo "<td colspan=\"$colspan\" style=\"color: $text; background-color: $color;\" $js>$summary_text</td>\n";
+    echo "<td colspan=\"$colspan\" style=\"color: $text; background-color: $color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
 }
 
 /**

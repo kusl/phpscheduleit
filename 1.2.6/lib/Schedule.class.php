@@ -7,7 +7,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 06-11-06
+* @version 02-04-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -513,8 +513,11 @@ class Schedule {
         global $conf;
 		$is_private = $conf['app']['privacyMode'] && !Auth::isAdmin();
         $showsummary = (($this->scheduleType != READ_ONLY || ($this->scheduleType == READ_ONLY && $conf['app']['readOnlySummary'])) && $this->showsummary && !$is_private);
-
-        write_blackout($colspan, Auth::isAdmin(), $rs['resid'], htmlspecialchars($rs['summary']),  $showsummary);
+		
+        $summary = new Summary($rs['summary']);
+        $summary->visible = $showsummary;
+        
+        write_blackout($colspan, Auth::isAdmin(), $rs['resid'], $summary,  $showsummary);
     }
 
     /**
