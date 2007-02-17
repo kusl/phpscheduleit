@@ -3,7 +3,7 @@
 * Provide all of the presentation functions for the MyCalendar class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 01-28-07
+* @version 02-17-07
 * @package Templates
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -172,6 +172,7 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 					if ($is_private) {
 						$res['fname'] = 'Private';
 						$res['lname'] = '';
+						$res['summary'] = '';
 					}
 				
 					$js = "onmouseover=\"showsummary('details', event, '" . build_reservation_detail_div($res) . "');\" onmouseout=\"hideSummary('details');\" onmousemove=\"moveSummary('details', event);\"";	
@@ -274,6 +275,7 @@ function print_month_reservations($reservations, $datestamp, $fields = array('na
 					if ($is_private) {
 						$res['fname'] = 'Private';
 						$res['lname'] = '';
+						$res['summary'] = '';
 					}
 					
 					$js = "onmouseover=\"showsummary('details', event, '" . build_reservation_detail_div($res) . "');\" onmouseout=\"hideSummary('details');\" onmousemove=\"moveSummary('details', event);\"";	
