@@ -4,7 +4,7 @@
 * Provides all login and registration functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 03-30-06
+* @version 04-06-07
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -75,11 +75,11 @@ class AuthDB extends DBEngine {
 		array_push($to_insert, $id);
 		array_push($to_insert, strtolower($data['emailaddress']));
 		array_push($to_insert, $this->make_password($data['password']));
-		array_push($to_insert, $data['fname']);
-		array_push($to_insert, $data['lname']);
-		array_push($to_insert, $data['phone']);
-		array_push($to_insert, $data['institution']);
-		array_push($to_insert, $data['position']);
+		array_push($to_insert, empty($data['fname']) ? '' : $data['fname']);
+		array_push($to_insert, empty($data['lname']) ? '' : $data['lname']);
+		array_push($to_insert, empty($data['phone']) ? '' : $data['phone']);
+		array_push($to_insert, empty($data['institution']) ? '' : $data['institution']);
+		array_push($to_insert, empty($data['position']) ? '' : $data['position']);
 		array_push($to_insert, 'y');
 		array_push($to_insert, 'y');
 		array_push($to_insert, 'y');
@@ -106,11 +106,11 @@ class AuthDB extends DBEngine {
 		$to_insert = array();
 
 		array_push($to_insert, strtolower($data['emailaddress']));
-		array_push($to_insert, $data['fname']);
-		array_push($to_insert, $data['lname']);
-		array_push($to_insert, $data['phone']);
-		array_push($to_insert, $data['institution']);
-		array_push($to_insert, $data['position']);
+		array_push($to_insert, empty($data['fname']) ? '' : $data['fname']);
+		array_push($to_insert, empty($data['lname']) ? '' : $data['lname']);
+		array_push($to_insert, empty($data['phone']) ? '' : $data['phone']);
+		array_push($to_insert, empty($data['institution']) ? '' : $data['institution']);
+		array_push($to_insert, empty($data['position']) ? '' : $data['position']);
 		array_push($to_insert, isset($data['logon_name']) ? $data['logon_name'] : null);	// Push the logon name if we are using it
 		array_push($to_insert, $data['timezone']);
 

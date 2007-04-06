@@ -9,7 +9,7 @@
 * @version 01-08-07
 * @package Languages
 *
-* Copyright (C) 2003 - 2007 phpScheduleIt
+* Copyright (C) 2003 - 2006 phpScheduleIt
 * License: GPL, see LICENSE
 */
 ///////////////////////////////////////////////////////////
@@ -823,4 +823,3 @@ $email['new_password'] = "%s,\r\n\r\n"
 . "Ricordati per&ograve; di cambiarla appena possibile cliccando su \"Pannello di Controllo\" -> \"Cambia Profilo\".\r\n\r\n"
 . "Per maggiori informazioni scrivi a: %s.\r\n\r\n\r\n";
 ?>
-

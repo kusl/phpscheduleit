@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 09-16-06
+* @version 04-06-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -590,6 +590,12 @@ class Reservation {
 		print_title($rs['name']);
 		begin_reserve_form($this->type == RES_TYPE_ADD, $this->is_blackout);
 		begin_container();
+		
+		if (empty($this->start)) {
+			$this->start = $this->sched['daystart'];
+			$this->end = $this->start + $this->sched['timespan'];
+		}
+		
 		print_basic_panel($this, $rs, $is_private);		// Contains resource/user info, time select, summary, repeat boxes
 
 		if ($this->is_blackout || $is_private) {

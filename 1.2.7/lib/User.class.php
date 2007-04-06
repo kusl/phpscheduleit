@@ -186,7 +186,7 @@ class User {
 	*/
 	function get_perms() {
 		if ($this->perms == null) {
-			$this->persm = $this->_get_perms();
+			$this->perms = $this->_get_perms();
 		}
 		return $this->perms;
 	}

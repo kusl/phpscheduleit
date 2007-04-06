@@ -4,7 +4,7 @@
 *  data and settings in phpScheduleIt
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 01-25-07
+* @version 04-06-07
 * @package Admin
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -255,9 +255,20 @@ class Admin {
 	*/
 	function managePerms() {
 		$user = new User($_GET['memberid']);	// User object
-		if (Auth::isAdmin() || $this->user->is_group_admin($user->get_groupids())) {
+		if (Auth::isAdmin()) {
 			$rs = $this->db->get_mach_ids();
 			print_manage_perms($user, $rs, $this->db->get_err());
+		}
+		else if($this->user->is_group_admin($user->get_groupids()))
+		{
+			$perms = $user->get_perms();
+			$rs = array();
+			foreach ($perms as $machid => $p)
+			{
+				$rs[] = array('machid' => $machid, 'name' => $p);
+			}
+			print_manage_perms($user, $rs, $this->db->get_err());
+			
 		}
 		else {
 			print_not_allowed();

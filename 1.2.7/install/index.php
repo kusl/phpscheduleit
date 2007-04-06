@@ -10,7 +10,7 @@
 * making them database independent.
 *
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 01-28-07
+* @version 04-06-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -456,6 +456,7 @@ function doCreate() {
 		check_result($result);
 	}
 
+	$dbe = new DBEngine();
 	// Create default schedule
 	echo 'Creating default schedule...';
 	$scheduleid = $dbe->get_new_id();

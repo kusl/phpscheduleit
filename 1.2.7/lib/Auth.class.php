@@ -401,7 +401,7 @@ class Auth {
 		else if ($use_logonname) {
 			$data['logon_name'] = htmlspecialchars($data['logon_name']);
 		}
-		if (empty($data['emailaddress']) || !preg_match("/^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/", $data['emailaddress']))
+		if (empty($data['emailaddress']) || !preg_match("/^[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/", $data['emailaddress']))
 			$msg .= translate('Valid email address is required.') . '<br/>';
 		if (empty($data['fname'])) {
 			$msg .= translate('First name is required.') . '<br/>';

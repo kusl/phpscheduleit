@@ -3,7 +3,7 @@
 * LDAPEngine class
 * @author David Poole <David.Poole@fccc.edu>
 * @author William P.O'Sullivan
-* @version 05-18-06
+* @version 04-06-07
 * @package LDAPEngine
 *
 * Copyright (C) 2004 phpScheduleIt
@@ -64,7 +64,7 @@ class LDAPEngine {
 
 	   if( $this->ldap ) {
 
-			$bind = @ldap_bind( $this->ldap, $this->AD_lookupid, $this->AD_lookuppwd );
+			$bind = ($this->AD_lookupid) ? @ldap_bind( $this->ldap, $this->AD_lookupid, $this->AD_lookuppwd ) : @ldap_bind( $this->ldap );
 
 	       	if( $bind ) {
 

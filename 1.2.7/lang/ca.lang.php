@@ -3,11 +3,10 @@
 * Catalan (ca) translation file.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @translator felip alfred galitó i trilla <felipalf_g@catalonia.net>
-* @version 04-04-2005
+* @translator Francisco Martínez Espadas <fmartinez@tarragona.cat>
+* @version 04-04-2007
 * @package Languages
 */
-//
 // Copyright (C) 2003 - 2005 phpScheduleIt
 // License: GPL, see LICENSE
 //
@@ -66,7 +65,7 @@ $charset = 'iso-8859-1';
    and go through the seven day week, ending on Saturday
 ***/
 // The full day name
-$days_full = array('Diumenge', 'Dilluns', 'Dimarts', 'Dimecres', 'Dijous', 'Divendres', 'Disssabte');
+$days_full = array('Diumenge', 'Dilluns', 'Dimarts', 'Dimecres', 'Dijous', 'Divendres', 'Dissabte');
 // The three letter abbreviation
 $days_abbr = array('Dg', 'Dl', 'Dm', 'Dc', 'Dj', 'Dv', 'Ds');
 // The two letter abbreviation
@@ -93,20 +92,20 @@ $letters = array ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M
   You can include any text/HTML formatting in the translation
 ***/
 // General date formatting used for all date display unless otherwise noted
-$dates['general_date'] = '%m/%d/%Y';
+$dates['general_date'] = '%d/%m/%Y';
 // General datetime formatting used for all datetime display unless otherwise noted
 // The hour:minute:second will always follow this format
-$dates['general_datetime'] = '%m/%d/%Y @';
+$dates['general_datetime'] = '%d/%m/%Y @';
 // Date in the reservation notification popup and email
-$dates['res_check'] = '%A %m/%d/%Y';
+$dates['res_check'] = '%A %d/%m/%Y';
 // Date on the scheduler that appears above the resource links
-$dates['schedule_daily'] = '%A,<br/>%m/%d/%Y';
+$dates['schedule_daily'] = '%A,<br/>%d/%m/%Y';
 // Date on top-right of each page
 $dates['header'] = '%A, %B %d, %Y';
 // Jump box format on bottom of the schedule page
 // This must only include %m %d %Y in the proper order,
 //  other specifiers will be ignored and will corrupt the jump box 
-$dates['jumpbox'] = '%m %d %Y';
+$dates['jumpbox'] = '%d %m %Y';
 
 /***
   STRING TRANSLATIONS
@@ -129,35 +128,35 @@ $strings['pm'] = 'pm';
 $strings['Administrator'] = 'Administrador';
 $strings['Welcome Back'] = 'Benvingut de nou, %s';
 $strings['Log Out'] = 'Sortir';
-$strings['My Control Panel'] = 'El meu quadre de control';
-$strings['Help'] = 'Ajuda';
+$strings['My Control Panel'] = 'La Meva Pàgina d\'Inici';
+$strings['Help'] = 'Ajuda (està en anglès)';
 $strings['Manage Schedules'] = 'Gestiona els calendaris';
 $strings['Manage Users'] = 'Gestiona els usuaris';
 $strings['Manage Resources'] = 'Gestiona els recursos';
-$strings['Manage User Training'] = 'Manage User Training';
+$strings['Manage User Training'] = 'Gestiona l\'entranament dels Usuaris';
 $strings['Manage Reservations'] = 'Gestiona les reserves';
-$strings['Email Users'] = 'Email Users';
+$strings['Email Users'] = 'Email a Usuaris';
 $strings['Export Database Data'] = 'Exporta les dades de la base de dades';
 $strings['Reset Password'] = 'Suprimeix la contrasenya';
 $strings['System Administration'] = 'Administració del sistema';
 $strings['Successful update'] = 'L\'actualització s\'ha realitzat satisfactòriament';
 $strings['Update failed!'] = 'No s\'ha pogut realitzar l\'actualització !';
-$strings['Manage Blackout Times'] = 'Gestiona el temps de repòs';
+$strings['Manage Blackout Times'] = 'Gestiona el temps de descans';
 $strings['Forgot Password'] = 'Has oblidat la contrasenya?';
 $strings['Manage My Email Contacts'] = 'Gestiona els meus correus electrònics de contacte';
 $strings['Choose Date'] = 'Escull una data';
 $strings['Modify My Profile'] = 'Modifica el meu perfil d\'usuari';
 $strings['Register'] = 'Registra';
-$strings['Processing Blackout'] = 'S\'està processant el temps de repòs';
+$strings['Processing Blackout'] = 'S\'està processant el temps de descans';
 $strings['Processing Reservation'] = 'S\'està processant la reserva';
 $strings['Online Scheduler [Read-only Mode]'] = 'Calendari en xarxa [Mode de lectura]';
 $strings['Online Scheduler'] = 'Calendari en xarxa';
 $strings['phpScheduleIt Statistics'] = 'Estadístiques de phpScheduleIt ';
 $strings['User Info'] = 'Informació de l\'usuari:';
 
-$strings['Could not determine tool'] = 'No s\'ha pogut determinar el recurs.Si us plau torneu al Meu quadre de control i proveu-ho de nou.';
+$strings['Could not determine tool'] = 'No s\'ha pogut determinar el recurs. Torna a "La Meva Pàgina d\'Inici" i proveu-ho de nou.';
 $strings['This is only accessable to the administrator'] = 'Només és accessible per l\'administrador';
-$strings['Back to My Control Panel'] = 'Torna al Meu quadre de control';
+$strings['Back to My Control Panel'] = 'Torna a "La Meva Pàgina d\'Inici"';
 $strings['That schedule is not available.'] = 'Aquest calendari no és disponible';
 $strings['You did not select any schedules to delete.'] = 'No heu seleccionat cap calendari per suprimir.';
 $strings['You did not select any members to delete.'] = 'No heu seleccionat cap membre per suprimir.';
@@ -208,8 +207,8 @@ $strings['Edit Schedule'] = 'Edita un calendari';
 $strings['No'] = 'No';
 $strings['Yes'] = 'Sí';
 $strings['Name'] = 'Nom';
-$strings['First Name'] = 'First Name';
-$strings['Last Name'] = 'Last Name';
+$strings['First Name'] = 'Nom';
+$strings['Last Name'] = 'Cognoms';
 $strings['Resource Name'] = 'Nom del recurs';
 $strings['Email'] = 'Adreça electrònica';
 $strings['Institution'] = 'Institució';
@@ -235,435 +234,494 @@ $strings['Sort by descending location'] = 'Ordena, de forma decendent, per ubica
 $strings['Sort by descending schedule title'] = 'Ordena, de formas descendent, per nom de calendari';
 $strings['Sort by ascending resource name'] = 'Ordena, de forma ascendent, per nom';
 $strings['Sort by ascending location'] = 'Ordena, de forma ascendent, per ubicació';
-$strings['Sort by ascending schedule title'] = 'Orldena, de fomra ascendent per nom de calendari';
-$strings['Sort by descending date'] = 'Sort by descending date';
-$strings['Sort by descending user name'] = 'Sort by descending user name';
-$strings['Sort by descending start time'] = 'Sort by descending start time';
-$strings['Sort by descending end time'] = 'Sort by descending end time';
-$strings['Sort by ascending date'] = 'Sort by ascending date';
-$strings['Sort by ascending user name'] = 'Sort by ascending user name';
-$strings['Sort by ascending start time'] = 'Sort by ascending start time';
-$strings['Sort by ascending end time'] = 'Sort by ascending end time';
-$strings['Sort by descending created time'] = 'Sort by descending created time';
-$strings['Sort by ascending created time'] = 'Sort by ascending created time';
-$strings['Sort by descending last modified time'] = 'Sort by descending last modified time';
-$strings['Sort by ascending last modified time'] = 'Sort by ascending last modified time';
+$strings['Sort by ascending schedule title'] = 'Ordena, de forma ascendent per nom de calendari';
+$strings['Sort by descending date'] = 'Ordena, de forma descendent, per data';
+$strings['Sort by descending user name'] = 'Ordena, de forma descendent, per nom d\'usuari';
+$strings['Sort by descending start time'] = 'Ordena, de forma descendent, per data d\'inici';
+$strings['Sort by descending end time'] = 'Ordena, de forma descendent, per data de fi';
+$strings['Sort by ascending date'] = 'Ordena, de forma ascendent, per data';
+$strings['Sort by ascending user name'] = 'Ordena, de forma ascendent, per nom d\'usuari';
+$strings['Sort by ascending start time'] = 'Ordena, de forma ascendent, per data d\'inici';
+$strings['Sort by ascending end time'] = 'Ordena, de forma ascendent, per data d\'inici';
+$strings['Sort by descending created time'] = 'Ordena, de forma descendent, per data de creació';
+$strings['Sort by ascending created time'] = 'Ordena, de forma ascendent, per data de creació';
+$strings['Sort by descending last modified time'] = 'Ordena, de forma descendent, per data de modificació';
+$strings['Sort by ascending last modified time'] = 'Ordena, de forma ascendent, per data de modificació';
 
-$strings['Search Users'] = 'Search Users';
-$strings['Location'] = 'Location';
-$strings['Schedule'] = 'Schedule';
-$strings['Phone'] = 'Phone';
+$strings['Search Users'] = 'Cercar Usuaris';
+$strings['Location'] = 'Lloc';
+$strings['Schedule'] = 'Horari';
+$strings['Phone'] = 'Telèfon';
 $strings['Notes'] = 'Notes';
-$strings['Status'] = 'Status';
-$strings['All Schedules'] = 'All Schedules';
-$strings['All Resources'] = 'All Resources';
-$strings['All Users'] = 'All Users';
+$strings['Status'] = 'Estat';
+$strings['All Schedules'] = 'Tots els horaris';
+$strings['All Resources'] = 'Tots els recursos';
+$strings['All Users'] = 'Tots els usuaris';
 
-$strings['Edit data for'] = 'Edit data for %s';
-$strings['Active'] = 'Active';
-$strings['Inactive'] = 'Inactive';
-$strings['Toggle this resource active/inactive'] = 'Toggle this resource active/inactive';
-$strings['Minimum Reservation Time'] = 'Minimum Reservation Time';
-$strings['Maximum Reservation Time'] = 'Maximum Reservation Time';
-$strings['Auto-assign permission'] = 'Auto-assign permission';
-$strings['Add Resource'] = 'Add Resource';
-$strings['Edit Resource'] = 'Edit Resource';
-$strings['Allowed'] = 'Allowed';
-$strings['Notify user'] = 'Notify user';
-$strings['User Reservations'] = 'User Reservations';
-$strings['Date'] = 'Date';
-$strings['User'] = 'User';
-$strings['Email Users'] = 'Email Users';
-$strings['Subject'] = 'Subject';
-$strings['Message'] = 'Message';
-$strings['Please select users'] = 'Please select users';
-$strings['Send Email'] = 'Send Email';
-$strings['problem sending email'] = 'Sorry, there was a problem sending your email. Please try again later.';
-$strings['The email sent successfully.'] = 'The email sent successfully.';
-$strings['do not refresh page'] = 'Please <u>do not</u> refresh this page. Doing so will send the email again.';
-$strings['Return to email management'] = 'Return to email management';
-$strings['Please select which tables and fields to export'] = 'Please select which tables and fields to export:';
-$strings['all fields'] = '- all fields -';
+$strings['Edit data for'] = 'Editar la informació de %s';
+$strings['Active'] = 'Actiu';
+$strings['Inactive'] = 'Inactiu';
+$strings['Toggle this resource active/inactive'] = 'Cambiar aquest recurs entre actiu/inactiu';
+$strings['Minimum Reservation Time'] = 'Temps mínim de reserva';
+$strings['Maximum Reservation Time'] = 'Temps màxim de reserva';
+$strings['Auto-assign permission'] = 'Permís d\'Auto-Asignació';
+$strings['Add Resource'] = 'Afegir un recurs';
+$strings['Edit Resource'] = 'Editar un recurs';
+$strings['Allowed'] = 'Permès';
+$strings['Notify user'] = 'Notificar a l\'usuari';
+$strings['User Reservations'] = 'Reserves d\'usuari';
+$strings['Date'] = 'Data';
+$strings['User'] = 'Usuari';
+$strings['Email Users'] = 'Enviar un email als usuaris';
+$strings['Subject'] = 'Assumpte';
+$strings['Message'] = 'Missatge';
+$strings['Please select users'] = 'Selecciona als usuaris';
+$strings['Send Email'] = 'Enviar Email';
+$strings['problem sending email'] = 'Va haver un problema enviant l\'email. Si us plau, intente-ho més endavant.';
+$strings['The email sent successfully.'] = 'L\'email s\'ha enviat correctament.';
+$strings['do not refresh page'] = 'Si us plau <u>no</u> actualitzis aquesta pàgina. Si ho fas tornaràs a enviar l\'email un altre vegada.';
+$strings['Return to email management'] = 'Tornar a l\'administració d\'emails';
+$strings['Please select which tables and fields to export'] = 'Indica quines taules i camps vols exportar:';
+$strings['all fields'] = '- tots els camps -';
 $strings['HTML'] = 'HTML';
-$strings['Plain text'] = 'Plain text';
+$strings['Plain text'] = 'Text Simple';
 $strings['XML'] = 'XML';
 $strings['CSV'] = 'CSV';
-$strings['Export Data'] = 'Export Data';
-$strings['Reset Password for'] = 'Reset Password for %s';
-$strings['Please edit your profile'] = 'Please edit your profile';
-$strings['Please register'] = 'Please register';
-$strings['Email address (this will be your login)'] = 'Email address (this will be your login)';
-$strings['Keep me logged in'] = 'Keep me logged in <br/>(requires cookies)';
-$strings['Edit Profile'] = 'Edit Profile';
-$strings['Register'] = 'Register';
-$strings['Please Log In'] = 'Please Log In';
-$strings['Email address'] = 'Email address';
+$strings['Export Data'] = 'Exportar Dades';
+$strings['Reset Password for'] = 'Restablir Password per %s';
+$strings['Please edit your profile'] = 'Modifica el teu perfil';
+$strings['Please register'] = 'Si us plau, Registra\'t';
+$strings['Email address (this will be your login)'] = 'Adreça d\'email (Aquest serà el teu nom d\'usuari)';
+$strings['Keep me logged in'] = 'Mantenir oberta la sessió <br/>(requereix cookies)';
+$strings['Edit Profile'] = 'Editar el perfil';
+$strings['Register'] = 'Registrar';
+$strings['Please Log In'] = 'Si us plau, inicia la sessió';
+$strings['Email address'] = 'Adreça d\'email';
 $strings['Password'] = 'Password';
-$strings['First time user'] = 'First time user?';
-$strings['Click here to register'] = 'Click here to register';
-$strings['Register for phpScheduleIt'] = 'Register for phpScheduleIt';
-$strings['Log In'] = 'Log In';
-$strings['View Schedule'] = 'View Schedule';
-$strings['View a read-only version of the schedule'] = 'View a read-only version of the schedule';
-$strings['I Forgot My Password'] = 'I Forgot My Password';
-$strings['Retreive lost password'] = 'Retreive lost password';
+$strings['First time user'] = 'Usuari per primera vegada?';
+$strings['Click here to register'] = 'Fes clic aquí per registrar-te';
+$strings['Register for phpScheduleIt'] = 'Registrar a Tarraco Recursos';
+$strings['Log In'] = 'Iniciar sessió';
+$strings['View Schedule'] = 'Veure Agenda';
+$strings['View a read-only version of the schedule'] = 'Veure Agenda - Només Consulta';
+$strings['I Forgot My Password'] = 'He oblidat el meu password';
+$strings['Retreive lost password'] = 'Recuperar el password oblidat';
 $strings['Get online help'] = 'Get online help';
-$strings['Language'] = 'Language';
-$strings['(Default)'] = '(Default)';
+$strings['Language'] = 'Idioma';
+$strings['(Default)'] = '(per defecte)';
 
-$strings['My Announcements'] = 'My Announcements';
-$strings['My Reservations'] = 'My Reservations';
-$strings['My Permissions'] = 'My Permissions';
-$strings['My Quick Links'] = 'My Quick Links';
-$strings['Announcements as of'] = 'Announcements as of %s';
-$strings['There are no announcements.'] = 'There are no announcements.';
-$strings['Resource'] = 'Resource';
-$strings['Created'] = 'Created';
-$strings['Last Modified'] = 'Last Modified';
-$strings['View this reservation'] = 'View this reservation';
-$strings['Modify this reservation'] = 'Modify this reservation';
-$strings['Delete this reservation'] = 'Delete this reservation';
-$strings['Bookings'] = 'Bookings';
-$strings['Change My Profile Information/Password'] = 'Change My Profile Information/Password';
-$strings['Manage My Email Preferences'] = 'Manage My Email Preferences';
-$strings['Mass Email Users'] = 'Mass Email Users';
-$strings['Search Scheduled Resource Usage'] = 'Search Scheduled Resource Usage';
-$strings['Export Database Content'] = 'Export Database Content';
-$strings['View System Stats'] = 'View System Stats';
-$strings['Email Administrator'] = 'Email Administrator';
+$strings['My Announcements'] = 'Els meus Anuncis';
+$strings['My Reservations'] = 'Les meves Reserves';
+$strings['My Permissions'] = 'Els meus Permisos';
+$strings['My Quick Links'] = 'Els meus links';
+$strings['Announcements as of'] = 'Anuncis per a %s';
+$strings['There are no announcements.'] = 'No hi han anuncis.';
+$strings['Resource'] = 'Recursos';
+$strings['Created'] = 'Creat';
+$strings['Last Modified'] = 'Modificat per última vegada';
+$strings['View this reservation'] = 'Veure aquesta reserva';
+$strings['Modify this reservation'] = 'Modificar aquesta reserva';
+$strings['Delete this reservation'] = 'Eliminar aquesta reserva';
+$strings['Bookings'] = 'Reserves';
+$strings['Change My Profile Information/Password'] = 'Cambiar perfil';
+$strings['Manage My Email Preferences'] = 'Preferencies d\'email';
+$strings['Mass Email Users'] = 'Enviar un email a tots els usuaris';
+$strings['Search Scheduled Resource Usage'] = 'Buscar reserves';
+$strings['Export Database Content'] = 'Exportar el contingut de la Base de Dades';
+$strings['View System Stats'] = 'Veure Estadístiques del Sistema';
+$strings['Email Administrator'] = 'Enviar un Email a l\'Administrador';
 
-$strings['Email me when'] = 'Email me when:';
-$strings['I place a reservation'] = 'I place a reservation';
-$strings['My reservation is modified'] = 'My reservation is modified';
-$strings['My reservation is deleted'] = 'My reservation is deleted';
-$strings['I prefer'] = 'I prefer:';
-$strings['Your email preferences were successfully saved'] = 'Your email preferences were successfully saved!';
-$strings['Return to My Control Panel'] = 'Return to My Control Panel';
+$strings['Email me when'] = 'Enviar un email quan:';
+$strings['I place a reservation'] = 'Faig una reserva';
+$strings['My reservation is modified'] = 'La meva reserva s\'ha modificat';
+$strings['My reservation is deleted'] = 'La meva reserva s\'ha eliminat';
+$strings['I prefer'] = 'Prefereixo:';
+$strings['Your email preferences were successfully saved'] = 'Les seves preferencies d\'email han estat guardades!';
+$strings['Return to My Control Panel'] = 'Tornar a l\'Inici';
 
-$strings['Please select the starting and ending times'] = 'Please select the starting and ending times:';
-$strings['Please change the starting and ending times'] = 'Please change the starting and ending times:';
-$strings['Reserved time'] = 'Reserved time:';
-$strings['Minimum Reservation Length'] = 'Minimum Reservation Length:';
-$strings['Maximum Reservation Length'] = 'Maximum Reservation Length:';
-$strings['Reserved for'] = 'Reserved for:';
-$strings['Will be reserved for'] = 'Will be reserved for:';
-$strings['N/A'] = 'N/A';
-$strings['Update all recurring records in group'] = 'Update all recurring records in group?';
-$strings['Delete?'] = 'Delete?';
-$strings['Never'] = '-- Never --';
-$strings['Days'] = 'Days';
-$strings['Weeks'] = 'Weeks';
-$strings['Months (date)'] = 'Months (date)';
-$strings['Months (day)'] = 'Months (day)';
-$strings['First Days'] = 'First Days';
-$strings['Second Days'] = 'Second Days';
-$strings['Third Days'] = 'Third Days';
-$strings['Fourth Days'] = 'Fourth Days';
-$strings['Last Days'] = 'Last Days';
-$strings['Repeat every'] = 'Repeat every:';
-$strings['Repeat on'] = 'Repeat on:';
-$strings['Repeat until date'] = 'Repeat until date:';
-$strings['Choose Date'] = 'Choose Date';
-$strings['Summary'] = 'Summary';
+$strings['Please select the starting and ending times'] = 'Assenyala les dates inici i final:';
+$strings['Please change the starting and ending times'] = 'Modifica les dates inici i final:';
+$strings['Reserved time'] = 'Temps Reservat:';
+$strings['Minimum Reservation Length'] = 'Temps Mínim de Reserva:';
+$strings['Maximum Reservation Length'] = 'Temps Màxim de Reserva:';
+$strings['Reserved for'] = 'Reservat per a:';
+$strings['Will be reserved for'] = 'Estarà reservat per a:';
+$strings['N/A'] = 'N/D';
+$strings['Update all recurring records in group'] = 'Actualitzar tots els registres recurrents a la vegada?';
+$strings['Delete?'] = 'Eliminar?';
+$strings['Never'] = '-- Mai --';
+$strings['Days'] = 'Dias';
+$strings['Weeks'] = 'Semanes';
+$strings['Months (date)'] = 'Mesos (data)';
+$strings['Months (day)'] = 'Mesos (dia)';
+$strings['First Days'] = 'Primer Dia';
+$strings['Second Days'] = 'Segon Dia';
+$strings['Third Days'] = 'Tercer Dia';
+$strings['Fourth Days'] = 'Quart Dia';
+$strings['Last Days'] = 'Últim Dia';
+$strings['Repeat every'] = 'Repetir cada:';
+$strings['Repeat on'] = 'Repetir en:';
+$strings['Repeat until date'] = 'Repetir fins a aquesta data:';
+$strings['Choose Date'] = 'Escollir Data';
+$strings['Summary'] = 'Descripció';
 
-$strings['View schedule'] = 'View schedule:';
-$strings['My Reservations'] = 'My Reservations';
-$strings['My Past Reservations'] = 'My Past Reservations';
-$strings['Other Reservations'] = 'Other Reservations';
-$strings['Other Past Reservations'] = 'Other Past Reservations';
-$strings['Blacked Out Time'] = 'Blacked Out Time';
-$strings['Set blackout times'] = 'Set blackout times for %s on %s'; 
-$strings['Reserve on'] = 'Reserve %s on %s';
-$strings['Prev Week'] = '&laquo; Prev Week';
-$strings['Jump 1 week back'] = 'Jump 1 week back';
-$strings['Prev days'] = '&#8249; Prev %d days';
-$strings['Previous days'] = '&#8249; Previous %d days';
-$strings['This Week'] = 'This Week';
-$strings['Jump to this week'] = 'Jump to this week';
-$strings['Next days'] = 'Next %d days &#8250;';
-$strings['Next Week'] = 'Next Week &raquo;';
-$strings['Jump To Date'] = 'Jump To Date';
-$strings['View Monthly Calendar'] = 'View Monthly Calendar';
-$strings['Open up a navigational calendar'] = 'Open up a navigational calendar';
+$strings['View schedule'] = 'Veure Agenda:';
+$strings['My Reservations'] = 'Les Meves Reserves';
+$strings['My Past Reservations'] = 'Les Meves Reserves Passades';
+$strings['Other Reservations'] = 'Altres Reserves';
+$strings['Other Past Reservations'] = 'Altres Reserves Passades';
+$strings['Blacked Out Time'] = 'Temps Mort';
+$strings['Set blackout times'] = 'Establir Temps Mort per a %s en %s'; 
+$strings['Reserve on'] = 'Reservar %s en %s';
+$strings['Prev Week'] = '&laquo; Setmana Ant.';
+$strings['Jump 1 week back'] = 'Anar 1 Semana enrere';
+$strings['Prev days'] = '&#8249; %d dies abans';
+$strings['Previous days'] = '&#8249; %d dies anteriors';
+$strings['This Week'] = 'Aquesta Setmana';
+$strings['Jump to this week'] = 'Anar a aquesta Setmana';
+$strings['Next days'] = '%d dies següents &#8250;';
+$strings['Next Week'] = 'següent setmana &raquo;';
+$strings['Jump To Date'] = 'Anar a una Data';
+$strings['View Monthly Calendar'] = 'Veure el Calendari Mensual';
+$strings['Open up a navigational calendar'] = 'Obrir un Calendari per a Navegar';
 
-$strings['View stats for schedule'] = 'View stats for schedule:';
-$strings['At A Glance'] = 'At A Glance';
-$strings['Total Users'] = 'Total Users:';
-$strings['Total Resources'] = 'Total Resources:';
-$strings['Total Reservations'] = 'Total Reservations:';
-$strings['Max Reservation'] = 'Max Reservation:';
-$strings['Min Reservation'] = 'Min Reservation:';
-$strings['Avg Reservation'] = 'Avg Reservation:';
-$strings['Most Active Resource'] = 'Most Active Resource:';
-$strings['Most Active User'] = 'Most Active User:';
-$strings['System Stats'] = 'System Stats';
-$strings['phpScheduleIt version'] = 'phpScheduleIt version:';
-$strings['Database backend'] = 'Database backend:';
-$strings['Database name'] = 'Database name:';
-$strings['PHP version'] = 'PHP version:';
-$strings['Server OS'] = 'Server OS:';
-$strings['Server name'] = 'Server name:';
-$strings['phpScheduleIt root directory'] = 'phpScheduleIt root directory:';
-$strings['Using permissions'] = 'Using permissions:';
-$strings['Using logging'] = 'Using logging:';
-$strings['Log file'] = 'Log file:';
-$strings['Admin email address'] = 'Admin email address:';
-$strings['Tech email address'] = 'Tech email address:';
-$strings['CC email addresses'] = 'CC email addresses:';
-$strings['Reservation start time'] = 'Reservation start time:';
-$strings['Reservation end time'] = 'Reservation end time:';
-$strings['Days shown at a time'] = 'Days shown at a time:';
-$strings['Reservations'] = 'Reservations';
-$strings['Return to top'] = 'Return to top';
-$strings['for'] = 'for';
+$strings['View stats for schedule'] = 'Veure Estadístiques de l\'horari:';
+$strings['At A Glance'] = 'Resumint';
+$strings['Total Users'] = 'Total d\'Usuaris:';
+$strings['Total Resources'] = 'Recursos Total:';
+$strings['Total Reservations'] = 'Reserves Total:';
+$strings['Max Reservation'] = 'Reserva Màxima:';
+$strings['Min Reservation'] = 'Reserva Mínima:';
+$strings['Avg Reservation'] = 'Promig de Reserva:';
+$strings['Most Active Resource'] = 'Recurs més Actiu:';
+$strings['Most Active User'] = 'Usuari més Actiu:';
+$strings['System Stats'] = 'Estadístiques del Sistema';
+$strings['phpScheduleIt version'] = 'Versió de phpScheduleIt:';
+$strings['Database backend'] = 'Base de Dades:';
+$strings['Database name'] = 'Nom de la Base de Dades:';
+$strings['PHP version'] = 'Versió de PHP:';
+$strings['Server OS'] = 'Sistema Operatiu del Servidor:';
+$strings['Server name'] = 'Nom del Servidor:';
+$strings['phpScheduleIt root directory'] = 'Directory arrel phpScheduleIt:';
+$strings['Using permissions'] = 'Permisos d\'Ús:';
+$strings['Using logging'] = 'Log d\'Ús:';
+$strings['Log file'] = 'Arxiu de Log:';
+$strings['Admin email address'] = 'Adreça email de l\'Administrador:';
+$strings['Tech email address'] = 'Adreça email del Tècnic:';
+$strings['CC email addresses'] = 'Adreces email per a copies (CC):';
+$strings['Reservation start time'] = 'Hora inicial de reserva:';
+$strings['Reservation end time'] = 'Hora final de reserva:';
+$strings['Days shown at a time'] = 'Dies mostrats a la vegada:';
+$strings['Reservations'] = 'Reserves';
+$strings['Return to top'] = 'Torna a dalt';
+$strings['for'] = 'per a ';
 
-$strings['Select Search Criteria'] = 'Select Search Criteria';
-$strings['Schedules'] = 'Schedules:';
-$strings['All Schedules'] = 'All Schedules';
-$strings['Hold CTRL to select multiple'] = 'Hold CTRL to select multiple';
-$strings['Users'] = 'Users:';
-$strings['All Users'] = 'All Users';
-$strings['Resources'] = 'Resources:';
-$strings['All Resources'] = 'All Resources';
-$strings['Starting Date'] = 'Starting Date:';
-$strings['Ending Date'] = 'Ending Date:';
-$strings['Starting Time'] = 'Starting Time:';
-$strings['Ending Time'] = 'Ending Time:';
-$strings['Output Type'] = 'Output Type:';
-$strings['Manage'] = 'Manage';
-$strings['Total Time'] = 'Total Time';
-$strings['Total hours'] = 'Total hours:';
-$strings['% of total resource time'] = '% of total resource time';
-$strings['View these results as'] = 'View these results as:';
-$strings['Edit this reservation'] = 'Edit this reservation';
-$strings['Search Results'] = 'Search Results';
-$strings['Search Resource Usage'] = 'Search Resource Usage';
-$strings['Search Results found'] = 'Search Results: %d reservations found';
-$strings['Try a different search'] = 'Try a different search';
-$strings['Search Run On'] = 'Search Run On:';
-$strings['Member ID'] = 'Member ID';
-$strings['Previous User'] = '&laquo; Previous User';
-$strings['Next User'] = 'Next User &raquo;';
+$strings['Select Search Criteria'] = 'Criteria de cerca';
+$strings['Schedules'] = 'Horaris:';
+$strings['All Schedules'] = 'Tots els Horaris';
+$strings['Hold CTRL to select multiple'] = 'Manté la tecla CTRL pressionada per a seleccionar varis';
+$strings['Users'] = 'Usuaris:';
+$strings['All Users'] = 'Tots els Usuaris';
+$strings['Resources'] = 'Recursos:';
+$strings['All Resources'] = 'Tots els Recursos';
+$strings['Starting Date'] = 'Data d\'Inici:';
+$strings['Ending Date'] = 'Data Final:';
+$strings['Starting Time'] = 'Hora d\'Inici:';
+$strings['Ending Time'] = 'Hora Final:';
+$strings['Output Type'] = 'Tipus de sortida:';
+$strings['Manage'] = 'Administrar';
+$strings['Total Time'] = 'Temps Total';
+$strings['Total hours'] = 'Hores Totals:';
+$strings['% of total resource time'] = '% del temps total del recurs';
+$strings['View these results as'] = 'Veure aquests resultats com:';
+$strings['Edit this reservation'] = 'Modificar aquesta reserva';
+$strings['Search Results'] = 'Buscar Resultats';
+$strings['Search Resource Usage'] = 'Buscar l\'Ús del Recurs';
+$strings['Search Results found'] = 'Resultats de la Cerca: S\'han trobat %d reserves';
+$strings['Try a different search'] = 'Intenti altre Cerca';
+$strings['Search Run On'] = 'Fer la cerca a:';
+$strings['Member ID'] = 'ID del Membre';
+$strings['Previous User'] = '&laquo; Usuari Anterior';
+$strings['Next User'] = 'Usuari Següent &raquo;';
 
-$strings['No results'] = 'No results';
-$strings['That record could not be found.'] = 'That record could not be found.';
-$strings['This blackout is not recurring.'] = 'This blackout is not recurring.';
-$strings['This reservation is not recurring.'] = 'This reservation is not recurring.';
-$strings['There are no records in the table.'] = 'There are no records in the %s table.';
-$strings['You do not have any reservations scheduled.'] = 'You do not have any reservations scheduled.';
-$strings['You do not have permission to use any resources.'] = 'You do not have permission to use any resources.';
-$strings['No resources in the database.'] = 'No resources in the database.';
-$strings['There was an error executing your query'] = 'There was an error executing your query:';
+$strings['No results'] = 'No hi han Resultats';
+$strings['That record could not be found.'] = 'No s\'ha trobat aquest Recurs.';
+$strings['This blackout is not recurring.'] = 'Aquest temps mort no es recurrent.';
+$strings['This reservation is not recurring.'] = 'Aquesta reserva no es recurrent.';
+$strings['There are no records in the table.'] = 'No hi han registres a la taula %s.';
+$strings['You do not have any reservations scheduled.'] = 'No tens cap reserva programada.';
+$strings['You do not have permission to use any resources.'] = 'No tens permisos per utilitzar cap recurs.';
+$strings['No resources in the database.'] = 'No hi han recursos a la base de dades.';
+$strings['There was an error executing your query'] = 'Hi ha hagut un error executant la comanda a la base de dades:';
 
-$strings['That cookie seems to be invalid'] = 'That cookie seems to be invalid';
-$strings['We could not find that logon in our database.'] = 'We could not find that logon in our database.';
-$strings['That password did not match the one in our database.'] = 'That password did not match the one in our database.';
-$strings['You can try'] = '<br />You can try:<br />Registering an email address.<br />Or:<br />Try logging in again.';
-$strings['A new user has been added'] = 'A new user has been added';
-$strings['You have successfully registered'] = 'You have successfully registered!';
-$strings['Continue'] = 'Continue...';
-$strings['Your profile has been successfully updated!'] = 'Your profile has been successfully updated!';
-$strings['Please return to My Control Panel'] = 'Please return to My Control Panel';
-$strings['Valid email address is required.'] = '- Valid email address is required.';
-$strings['First name is required.'] = '- First name is required.';
-$strings['Last name is required.'] = '- Last name is required.';
-$strings['Phone number is required.'] = '- Phone number is required.';
-$strings['That email is taken already.'] = '- That email is taken already.<br />Please try again with a different email address.';
-$strings['Min 6 character password is required.'] = '- Min %s character password is required.';
-$strings['Passwords do not match.'] = '- Passwords do not match.';
+$strings['That cookie seems to be invalid'] = 'La cookie sembla invalida';
+$strings['We could not find that logon in our database.'] = 'No s\'ha trobat l\'email a la base de dades.';
+$strings['That password did not match the one in our database.'] = 'Aquesta contrasenya no coincideix amb la de la base de dades.';
+$strings['You can try'] = '<br />Pots try:<br />Registrar un email.<br />Or:<br />Torna a intentar-ho altre vegada.';
+$strings['A new user has been added'] = 'S\'ha afegit un nou Usuari';
+$strings['You have successfully registered'] = 'T\'has registrat bé!';
+$strings['Continue'] = 'Continuar...';
+$strings['Your profile has been successfully updated!'] = 'El seu perfil ha estat modificat correctament!';
+$strings['Please return to My Control Panel'] = 'Torna a l\'Inici';
+$strings['Valid email address is required.'] = '- Es requereix una adreça d\'email vàlida.';
+$strings['First name is required.'] = '- Es requereix el nom.';
+$strings['Last name is required.'] = '- Es requereix el Cognom.';
+$strings['Phone number is required.'] = '- Es requereix el telèfon.';
+$strings['That email is taken already.'] = '- Aquest email ja està registrat.<br />Si us plau provi de nou amb altre adreça.';
+$strings['Min 6 character password is required.'] = '- Es requereix un password d\'almenys %s caràcters.';
+$strings['Passwords do not match.'] = '- Les contrasenyes no coincideixen.';
 
-$strings['Per page'] = 'Per page:';
-$strings['Page'] = 'Page:';
+$strings['Per page'] = 'Per pàgina:';
+$strings['Page'] = 'Pàgina:';
 
-$strings['Your reservation was successfully created'] = 'Your reservation was successfully created';
-$strings['Your reservation was successfully modified'] = 'Your reservation was successfully modified';
-$strings['Your reservation was successfully deleted'] = 'Your reservation was successfully deleted';
-$strings['Your blackout was successfully created'] = 'Your blackout was successfully created';
-$strings['Your blackout was successfully modified'] = 'Your blackout was successfully modified';
-$strings['Your blackout was successfully deleted'] = 'Your blackout was successfully deleted';
-$strings['for the follwing dates'] = 'for the follwing dates:';
-$strings['Start time must be less than end time'] = 'Start time must be less than end time.';
-$strings['Current start time is'] = 'Current start time is:';
-$strings['Current end time is'] = 'Current end time is:';
-$strings['Reservation length does not fall within this resource\'s allowed length.'] = 'Reservation length does not fall within this resource\'s allowed length.';
-$strings['Your reservation is'] = 'Your reservation is:';
-$strings['Minimum reservation length'] = 'Minimum reservation length:';
-$strings['Maximum reservation length'] = 'Maximum reservation length:';
-$strings['You do not have permission to use this resource.'] = 'You do not have permission to use this resource.';
-$strings['reserved or unavailable'] = '%s to %s is reserved or unavailable.';	// @since 1.1.0
-$strings['Reservation created for'] = 'Reservation created for %s';
-$strings['Reservation modified for'] = 'Reservation modified for %s';
-$strings['Reservation deleted for'] = 'Reservation deleted for %s';
-$strings['created'] = 'created';
-$strings['modified'] = 'modified';
-$strings['deleted'] = 'deleted';
-$strings['Reservation #'] = 'Reservation #';
-$strings['Contact'] = 'Contact';
-$strings['Reservation created'] = 'Reservation created';
-$strings['Reservation modified'] = 'Reservation modified';
-$strings['Reservation deleted'] = 'Reservation deleted';
+$strings['Your reservation was successfully created'] = 'La seva reserva s\'ha creat correctament';
+$strings['Your reservation was successfully modified'] = 'La seva reserva s\'ha modificat correctament';
+$strings['Your reservation was successfully deleted'] = 'La seva reserva s\'ha eliminat correctament';
+$strings['Your blackout was successfully created'] = 'El seu temps mort s\'ha creat correctament';
+$strings['Your blackout was successfully modified'] = 'El seu temps mort s\'ha modificat correctament';
+$strings['Your blackout was successfully deleted'] = 'El seu temps mort s\'ha eliminat correctament';
+$strings['for the follwing dates'] = 'per a les següents dates:';
+$strings['Start time must be less than end time'] = 'El moment inicial ha de ser anterior al moment final.';
+$strings['Current start time is'] = 'La data inicial actual es:';
+$strings['Current end time is'] = 'La data final actual es:';
+$strings['Reservation length does not fall within this resource\'s allowed length.'] = 'La durada de la reserva no està dins del rang permès per aquest recurs.';
+$strings['Your reservation is'] = 'La seva reserva es:';
+$strings['Minimum reservation length'] = 'Durada mínima de la reserva:';
+$strings['Maximum reservation length'] = 'Durada màxima de la reserva:';
+$strings['You do not have permission to use this resource.'] = 'No tens permisos per utilitzar aquest recurs.';
+$strings['reserved or unavailable'] = '%s fins %s ja està reservat o no està disponible.';	// @since 1.1.0
+$strings['Reservation created for'] = 'Reserva creada per a %s';
+$strings['Reservation modified for'] = 'Reserva modificada per a %s';
+$strings['Reservation deleted for'] = 'Reserva eliminada per a %s';
+$strings['created'] = 'creat';
+$strings['modified'] = 'modificat';
+$strings['deleted'] = 'eliminat';
+$strings['Reservation #'] = 'Reserva #';
+$strings['Contact'] = 'Contacte';
+$strings['Reservation created'] = 'Reserva creada';
+$strings['Reservation modified'] = 'Reserva modificada';
+$strings['Reservation deleted'] = 'Reserva eliminada';
 
-$strings['Reservations by month'] = 'Reservations by month';
-$strings['Reservations by day of the week'] = 'Reservations by day of the week';
-$strings['Reservations per month'] = 'Reservations per month';
-$strings['Reservations per user'] = 'Reservations per user';
-$strings['Reservations per resource'] = 'Reservations per resource';
-$strings['Reservations per start time'] = 'Reservations per start time';
-$strings['Reservations per end time'] = 'Reservations per end time';
-$strings['[All Reservations]'] = '[All Reservations]';
+$strings['Reservations by month'] = 'Reserves per mes';
+$strings['Reservations by day of the week'] = 'Reserves per dia de la setmana';
+$strings['Reservations per month'] = 'Reserves per mes';
+$strings['Reservations per user'] = 'Reserves per usuari';
+$strings['Reservations per resource'] = 'Reserves per recursos';
+$strings['Reservations per start time'] = 'Reserves per data d\'inici';
+$strings['Reservations per end time'] = 'Reserves per data final';
+$strings['[All Reservations]'] = '[Totes les Reserves]';
 
-$strings['Permissions Updated'] = 'Permissions Updated';
-$strings['Your permissions have been updated'] = 'Your %s permissions have been updated';
-$strings['You now do not have permission to use any resources.'] = 'You now do not have permission to use any resources.';
-$strings['You now have permission to use the following resources'] = 'You now have permission to use the following resources:';
-$strings['Please contact with any questions.'] = 'Please contact %s with any questions.';
-$strings['Password Reset'] = 'Password Reset';
+$strings['Permissions Updated'] = 'Permisos Actualitzats';
+$strings['Your permissions have been updated'] = 'Els teus %s permisos s\'han actualitzats';
+$strings['You now do not have permission to use any resources.'] = 'No tens permisos per utilitzar cap recurs.';
+$strings['You now have permission to use the following resources'] = 'No tens permisos per utilitzar aquests recursos:';
+$strings['Please contact with any questions.'] = 'Contacta amb %s per més informació.';
+$strings['Password Reset'] = 'Contrasenya Restablerta';
 
-$strings['This will change your password to a new, randomly generated one.'] = 'This will change your password to a new, randomly generated one.';
-$strings['your new password will be set'] = 'After entering your email address and clicking "Change Password", your new password will be set in the system and emailed to you.';
-$strings['Change Password'] = 'Change Password';
-$strings['Sorry, we could not find that user in the database.'] = 'Sorry, we could not find that user in the database.';
-$strings['Your New Password'] = 'Your New %s Password';
-$strings['Your new passsword has been emailed to you.'] = 'Success!<br />'
-    			. 'Your new passsword has been emailed to you.<br />'
-    			. 'Please check your mailbox for your new password, then <a href="index.php">Log In</a>'
-    			. ' with this new password and promptly change it by clicking the &quot;Change My Profile Information/Password&quot;'
-    			. ' link in My Control Panel.';
+$strings['This will change your password to a new, randomly generated one.'] = 'Això canviarà la teva contrasenya a una nova, generada de forma aleatòria.';
+$strings['your new password will be set'] = 'Desprès d\'escriure el seu email i fer clic a "Canviar Contrasenya", la teva nova contrasenya s\'activarà al sistema i la enviarem al teu email.';
+$strings['Change Password'] = 'Canviar Contrasenya';
+$strings['Sorry, we could not find that user in the database.'] = 'L\'Usuari no es troba a la base de dades.';
+$strings['Your New Password'] = 'La teva nova %s Contrasenya';
+$strings['Your new passsword has been emailed to you.'] = 'Llest!<br />'
+    			. 'La teva contrasenya s\'ha enviat.<br />'
+    			. 'Mira la teva contrasenya al correu, i després <a href="index.php">Inicia la Sessió</a>'
+    			. ' amb aquesta nova contrasenya i canviala fent clic a &quot;Canviar la informació del meu Perfil/Password&quot;'
+    			. ' a l\'Inici.';
 
-$strings['You are not logged in!'] = 'You are not logged in!';
+$strings['You are not logged in!'] = 'No has iniciat la sessió!';
 
-$strings['Setup'] = 'Setup';
-$strings['Please log into your database'] = 'Please log into your database';
-$strings['Enter database root username'] = 'Enter database root username:';
-$strings['Enter database root password'] = 'Enter database root password:';
-$strings['Login to database'] = 'Login to database';
-$strings['Root user is not required. Any database user who has permission to create tables is acceptable.'] = 'Root user is <b>not</b> required. Any database user who has permission to create tables is acceptable.';
-$strings['This will set up all the necessary databases and tables for phpScheduleIt.'] = 'This will set up all the necessary databases and tables for phpScheduleIt.';
-$strings['It also populates any required tables.'] = 'It also populates any required tables.';
-$strings['Warning: THIS WILL ERASE ALL DATA IN PREVIOUS phpScheduleIt DATABASES!'] = 'Warning: THIS WILL ERASE ALL DATA IN PREVIOUS phpScheduleIt DATABASES!';
-$strings['Not a valid database type in the config.php file.'] = 'Not a valid database type in the config.php file.';
-$strings['Database user password is not set in the config.php file.'] = 'Database user password is not set in the config.php file.';
-$strings['Database name not set in the config.php file.'] = 'Database name not set in the config.php file.';
-$strings['Successfully connected as'] = 'Successfully connected as';
-$strings['Create tables'] = 'Create tables &gt;';
-$strings['There were errors during the install.'] = 'There were errors during the install. It is possible that phpScheduleIt will still work if the errors were minor.<br/><br/>'
-	. 'Please post any questions to the forums on <a href="http://sourceforge.net/forum/?group_id=95547">SourceForge</a>.';
-$strings['You have successfully finished setting up phpScheduleIt and are ready to begin using it.'] = 'You have successfully finished setting up phpScheduleIt and are ready to begin using it.';
-$strings['Thank you for using phpScheduleIt'] = 'Please be sure to COMPLETELY REMOVE THE \'install\' DIRECTORY.'
-	. ' This is critical because it contains database passwords and other sensitive information.'
-	. ' Failing to do so leaves the door wide open for anyone to break into your database!'
+$strings['Setup'] = 'Configuració';
+$strings['Please log into your database'] = 'Inicia la sessió a la base de dades';
+$strings['Enter database root username'] = 'Ingressi l\'usuari root de la base de dades:';
+$strings['Enter database root password'] = 'Ingressi la contrasenya de root:';
+$strings['Login to database'] = 'Iniciar sessió a la base de dades';
+$strings['Root user is not required. Any database user who has permission to create tables is acceptable.'] = '<b>No</b> es necesari l\'usuari root. Qualsevol usuari amb permisos per a crear taules funciona.';
+$strings['This will set up all the necessary databases and tables for phpScheduleIt.'] = 'Això crearà les bases de dades i taules necesaries per a phpScheduleIt.';
+$strings['It also populates any required tables.'] = 'També crearà les dades a les taules rquerides.';
+$strings['Warning: THIS WILL ERASE ALL DATA IN PREVIOUS phpScheduleIt DATABASES!'] = 'Advertència: AIXÒ ELIMINARÀ TOTA LA INFORMACIÓ DE BASES DE DADES ANTERIORS DE phpScheduleIt!';
+$strings['Not a valid database type in the config.php file.'] = 'Tipus invàlid de base de dades a l\'arxiu config.php.';
+$strings['Database user password is not set in the config.php file.'] = 'Contrasenya d\'usuari de base de dades no indicat a l\'arxiu config.php.';
+$strings['Database name not set in the config.php file.'] = 'Nom de base de dades no indicat a config.php.';
+$strings['Successfully connected as'] = 'Connectat com';
+$strings['Create tables'] = 'Crear taules &gt;';
+$strings['There were errors during the install.'] = 'Va haver-hi errors durant la instal·lació. Es posible, no obstant això, que phpScheduleIt funcioni si els problemes no eran greus.<br/><br/>'
+	. 'Publica les teves preguntes alm foros de <a href="http://sourceforge.net/forum/?group_id=95547">SourceForge</a>.';
+$strings['You have successfully finished setting up phpScheduleIt and are ready to begin using it.'] = 'Ha acabat d\'instal·lar phpScheduleIt i està llest per començar a utilitzar-lo.';
+$strings['Thank you for using phpScheduleIt'] = 'ELIMINI COMPLETAMENT EL DIRECTORI \'install\'.'
+	. ' Això es crític ja que conté les contrasenyes de la base de dades i altre informació important.'
+	. ' Si no ho fas deixes la porta oberta per a que qualsevol persona agafi el control del seu sistema!'
 	. '<br /><br />'
-	. 'Thank you for using phpScheduleIt!';
-$strings['This will update your version of phpScheduleIt from 0.9.3 to 1.0.0.'] = 'This will update your version of phpScheduleIt from 0.9.3 to 1.0.0.';
-$strings['There is no way to undo this action'] = 'There is no way to undo this action!';
-$strings['Click to proceed'] = 'Click to proceed';
-$strings['This version has already been upgraded to 1.0.0.'] = 'This version has already been upgraded to 1.0.0.';
-$strings['Please delete this file.'] = 'Please delete this file.';
-$strings['Successful update'] = 'The update succeeded fully';
-$strings['Patch completed successfully'] = 'Patch completed successfully';
-$strings['This will populate the required fields for phpScheduleIt 1.0.0 and patch a data bug in 0.9.9.'] = 'This will populate the required fields for phpScheduleIt 1.0.0 and patch a data bug in 0.9.9.'
-		. '<br />It is only required to run this if you performed a manual SQL update or are upgrading from 0.9.9';
+	. 'Gràcies per utilitzar phpScheduleIt!';
+$strings['This will update your version of phpScheduleIt from 0.9.3 to 1.0.0.'] = 'Això actualitzarà la teva versió de phpScheduleIt de 0.9.3 a 1.0.0.';
+$strings['There is no way to undo this action'] = 'No hi ha forma de desfer aquest canvi!';
+$strings['Click to proceed'] = 'Clic per a iniciar';
+$strings['This version has already been upgraded to 1.0.0.'] = 'TAquesta versió ja ha estat actualitzada a 1.0.0.';
+$strings['Please delete this file.'] = 'Si us plau, elimina aquest arxiu.';
+$strings['Successful update'] = 'L\'actualització s\'ha fet correctament';
+$strings['Patch completed successfully'] = 'La correcció s\'ha realitzat correctament';
+$strings['This will populate the required fields for phpScheduleIt 1.0.0 and patch a data bug in 0.9.9.'] = 'Això omplirà els camps requerits per a phpScheduleIt 1.0.0 i corregirà l\'error de dades de 0.9.9.'
+		. '<br />Únicament es requereix executar això si has fet una actualització manual de SQL o està actualitzant versió des de 0.9.9';
 
 // @since 1.0.0 RC1
-$strings['If no value is specified, the default password set in the config file will be used.'] = 'If no value is specified, the default password set in the config file will be used.';
-$strings['Notify user that password has been changed?'] = 'Notify user that password has been changed?';
+$strings['If no value is specified, the default password set in the config file will be used.'] = 'Si no s\'ha especificat un valor, s\'utilitzarà ela contrasenya per defecte de l\'arxiu de configuració.';
+$strings['Notify user that password has been changed?'] = 'Notificar a l\'usuari que la contrasenya ha canviat?';
 
 // @since 1.1.0
-$strings['This system requires that you have an email address.'] = 'This system requires that you have an email address.';
-$strings['Invalid User Name/Password.'] = 'Invalid User Name/Password.';
-$strings['Pending User Reservations'] = 'Pending User Reservations';
-$strings['Approve'] = 'Approve';
-$strings['Approve this reservation'] = 'Approve this reservation';
-$strings['Approve Reservations'] ='Approve Reservations';
+$strings['This system requires that you have an email address.'] = 'Aquest sistema requereix que tinguis una adreça de correu electrònic.';
+$strings['Invalid User Name/Password.'] = 'Nom d\'Usuari/Password Invàlids.';
+$strings['Pending User Reservations'] = 'Reserves d\'Usuari Pendents';
+$strings['Approve'] = 'Aprovar';
+$strings['Approve this reservation'] = 'Aprovar aquesta Reserva';
+$strings['Approve Reservations'] ='Aprovar Reserves';
 
-$strings['Announcement'] = 'Announcement';
-$strings['Number'] = 'Number';
-$strings['Add Announcement'] = 'Add Announcement';
-$strings['Edit Announcement'] = 'Edit Announcement';
-$strings['All Announcements'] = 'All Announcements';
-$strings['Delete Announcements'] = 'Delete Announcements';
-$strings['Use start date/time?'] = 'Use start date/time?';
-$strings['Use end date/time?'] = 'Use end date/time?';
-$strings['Announcement text is required.'] = 'Announcement text is required.';
-$strings['Announcement number is required.'] = 'Announcement number is required.';
+$strings['Announcement'] = 'Anuncis';
+$strings['Number'] = 'Número';
+$strings['Add Announcement'] = 'Afegir Anunci';
+$strings['Edit Announcement'] = 'Editar Anunci';
+$strings['All Announcements'] = 'Tots els Anuncis';
+$strings['Delete Announcements'] = 'Eliminar Anunci';
+$strings['Use start date/time?'] = 'Utilitzar data/hora d\'inici?';
+$strings['Use end date/time?'] = 'Utilitzar data/hora de finalització?';
+$strings['Announcement text is required.'] = 'Es requereix un texte per l\'anunci.';
+$strings['Announcement number is required.'] = 'Es requereix un número per l\'anunci.';
 
+$strings['Pending Approval'] = 'Aprovació Pendent';
+$strings['My reservation is approved'] = 'La meva reserva està aprovada';
+$strings['This reservation must be approved by the administrator.'] = 'Aquesta reserva ha de ser aprovada per l\'administrador.';
+$strings['Approval Required'] = 'Es requereix Aprovació';
+$strings['No reservations requiring approval'] = 'No hi ha reserves que necessitin ser aprovades';
+$strings['Your reservation was successfully approved'] = 'La teva reserva ha estat aprovada correctament';
+$strings['Reservation approved for'] = 'Reserva aprovada per a %s';
+$strings['approved'] = 'aprovada';
+$strings['Reservation approved'] = 'Reserva aprovada';
 
-$strings['Pending Approval'] = 'Pending Approval';
-$strings['My reservation is approved'] = 'My reservation is approved';
-$strings['This reservation must be approved by the administrator.'] = 'This reservation must be approved by the administrator.';
-$strings['Approval Required'] = 'Approval Required';
-$strings['No reservations requiring approval'] = 'No reservations requiring approval';
-$strings['Your reservation was successfully approved'] = 'Your reservation was successfully approved';
-$strings['Reservation approved for'] = 'Reservation approved for %s';
-$strings['approved'] = 'approved';
-$strings['Reservation approved'] = 'Reservation approved';
+$strings['Valid username is required'] = 'Es requereix un nom d\'usuari vàlid';
+$strings['That logon name is taken already.'] = 'Aquest nom d\'usuari ja existeix.';
+$strings['this will be your login'] = '(aquest serà el teu usuari)';
+$strings['Logon name'] = 'Nom d\'usuari';
+$strings['Your logon name is'] = 'El teu nom d\'usuari es %s';
 
-$strings['Valid username is required'] = 'Valid username is required';
-$strings['That logon name is taken already.'] = 'That logon name is taken already.';
-$strings['this will be your login'] = '(this will be your login)';
-$strings['Logon name'] = 'Logon name';
-$strings['Your logon name is'] = 'Your logon name is %s';
-
-$strings['Start'] = 'Start';
-$strings['End'] = 'End';
-$strings['Start date must be less than or equal to end date'] = 'Start date must be less than or equal to end date';
-$strings['That starting date has already passed'] = 'That starting date has already passed';
-$strings['Basic'] = 'Basic';
+$strings['Start'] = 'Inici';
+$strings['End'] = 'Fi';
+$strings['Start date must be less than or equal to end date'] = 'La data d\'inici ha de ser menor o igual que la data de finalització';
+$strings['That starting date has already passed'] = 'Aquesta data d\'inici ja ha passat';
+$strings['Basic'] = 'Bàsic';
 $strings['Participants'] = 'Participants';
-$strings['Close'] = 'Close';
-$strings['Start Date'] = 'Start Date';
-$strings['End Date'] = 'End Date';
-$strings['Minimum'] = 'Minimum';
-$strings['Maximum'] = 'Maximum';
-$strings['Allow Multiple Day Reservations'] = 'Allow Multiple Day Reservations';
-$strings['Invited Users'] = 'Invited Users';
-$strings['Invite Users'] = 'Invite Users';
-$strings['Remove Participants'] = 'Remove Participants';
-$strings['Reservation Invitation'] = 'Reservation Invitation';
-$strings['Manage Invites'] = 'Manage Invites';
-$strings['No invite was selected'] = 'No invite was selected';
-$strings['reservation accepted'] = '%s Accepted Your Invitation on %s';
-$strings['reservation declined'] = '%s Declined Your Invitation on %s';
-$strings['Login to manage all of your invitiations'] = 'Login to manage all of your invitiations';
-$strings['Reservation Participation Change'] = 'Reservation Participation Change';
-$strings['My Invitations'] = 'My Invitations';
-$strings['Accept'] = 'Accept';
-$strings['Decline'] = 'Decline';
-$strings['Accept or decline this reservation'] = 'Accept or decline this reservation';
-$strings['My Reservation Participation'] = 'My Reservation Participation';
-$strings['End Participation'] = 'End Participation';
-$strings['Owner'] = 'Owner';
-$strings['Particpating Users'] = 'Particpating Users';
-$strings['No advanced options available'] = 'No advanced options available';
-$strings['Confirm reservation participation'] = 'Confirm reservation participation';
-$strings['Confirm'] = 'Confirm';
-$strings['Do for all reservations in the group?'] = 'Do for all reservations in the group?';
+$strings['Close'] = 'Tancament';
+$strings['Start Date'] = 'Data d\'inici';
+$strings['End Date'] = 'Data Final';
+$strings['Minimum'] = 'Mínim';
+$strings['Maximum'] = 'Màxim';
+$strings['Allow Multiple Day Reservations'] = 'Permetre reserves de diferents dies';
+$strings['Invited Users'] = 'Usuaris Convidats';
+$strings['Invite Users'] = 'Convidar Usuaris';
+$strings['Remove Participants'] = 'Eliminar Participants';
+$strings['Reservation Invitation'] = 'Reserva Invitació';
+$strings['Manage Invites'] = 'Administrar Convidats';
+$strings['No invite was selected'] = 'No ha estat sel·leccionat cap convidat';
+$strings['reservation accepted'] = '%s Acceptà la teva invitació el %s';
+$strings['reservation declined'] = '%s Rebutjà la teva invitació el %s';
+$strings['Login to manage all of your invitiations'] = 'Entra per administrar totes les teves invitacions';
+$strings['Reservation Participation Change'] = 'Canvi de la participació a la reserva';
+$strings['My Invitations'] = 'Les meves Invitacions';
+$strings['Accept'] = 'Acceptar';
+$strings['Decline'] = 'Rebutjar';
+$strings['Accept or decline this reservation'] = 'Acceptar o rebutjar aquesta reserva';
+$strings['My Reservation Participation'] = 'La meva participació a la reserva';
+$strings['End Participation'] = 'Acabar la Participació';
+$strings['Owner'] = 'Propietari';
+$strings['Particpating Users'] = 'Usuaris Participants';
+$strings['No advanced options available'] = 'No hi ha opcions avançades disponibles';
+$strings['Confirm reservation participation'] = 'Confirmar participants a la reserva';
+$strings['Confirm'] = 'Confirmar';
+$strings['Do for all reservations in the group?'] = 'Fer-ho per a totes les reserves del grup?';
 
-$strings['My Calendar'] = 'My Calendar';
-$strings['View My Calendar'] = 'View My Calendar';
+$strings['My Calendar'] = 'El meu Calendari';
+$strings['View My Calendar'] = 'Veure el meu Calendari';
 $strings['Participant'] = 'Participant';
-$strings['Recurring'] = 'Recurring';
-$strings['Multiple Day'] = 'Multiple Day';
-$strings['[today]'] = '[today]';
-$strings['Day View'] = 'Day View';
-$strings['Week View'] = 'Week View';
-$strings['Month View'] = 'Month View';
-$strings['Resource Calendar'] = 'Resource Calendar';
-$strings['View Resource Calendar'] = 'View Schedule &amp; Resource Calendar';
-$strings['Signup View'] = 'Signup View';
+$strings['Recurring'] = 'Recurrent';
+$strings['Multiple Day'] = 'Dies Múltiples';
+$strings['[today]'] = '[avui]';
+$strings['Day View'] = 'Vista Dia';
+$strings['Week View'] = 'Vista Setmana';
+$strings['Month View'] = 'Vista Mes';
+$strings['Resource Calendar'] = 'Calendari de Recursos';
+$strings['View Resource Calendar'] = 'Veure Recursos del Calendari';
+$strings['Signup View'] = 'Vista d\'inscripcions';
 
-$strings['Select User'] = 'Select User';
-$strings['Change'] = 'Change';
+$strings['Select User'] = 'Seleccionar Usuari';
+$strings['Change'] = 'Canviar';
 
-$strings['Update'] = 'Update';
-$strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'phpScheduleIt Update is only available for versions 1.0.0 or later';
-$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt is already up to date';
-$strings['Migrating reservations'] = 'Migrating reservations';
+$strings['Update'] = 'Actualitzar';
+$strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'L\'actualització de phpScheduleIt solament està disponible per les versions 1.0.0 o posteriors';
+$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt ja està actualitzat';
+$strings['Migrating reservations'] = 'Migrant les reserves';
 
-$strings['Admin'] = 'Admin';
-$strings['Manage Announcements'] = 'Manage Announcements';
-$strings['There are no announcements'] = 'There are no announcements';
+$strings['Admin'] = 'Administrador';
+$strings['Manage Announcements'] = 'Administrar Anuncis';
+$strings['There are no announcements'] = 'No hi ha Anuncis';
 // end since 1.1.0
+
+// @since 1.2.0
+$strings['Maximum Participant Capacity'] = 'Capacita Màxima de Participants';
+$strings['Leave blank for unlimited'] = 'Deixa en blanc per capacitat ilimitada';
+$strings['Maximum of participants'] = 'Aquest recurs té una capacita màxima de %s participants';
+$strings['That reservation is at full capacity.'] = 'Aquesta reserva està completa.';
+$strings['Allow registered users to join?'] = 'Vols permetre als usuaris registrats apuntar-se?';
+$strings['Allow non-registered users to join?'] = 'Vols permetre als usuaris NO registrats apuntar-se?';
+$strings['Join'] = 'Apuntar';
+$strings['My Participation Options'] = 'Les meves opcions de participació';
+$strings['Join Reservation'] = 'Apuntar les Reserves';
+$strings['Join All Recurring'] = 'Apuntar a totes les Recurrents';
+$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'No pots participar en les reserves següents degut a que son a la seva màxima capacitat.';
+$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'Ya has estat invitat a aquesta cita. Segueix les instruccions enviades abans al teu correu electrònic.';
+$strings['Additional Tools'] = 'Eines Adicionals';
+$strings['Create User'] = 'Crear Usuari';
+$strings['Check Availability'] = 'Disponibilitat de Comprobació';
+$strings['Manage Additional Resources'] = 'Admininistrar Accesoris Adicionals';
+$strings['All Additional Resources'] = 'Tots els Accesoris';
+$strings['Number Available'] = 'Número Disponible';
+$strings['Unlimited'] = 'Ilimitat';
+$strings['Add Additional Resource'] = 'Afegir Accesori';
+$strings['Edit Additional Resource'] = 'Modificar accesori';
+$strings['Checking'] = 'Comprobació';
+$strings['You did not select anything to delete.'] = 'No has seleccionat res per eliminar';
+$strings['Added Resources'] = 'Recursos Afegits';
+$strings['Additional resource is reserved'] = 'Els recursos adicionals %s %s únicament son disponibles a la vegada';
+$strings['All Groups'] = 'Tots els Grups';
+$strings['Group Name'] = 'Nom de Grup';
+$strings['Delete Groups'] = 'Elimnar Grups';
+$strings['Manage Groups'] = 'Administrar Grups';
+$strings['None'] = 'Cap';
+$strings['Group name is required.'] = 'Es requereix el nom de Grup.';
+$strings['Groups'] = 'Grups';
+$strings['Current Groups'] = 'Grups Actuals';
+$strings['Group Administration'] = 'Administració de Grups';
+$strings['Reminder Subject'] = 'Recordar la Reserva - %s, %s %s';
+$strings['Reminder'] = 'Recordar';
+$strings['before reservation'] = 'abans de la reserva';
+$strings['My Participation'] = 'La Meva Participació';
+$strings['My Past Participation'] = 'Les Meves Participacions Passades';
+$strings['Timezone'] = 'Zona Horaria';
+$strings['Export'] = 'Exportar';
+$strings['Select reservations to export'] = 'Seleccionar Reserves per a Exportar';
+$strings['Export Format'] = 'Format d\'Exportació';
+$strings['This resource cannot be reserved less than x hours in advance'] = 'Aquest recurs no pot ser reservat menys de %s hores per adelantat';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'Aquest recurs no pot ser reservat més de %s hores per adelantat';
+$strings['Minimum Booking Notice'] = 'Avís de reserves mínimes';
+$strings['Maximum Booking Notice'] = 'Avís de reserves màximes';
+$strings['hours prior to the start time'] = 'Hores abans de començar el temps inicial';
+$strings['hours from the current time'] = 'hores del temps actual';
+$strings['Contains'] = 'Conté';
+$strings['Begins with'] = 'Comença';
+$strings['Minimum booking notice is required.'] = 'Es requereix avís de reserves mínimes.';
+$strings['Maximum booking notice is required.'] = 'Es requereix avís de reserves màximes.';
+$strings['Accessory Name'] = 'Nom d\'Accesori';
+$strings['Accessories'] = 'Accesoris';
+$strings['All Accessories'] = 'Tots els Accessoris';
+$strings['Added Accessories'] = 'Afegir Accessoris';
+// end since 1.2.0
 
 /***
   EMAIL MESSAGES
@@ -675,92 +733,96 @@ $strings['There are no announcements'] = 'There are no announcements';
 // @since 1.1.0
 // Email message that a user gets after they register
 $email['register'] = "%s, %s \r\n"
-				. "You have successfully registered with the following information:\r\n"
-				. "Logon: %s\r\n"
-				. "Name: %s %s \r\n"
-				. "Phone: %s \r\n"
-				. "Institution: %s \r\n"
-				. "Position: %s \r\n\r\n"
-				. "Please log into the scheduler at this location:\r\n"
+				. "T'has registrat correctament amb la següent informació:\r\n"
+				. "Usuari: %s\r\n"
+				. "Nom: %s %s \r\n"
+				. "Telèfon: %s \r\n"
+				. "Departament: %s \r\n"
+				. "Càrrec: %s \r\n\r\n"
+				. "Entra al sistema d'agenda en línia a aquesta adreça:\r\n"
 				. "%s \r\n\r\n"
-				. "You can find links to the online scheduler and to edit your profile at My Control Panel.\r\n\r\n"
-				. "Please direct any resource or reservation based questions to %s";
+				. "Trobaràs enllaços pel sistema d'agenda en línia i per modifcar el teu perfil en Inici.\r\n\r\n"
+				. "Les teves preguntes relacionades amb les reserves i recursos s'han d'enviar a %s";
 
 // Email message the admin gets after a new user registers
-$email['register_admin'] = "Administrator,\r\n\r\n"
-					. "A new user has registered with the following information:\r\n"
+$email['register_admin'] = "Administrador,\r\n\r\n"
+					. "S'ha registrat un nou Usuari amb la següent informació:\r\n"
 					. "Email: %s \r\n"
-					. "Name: %s %s \r\n"
-					. "Phone: %s \r\n"
-					. "Institution: %s \r\n"
-					. "Position: %s \r\n\r\n";
+					. "Nom: %s %s \r\n"
+					. "Telèfon: %s \r\n"
+					. "Departament: %s \r\n"
+					. "Càrrec: %s \r\n\r\n";
 
 // First part of the email that a user gets after they create/modify/delete a reservation
 // 'reservation_activity_1' through 'reservation_activity_6' are all part of one email message
 //  that needs to be assembled depending on different options.  Please translate all of them.
 // @since 1.1.0
 $email['reservation_activity_1'] = "%s,\r\n<br />"
-			. "You have successfully %s reservation #%s.\r\n\r\n<br/><br/>"
-			. "Please use this reservation number when contacting the administrator with any questions.\r\n\r\n<br/><br/>"
-			. "A reservation between %s %s and %s %s for %s"
-			. " located at %s has been %s.\r\n\r\n<br/><br/>";
-$email['reservation_activity_2'] = "This reservation has been repeated on the following dates:\r\n<br/>";
-$email['reservation_activity_3'] = "All recurring reservations in this group were also %s.\r\n\r\n<br/><br/>";
-$email['reservation_activity_4'] = "The following summary was provided for this reservation:\r\n<br/>%s\r\n\r\n<br/><br/>";
-$email['reservation_activity_5'] = "If this is a mistake, please contact the administrator at: %s"
-			. " or by calling %s.\r\n\r\n<br/><br/>"
-			. "You can view or modify your reservation information at any time by"
-			. " logging into %s at:\r\n<br/>"
+			. "Has %s correctament la reserva #%s.\r\n\r\n<br/><br/>"
+			. "Utilitza aquest número de reserva quan contactis amb l'administrador per alguna pregunta.\r\n\r\n<br/><br/>"
+			. "Una reserva entre %s %s i %s %s per a %s"
+			. " situat a %s ha estat %s.\r\n\r\n<br/><br/>";
+$email['reservation_activity_2'] = "Aquesta reserva s'ha repetit en les següents dates:\r\n<br/>";
+$email['reservation_activity_3'] = "Totes les reserves recurrents d'aquest grup també van ser %s.\r\n\r\n<br/><br/>";
+$email['reservation_activity_4'] = "El següent es el resumen per aquesta reserva:\r\n<br/>%s\r\n\r\n<br/><br/>";
+$email['reservation_activity_5'] = "Si penses que això es un error, contacta amb l'administrador a: %s"
+			. " o trucant al %s.\r\n\r\n<br/><br/>"
+			. "Pots veure o modificar la teva reserva en qualsevol moment"
+			. " iniciant una sessió a %s en:\r\n<br/>"
 			. "<a href=\"%s\" target=\"_blank\">%s</a>.\r\n\r\n<br/><br/>";
-$email['reservation_activity_6'] = "Please direct all technical questions to <a href=\"mailto:%s\">%s</a>.\r\n\r\n<br/><br/>";
+$email['reservation_activity_6'] = "Dirigeix les preguntes técniques a <a href=\"mailto:%s\">%s</a>.\r\n\r\n<br/><br/>";
 // @since 1.1.0
 $email['reservation_activity_7'] = "%s,\r\n<br />"
-			. "Reservation #%s has been approved.\r\n\r\n<br/><br/>"
-			. "Please use this reservation number when contacting the administrator with any questions.\r\n\r\n<br/><br/>"
-			. "A reservation between %s %s and %s %s for %s"
-			. " located at %s has been %s.\r\n\r\n<br/><br/>";
+			. "La reserva #%s s'ha aprovat.\r\n\r\n<br/><br/>"
+			. "Utilitza aquest número de reserva quan contactis amb l'administrador per alguna pregunta.\r\n\r\n<br/><br/>"
+			. "Una reserva entre %s %s i %s %s per a %s"
+			. " situat a %s ha estat %s.\r\n\r\n<br/><br/>";
 			
 // Email that the user gets when the administrator changes their password
-$email['password_reset'] = "Your %s password has been reset by the administrator.\r\n\r\n"
-			. "Your temporary password is:\r\n\r\n %s\r\n\r\n"
-			. "Please use this temporary password (copy and paste to be sure it is correct) to log into %s at %s"
-			. " and immediately change it using the 'Change My Profile Information/Password' link in the My Quick Links table.\r\n\r\n"
-			. "Please contact %s with any questions.";
+$email['password_reset'] = "La teva contrasenya %s l'ha restablert l'administrador.\r\n\r\n"
+			. "La teva contrasenya temporal es:\r\n\r\n %s\r\n\r\n"
+			. "Utilitza aquesta contrasenya temporal (copy and paste to be sure it is correct) per a iniciar la sessió a %s a %s"
+			. " i la canvies utilitzant l'opció 'Canviar la informació del meu Perfil/Contrasenya' a la taula Els Meus Accesos Directes.\r\n\r\n"
+			. "Contacta a %s per més informació.";
 
 // Email that the user gets when they change their lost password using the 'Password Reset' form
 $email['new_password'] = "%s,\r\n"
-            . "Your new password for your %s account is:\r\n\r\n"
+            . "La teva nova contrasenya pel teu compte de %s es:\r\n\r\n"
             . "%s\r\n\r\n"
-            . "Please Log In at %s "
-            . "with this new password "
+            . "Inicia sessió en %s "
+            . "amb aquesta contrasenya "
             . "(copy and paste it to ensure it is correct) "
-            . "and promptly change your password by clicking the "
-            . "Change My Profile Information/Password "
-            . "link in My Control Panel.\r\n\r\n"
-            . "Please direct any questions to %s.";
+            . "i la canvies fent clic en "
+            . "Canviar la informació del meu Perfil/Contrasenya "
+            . "al meu Inici.\r\n\r\n"
+            . "Per més informació contacta amb %s.";
 
 // @since 1.1.0
 // Email that is sent to invite users to a reservation
-$email['reservation_invite'] = "%s has invited you to participate in the following reservation:\r\n\r\n"
-		. "Resource: %s\r\n"
-		. "Start Date: %s\r\n"
-		. "Start Time: %s\r\n"
-		. "End Date: %s\r\n"
-		. "End Time: %s\r\n"
-		. "Summary: %s\r\n"
-		. "Repeated Dates (if present): %s\r\n\r\n"
-		. "To accept this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
-		. "To decline this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
-		. "To accept select dates or manage your invitations at a later time, please log into %s at %s";
+$email['reservation_invite'] = "%s t'ha convidat per participar a la següent reserva:\r\n\r\n"
+		. "Recurs: %s\r\n"
+		. "Data d'Inici: %s\r\n"
+		. "Hora d'Inici: %s\r\n"
+		. "Data de Finalització: %s\r\n"
+		. "Hora de Finalització: %s\r\n"
+		. "Resum: %s\r\n"
+		. "Dates de Repeticions (si n'hi ha): %s\r\n\r\n"
+		. "Per acceptar aquesta invitació fes clic a aquest ennlaç (copy and paste if it is not highlighted) %s\r\n"
+		. "Per rebutjar aquesta invitació fes clic a aquest ennlaç (copy and paste if it is not highlighted) %s\r\n"
+		. "Per acceptar algunes dates o administrar les teves invitacions després, entra a %s a %s";
 
 // @since 1.1.0
 // Email that is sent when a user is removed from a reservation
-$email['reservation_removal'] = "You have been removed from the following reservation:\r\n\r\n"
-		. "Resource: %s\r\n"
-		. "Start Date: %s\r\n"
-		. "Start Time: %s\r\n"
-		. "End Date: %s\r\n"
-		. "End Time: %s\r\n"
-		. "Summary: %s\r\n"
-		. "Repeated Dates (if present): %s\r\n\r\n";
+$email['reservation_removal'] = "Has estat eliminat de la següent reserva:\r\n\r\n"
+		. "Recurs: %s\r\n"
+		. "Data d'Inici: %s\r\n"
+		. "Hora d'Inici: %s\r\n"
+		. "Data de Finalització: %s\r\n"
+		. "Hora de Finalització: %s\r\n"
+		. "Resum: %s\r\n"
+		. "Dates de Repetició (si n'hi han): %s\r\n\r\n";
+// @since 1.2.0
+// Email body that is sent for reminders
+$email['Reminder Body'] = "La teva reserva per a %s des de %s %s a %s %s es propera.";
+
 ?>
