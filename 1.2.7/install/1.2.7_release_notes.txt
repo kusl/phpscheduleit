@@ -27,6 +27,7 @@ This is a bugfix release and contains no new features.
 - Bugfix: LDAP incompatibilities
 - Updated Italian language file
 - Updated Catalan language file
+- Updated Swedish language file
 
 
 -------------------------------------------------
