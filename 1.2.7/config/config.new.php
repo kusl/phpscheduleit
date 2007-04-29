@@ -60,9 +60,8 @@
 /*************************************************/
 
 // The full url to the root directory of phpScheduleIt
-// Please do not include the trailing slash
+// Please do not include the trailing slash ['http://localhost/phpScheduleIt']
 $conf['app']['weburi'] = 'http://localhost/phpScheduleIt';
-//$conf['app']['weburi'] = 'http://www.yourwebsite.com/path_to_phpScheduleIt';
 
 // Login email for the administrator [admin@email.com]
 // It will be used to allow special admin features
