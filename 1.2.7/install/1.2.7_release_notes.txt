@@ -1,6 +1,6 @@
 =================================================
 =   phpScheduleIt 1.2.7         Release Notes   =
-=                  04/06/2007                   =
+=                  04/29/2007                   =
 =                                               =
 =     http://phpscheduleit.sourceforge.net      =
 =        lqqkout13@users.sourceforge.net        =
@@ -28,6 +28,7 @@ This is a bugfix release and contains no new features.
 - Updated Italian language file
 - Updated Catalan language file
 - Updated Swedish language file
+- Added Chinese (Simplified) language file
 
 
 -------------------------------------------------
