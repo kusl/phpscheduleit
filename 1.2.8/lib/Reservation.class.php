@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-06-07
+* @version 06-18-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -401,7 +401,7 @@ class Reservation {
 			$userinfo = array();
 			for ($i = 0; $i < count($this->users); $i++) {
 				if ($this->users[$i]['owner'] != 1) {
-					$userinfo[] = $this->users[$i]['memberid'] . '|' . $this->users[$i]['email'];
+					$userinfo[$this->users[$i]['memberid']] = $this->users[$i]['email'];
 				}
 			}
 			if (!empty($userinfo)) {
@@ -581,7 +581,7 @@ class Reservation {
 		if (Auth::getCurrentID() != $this->user->get_id() && !$this->adminMode) { $this->type = RES_TYPE_VIEW; };
 
 		$rs = $this->resource->properties;
-		if ($this->type == RES_TYPE_ADD && $rs['approval'] == 1) {
+		if ($this->type == RES_TYPE_ADD && $rs['approval'] == 1 && !Auth::IsAdmin()) {
 			$this->is_pending = true;		// On the initial add, make sure that the is_pending flag is correct
 		}
 
@@ -596,18 +596,25 @@ class Reservation {
 			$this->end = $this->start + $this->sched['timespan'];
 		}
 		
-		print_basic_panel($this, $rs, $is_private);		// Contains resource/user info, time select, summary, repeat boxes
+		print_basic_panel($this, $rs, $is_private && !$is_owner);		// Contains resource/user info, time select, summary, repeat boxes
 
 		if ($this->is_blackout || $is_private) {
 			print_users_panel($this, array(), null, '', false, false);	// No advanced for either case
-			print_additional_tab($this, array(), null, false, false);
 		}
-		else {
+		else
+		{
 			$this->user->get_id();
 
 			$all_users = ($is_owner) ? $this->db->get_non_participating_users($this->id, Auth::getCurrentID()) : array();
 			print_users_panel($this, $all_users, $is_owner, $rs['max_participants'], true, $day_has_passed);
-
+		}
+		
+		if ($this->is_blackout)
+		{
+			print_additional_tab($this, array(), false, false);
+		}
+		else
+		{			
 			$all_resources = ($is_owner) ? $this->db->get_non_participating_resources($this->id) : array();
 			print_additional_tab($this, $all_resources, $is_owner, true);
 		}

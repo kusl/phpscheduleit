@@ -3,8 +3,8 @@
 * Finnish (fi) translation file.
 *  
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @translator Veli-Matti Koukeri <vmkoukeri@saunalahti.fi>
-* @version 05-14-06
+* @translator Veli-Matti Koukeri <vmkoukeri@saunalahti.fi> & Jari Salmela <jasa.1977@gmail.com>
+* @version 06-06-07
 * @package Languages
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -219,7 +219,7 @@ $strings['View information about'] = 'Näytä tiedot: %s %s';
 $strings['Send email to'] = 'Lähetä sähköpostia käyttäjälle %s %s';
 $strings['Reset password for'] = 'Nollaa käyttäjän %s %s salasana';
 $strings['Edit permissions for'] = 'Muokkaa käyttäjän %s %s oikeuksia';
-$strings['Position'] = 'Työnkuva';
+$strings['Position'] = 'Toimenkuva';
 $strings['Password (6 char min)'] = 'Salasana (vähintään kuusi kirjainta)';
 $strings['Re-Enter Password'] = 'Syötä salasana uudelleen';
 
@@ -282,7 +282,7 @@ $strings['Return to email management'] = 'Palaa sähköpostien hallintaan.';
 $strings['Please select which tables and fields to export'] = 'Valitse vietävät taulut ja kentät:';
 $strings['all fields'] = '- kaikki kentät -';
 $strings['HTML'] = 'HTML';
-$strings['Plain text'] = 'Plain text';
+$strings['Plain text'] = 'Pelkkä teksti';
 $strings['XML'] = 'XML';
 $strings['CSV'] = 'CSV';
 $strings['Export Data'] = 'Vie tietoja';
@@ -290,7 +290,7 @@ $strings['Reset Password for'] = 'Nollaa käyttäjän %s salasana';
 $strings['Please edit your profile'] = 'Ole hyvä, ja muokkaa profiiliasi';
 $strings['Please register'] = 'Ole hyvä, ja rekisteröidy';
 $strings['Email address (this will be your login)'] = 'Sähköpostiosoite (toimii myös käyttäjätunnuksenasi)';
-$strings['Keep me logged in'] = 'Pysyvä sisäänkirjautuminen <br/>(vaatii keksejä)';
+$strings['Keep me logged in'] = 'Pysyvä sisäänkirjautuminen <br/>(vaatii evästeitä)';
 $strings['Edit Profile'] = 'Muokkaa profiilia';
 $strings['Please Log In'] = 'Kirjaudu sisään';
 $strings['Email address'] = 'Sähköpostiosoite';
@@ -318,11 +318,11 @@ $strings['Last Modified'] = 'Muutettu viimeksi';
 $strings['View this reservation'] = 'Näytä varaus';
 $strings['Modify this reservation'] = 'Muokkaa varausta';
 $strings['Delete this reservation'] = 'Poista varaus';
-$strings['Bookings'] = 'Bookings';
-$strings['Change My Profile Information/Password'] = 'Change Profile';		// @since 1.2.0
-$strings['Manage My Email Preferences'] = 'Email Preferences';				// @since 1.2.0
+$strings['Bookings'] = 'Kirjaukset';
+$strings['Change My Profile Information/Password'] = 'Muuta profiilia';		// @since 1.2.0
+$strings['Manage My Email Preferences'] = 'Sähköposti asetukset';		// @since 1.2.0
 $strings['Mass Email Users'] = 'Lähetä sähköpostia monelle käyttäjälle';
-$strings['Search Scheduled Resource Usage'] = 'Search Reservations';		// @since 1.2.0
+$strings['Search Scheduled Resource Usage'] = 'Etsi varauksia'; 		// @since 1.2.0
 $strings['Export Database Content'] = 'Vie tietokannan sisältö';
 $strings['View System Stats'] = 'Näytä järjestelmän tilastot';
 $strings['Email Administrator'] = 'Lähetä postia ylläpitäjälle';
@@ -385,7 +385,7 @@ $strings['Total Users'] = 'Käyttäjiä yhteensä:';
 $strings['Total Resources'] = 'Resursseja yhteensä:';
 $strings['Total Reservations'] = 'Varauksia yhteensä:';
 $strings['Max Reservation'] = 'Varauksia enintään:';
-$strings['Min Reservation'] = 'Varauksia vähintää:';
+$strings['Min Reservation'] = 'Varauksia vähintään:';
 $strings['Avg Reservation'] = 'Varauksia keskimäärin:';
 $strings['Most Active Resource'] = 'Akiivisin resurssi:';
 $strings['Most Active User'] = 'Aktiivisimmat käyttäjät:';
@@ -399,10 +399,10 @@ $strings['Server name'] = 'Palvelimen nimi:';
 $strings['phpScheduleIt root directory'] = 'phpScheduleIt root-hakemisto:';
 $strings['Using permissions'] = 'Käytetään oikeuksia:';
 $strings['Using logging'] = 'Käytetään sisäänkirjausta:';
-$strings['Log file'] = 'Logitiedosto:';
+$strings['Log file'] = 'Lokitiedosto:';
 $strings['Admin email address'] = 'Ylläpitäjän sähköpostiosoite:';
 $strings['Tech email address'] = 'Teknisen avun sähköpostiosoite:';
-$strings['CC email addresses'] = '"CC"-sähköpostiosoitteet:';
+$strings['CC email addresses'] = 'Kopio sähköpostiosoitteet:';
 $strings['Reservation start time'] = 'Varauksen aloitusaika:';
 $strings['Reservation end time'] = 'Varauksen lopetusaika:';
 $strings['Days shown at a time'] = 'Päivät näytetään ajalla:';
@@ -420,7 +420,7 @@ $strings['Ending Date'] = 'Lopetuspäivä:';
 $strings['Starting Time'] = 'Aloitusaika:';
 $strings['Ending Time'] = 'Lopetusaika:';
 $strings['Output Type'] = 'Tulosteen tyyppi:';
-$strings['Manage'] = 'Hallittse';
+$strings['Manage'] = 'Hallitse';
 $strings['Total Time'] = 'Käytetty aika:';
 $strings['Total hours'] = 'Yhteensä tunteja:';
 $strings['% of total resource time'] = '% käytetystä resurssiajasta.';
@@ -445,8 +445,8 @@ $strings['You do not have permission to use any resources.'] = 'Sinulla ei ole o
 $strings['No resources in the database.'] = 'Tietokannassa ei ole resursseja.';
 $strings['There was an error executing your query'] = 'Kyselysi käsittely päätyi virheeseen.';
 
-$strings['That cookie seems to be invalid'] = 'Keksi ';
-$strings['We could not find that email in our database.'] = 'Sähköpostiosoitetta ei löytynyt  tietokannasta.';
+$strings['That cookie seems to be invalid'] = 'Eväste ei ole kelvollinen ';
+$strings['We could not find that email in our database.'] = 'Sähköpostiosoitetta ei löytynyt tietokannasta.';
 $strings['That password did not match the one in our database.'] = 'Sähköposti ei vastannut tietokannassa olevaa.';
 $strings['You can try'] = '<br />Voit:<br />Rekisteröidä sähköpostiosoitteen.<br />Tai:<br />Yrittää kirjautua uudelleen.';
 $strings['A new user has been added'] = 'Uusi käyttäjä lisätty.';
@@ -502,14 +502,14 @@ $strings['Reservations per start time'] = 'Varauksia per aloitusajankohta';
 $strings['Reservations per end time'] = 'Varauksia per lopetusajankohta';
 $strings['[All Reservations]'] = '[Kaikki varaukset]';
 
-$strings['Permissions Updated'] = 'Oukeudet päivitetty';
+$strings['Permissions Updated'] = 'Oikeudet päivitetty';
 $strings['Your permissions have been updated'] = '%s -oikeutesi on päivitetty';
 $strings['You now do not have permission to use any resources.'] = 'Sinulla ei ole oikeutta käyttää resursseja.';
 $strings['You now have permission to use the following resources'] = 'Sinulla on nyt oikeus käyttää seuraavia resursseja:';
 $strings['Please contact with any questions.'] = 'Yhteyshenkilösi ongelmatilanteissa on: %s';
 $strings['Password Reset'] = 'Salasana nollattu';
 
-$strings['This will change your password to a new, randomly generated one.'] = 'Tämä vaihtaa salasanasi satunnaisesti luotuun uuteen.';
+$strings['This will change your password to a new, randomly generated one.'] = 'Tämä vaihtaa salasanasi uuteen satunnaisesti luotuun.';
 $strings['your new password will be set'] = 'Syötettyäsi sähköpostiosoitteen, ja klikattuasi "Vaihda salasana"-nappia,  salasanasi päivitetään ja lähetetään sinulle sähköpostilla.';
 $strings['Change Password'] = 'Vaihda salasana';
 $strings['Sorry, we could not find that user in the database.'] = 'Käyttäjää ei löytynyt tietokannasta.';
@@ -519,10 +519,10 @@ $strings['You are not logged in!'] = 'Et ole kirjautunut sisään!';
 
 $strings['Setup'] = 'Asetukset';
 $strings['Please log into your database'] = 'Kirjaudu tietokantaan';
-$strings['Enter database root username'] = 'Syötä tietokannan root-käyttäjätunnus:';
-$strings['Enter database root password'] = 'Syötä tietokannan root-salasana:';
+$strings['Enter database root username'] = 'Syötä tietokannan pääkäyttäjätunnus:';
+$strings['Enter database root password'] = 'Syötä tietokannan pääkäyttäjä-salasana:';
 $strings['Login to database'] = 'Kirjaudu tietokantaan';
-$strings['Root user is not required. Any database user who has permission to create tables is acceptable.'] = 'Root-käyttäjätunnusta <b>ei</b> tarvita. Mikä tahansa käyttäjätunnus, jolla on oikeus luoda tauluja, toimii.';
+$strings['Root user is not required. Any database user who has permission to create tables is acceptable.'] = 'Pääkäyttäjätunnusta <b>ei</b> tarvita. Mikä tahansa käyttäjätunnus, jolla on oikeus luoda tauluja, toimii.';
 $strings['This will set up all the necessary databases and tables for phpScheduleIt.'] = 'Luodaan kaikki tarpeelliset tietokannat ja taulut phpScheduleIt-ohjelmistolle.';
 $strings['It also populates any required tables.'] = 'Myös kaikki tarvittavat taulut alustetaan.';
 $strings['Warning: THIS WILL ERASE ALL DATA IN PREVIOUS phpScheduleIt DATABASES!'] = 'Varoitus: KAIKKI JO OLEMASSA TIETO phpScheduleIt -TIETOKANNOISSA POISTETAAN!';
@@ -543,161 +543,161 @@ $strings['Patch completed successfully'] = 'Päivitys suoritettu onnistuneesti';
 $strings['This will populate the required fields for phpScheduleIt 1.0.0 and patch a data bug in 0.9.9.'] = 'Tämä alustaa tarvittavat kentät phpScheduleIt 1.0.0-versiolle, ja päivittää version 0.9.9 data-bugin.<br />Sinun tarvitsee ajaa tämä vain, jos suoritit manuaalisen SQL-päivityksen, tai olet päivittämässä versiosta 0.9.9';
 
 // @since 1.0.0 RC1
-$strings['If no value is specified, the default password set in the config file will be used.'] = 'If no value is specified, the default password set in the config file will be used.';
-$strings['Notify user that password has been changed?'] = 'Notify user that password has been changed?';
+$strings['If no value is specified, the default password set in the config file will be used.'] = 'Jos mitään arvoa ei ole määritetty, oletus salasanaa määritys tiedostosta tullaan käyttämään.';
+$strings['Notify user that password has been changed?'] = 'Ilmoita käyttäjälle salasanan vaihdosta?';
 
 // @since 1.1.0
-$strings['This system requires that you have an email address.'] = 'This system requires that you have an email address.';
-$strings['Invalid User Name/Password.'] = 'Invalid User Name/Password.';
-$strings['Pending User Reservations'] = 'Pending User Reservations';
-$strings['Approve'] = 'Approve';
-$strings['Approve this reservation'] = 'Approve this reservation';
-$strings['Approve Reservations'] ='Approve Reservations';
+$strings['This system requires that you have an email address.'] = 'Tämä järjestelmä vaatii, että sinulla on sähköpostiosoite.';
+$strings['Invalid User Name/Password.'] = 'Väärä käyttäjätunnus/salasana.';
+$strings['Pending User Reservations'] = 'Odottavat käyttäjän varaukset';
+$strings['Approve'] = 'Hyväksy';
+$strings['Approve this reservation'] = 'Hyväksy tämä varaus';
+$strings['Approve Reservations'] ='Hyväksy varaukset';
 
-$strings['Announcement'] = 'Announcement';
-$strings['Number'] = 'Number';
-$strings['Add Announcement'] = 'Add Announcement';
-$strings['Edit Announcement'] = 'Edit Announcement';
-$strings['All Announcements'] = 'All Announcements';
-$strings['Delete Announcements'] = 'Delete Announcements';
-$strings['Use start date/time?'] = 'Use start date/time?';
-$strings['Use end date/time?'] = 'Use end date/time?';
-$strings['Announcement text is required.'] = 'Announcement text is required.';
-$strings['Announcement number is required.'] = 'Announcement number is required.';
+$strings['Announcement'] = 'Tiedote';
+$strings['Number'] = 'Numero';
+$strings['Add Announcement'] = 'Lisää tiedote';
+$strings['Edit Announcement'] = 'Muokkaa tiedotetta';
+$strings['All Announcements'] = 'Kaikki tiedotteet';
+$strings['Delete Announcements'] = 'Poista tiedotteet';
+$strings['Use start date/time?'] = 'Käytä aloitus päivämäärää/aikaa?';
+$strings['Use end date/time?'] = 'Käytä lopetus päivämäärää/aikaa?';
+$strings['Announcement text is required.'] = 'Tiedoite teksti vaaditaan.';
+$strings['Announcement number is required.'] = 'Tiedoitteen numero vaaditaan.';
 
-$strings['Pending Approval'] = 'Pending Approval';
-$strings['My reservation is approved'] = 'My reservation is approved';
-$strings['This reservation must be approved by the administrator.'] = 'This reservation must be approved by the administrator.';
-$strings['Approval Required'] = 'Approval Required';
-$strings['No reservations requiring approval'] = 'No reservations requiring approval';
-$strings['Your reservation was successfully approved'] = 'Your reservation was successfully approved';
-$strings['Reservation approved for'] = 'Reservation approved for %s';
-$strings['approved'] = 'approved';
-$strings['Reservation approved'] = 'Reservation approved';
+$strings['Pending Approval'] = 'Odottaa hyväksymistä';
+$strings['My reservation is approved'] = 'Varaukseni on hyväksytty';
+$strings['This reservation must be approved by the administrator.'] = 'Pääkäyttäjän pitää hyväksyä tämä varaus.';
+$strings['Approval Required'] = 'Hyväksyntä vaaditaan';
+$strings['No reservations requiring approval'] = 'Yksikään varaus ei odota hyväksyntää';
+$strings['Your reservation was successfully approved'] = 'Varauksesi on hyväksytty';
+$strings['Reservation approved for'] = 'Varaus hyväksytty %s :lle';
+$strings['approved'] = 'hyväksytty';
+$strings['Reservation approved'] = 'Varaus hyväksytty';
 
-$strings['Valid username is required'] = 'Valid username is required';
-$strings['That logon name is taken already.'] = 'That logon name is taken already.';
-$strings['this will be your login'] = '(this will be your login)';
-$strings['Logon name'] = 'Logon name';
-$strings['Your logon name is'] = 'Your logon name is %s';
+$strings['Valid username is required'] = 'Voimassaoleva käyttäjätunnus vaaditaan';
+$strings['That logon name is taken already.'] = 'Kirjautumistunnus on jo käytössä.';
+$strings['this will be your login'] = '(Tämä on kirjautumistunnuksesi)';
+$strings['Logon name'] = 'Kirjautumistunnus';
+$strings['Your logon name is'] = 'Kirjautumistunnuksesi on %s';
 
-$strings['Start'] = 'Start';
-$strings['End'] = 'End';
-$strings['Start date must be less than or equal to end date'] = 'Start date must be less than or equal to end date';
-$strings['That starting date has already passed'] = 'That starting date has already passed';
-$strings['Basic'] = 'Basic';
-$strings['Participants'] = 'Participants';
-$strings['Close'] = 'Close';
-$strings['Start Date'] = 'Start Date';
-$strings['End Date'] = 'End Date';
-$strings['Minimum'] = 'Minimum';
-$strings['Maximum'] = 'Maximum';
-$strings['Allow Multiple Day Reservations'] = 'Allow Multiple Day Reservations';
-$strings['Invited Users'] = 'Invited Users';
-$strings['Invite Users'] = 'Invite Users';
-$strings['Remove Participants'] = 'Remove Participants';
-$strings['Reservation Invitation'] = 'Reservation Invitation';
-$strings['Manage Invites'] = 'Manage Invites';
-$strings['No invite was selected'] = 'No invite was selected';
-$strings['reservation accepted'] = '%s Accepted Your Invitation on %s';
-$strings['reservation declined'] = '%s Declined Your Invitation on %s';
-$strings['Login to manage all of your invitiations'] = 'Login to manage all of your invitiations';
-$strings['Reservation Participation Change'] = 'Reservation Participation Change';
-$strings['My Invitations'] = 'My Invitations';
-$strings['Accept'] = 'Accept';
-$strings['Decline'] = 'Decline';
-$strings['Accept or decline this reservation'] = 'Accept or decline this reservation';
-$strings['My Reservation Participation'] = 'My Reservation Participation';
-$strings['End Participation'] = 'End Participation';
-$strings['Owner'] = 'Owner';
-$strings['Particpating Users'] = 'Particpating Users';
+$strings['Start'] = 'Alkaa';
+$strings['End'] = 'Päättyy';
+$strings['Start date must be less than or equal to end date'] = 'Aloitus päivän tulee olla aikaisempi tai sama kuin päättymis päivän';
+$strings['That starting date has already passed'] = 'Aloitus päivä on jo mennyt';
+$strings['Basic'] = 'Perus';
+$strings['Participants'] = 'Osallistujat';
+$strings['Close'] = 'Sulje';
+$strings['Start Date'] = 'Aloitus päivä';
+$strings['End Date'] = 'Päättymis päivä';
+$strings['Minimum'] = 'Pienin';
+$strings['Maximum'] = 'Suurin';
+$strings['Allow Multiple Day Reservations'] = 'Salli useiden päivien varauksia';
+$strings['Invited Users'] = 'Kutsutut käyttäjät';
+$strings['Invite Users'] = 'Kutsu käyttäjia';
+$strings['Remove Participants'] = 'Poista osallistujia';
+$strings['Reservation Invitation'] = 'Varaus kutsu';
+$strings['Manage Invites'] = 'Hallitse kutsuja';
+$strings['No invite was selected'] = 'Yhtään kutsua ei ole valittu';
+$strings['reservation accepted'] = '%s hyväksyi kutsusi: %s';
+$strings['reservation declined'] = '%s ei hyväksynyt kutsuasi: %s';
+$strings['Login to manage all of your invitiations'] = 'Kirjaudu hallitaksesi kaikkia kutsujasi';
+$strings['Reservation Participation Change'] = 'Varauksen osanoton muuttaminen';
+$strings['My Invitations'] = 'Kutsuni';
+$strings['Accept'] = 'Hyväksy';
+$strings['Decline'] = 'Hylkää';
+$strings['Accept or decline this reservation'] = 'Hyväksy tai hylkää tämä varaus';
+$strings['My Reservation Participation'] = 'Varaukseni osanotto';
+$strings['End Participation'] = 'Päätä osanotto';
+$strings['Owner'] = 'Omistaja';
+$strings['Particpating Users'] = 'Osanottavat käyttäjät';
 $strings['No advanced options available'] = 'No advanced options available';
-$strings['Confirm reservation participation'] = 'Confirm reservation participation';
-$strings['Confirm'] = 'Confirm';
-$strings['Do for all reservations in the group?'] = 'Do for all reservations in the group?';
+$strings['Confirm reservation participation'] = 'Vahvista varauksen osanotto';
+$strings['Confirm'] = 'Vahvista';
+$strings['Do for all reservations in the group?'] = 'Tee kaikille varauksille tässä ryhmässä?';
 
-$strings['My Calendar'] = 'My Calendar';
-$strings['View My Calendar'] = 'View My Calendar';
-$strings['Participant'] = 'Participant';
-$strings['Recurring'] = 'Recurring';
-$strings['Multiple Day'] = 'Multiple Day';
-$strings['[today]'] = '[today]';
-$strings['Day View'] = 'Day View';
-$strings['Week View'] = 'Week View';
-$strings['Month View'] = 'Month View';
-$strings['Resource Calendar'] = 'Resource Calendar';
-$strings['View Resource Calendar'] = 'Schedule Calendar';	// @since 1.2.0
-$strings['Signup View'] = 'Signup View';
+$strings['My Calendar'] = 'Kalenteri';
+$strings['View My Calendar'] = 'Näytä kalenterini';
+$strings['Participant'] = 'Osanotto';
+$strings['Recurring'] = 'Päättymätön';
+$strings['Multiple Day'] = 'Useita päiviä';
+$strings['[today]'] = '[tänään]';
+$strings['Day View'] = 'Päivä näkymä';
+$strings['Week View'] = 'Viikko näkymä';
+$strings['Month View'] = 'Kuukausi näkymä';
+$strings['Resource Calendar'] = 'Resurssi kalenteri';
+$strings['View Resource Calendar'] = 'Aikataulu kalenteri';	// @since 1.2.0
+$strings['Signup View'] = 'Kirjautumis näkymä';
 
-$strings['Select User'] = 'Select User';
-$strings['Change'] = 'Change';
+$strings['Select User'] = 'Valitse käyttäjä';
+$strings['Change'] = 'Vaihda';
 
-$strings['Update'] = 'Update';
-$strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'phpScheduleIt Update is only available for versions 1.0.0 or later';
-$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt is already up to date';
-$strings['Migrating reservations'] = 'Migrating reservations';
+$strings['Update'] = 'Päivitä';
+$strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'phpScheduleIt päivitys on mahdollista vain versiolle 1.1.0 tai myöhempi';
+$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt on jo ajantasalla';
+$strings['Migrating reservations'] = 'Siirretään varauksia';
 
-$strings['Admin'] = 'Admin';
-$strings['Manage Announcements'] = 'Manage Announcements';
-$strings['There are no announcements'] = 'There are no announcements';
+$strings['Admin'] = 'Pääkäyttäjä';
+$strings['Manage Announcements'] = 'Hallitse tiedotteita';
+$strings['There are no announcements'] = 'Ei yhtään tiedotetta';
 // end since 1.1.0
 
 // @since 1.2.0
-$strings['Maximum Participant Capacity'] = 'Maximum Participant Capacity';
-$strings['Leave blank for unlimited'] = 'Leave blank for unlimited';
-$strings['Maximum of participants'] = 'This resource has a maximum capacity of %s participants';
-$strings['That reservation is at full capacity.'] = 'That reservation is at full capacity.';
-$strings['Allow registered users to join?'] = 'Allow registered users to join?';
-$strings['Allow non-registered users to join?'] = 'Allow non-registered users to join?';
-$strings['Join'] = 'Join';
-$strings['My Participation Options'] = 'My Participation Options';
-$strings['Join Reservation'] = 'Join Reservation';
-$strings['Join All Recurring'] = 'Join All Recurring';
-$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'You are not participating on the following reservation dates because they are at full capacity.';
-$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'You are already invited to this reservation. Please follow participation instructions previously sent to your email.';
-$strings['Additional Tools'] = 'Additional Tools';
-$strings['Create User'] = 'Create User';
-$strings['Check Availability'] = 'Check Availability';
-$strings['Manage Additional Resources'] = 'Manage Additional Resources';
-$strings['All Additional Resources'] = 'All Additional Resources';
-$strings['Number Available'] = 'Number Available';
-$strings['Unlimited'] = 'Unlimited';
-$strings['Add Additional Resource'] = 'Add Additional Resource';
-$strings['Edit Additional Resource'] = 'Edit Additional Resource';
-$strings['Checking'] = 'Checking';
-$strings['You did not select anything to delete.'] = 'You did not select anything to delete.';
-$strings['Added Resources'] = 'Added Resources';
-$strings['Additional resource is reserved'] = 'The additional resource %s only has %s available at a time';
-$strings['All Groups'] = 'All Groups';
-$strings['Group Name'] = 'Group Name';
-$strings['Delete Groups'] = 'Delete Groups';
-$strings['Manage Groups'] = 'Manage Groups';
-$strings['None'] = 'None';
-$strings['Group name is required.'] = 'Group name is required.';
-$strings['Groups'] = 'Groups';
-$strings['Current Groups'] = 'Current Groups';
-$strings['Group Administration'] = 'Group Administration';
-$strings['Reminder Subject'] = 'Reservation reminder- %s, %s %s';
-$strings['Reminder'] = 'Reminder';
-$strings['before reservation'] = 'before reservation';
-$strings['My Participation'] = 'My Participation';
-$strings['My Past Participation'] = 'My Past Participation';
-$strings['Timezone'] = 'Timezone';
-$strings['Export'] = 'Export';
-$strings['Select reservations to export'] = 'Select reservations to export';
-$strings['Export Format'] = 'Export Format';
-$strings['This resource cannot be reserved less than x hours in advance'] = 'This resource cannot be reserved less than %s hours in advance';
-$strings['This resource cannot be reserved more than x hours in advance'] = 'This resource cannot be reserved more than %s hours in advance';
-$strings['Minimum Booking Notice'] = 'Minimum Booking Notice';
-$strings['Maximum Booking Notice'] = 'Maximum Booking Notice';
-$strings['hours prior to the start time'] = 'hours prior to the start time';
-$strings['hours from the current time'] = 'hours from the current time';
-$strings['Contains'] = 'Contains';
-$strings['Begins with'] = 'Begins with';
-$strings['Accessory Name'] = 'Accessory Name';
-$strings['Accessories'] = 'Accessories';
-$strings['All Accessories'] = 'All Accessories';
-$strings['Added Accessories'] = 'Added Accessories';
+$strings['Maximum Participant Capacity'] = 'Suurin osallistuja määrä';
+$strings['Leave blank for unlimited'] = 'Jätä tyhjäksi rajoittamatonta varten';
+$strings['Maximum of participants'] = 'Tällä resurssilla on suurin mahdollinnen määrä (%s kpl) osallistujia';
+$strings['That reservation is at full capacity.'] = 'Varaus on täynnä.';
+$strings['Allow registered users to join?'] = 'Salli rekistöröityneiden käyttäjien liittyä?';
+$strings['Allow non-registered users to join?'] = 'Salli rekistöröitymättömien käyttäjien liittyä?';
+$strings['Join'] = 'Liity';
+$strings['My Participation Options'] = 'Osallistumis valintani';
+$strings['Join Reservation'] = 'Liity varaukseen';
+$strings['Join All Recurring'] = 'Liity kaikkiin päättymättömästi';
+$strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'Et voi pitää varausta kyseisinä päivinä, koska kaikki tilat on jo käytössä.';
+$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'Sinut on jo kutsuttu tähän varaukseen. Ole hyvä ja seuraa osallistumis ohjeita, jotka olivat sähköpostissa.';
+$strings['Additional Tools'] = 'Lisä työkalut';
+$strings['Create User'] = 'Luo käyttäjä';
+$strings['Check Availability'] = 'Tarkista saatavuus';
+$strings['Manage Additional Resources'] = 'Hallitse lisä resursseja';
+$strings['All Additional Resources'] = 'Kaikki lisä resurssit';
+$strings['Number Available'] = 'Kappaletta vapaana';
+$strings['Unlimited'] = 'Loputon';
+$strings['Add Additional Resource'] = 'Lisää lisä resurssi';
+$strings['Edit Additional Resource'] = 'Muokkaa lisä resurssia';
+$strings['Checking'] = 'Tarkistaa';
+$strings['You did not select anything to delete.'] = 'Et valinnut mitään poistettavaksi.';
+$strings['Added Resources'] = 'Lisätyt resurssit';
+$strings['Additional resource is reserved'] = 'Lisä resurssi %s on ainoastaan saatavilla %s kerralla';
+$strings['All Groups'] = 'Kaikki ryhmät';
+$strings['Group Name'] = 'Ryhmän nimi';
+$strings['Delete Groups'] = 'Poista ryhmät';
+$strings['Manage Groups'] = 'Hallitse ryhmiä';
+$strings['None'] = 'Ei mitään';
+$strings['Group name is required.'] = 'Ryhmän nimi vaaditaan.';
+$strings['Groups'] = 'Ryhmät';
+$strings['Current Groups'] = 'Tämän hetkiset ryhmät';
+$strings['Group Administration'] = 'Ryhmän hallinta';
+$strings['Reminder Subject'] = 'Varauksen muistutus - %s, %s %s';
+$strings['Reminder'] = 'Muistutus';
+$strings['before reservation'] = 'ennen varausta';
+$strings['My Participation'] = 'Osallitumiset';
+$strings['My Past Participation'] = 'Meneet osallistumiset';
+$strings['Timezone'] = 'Aikavyöhyke';
+$strings['Export'] = 'Vie';
+$strings['Select reservations to export'] = 'Valitse varaukset vietäväksi';
+$strings['Export Format'] = 'Vienti muoto';
+$strings['This resource cannot be reserved less than x hours in advance'] = 'Tätä resurssia ei voida varata pienemmäksi kuin %s tunniksi ennakkoon';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'Tätä resurssia ei voida varata pitemmäksi kuin %s tunniksi ennakkoon';
+$strings['Minimum Booking Notice'] = 'Pienin kirjauksen varoitus aika';
+$strings['Maximum Booking Notice'] = 'Suurin kirjauksen varoitus aika';
+$strings['hours prior to the start time'] = 'tuntia aloitus ajasta';
+$strings['hours from the current time'] = 'tuntia tästä hetkestä';
+$strings['Contains'] = 'Sisältää';
+$strings['Begins with'] = 'Alkaa';
+$strings['Accessory Name'] = 'Lisälaitteen nimi';
+$strings['Accessories'] = 'Lisälaitteet';
+$strings['All Accessories'] = 'Kaikki lisälaitteet';
+$strings['Added Accessories'] = 'Lisätyt lisälaitteet';
 // end since 1.2.0
 
 /***
@@ -710,16 +710,16 @@ $strings['Added Accessories'] = 'Added Accessories';
 // @since 1.1.0
 // Email message that a user gets after they register
 $email['register'] = "%s, %s \r\n"
-				. "You have successfully registered with the following information:\r\n"
-				. "Logon: %s\r\n"
-				. "Name: %s %s \r\n"
-				. "Phone: %s \r\n"
-				. "Institution: %s \r\n"
-				. "Position: %s \r\n\r\n"
-				. "Please log into the scheduler at this location:\r\n"
+				. "Olet onnistuneesti rekistöröitynyt seuraavilla tiedoilla:\r\n"
+				. "Tunnus: %s\r\n"
+				. "Nimi: %s %s \r\n"
+				. "Puhelin: %s \r\n"
+				. "Järjestö/Yritys: %s \r\n"
+				. "Toimenkuva: %s \r\n\r\n"
+				. "Kirjaudu järjestelmään oheisesta linkistä:\r\n"
 				. "%s \r\n\r\n"
-				. "You can find links to the online scheduler and to edit your profile at My Control Panel.\r\n\r\n"
-				. "Please direct any resource or reservation based questions to %s";
+				. "Löydät linkit kalenteriin ja muokataksesi tietojasi ohjauspaneelin kautta.\r\n\r\n"
+				. "Ole hyvä ja lähetä kaikki resurssi ja varaus kysymyksesi osoitteeseen: %s";
 
 // Email message the admin gets after a new user registers
 $email['register_admin'] = "Ylläpitäjä,\r\n\r\n"
@@ -735,10 +735,10 @@ $email['register_admin'] = "Ylläpitäjä,\r\n\r\n"
 //  that needs to be assembled depending on different options.  Please translate all of them.
 // @since 1.1.0
 $email['reservation_activity_1'] = "%s,\r\n<br />"
-			. "You have successfully %s reservation #%s.\r\n\r\n<br/><br/>"
-			. "Please use this reservation number when contacting the administrator with any questions.\r\n\r\n<br/><br/>"
-			. "A reservation between %s %s and %s %s for %s"
-			. " located at %s has been %s.\r\n\r\n<br/><br/>";
+			. "Olet onnistuneesti varannut %s varausnumerolla #%s.\r\n\r\n<br/><br/>"
+			. "Ole hyvä ja käytä oheista varausnumeroa, jos sinulla on kysymyksiä liittyen varaukseesi.\r\n\r\n<br/><br/>"
+			. "Varaus on seuraavalla aikavälillä: %s %s - %s %s seuraavaan tilaan: %s"
+			. " joka sijaitsee %s on %s.\r\n\r\n<br/><br/>";
 $email['reservation_activity_2'] = "Tämä varaus on toistettu seuraaville päiville:\r\n<br/>";
 $email['reservation_activity_3'] = "Kaikki toistuvat varaukset tässä ryhmässä %s myös.\r\n\r\n<br/><br/>";
 $email['reservation_activity_4'] = "Varaukselle on annettu seuraavanlainen yhteenveto:\r\n<br/>%s\r\n\r\n<br/><br/>";
@@ -748,10 +748,10 @@ $email['reservation_activity_5'] = "Jos teit virheen, ole hyvä, ja ota yhteyttä 
 $email['reservation_activity_6'] = "Lähetä tekniset kysymykset osoitteeseen <a href=\"mailto:%s\">%s</a>.\r\n\r\n<br/><br/>";
 // @since 1.1.0
 $email['reservation_activity_7'] = "%s,\r\n<br />"
-			. "Reservation #%s has been approved.\r\n\r\n<br/><br/>"
-			. "Please use this reservation number when contacting the administrator with any questions.\r\n\r\n<br/><br/>"
-			. "A reservation between %s %s and %s %s for %s"
-			. " located at %s has been %s.\r\n\r\n<br/><br/>";
+			. "Varaus #%s on hyväksytty.\r\n\r\n<br/><br/>"
+			. "Käytä tätä varausnumeroa, kun otat yhteyttä ylläpitäjän, missä tahansa kysymyksessä.\r\n\r\n<br/><br/>"
+			. "Varaus aikavälillä %s %s - %s %s seuraavaan tilaan: %s"
+			. " joka sijaitsee %s on %s.\r\n\r\n<br/><br/>";
 			
 // Email that the user gets when the administrator changes their password
 $email['password_reset'] = "Ylläpitäjä on nollannut %s -salasanasi.\r\n\r\n"
@@ -762,35 +762,35 @@ $email['password_reset'] = "Ylläpitäjä on nollannut %s -salasanasi.\r\n\r\n"
 // Email that the user gets when they change their lost password using the 'Password Reset' form
 $email['new_password'] = "%s,\r\nUusi salasana käyttäjätilillesi %s on:\r\n\r\n"
 			. "%s\r\n\r\n"
-			. "Kirjadu sisään (%s) tällä salasanalla (kopioi/liimaa varmistaaksesi oikeinkirjoituksen), ja vaihda salasana haluamaksesi klikkaamalla Muokkaa profiilia/salasanaa -linkkiä Ohjauspaneelissa.\r\n\r\n"
+			. "Kirjaudu sisään (%s) tällä salasanalla (kopioi-liitä varmistaaksesi oikeinkirjoituksen), ja vaihda salasana haluamaksesi klikkaamalla Muokkaa profiilia/salasanaa -linkkiä Ohjauspaneelissa.\r\n\r\n"
 			. "Ongelmatilanteissa kysymyksiisi vastaa %s.";
 			
 // @since 1.1.0
 // Email that is sent to invite users to a reservation
-$email['reservation_invite'] = "%s has invited you to participate in the following reservation:\r\n\r\n"
-		. "Resource: %s\r\n"
-		. "Start Date: %s\r\n"
-		. "Start Time: %s\r\n"
-		. "End Date: %s\r\n"
-		. "End Time: %s\r\n"
-		. "Summary: %s\r\n"
-		. "Repeated Dates (if present): %s\r\n\r\n"
-		. "To accept this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
-		. "To decline this invitation click this link (copy and paste if it is not highlighted) %s\r\n"
-		. "To accept select dates or manage your invitations at a later time, please log into %s at %s";
+$email['reservation_invite'] = "%s on kutsunut sinut osalliseksi seuraavaan varaukseen:\r\n\r\n"
+		. "Resurssi: %s\r\n"
+		. "Aloitus päivä: %s\r\n"
+		. "Aloitus aika: %s\r\n"
+		. "Päättymis päivä: %s\r\n"
+		. "Päättymis aika: %s\r\n"
+		. "Yhteenveto: %s\r\n"
+		. "Toistetaan päivinä (jos valittu): %s\r\n\r\n"
+		. "Hyväksyäksesi kutsun klikkaa linkkiä (kopio-liitä, jollei linkkiä ole korostettu) %s\r\n"
+		. "Hylätäksesi kutsun klikkaa linkkiä (kopio-liitä, jollei linkkiä ole korostettu) %s\r\n"
+		. "Hyväksyäksesi valitut päivät tai hallitaksesi kutsujasi myöhemmin, kirjaudu sisään %s käyttäjänä %s";
 
 // @since 1.1.0
 // Email that is sent when a user is removed from a reservation
-$email['reservation_removal'] = "You have been removed from the following reservation:\r\n\r\n"
-		. "Resource: %s\r\n"
-		. "Start Date: %s\r\n"
-		. "Start Time: %s\r\n"
-		. "End Date: %s\r\n"
-		. "End Time: %s\r\n"
-		. "Summary: %s\r\n"
-		. "Repeated Dates (if present): %s\r\n\r\n";	
+$email['reservation_removal'] = "Sinut on poistettu seuraavasta varauksesta:\r\n\r\n"
+		. "Resurssi: %s\r\n"
+		. "Aloitus päivä: %s\r\n"
+		. "Aloitus aika: %s\r\n"
+		. "Päättymis päivä: %s\r\n"
+		. "Päättymis aika: %s\r\n"
+		. "Yhteenveto: %s\r\n"
+		. "Toistetaan päivinä (jos valittu): %s\r\n\r\n";	
 
 // @since 1.2.0
 // Email body that is sent for reminders
-$email['Reminder Body'] = "Your reservation for %s from %s %s to %s %s is approaching.";
+$email['Reminder Body'] = "Varauksesi kohteesta %s alkaen %s %s - %s %s lähestyy.";
 ?>

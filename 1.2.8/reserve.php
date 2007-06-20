@@ -115,6 +115,11 @@ function process_reservation($fn) {
 	$cur_user = new User(Auth::getCurrentID());
 	$res->adminMode = Auth::isAdmin() || $cur_user->get_isadmin() || ($fn != 'create' && $cur_user->is_group_admin($res->user->get_groupids()));
 
+	if (Auth::isAdmin() || $cur_user->get_isadmin())
+	{
+		$res->is_pending = false;	
+	}
+	
 	if ($fn == 'create' || $fn == 'modify') {
 		$helper = new ReservationHelper();
 		$util = new Utility();
@@ -187,6 +192,12 @@ function present_reservation($resid) {
 
 	$cur_user = new User(Auth::getCurrentID());
 	$res->adminMode = Auth::isAdmin() || $cur_user->get_isadmin() || $cur_user->is_group_admin($res->user->get_groupids() );
+	
+	if (Auth::isAdmin() || $cur_user->get_isadmin())
+	{
+		$res->is_pending = false;	
+	}
+	
 	$res->set_type($_GET['type']);
 	$res->print_res();
 }

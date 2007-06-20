@@ -3,7 +3,7 @@
 * LDAPEngine class
 * @author David Poole <David.Poole@fccc.edu>
 * @author William P.O'Sullivan
-* @version 04-06-07
+* @version 06-18-07
 * @package LDAPEngine
 *
 * Copyright (C) 2004 phpScheduleIt

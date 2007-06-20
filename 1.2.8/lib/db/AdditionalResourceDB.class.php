@@ -2,7 +2,7 @@
 /**
 * This file contains the database class to work with the AdditionalResource class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 11-11-04
+* @version 06-18-07
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -69,7 +69,7 @@ class AdditionalResourceDB extends DBEngine {
 			$resource->get_id()
 		);
 		
-		$query = 'UPDATE ' . $this->get_table('anonymous_users') . ' SET name=?, status=?, number_available=? WHERE resourceid=?';
+		$query = 'UPDATE ' . $this->get_table('additional_resources') . ' SET name=?, status=?, number_available=? WHERE resourceid=?';
 		$q = $this->db->prepare($query);
 		$result = $this->db->execute($q, $values);
 		$this->check_for_error($result);

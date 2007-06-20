@@ -5,7 +5,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 01-28-07
+* @version 06-18-07
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -863,7 +863,7 @@ class AdminDB extends DBEngine {
 			FROM ' . $this->get_table(TBL_GROUPS) . ' g LEFT JOIN '
 			. $this->get_table(TBL_USER_GROUPS) . ' ug ON g.groupid = ug.groupid AND ug.is_admin = 1 LEFT JOIN '
 			. $this->get_table(TBL_LOGIN) . ' u ON ug.memberid = u.memberid LEFT JOIN (
-				SELECT ug.groupid, COUNT(ug.memberid) as user_count FROM user_groups ug GROUP BY ug.groupid
+				SELECT ug.groupid, COUNT(ug.memberid) as user_count FROM ' . $this->get_table(TBL_USER_GROUPS) . ' ug GROUP BY ug.groupid
 			) cnt ON cnt.groupid = g.groupid
 			ORDER BY group_name';
 
