@@ -6,7 +6,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-04-07
+* @version 06-23-07
 * @package Templates
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -78,14 +78,14 @@ function print_color_key() {
 * and the time value cells
 * @param string $displayDate date string to print
 */
-function start_day_table($displayDate, $hour_header) {
+function start_day_table($displayDate, $hour_header, $isCurrentDate) {
 ?>
     <table width="100%" border="0" cellspacing="0" cellpadding="1">
      <tr class="tableBorder">
       <td>
        <table width="100%" border="0" cellspacing="1" cellpadding="0">
         <tr class="scheduleTimes">
-         <td rowspan="2" width="15%" class="scheduleDate"><?php echo $displayDate ?></td>
+         <td rowspan="2" width="15%" class="<?php echo $isCurrentDate ? 'scheduleDateCurrent' : 'scheduleDate' ?>"><?php echo $displayDate ?></td>
 <?php
     echo $hour_header ."</tr>\n";
 }

@@ -423,7 +423,7 @@ else if ($allow_anon_participation) {
 if ($allow_participation || $allow_anon_participation) {
 	echo '<p align="center">';
 	echo '<button type="button" name="btn_join" value="' . $join . '" class="button" onclick="submitJoinForm(' . (int)$allow_participation . ');">' . $join . '</button>';
-	echo ($parentid != null) ? ' <input type="checkbox" name="join_parentid"/> ' . translate('Join All Recurring') : '';
+	//echo ($parentid != null) ? ' <input type="checkbox" name="join_parentid"/> ' . translate('Join All Recurring') : '';
 	echo '</p>';
 }
 ?>

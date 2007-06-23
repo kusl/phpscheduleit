@@ -4,7 +4,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 05-15-06
+* @version 06-23-07
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -121,6 +121,10 @@ class ResDB extends DBEngine {
 		$t = new Timer('get_additional_resource_count()');
 		$t->start();
 		
+//		$query = 'SELECT ar.resourceid, ar.name, ar.number_available '
+//				. ' FROM ' . $this->get_table(TBL_ADDITIONAL_RESOURCES) . ' ar'
+//				. ' WHERE resourceid IN (' . . ') AND ar.number_available = 0';
+		
 		$values = array (
 					$res->get_start_date(), $res->get_start_date(), $res->get_start(), $res->get_end_date(), $res->get_end_date(), $res->get_end(),
 					$res->get_start_date(), $res->get_start_date(), $res->get_start(), $res->get_end_date(), $res->get_end_date(), $res->get_end(),
@@ -160,7 +164,11 @@ class ResDB extends DBEngine {
 					. ' OR ( (start_date < ? OR (start_date = ? AND starttime < ?)) AND (end_date > ? OR (end_date = ? AND endtime >= ?)) )'
 				. ' )'
 				. ' GROUP BY ar.resourceid, ar.name, ar.number_available'
-				. ' HAVING COUNT(*) >= ar.number_available';
+				. ' HAVING COUNT(*) >= ar.number_available'
+				. ' UNION '		// All accessories that have no available currently
+				. ' SELECT ar.resourceid, ar.name, ar.number_available, 0 AS total'
+				. ' FROM ' . $this->get_table(TBL_ADDITIONAL_RESOURCES) . ' ar'
+				. ' WHERE resourceid IN (' . $resourceids . ') AND ar.number_available = 0';
 		
 		$result = $this->db->query($query, $values);
 

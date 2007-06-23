@@ -2,7 +2,7 @@
 /**
 * Handles the self activation for users joining a reservation
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 06-17-06
+* @version 06-23-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -23,7 +23,6 @@ $userid = htmlspecialchars($_POST['h_join_userid']);
 $fname = htmlspecialchars(trim($_POST['h_join_fname']));
 $lname = htmlspecialchars(trim($_POST['h_join_lname']));
 $email_address = htmlspecialchars(trim($_POST['h_join_email']));
-$join_all = isset($_POST['join_parentid']);
 
 $found_user = false;
 
@@ -90,7 +89,7 @@ if ($res != null && !empty($resid)) {
 				$res->add_participant($userid, $accept_code);
 				// Send the invite email
 				$info[$userid] = $user->email;
-				$res->invite_users($info, array(), $accept_code);
+				$res->invite_users($info, array($res->start_date), $accept_code);
 			}
 			else {
 				CmnFns::do_error_box(translate('You are already invited to this reservation. Please follow participation instructions previously sent to your email.'), '', false);

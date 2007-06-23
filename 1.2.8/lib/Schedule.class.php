@@ -7,7 +7,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-04-07
+* @version 06-23-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -114,7 +114,7 @@ class Schedule {
         for ($dayCount = 0; $dayCount < $this->viewdays; $dayCount++) {
             // Timestamp for whatever day we are currently viewing
             $this->_date['current'] = mktime(0,0,0, $temp_date['mon'], $temp_date['mday'] + $dayCount, $temp_date['year']);
-            start_day_table($this->get_display_date(), $hour_header);    // Start the table for this day
+            start_day_table($this->get_display_date(), $hour_header, $this->_date['now'] == $this->_date['current']);    // Start the table for this day
             $this->print_reservations();    // Print reservations for this day
             end_day_table();                // End the table for this day
         }
@@ -330,6 +330,7 @@ class Schedule {
         // by adding # of days to view minus the day of the week to $day
         $dv['lastDayTs'] = mktime(0,0,0, $dv['month'], ($dv['day'] + $this->viewdays - 1), $dv['year']);
         $dv['current'] = $dv['firstDayTs'];
+        $dv['now'] = mktime(0,0,0);
 
         return $dv;
     }
