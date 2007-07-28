@@ -3,7 +3,8 @@
 * Authorization and login functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-31-06
+* @author Edmund Edgar
+* @version 07-28-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -98,8 +99,9 @@ class Auth {
 		$adminemail = strtolower($conf['app']['adminEmail']);
 
 		if ($isCookie !== false) {		// Cookie is set
-			$id = $isCookie;
-			if ($this->db->verifyID($id)) {
+			$cookieValue = $isCookie;
+			
+			if ( ($id = $this->verifyCookie($cookieValue)) !== false) {
 				$ok_user = $ok_pass = true;
 			}
 			else {
@@ -186,7 +188,7 @@ class Auth {
 			// for their ID and fname.  Expires in 30 days (2592000 seconds)
 			if (!empty($cookieVal)) {
 				//die ('Setting cookie');
-				setcookie('ID', $user->get_id(), time() + 2592000, '/');
+				setcookie('ID', $this->generateCookie($user->get_id()), time() + 2592000, '/');
 			}
 
 			 // If it is the admin, set session variable
@@ -209,6 +211,31 @@ class Auth {
 			// Send them to the control panel
 			CmnFns::redirect(urldecode($resume));
 		}
+	}
+	
+	function verifyCookie($cookieValue)
+	{
+		$parts = explode('|', $cookieValue);
+		if (count($parts) != 2) {
+			return false;
+		}
+		
+		$memberid = $parts[0];
+		if ( $cookieValue == $this->generateCookie($memberid) ) {
+			return $memberid;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function generateCookie($memberid)
+	{		
+		$passwordhash = $this->db->getPassword($memberid);
+		$cookiehash = md5($memberid . substr($passwordhash, 1, strlen($passwordhash) -5) );
+		
+		return $memberid.'|'.$cookiehash;
 	}
 
 	/**

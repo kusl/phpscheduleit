@@ -4,7 +4,7 @@
 * Provides all login and registration functionality
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 04-06-07
+* @version 07-30-07
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -188,6 +188,15 @@ class AuthDB extends DBEngine {
 		$q = $this->db->prepare($sql);
 		$result = $this->db->execute($q);
 		$this->check_for_error($result);
+	}
+	
+	function getPassword($id)
+	{
+		$data = array ($id);
+		$result = $this->db->getRow('SELECT password FROM ' . $this->get_table('login') . " WHERE memberid=?", $data);
+		$this->check_for_error($result);
+		
+		return $result['password'];
 	}
 }
 ?>
