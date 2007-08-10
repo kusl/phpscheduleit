@@ -325,39 +325,42 @@ function changeScheduler(m, d, y, isPopup, scheduleid) {
 		document.location.href = url + "?date=" + newDate + "&scheduleid=" + schedid;
 }
 
+// BUGFIX by Eric Maclot
 function showsummary(object, e, text) {
+ 
 	myLayer = document.getElementById(object);
 	myLayer.innerHTML = text;
-	
-	w = parseInt(myLayer.style.width);
-	h = parseInt(myLayer.style.height);
 
+	w = parseInt(myLayer.style.width) ;
+	h = parseInt(myLayer.style.height);
+ 
     if (e != '') {
         if (isIE()) {
-        	x = e.clientX;
-            y = e.clientY;
+            x = e.clientX;
+         y = e.clientY;
             browserX = document.body.offsetWidth - 25;
-            x += document.body.scrollLeft;			// Adjust for scrolling on IE
-    		y += document.body.scrollTop;
+            //        x += document.body.scrollLeft ;                        // Adjust for scrolling on IE
+            //        y += document.body.scrollTop ;
+                    x += document.documentElement.scrollLeft - document.body.clientLeft ; // change made
+                    y += document.documentElement.scrollTop - document.body.clientTop; // change made
         }
         if (!isIE()) {
             x = e.pageX;
             y = e.pageY;
             browserX = window.innerWidth - 35;
-       }
+        }
     }
-	
-	x1 = x + 20;		// Move out of mouse pointer
+ 
+	x1 = x + 20;                // Move out of mouse pointer
 	y1 = y + 20;
-	
+
 	// Keep box from going off screen
-	if (x1 + w > browserX) {
-		x1 = browserX - w;
-	}
-    
+	if (x1 + w > browserX){
+			x1 = browserX - w;
+ 	}
     myLayer.style.left = parseInt(x1)+ "px";
     myLayer.style.top = parseInt(y1) + "px";
-	myLayer.style.visibility = "visible";
+    myLayer.style.visibility = "visible";
 }
 
 function getAbsolutePosition(element) {
@@ -371,7 +374,7 @@ function getAbsolutePosition(element) {
   };
 
 function moveSummary(object, e) {
-
+ 
 	myLayer = document.getElementById(object);
 	w = parseInt(myLayer.style.width);
 	h = parseInt(myLayer.style.height);
@@ -380,24 +383,26 @@ function moveSummary(object, e) {
         if (isIE()) {
             x = e.clientX;
             y = e.clientY;
-			browserX = document.body.offsetWidth -25;
-			x += document.body.scrollLeft;
-			y += document.body.scrollTop;
+                        browserX = document.body.offsetWidth -25;
+                        //x += document.body.scrollLeft;
+                        //y += document.body.scrollTop;
+                        x += document.documentElement.scrollLeft - document.body.clientLeft ; //change made
+                     y += document.documentElement.scrollTop - document.body.clientTop; // change made
         }
         if (!isIE()) {
             x = e.pageX;
             y = e.pageY;
-			browserX = window.innerWidth - 30;
+                        browserX = window.innerWidth - 30;
         }
     }
-
-	x1 = x + 20;	// Move out of mouse pointer	
+ 
+	x1 = x + 20;        // Move out of mouse pointer
 	y1 = y + 20;
-	
+
 	// Keep box from going off screen
 	if (x1 + w > browserX)
-		x1 = browserX - w;
-
+			x1 = browserX - w;
+ 
     myLayer.style.left = parseInt(x1) + "px";
     myLayer.style.top = parseInt(y1) + "px";
 }

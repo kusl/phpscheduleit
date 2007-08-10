@@ -71,7 +71,7 @@ class Reminder
 	* @param string $memeberid member id
 	*/
 	function deleteReminder($resid, $memberid) {
-		$this->db->deleteReminder($resid, $memberid);
+		$this->db->delete($resid, $memberid);
 	}
 	
 	/**

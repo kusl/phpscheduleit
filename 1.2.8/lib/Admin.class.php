@@ -335,7 +335,7 @@ class Admin {
 	*/
 	function sendMessage() {
 		global $conf;
-		$success = $fail = array();
+		$success = false;
 
 		$usr = $_SESSION['usr'];
 		$msg = $_SESSION['msg'];

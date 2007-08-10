@@ -60,8 +60,8 @@ function print_manage_schedules(&$pager, $schedules, $err) {
 		$cur = $schedules[$i];
         echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" id=\"tr$i\">\n"
             . '<td style="text-align:left">' . $cur['scheduletitle'] . "</td>\n"
-            . '<td style="text-align:left">' . Time::formatTime($cur['daystart']) . "</td>\n"
-            . '<td style="text-align:left">' . Time::formatTime($cur['dayend']) . "</td>\n"
+            . '<td style="text-align:left">' . Time::formatTime($cur['daystart'], false) . "</td>\n"
+            . '<td style="text-align:left">' . Time::formatTime($cur['dayend'], false) . "</td>\n"
             . '<td style="text-align:left">' . Time::minutes_to_hours($cur['timespan']) . "</td>\n"
 		    . '<td style="text-align:left">' . CmnFns::get_day_name($cur['weekdaystart'], 0) . "</td>\n"
 		 	. '<td style="text-align:left">' . $cur['adminemail'] . "</td>\n"
@@ -114,7 +114,7 @@ function print_schedule_edit($rs, $edit, &$pager) {
 		  <td class="cellColor"><select name="daystart" class="textbox">
 		  <?php
 		  for ($time = 0; $time <= 1410; $time += 30)
-		  	echo '<option value="' . $time . '"' . ((isset($rs['daystart']) && ($rs['daystart'] == $time)) ? ' selected="selected"' : '') . '>' . Time::formatTime($time) . '</option>' . "\n";
+		  	echo '<option value="' . $time . '"' . ((isset($rs['daystart']) && ($rs['daystart'] == $time)) ? ' selected="selected"' : '') . '>' . Time::formatTime($time, false) . '</option>' . "\n";
 		  ?>
 		  </select>
 		  </td>
@@ -124,7 +124,7 @@ function print_schedule_edit($rs, $edit, &$pager) {
 		  <td class="cellColor"><select name="dayend" class="textbox">
 		  <?php
 		  for ($time = 30; $time <= 1440; $time += 30)
-		  	echo '<option value="' . $time . '"' . ((isset($rs['dayend']) && ($rs['dayend'] == $time)) ? (' selected="selected"') : (($time==1440 && !isset($rs['dayend'])) ? ' selected="selected"' : '')) . '>' . Time::formatTime($time) . '</option>' . "\n";
+		  	echo '<option value="' . $time . '"' . ((isset($rs['dayend']) && ($rs['dayend'] == $time)) ? (' selected="selected"') : (($time==1440 && !isset($rs['dayend'])) ? ' selected="selected"' : '')) . '>' . Time::formatTime($time, false) . '</option>' . "\n";
 		  ?>
 		  </select>
 		  </td>

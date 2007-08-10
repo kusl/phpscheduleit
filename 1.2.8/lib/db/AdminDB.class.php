@@ -5,7 +5,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 06-18-07
+* @version 08-09-07
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -390,7 +390,7 @@ class AdminDB extends DBEngine {
 			$inner_join = ' INNER JOIN ' . $this->get_table(TBL_USER_GROUPS) . ' ug ON l.memberid = ug.memberid AND ug.groupid IN (' . $group_list . ')';
 		}
 		if (!empty($fname) || !empty($lname) ) {
-			$where = ' WHERE fname LIKE "' . $fname . '%" AND lname LIKE "' . $lname . '%"';
+			$where = " WHERE fname LIKE '$fname%' AND lname LIKE '$lname%'";
 		}
 		$result = $this->db->getRow('SELECT COUNT(*) AS num FROM ' . $this->get_table(TBL_LOGIN) . ' l '
 				. $inner_join
@@ -419,7 +419,7 @@ class AdminDB extends DBEngine {
 			$inner_join = ' INNER JOIN ' . $this->get_table(TBL_USER_GROUPS) . ' ug ON l.memberid = ug.memberid AND ug.groupid IN (' . $group_list . ')';
 		}
 		if (!empty($fname) || !empty($lname) ) {
-			$where = ' WHERE fname LIKE "' . $fname . '%" AND lname LIKE "' . $lname . '%"';
+			$where = " WHERE fname LIKE '$fname%' AND lname LIKE '$lname%'";
 		}
 
 		$return = array();
