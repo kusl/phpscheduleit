@@ -4,7 +4,7 @@
 * No data manipulation is done in this file
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 05-22-06
+* @version 08-18-07
 * @package Templates
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -1293,10 +1293,10 @@ function print_reset_password(&$user) {
 			<br />
 			<i><?php echo translate('If no value is specified, the default password set in the config file will be used.')?></i>
 			</td>
+          </tr>
 		  <tr class="cellColor">
 		    <td colspan="2"><input type="checkbox" name="notify_user" value="true" checked="checked"/><?php echo translate('Notify user that password has been changed?')?></td>
 		  </tr>
-          </tr>
         </table>
       </td>
     </tr>

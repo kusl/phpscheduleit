@@ -1,6 +1,6 @@
 =================================================
 =   phpScheduleIt 1.2.8         Release Notes   =
-=                  08/09/2007                   =
+=                  08/18/2007                   =
 =                                               =
 =     http://phpscheduleit.sourceforge.net      =
 =        lqqkout13@users.sourceforge.net        =
@@ -29,6 +29,7 @@ This is a bugfix release and contains no new features.
 - BUGFIX: Emails are not sent correctly for invitations
 - BUGFIX: User browse does not work in non-MySQL database
 - BUGFIX: Reservation deletion calls incorrect method
+- BUGFIX: </tr> mismatch in admin.tempalte.php
 - Changed the schedule management page to display day start/end times in server time
 - Highlight the current day in the schedule
 - Changed hashing of auto-login cookie
