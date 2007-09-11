@@ -4,7 +4,7 @@
 * Provides access to reservation data
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 06-18-07
+* @version 09-04-07
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -48,7 +48,7 @@ class Reservation {
 	var $allow_anon_participation = 0;	//
 	var $reminderid	= null;				//
 	var $invited_users = array();
-	var $participating_users = array();	
+	var $participating_users = array();
 
 	var $errors     = array();
 	var $word		= null;
@@ -297,9 +297,9 @@ class Reservation {
 		$reminder->setDB(new ReminderDB());
 
 		$tmp_valid = false;
-		
-		$this->is_pending = $this->resource->get_property('approval');
-		
+
+		$this->is_pending = !Auth::isAdmin() && $this->resource->get_property('approval');
+
 		if ($this->is_repeat) {				// Check and place all recurring reservations
 			$recurs = $this->db->get_recur_ids($this->parentid, mktime(0,0,0));
 
@@ -376,7 +376,7 @@ class Reservation {
 	*/
 	function approve_res($mod_recur) {
 		$this->type = RES_TYPE_APPROVE;
-		
+
 		$this->is_repeat = $mod_recur;
 
 		$this->db->approve_res($this, $mod_recur);
@@ -392,7 +392,7 @@ class Reservation {
 		for ($d = 0; $d < count($ds); $d++) {
 			$dates[] = $ds[$d]['start_date'];
 		}
-		
+
 		$this->send_email('e_app', $dates);
 
 		// Send out invites, if needed
@@ -442,8 +442,8 @@ class Reservation {
 
 		$min_notice = $this->resource->get_property('min_notice_time');
 		$max_notice = $this->resource->get_property('max_notice_time');
-		
-		$date_vals = getdate();		
+
+		$date_vals = getdate();
 		$month = $date_vals['mon'];
 		$day = $date_vals['mday'];
 		$hour = $date_vals['hours'];
@@ -451,8 +451,8 @@ class Reservation {
 
 		$min_days = intval($min_notice / 24);
 		$min_time = ((intval($min_notice % 24) + $hour) * 60) + $min;
-		$min_date = mktime(0,0,0, $month, $day + $min_days);			
-		
+		$min_date = mktime(0,0,0, $month, $day + $min_days);
+
 		if ( ($this->start_date < $min_date) ||
 			 ($this->start_date == $min_date && $this->start < $min_time) )
 		{
@@ -577,7 +577,7 @@ class Reservation {
 		if (!$this->adminMode && !$this->is_blackout && $day_has_passed )  {
 			$this->type = RES_TYPE_VIEW;
 		}
-		
+
 		if (Auth::getCurrentID() != $this->user->get_id() && !$this->adminMode) { $this->type = RES_TYPE_VIEW; };
 
 		$rs = $this->resource->properties;
@@ -590,12 +590,12 @@ class Reservation {
 		print_title($rs['name']);
 		begin_reserve_form($this->type == RES_TYPE_ADD, $this->is_blackout);
 		begin_container();
-		
+
 		if (empty($this->start)) {
 			$this->start = $this->sched['daystart'];
 			$this->end = $this->start + $this->sched['timespan'];
 		}
-		
+
 		print_basic_panel($this, $rs, $is_private && !$is_owner);		// Contains resource/user info, time select, summary, repeat boxes
 
 		if ($this->is_blackout || $is_private) {
@@ -608,13 +608,13 @@ class Reservation {
 			$all_users = ($is_owner) ? $this->db->get_non_participating_users($this->id, Auth::getCurrentID()) : array();
 			print_users_panel($this, $all_users, $is_owner, $rs['max_participants'], true, $day_has_passed);
 		}
-		
+
 		if ($this->is_blackout)
 		{
 			print_additional_tab($this, array(), false, false);
 		}
 		else
-		{			
+		{
 			$all_resources = ($is_owner) ? $this->db->get_non_participating_resources($this->id) : array();
 			print_additional_tab($this, $all_resources, $is_owner, true);
 		}
@@ -895,7 +895,7 @@ EOT;
 		for ($d = 1; $d < count($dates); $d++) {
 			$dates_text .= Time::formatDate($dates) . ",";
 		}
-		
+
 		foreach ($userinfo as $memberid => $email) {
 			$accept_url = $url . "/manage_invites.php?id={$this->id}&memberid=$memberid&accept_code=$accept_code&action=" . INVITE_ACCEPT;
 			$decline_url= $url . "/manage_invites.php?id={$this->id}&memberid=$memberid&accept_code=$accept_code&action=" . INVITE_DECLINE;
