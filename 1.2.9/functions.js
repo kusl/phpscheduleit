@@ -326,38 +326,48 @@ function changeScheduler(m, d, y, isPopup, scheduleid) {
 }
 
 // BUGFIX by Eric Maclot
+function isIE7() {
+        return (document.all && (typeof document.body.style.maxHeight != "undefined"));
+}
+ 
 function showsummary(object, e, text) {
  
-	myLayer = document.getElementById(object);
-	myLayer.innerHTML = text;
-
-	w = parseInt(myLayer.style.width) ;
-	h = parseInt(myLayer.style.height);
+        myLayer = document.getElementById(object);
+        myLayer.innerHTML = text;
  
-    if (e != '') {
-        if (isIE()) {
-            x = e.clientX;
-         y = e.clientY;
-            browserX = document.body.offsetWidth - 25;
-            //        x += document.body.scrollLeft ;                        // Adjust for scrolling on IE
-            //        y += document.body.scrollTop ;
-                    x += document.documentElement.scrollLeft - document.body.clientLeft ; // change made
-                    y += document.documentElement.scrollTop - document.body.clientTop; // change made
-        }
-        if (!isIE()) {
+        w = parseInt(myLayer.style.width) ;
+        h = parseInt(myLayer.style.height);
+ 
+        if (e != '') {
+            if (isIE()) {
+                  x = e.clientX;
+                  y = e.clientY;
+                  browserX = document.body.offsetWidth - 25;
+                  if (isIE7()) {
+                     // IE 7
+                    x += document.documentElement.scrollLeft - document.body.clientLeft ;
+                    y += document.documentElement.scrollTop - document.body.clientTop;
+                 } else {
+                    // IE6, and previous version
+                    x += document.body.scrollLeft ;                        // Adjust for scrolling on IE
+                    y += document.body.scrollTop ;
+                }
+ 
+            }
+            if (!isIE()) {
             x = e.pageX;
             y = e.pageY;
             browserX = window.innerWidth - 35;
-        }
+            }
     }
  
-	x1 = x + 20;                // Move out of mouse pointer
-	y1 = y + 20;
-
-	// Keep box from going off screen
-	if (x1 + w > browserX){
-			x1 = browserX - w;
- 	}
+        x1 = x + 20;                // Move out of mouse pointer
+        y1 = y + 20;
+ 
+        // Keep box from going off screen
+        if (x1 + w > browserX){
+                x1 = browserX - w;
+        }
     myLayer.style.left = parseInt(x1)+ "px";
     myLayer.style.top = parseInt(y1) + "px";
     myLayer.style.visibility = "visible";
@@ -375,19 +385,24 @@ function getAbsolutePosition(element) {
 
 function moveSummary(object, e) {
  
-	myLayer = document.getElementById(object);
-	w = parseInt(myLayer.style.width);
-	h = parseInt(myLayer.style.height);
-
+        myLayer = document.getElementById(object);
+        w = parseInt(myLayer.style.width);
+        h = parseInt(myLayer.style.height);
+ 
     if (e != '') {
         if (isIE()) {
             x = e.clientX;
             y = e.clientY;
-                        browserX = document.body.offsetWidth -25;
-                        //x += document.body.scrollLeft;
-                        //y += document.body.scrollTop;
-                        x += document.documentElement.scrollLeft - document.body.clientLeft ; //change made
-                     y += document.documentElement.scrollTop - document.body.clientTop; // change made
+            browserX = document.body.offsetWidth -25;
+             if (isIE7()) {
+   // IE 7
+                    x += document.documentElement.scrollLeft - document.body.clientLeft ;
+                    y += document.documentElement.scrollTop - document.body.clientTop;
+   } else {
+   // IE6, and previous version
+                    x += document.body.scrollLeft ;                        // Adjust for scrolling on IE
+                    y += document.body.scrollTop ;
+   }
         }
         if (!isIE()) {
             x = e.pageX;
@@ -396,12 +411,12 @@ function moveSummary(object, e) {
         }
     }
  
-	x1 = x + 20;        // Move out of mouse pointer
-	y1 = y + 20;
-
-	// Keep box from going off screen
-	if (x1 + w > browserX)
-			x1 = browserX - w;
+        x1 = x + 20;        // Move out of mouse pointer
+        y1 = y + 20;
+ 
+        // Keep box from going off screen
+        if (x1 + w > browserX)
+                x1 = browserX - w;
  
     myLayer.style.left = parseInt(x1) + "px";
     myLayer.style.top = parseInt(y1) + "px";
