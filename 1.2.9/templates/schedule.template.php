@@ -130,7 +130,7 @@ function get_hour_header($th, $startDay, $endDay, $timespan) {
 
     // Compute total # of cols
     $totCol = intval(($endDay - $startDay) / $timespan);
-    $width = (100/$totCol);
+    $width = (85/$totCol);
     // Create the fraction hour minute marks
     for ($x = 0; $x < $totCol; $x++)
     {
@@ -208,7 +208,7 @@ function print_name_cell($ts, $id, $name, $shown, $is_blackout, $scheduleid, $pe
 */
 function print_blank_cols($cols, $start, $span, $ts, $machid, $scheduleid, $scheduleType, $clickable, $class = '') {
     $is_blackout = intval($scheduleType == BLACKOUT_ONLY);
-	
+
     $js = '';
     for ($i = 0; $i <= $cols; $i++) {
         if ($scheduleType != READ_ONLY && ($clickable || $is_blackout)) {
