@@ -330,6 +330,21 @@ function isIE7() {
         return (document.all && (typeof document.body.style.maxHeight != "undefined"));
 }
  
+// Shorthand functions for schedule display
+function ssum(e, text)
+{
+	showsummary('summary', e, text);
+}
+function hsum()
+{
+	hideSummary('summary');
+}
+
+function msum(e)
+{
+	moveSummary('summary', e);
+}
+
 function showsummary(object, e, text) {
  
         myLayer = document.getElementById(object);

@@ -137,6 +137,36 @@ td.cellColor1, .cellColor1 td, .cellColor1 {
 	background-color: #F8FAEA;
     font-size: 11px;
 }
+
+/*****************************************/
+
+.r0 td
+{
+    padding: 2px;
+    background-color: #F8FAEA;
+    font-size: 11px;
+}
+
+.r1 td
+{
+    padding: 2px;
+    background-color: #F8FAEA;
+    font-size: 11px;
+}
+
+.r0 td:hover, .r1 td:hover
+{
+    cursor:pointer;
+    background-color: green;
+}
+
+.r0:hover td.resourceName, .r1:hover td.resourceName
+{
+    background-color: yellow;
+}
+
+/*****************************************/
+
 .warningCell1 {
     padding: 2px;
     background-color: #D56060;

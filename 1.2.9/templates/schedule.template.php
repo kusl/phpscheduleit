@@ -34,17 +34,13 @@ function print_schedule_list($links, $currentid) {
 ?>
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="padding-bottom: 5px;">
 <tr><td style="text-align: center; width: 50%;">
-<p style="font-weight: bold; text-align: right;"><?php echo translate('View schedule')?></p>
-</td>
-<td align="left">
-<select name="choose_schedule" class="textbox" onchange="javascript: changeSchedule(this);">
+<p style="font-weight: bold; text-align: right;"><?php echo translate('View schedule')?></p></td>
+<td align="left"><select name="choose_schedule" class="textbox" onchange="javascript: changeSchedule(this);">
 <?php
 for ($i = 0; $i < count($links); $i++)
     echo '<option value="' . $links[$i]['scheduleid'] . '"' . ($links[$i]['scheduleid'] == $currentid ? ' selected="selected"' : '') . '>' . $links[$i]['scheduletitle'] . "</option>\n";
 ?>
-</select>
-</td></tr>
-</table>
+</select></td></tr></table>
 <?php
 }
 
@@ -55,18 +51,16 @@ for ($i = 0; $i < count($links); $i++)
 function print_color_key() {
     global $conf;
 ?>
-<table align="center" cellpadding="5" cellspacing="10">
-  <tr style="font-size: 10px; font-weight: bold; text-align: center; vertical-align: center;">
-    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Reservations')?></td>
-    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Past Reservations')?></td>
-    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Participation')?></td>
-    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_past_res'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('My Past Participation')?></td>
-	<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Reservations')?></td>
-    <td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Past Reservations')?></td>
-	<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['pending'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Pending Approval')?></td>
-	<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['blackout'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('Blacked Out Time')?></td>
-  </tr>
-</table>
+<table align="center" cellpadding="5" cellspacing="10"><tr style="font-size: 10px; font-weight: bold; text-align: center; vertical-align: center;">
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Past Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Participation')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_past_res'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('My Past Participation')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Past Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['pending'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Pending Approval')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['blackout'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('Blacked Out Time')?></td>
+</tr></table>
 <?php
 }
 
@@ -79,15 +73,12 @@ function print_color_key() {
 * @param string $displayDate date string to print
 */
 function start_day_table($displayDate, $hour_header, $isCurrentDate) {
-?>
-    <table width="100%" border="0" cellspacing="0" cellpadding="1">
-     <tr class="tableBorder">
-      <td>
-       <table width="100%" border="0" cellspacing="1" cellpadding="0">
-        <tr class="scheduleTimes">
-         <td rowspan="2" width="15%" class="<?php echo $isCurrentDate ? 'scheduleDateCurrent' : 'scheduleDate' ?>"><?php echo $displayDate ?></td>
+?><table width="100%" border="0" cellspacing="0" cellpadding="1"><tr class="tableBorder">
+<td><table width="100%" border="0" cellspacing="1" cellpadding="0">
+<tr class="scheduleTimes">
+<td rowspan="2" width="15%" class="<?php echo $isCurrentDate ? 'scheduleDateCurrent' : 'scheduleDate' ?>"><?php echo $displayDate ?></td>
 <?php
-    echo $hour_header ."</tr>\n";
+    echo $hour_header ."</tr>";
 }
 
 /**
@@ -97,14 +88,10 @@ function start_day_table($displayDate, $hour_header, $isCurrentDate) {
 * @param Calendar $next next month calendar
 */
 function print_calendars(&$prev, &$curr, &$next) {
-?>
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td align="center" valign="top"><?php $prev->printCalendar()?></td>
-    <td align="center" valign="top"><?php $curr->printCalendar()?></td>
-    <td align="center" valign="top"><?php $next->printCalendar()?></td>
-  </tr>
-</table>
+?><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+<td align="center" valign="top"><?php $prev->printCalendar()?></td>
+<td align="center" valign="top"><?php $curr->printCalendar()?></td>
+<td align="center" valign="top"><?php $next->printCalendar()?></td></tr></table>
 <?php
 }
 
@@ -126,7 +113,7 @@ function get_hour_header($th, $startDay, $endDay, $timespan) {
     }
 
     // Close row, start next
-    $header .= "</tr>\n<tr class=\"scheduleTimes\">\n";
+    $header .= "</tr>\n<tr class=\"scheduleTimes\">";
 
     // Compute total # of cols
     $totCol = intval(($endDay - $startDay) / $timespan);
@@ -149,11 +136,7 @@ function get_hour_header($th, $startDay, $endDay, $timespan) {
 */
 function end_day_table() {
 ?>
-    </table>
-   </td>
-  </tr>
-</table>
-<p>&nbsp;</p>
+</table></td></tr></table><p>&nbsp;</p>
 <?php
 }
 
@@ -172,21 +155,20 @@ function end_day_table() {
 function print_name_cell($ts, $id, $name, $shown, $is_blackout, $scheduleid, $pending = false, $color = '') {
     global $link;
 
-    $color = (empty($color)) ? 'cellColor': $color;
+    $color = (empty($color)) ? 'r0': $color;
 
     // Start a new row and print out resource name
-    echo "<tr class=\"$color\">\n"
-           . '<td class="resourceName">';
+    echo "<tr class=\"$color\"><td class=\"resourceName\">";
 
     if ($is_blackout) {
-        $link->doLink("javascript: reserve('r', '$id','$ts', '', '$scheduleid', '1', '0', '$pending');", $name);
+        $link->doLink("javascript: reserve('r','$id','$ts','','$scheduleid','1','0','$pending');", $name);
     }
     else {
         // If the user is allowed to make reservations on this resource
         // then provide a link
         // Else do not
         if ($shown)
-            $link->doLink("javascript: reserve('r','$id','$ts','', '$scheduleid', '0', '$pending');", $name);
+            $link->doLink("javascript: reserve('r','$id','$ts','','$scheduleid','0','$pending');", $name);
         else
             echo '<span class="inact">' . $name . '</span>';
     }
@@ -214,7 +196,7 @@ function print_blank_cols($cols, $start, $span, $ts, $machid, $scheduleid, $sche
         if ($scheduleType != READ_ONLY && ($clickable || $is_blackout)) {
             $tstart = $start + ($i * $span);
             $tend = $tstart + $span;
-            $js = "onmouseover=\"blankOver(this);\" onmouseout=\"blankOut(this, '$class');\" onclick=\"reserve('r','$machid','$ts','','$scheduleid',$is_blackout,'','',$tstart,$tend);\"";
+            $js = "onclick=\"reserve('r','$machid','$ts','','$scheduleid',$is_blackout,'','',$tstart,$tend);\"";
         }
         echo "<td $js>&nbsp;</td>";
     }
@@ -225,7 +207,7 @@ function print_blank_cols($cols, $start, $span, $ts, $machid, $scheduleid, $sche
 * @param none
 */
 function print_closing_tr() {
-    echo "</tr>\n";
+    echo "</tr>";
 }
 
 /**
@@ -253,21 +235,21 @@ function write_reservation($colspan, $color_select, $mod_view, $resid, $summary 
     if ($viewable) {
         $js = "onclick=\"reserve('$mod_view','','','$resid','','0','$read_only','$pending');\" ";
         if ($summary->isVisible()) {
-            $js .= "onmouseover=\"resOver(this, '$hover'); showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this, '$color'); hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+            $js .= "onmouseover=\"resOver(this,'$hover'); ssum( event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this,'$color'); hsum();\" onmousemove=\"msum(event);\"";
 		}
         else {
-            $js .="onmouseover=\"resOver(this, '$hover');\" onmouseout=\"resOut(this, '$color');\"";
+            $js .="onmouseover=\"resOver(this,'$hover');\" onmouseout=\"resOut(this, '$color');\"";
 		}
     }
     else {
         if ($summary->isVisible()) {
-            $js = "onmouseover=\"showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+            $js = "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\" onmousemove=\"msum(event);\"";
 		}
     }
 
     $summary_text = $summary->toScheduleCell();
 
-    echo "<td colspan=\"$colspan\" style=\"color: $text; background-color: $color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
+    echo "<td colspan=\"$colspan\" style=\"color:$text;background-color:$color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
 }
 
 /**
@@ -289,18 +271,18 @@ function write_blackout($colspan, $viewable, $blackoutid, $summary = '', $showsu
     if ($viewable) {
         $js = "onclick=\"reserve('m','','','$blackoutid','','1');\" ";
         if ($showsummary && $summary->isVisible())
-            $js .= "onmouseover=\"resOver(this, '$hover'); showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this, '$color'); hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+            $js .= "onmouseover=\"resOver(this,'$hover'); ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this,'$color');hsum();\" onmousemove=\"msum(event);\"";
         else
-            $js .="onmouseover=\"resOver(this, '$hover');\" onmouseout=\"resOut(this, '$color');\"";
+            $js .="onmouseover=\"resOver(this,'$hover');\" onmouseout=\"resOut(this,'$color');\"";
     }
     else {
         if ($showsummary != 0 && $summary->isVisible())
-            $js = "onmouseover=\"showsummary('summary', event, '" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hideSummary('summary');\" onmousemove=\"moveSummary('summary', event);\"";
+            $js = "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\" onmousemove=\"msum(event);\"";
     }
 
     $summary_text = $summary->toScheduleCell();
 
-    echo "<td colspan=\"$colspan\" style=\"color: $text; background-color: $color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
+    echo "<td colspan=\"$colspan\" style=\"color:$text;background-color:$color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
 }
 
 /**
@@ -340,35 +322,31 @@ function print_jump_links($_date, $viewdays, $printAllCols) {
     $boxes = $dates['jumpbox'];
 
     // Write out the previous, today and next links and the form to jump to a date
-?>
-
-    <table width="100%" border="0" cellspacing="0" cellpadding="5" align="center">
-     <tr>
-      <td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d - 7, $y)) . "&amp;$scheduleid", translate('Prev Week'), '', '', translate('Jump 1 week back')) ?></h5></td>
-      <?php if ($printAllCols) { ?>
-      <td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d - $viewdays, $y)) . "&amp;$scheduleid", translate('Prev days', array($viewdays)), '', '', translate('Previous days', array($viewdays))) ?></h5></td>
-      <?php } ?>
-      <td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . "?$scheduleid", translate('This Week'), '', '', translate('Jump to this week')) ?></h5></td>
-      <?php if ($printAllCols) { ?>
-      <td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d + $viewdays, $y)) . "&amp;$scheduleid", translate('Next days', array($viewdays))) ?></h5></td>
-      <?php } ?>
-      <td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d + 7, $y)) . "&amp;$scheduleid", translate('Next Week'), '', '', 'Jump 1 week ahead') ?></h5></td>
-     </tr>
-     <tr>
-      <td align="center" colspan="<?php echo ($printAllCols) ? '5' : '3';?>">
-      <div name="jumpWeek" id="jumpWeek">
+?><table width="100%" border="0" cellspacing="0" cellpadding="5" align="center"><tr>
+<td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d - 7, $y)) . "&amp;$scheduleid", translate('Prev Week'), '', '', translate('Jump 1 week back')) ?></h5></td>
+<?php if ($printAllCols) { ?>
+<td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d - $viewdays, $y)) . "&amp;$scheduleid", translate('Prev days', array($viewdays)), '', '', translate('Previous days', array($viewdays))) ?></h5></td>
+<?php } ?>
+<td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . "?$scheduleid", translate('This Week'), '', '', translate('Jump to this week')) ?></h5></td>
+<?php if ($printAllCols) { ?>
+<td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d + $viewdays, $y)) . "&amp;$scheduleid", translate('Next days', array($viewdays))) ?></h5></td>
+<?php } ?>
+<td align="center"><h5><?php $link->doLink($_SERVER['PHP_SELF'] . '?date=' . date('m-d-Y',mktime(0,0,0,$m, $d + 7, $y)) . "&amp;$scheduleid", translate('Next Week'), '', '', 'Jump 1 week ahead') ?></h5></td>
+</tr><tr>
+<td align="center" colspan="<?php echo ($printAllCols) ? '5' : '3';?>">
+<div name="jumpWeek" id="jumpWeek">
          <?php
          $boxes = str_replace('%m', '<input type="text" name="jumpMonth" id="jumpMonth" value="' . translate('mm') . '" class="textbox" size="3" maxlength="2" onclick="this.value = \'\';" />', $boxes);
          $boxes = str_replace('%d', '<input type="text" name="jumpDay" id="jumpDay" value="' . translate('dd') . '" class="textbox" size="3" maxlength="2" onclick="this.value = \'\';" />', $boxes);
          $boxes = str_replace('%Y', '<input type="text" name="jumpYear" id="jumpYear" value="' . translate('yyyy') . '" class="textbox" size="5" maxlength="4" onclick="this.value = \'\';" />', $boxes);
          echo $boxes;
          ?>
-         <input name="jumpForm" type="button" value="<?php echo translate('Jump To Date')?>" class="button" onclick="checkDate();"/>
-       </div>
-      </td>
-     </tr>
-    </table>
-    <h5 align="center"><?php $link->doLink("javascript: window.open('popCalendar.php?$scheduleid','calendar','width=260,height=250,scrollbars=no,location=no,menubar=no,toolbar=no,resizable=yes'); void(0);", translate('View Monthly Calendar'), '', '', translate('Open up a navigational calendar'))?></h5>
+<input name="jumpForm" type="button" value="<?php echo translate('Jump To Date')?>" class="button" onclick="checkDate();"/>
+</div>
+</td>
+</tr>
+</table>
+<h5 align="center"><?php $link->doLink("javascript: window.open('popCalendar.php?$scheduleid','calendar','width=260,height=250,scrollbars=no,location=no,menubar=no,toolbar=no,resizable=yes'); void(0);", translate('View Monthly Calendar'), '', '', translate('Open up a navigational calendar'))?></h5>
 <?php
 }
 ?>

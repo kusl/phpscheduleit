@@ -213,7 +213,7 @@ class Schedule {
             //  or the user is the admin allow reservations to be made
             $shown = $this->canShowReservation($viewable_date, $cur_resource);
 
-            $color = 'cellColor' . ($count%2);
+            $color = 'r' . ($count%2);
             print_name_cell($current_date, $id, $name, $shown, $this->scheduleType == BLACKOUT_ONLY, $this->scheduleid, $approval, $color);
 
             $index = $id;
