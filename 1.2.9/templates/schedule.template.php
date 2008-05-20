@@ -155,7 +155,7 @@ function end_day_table() {
 function print_name_cell($ts, $id, $name, $shown, $is_blackout, $scheduleid, $pending = false, $color = '') {
     global $link;
 
-    $color = (empty($color)) ? 'r0': $color;
+    $color = (empty($color)) ? 'r0' : $color;
 
     // Start a new row and print out resource name
     echo "<tr class=\"$color\"><td class=\"resourceName\">";
@@ -235,21 +235,24 @@ function write_reservation($colspan, $color_select, $mod_view, $resid, $summary 
     if ($viewable) {
         $js = "onclick=\"reserve('$mod_view','','','$resid','','0','$read_only','$pending');\" ";
         if ($summary->isVisible()) {
-            $js .= "onmouseover=\"resOver(this,'$hover'); ssum( event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this,'$color'); hsum();\" onmousemove=\"msum(event);\"";
-		}
-        else {
-            $js .="onmouseover=\"resOver(this,'$hover');\" onmouseout=\"resOut(this, '$color');\"";
+            $js .= "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\"";
 		}
     }
     else {
         if ($summary->isVisible()) {
-            $js = "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\" onmousemove=\"msum(event);\"";
+            $js = "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\"";
 		}
     }
 
     $summary_text = $summary->toScheduleCell();
-
-    echo "<td colspan=\"$colspan\" style=\"color:$text;background-color:$color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
+	
+	$cellSummary = '';
+	if ($summary_text != $summary->EMPTY_SUMMARY)
+	{
+		$cellSummary = "<div class=\"inlineSummary\">$summary_text</div>";
+	}
+	
+    echo "<td colspan=\"$colspan\" style=\"color:$text;background-color:$color;\" $js>$cellSummary</td>";
 }
 
 /**
@@ -271,18 +274,24 @@ function write_blackout($colspan, $viewable, $blackoutid, $summary = '', $showsu
     if ($viewable) {
         $js = "onclick=\"reserve('m','','','$blackoutid','','1');\" ";
         if ($showsummary && $summary->isVisible())
-            $js .= "onmouseover=\"resOver(this,'$hover'); ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"resOut(this,'$color');hsum();\" onmousemove=\"msum(event);\"";
-        else
-            $js .="onmouseover=\"resOver(this,'$hover');\" onmouseout=\"resOut(this,'$color');\"";
+		{
+            $js .= "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\"";
+		}
     }
     else {
         if ($showsummary != 0 && $summary->isVisible())
-            $js = "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\" onmousemove=\"msum(event);\"";
+            $js = "onmouseover=\"ssum(event,'" . preg_replace("/[\n\r]+/", '<br/>', addslashes($summary->toScheduleHover())) . "');\" onmouseout=\"hsum();\"";
     }
 
     $summary_text = $summary->toScheduleCell();
 
-    echo "<td colspan=\"$colspan\" style=\"color:$text;background-color:$color;\" $js><div class=\"inlineSummary\">$summary_text</div></td>";
+	$cellSummary = '';
+	if ($summary_text != $summary->EMPTY_SUMMARY)
+	{
+		$cellSummary = "<div class=\"inlineSummary\">$summary_text</div>";
+	}
+
+    echo "<td colspan=\"$colspan\" style=\"color:$text;background-color:$color;\" $js>$cellSummary</td>";
 }
 
 /**

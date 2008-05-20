@@ -104,7 +104,9 @@ class Schedule {
         $this->print_calendars();
 
         if ($this->scheduleType == ALL)
+		{
             print_color_key();
+		}
 
         // Break first day we are viewing into an array of date pieces
         $temp_date = getdate($this->_date['firstDayTs']);
@@ -213,7 +215,14 @@ class Schedule {
             //  or the user is the admin allow reservations to be made
             $shown = $this->canShowReservation($viewable_date, $cur_resource);
 
-            $color = 'r' . ($count%2);
+			if ($this->scheduleType == READ_ONLY)
+			{
+				$color = 'ro' . ($count%2);
+			}
+			else
+			{
+            	$color = 'r' . ($count%2);
+			}
             print_name_cell($current_date, $id, $name, $shown, $this->scheduleType == BLACKOUT_ONLY, $this->scheduleid, $approval, $color);
 
             $index = $id;

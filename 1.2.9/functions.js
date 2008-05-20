@@ -442,33 +442,6 @@ function hideSummary(object) {
 	myLayer.style.visibility = 'hidden';
 }
 
-function resOver(cell, color) {
-	hiliteResource(cell.parentNode, "resourceNameOver");
-	cell.style.backgroundColor = color;
-	cell.style.cursor='pointer'
-}
-
-function resOut(cell, color) {
-	hiliteResource(cell.parentNode, "resourceName");
-	cell.style.backgroundColor = color;
-}
-
-function blankOver(cell) {
-	hiliteResource(cell.parentNode, "resourceNameOver");
-	cell.className = "reservationOver";
-	cell.style.cursor='pointer'
-}
-
-function blankOut(cell, _class) {
-	hiliteResource(cell.parentNode, "resourceName");
-	cell.className = _class;
-}
-
-function hiliteResource(parent, _class) {
-	var index = isIE() ? 0 : 1;
-	parent.childNodes[index].className = _class;
-}
-
 function showHideDays(opt) {
 	e = document.getElementById("days");
 	

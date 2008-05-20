@@ -127,12 +127,14 @@ td.cellColor, .cellColor td, .cellColor {
 /*
 Alternating row colors
 */
-td.cellColor0, .cellColor0 td, .cellColor0, .warningCell0 {
+td.cellColor0, .cellColor0 td, .cellColor0, .warningCell0 
+{
     padding: 2px;
     background-color: #FFFFFF;
     font-size: 11px;
 }
-td.cellColor1, .cellColor1 td, .cellColor1 {
+td.cellColor1, .cellColor1 td, .cellColor1 
+{
     padding: 2px;
 	background-color: #F8FAEA;
     font-size: 11px;
@@ -140,14 +142,14 @@ td.cellColor1, .cellColor1 td, .cellColor1 {
 
 /*****************************************/
 
-.r0 td
+.r0 td, .ro0 td
 {
     padding: 2px;
     background-color: #F8FAEA;
     font-size: 11px;
 }
 
-.r1 td
+.r1 td, .ro1 td
 {
     padding: 2px;
     background-color: #F8FAEA;
@@ -162,7 +164,13 @@ td.cellColor1, .cellColor1 td, .cellColor1 {
 
 .r0:hover td.resourceName, .r1:hover td.resourceName
 {
-    background-color: yellow;
+    background-color: #f7f18b;
+}
+
+.r0 td.resourceName:hover, .r1 td.resourceName:hover
+{
+	cursor: default;
+	background-color: #EDEDED;
 }
 
 /*****************************************/
@@ -287,8 +295,8 @@ Summary popup box
 	position: absolute;
 	visibility: hidden;
 	border: solid #686767 1px;
-	padding: 3px;
-	background-color: #E1E1E1;
+	padding: 5px;
+	background-color: #fefefe;
 	overflow: visible;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px;
