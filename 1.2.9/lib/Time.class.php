@@ -123,7 +123,7 @@ class Time
 		if (!empty($res_time)) {
 			$timestamp += ($res_time + (60 * $res_time));
 		}
-		
+
 		return $timestamp + 3600 * Time::getHourOffset($to_server_time);
 	}
 
@@ -138,7 +138,7 @@ class Time
 		$tmp = getdate(Time::getAdjustedTime($timestamp, $res_time, $to_server_time));
 		return mktime(0,0,0, $tmp['mon'], $tmp['mday'], $tmp['year']);
 	}
-	
+
 	/**
 	* Gets the user selected time and converts it into the server stored timezone
 	* @param int $datestamp the datestamp to adjust
@@ -147,13 +147,13 @@ class Time
 	function getServerTime($datestamp, $minutes = null) {
 		if (Time::getHourOffset() == 0) {
 			$date = $datestamp;
-			$time = minutes;
+			$time = $minutes;
 		}
 		else {
 			$date = Time::getAdjustedDate($datestamp, $minutes, true);
 			$time = Time::getAdjustedMinutes($minutes, true);
 		}
-		
+
 		return new ReservationTime($date, $time);
 	}
 
@@ -200,17 +200,17 @@ class Time
 		$min = (intval($minutes % 60) != 0) ? intval($minutes % 60) . ' ' . translate('minutes') : '';
 		return ($hours . ' ' . $min);
 	}
-	
+
 	/**
 	* Gets the hour part from the number of minutes past midnight
 	* @param $minutes the number of minutes past midnight
 	* @return the string value of the hour part in 24 hour time
 	*/
 	function getHours($minutes) {
-		$hour = (intval($minutes / 60) != 0) ? intval($minutes / 60) : 0;		
+		$hour = (intval($minutes / 60) != 0) ? intval($minutes / 60) : 0;
 		return ($hour < 10) ? "0$hour" : $hour;
 	}
-	
+
 	/**
 	* Gets the hour part from the number of minutes past midnight
 	* @param $minutes the number of minutes past midnight
