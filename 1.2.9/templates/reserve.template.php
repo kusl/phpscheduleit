@@ -635,7 +635,7 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 				echo '<a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_start_date" alt="' . translate('Start') . '"/></a>'
                    . '<br/><br/>';
 			}
-			echo "<select name=\"starttime\" class=\"textbox\">\n";
+			echo "<select name=\"starttime\" class=\"textbox\" id=\"starttime\" onchange=\"updateEnd(this);\">\n";
             // Start at startDay time, end 30 min before endDay
             for ($i = $startDay; $i < $endDay+$interval; $i += $interval) {
                 echo '<option value="' . $i . '"';
@@ -653,7 +653,7 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 			echo '<a href="javascript:void(0);"><img src="img/calendar.gif" border="0" id="img_end_date" alt="' . translate('End') . '"/></a>'
                    . '<br/><br/>';
             }
-			echo "<select name=\"endtime\" class=\"textbox\">\n";
+			echo "<select name=\"endtime\" class=\"textbox\" id=\"endtime\">\n";
 			// Start at 30 after startDay time, end 30 at endDay time
             for ($i = $startDay; $i < $endDay+$interval; $i += $interval) {
                 echo "<option value=\"$i\"";

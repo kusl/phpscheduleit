@@ -752,3 +752,10 @@ function exportSearch() {
 function blurDiv(checkbox, divid) {
 	document.getElementById(divid).className = checkbox.checked ? "blur_textbox" : "textbox";
 }
+
+function updateEnd(startDrop)
+{
+	var endDrop = document.getElementById("endtime");
+	var index = startDrop.selectedIndex;
+	endDrop.selectedIndex = (endDrop.options.length-1 > index) ? index + 1 : index;	
+}
