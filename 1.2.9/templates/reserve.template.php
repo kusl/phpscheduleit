@@ -25,7 +25,7 @@ function print_title($name) {
 * @param bool $is_blackout if this is a blackout
 */
 function begin_reserve_form($show_repeat, $is_blackout = false) {
-	echo '<form name="reserve" id="reserve" method="post" action="' . $_SERVER['PHP_SELF'] . '?is_blackout=' . intval($is_blackout) . '" style="margin: 0px"' . " onsubmit=\"return check_reservation_form(this);\">\n";	
+	echo '<form name="reserve" id="reserve" method="post" action="' . $_SERVER['PHP_SELF'] . '?is_blackout=' . intval($is_blackout) . '" style="margin: 0px"' . " onsubmit=\"return check_reservation_form(this);\">\n";
 }
 
 /**
@@ -95,7 +95,7 @@ function print_basic_panel(&$res, &$rs, $is_private) {
 		divide_table();
 		if ($res->type == RES_TYPE_ADD) {
 			print_repeat_box(date('m', $res->start_date), date('Y', $res->start_date));
-	
+
 			if( $res->is_pending ) {
 				 print_pending_approval_msg();
 			}
@@ -189,7 +189,7 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 			else {
 				if ($is_owner && $res->type != RES_TYPE_APPROVE && $res->type != RES_TYPE_DELETE) {
 					echo '<td width="200" align="center">';
-				
+
 					// Print select boxes
 					echo translate('All Accessories');
 					?>
@@ -233,7 +233,7 @@ function print_additional_tab($res, $all_resources, $is_owner, $viewable) {
 					if (count($res->resources) <= 0) {
 						echo translate('None');
 					}
-					
+
 					// Print additional resource info
 					for ($i = 0; $i < count($res->resources); $i++) {
 						echo "<p>{$res->resources[$i]['name']}</p>";
@@ -505,11 +505,11 @@ function print_buttons_and_hidden(&$res) {
 		echo '&nbsp;&nbsp;';
 		print_export_button($res->id);
 	}
-	
+
 	echo '</p>';
-	
+
 	if ($type == RES_TYPE_ADD || $type == RES_TYPE_MODIFY) {
-		echo '</td><td align="right"><button type="button" name="check" value="' . translate('Check Availability') . '" class="button" onclick="checkReservation(\'check.php\', \'reserve\', \'' . translate('Checking') . '\');">' . translate('Check Availability') . '</button></td><td>';	
+		echo '</td><td align="right"><button type="button" name="check" value="' . translate('Check Availability') . '" class="button" onclick="check_reservation_form(document.forms[0]) && checkReservation(\'check.php\', \'reserve\', \'' . translate('Checking') . '\');">' . translate('Check Availability') . '</button></td><td>';
 	}
 
 	// print hidden fields
@@ -526,7 +526,7 @@ function print_buttons_and_hidden(&$res) {
 ?>
     </td>
   </tr>
-  <?php 
+  <?php
 	if ($type == RES_TYPE_ADD || $type == RES_TYPE_MODIFY) {
   		echo '<tr><td colspan="2"><div id="checkDiv" style="display:none;width:100%;padding-top:15px;"></div></td></tr>';
 	}
@@ -608,7 +608,7 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
                 break;
         }
 		if ((bool)$res->get_pending()) {
-			$msg .= ' (' . translate('Pending Approval') . ')';		
+			$msg .= ' (' . translate('Pending Approval') . ')';
 		}
         echo $msg;
 ?>
@@ -623,10 +623,10 @@ function print_time_info($res, $rs, $print_min_max = true, $allow_multi = false)
 <?php
 		$start_date = $res->get_start_date();
 		$end_date = $res->get_end_date();
-		
+
 		$display_start_date = Time::getAdjustedDate($res->get_start_date(), $res->get_start());
 		$display_end_date = Time::getAdjustedDate($res->get_end_date(), $res->get_end());
-		
+
 		// Show reserved time or select boxes depending on type
         if ( ($type == RES_TYPE_ADD) || ($type == RES_TYPE_MODIFY) || ($type == RES_TYPE_APPROVE) ) {
             // Start time select box
