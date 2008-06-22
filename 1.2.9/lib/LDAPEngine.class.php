@@ -3,7 +3,7 @@
 * LDAPEngine class
 * @author David Poole <David.Poole@fccc.edu>
 * @author William P.O'Sullivan
-* @version 06-18-07
+* @version 06-21-08
 * @package LDAPEngine
 *
 * Copyright (C) 2004 phpScheduleIt
@@ -54,11 +54,15 @@ class LDAPEngine {
 
 	   $this->host = $conf['ldap']['host'];
 	   $this->port = $conf['ldap']['port'];
+	   $this->usessl = isset($conf['ldap']['ssl']) && $conf['ldap']['ssl'] == true;
 	   $this->basedn = $conf['ldap']['basedn'];
 	   $this->AD_lookupid = $conf['ldap']['lookupid'];
 	   $this->AD_lookuppwd = $conf['ldap']['lookuppwd'];
 
-	   $this->ldap = ldap_connect( $this->host, $this->port ) or die( "Could not connect to LDAP server." );
+       $this->ldapuri = ($this->usessl) ? "ldaps://".$this->host.":".$this->port."/" : "ldap://".$this->host.":".$this->port."/";
+       $this->ldap = ldap_connect( $this->ldapuri ) or die( "Could not connect to LDAP server ".$this->host."." );
+           
+	   //$this->ldap = ldap_connect( $this->host, $this->port ) or die( "Could not connect to LDAP server." );
 
 	   $this->uid = $uid;
 
@@ -96,7 +100,7 @@ class LDAPEngine {
 				}
 
             } else {
-				die("LDAPEngine: Attempt to bind to:".$this->host." using systemid:".$this->lookupid." failed.");
+				die("LDAPEngine: Attempt to bind to ".$this->ldapuri." using systemid ".$this->AD_lookupid." failed.");
                 ldap_close( $this->ldap );
             }
         }

@@ -2,7 +2,7 @@
 /**
 * Time formatting and calculation functions
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 05-17-06
+* @version 06-21-08
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -16,13 +16,15 @@ class Time
 	/**
 	* Formats number of minutes past midnight into a readable string and optionally adjust for timezone
 	* @param double $time time to convert in minutes
+	* @param bool $adjust if the time should be adjusted for timezone
+	* @param int $offset the timezone offset to use
 	* @return string time in 12 hour time
 	*/
-	function formatTime($time, $adjust = true) {
+	function formatTime($time, $adjust = true, $offset = null) {
 		global $conf;
 
 		if ($adjust) {
-			$time = Time::getAdjustedMinutes($time);//($time + (60 * Time::getHourOffset() + 1440)) % 1440;
+			$time = Time::getAdjustedMinutes($time, false, $offset);
 		}
 
 		// Set up time array with $timeArray[0]=hour, $timeArray[1]=minute
@@ -41,8 +43,10 @@ class Time
 			if ($hour == 0) $hour = 12;					// Don't show 0hr, show 12 am
 		}
 		// Set proper minutes (the same for 12/24 format)
-		if ($min < 10) $min = 0 . $min;
-		// Put into a string and return
+		if ($min < 10) 
+		{ 
+			$min = 0 . $min;
+		}
 		return $hour . ':' . $min . $a;
 	}
 
@@ -51,13 +55,15 @@ class Time
 	* Convert timestamp to date format and adjust for timezone
 	* @param string $date timestamp
 	* @param string $format format to put datestamp into
+	* @param bool $adjust if the time should be adjusted for timezone
+	* @param int $offset the timezone offset to use
 	* @return string date as $format or as default format
 	*/
-	function formatDate($date, $format = '', $adjust = true) {
+	function formatDate($date, $format = '', $adjust = true, $offset = null) {
 		global $dates;
 
 		if ($adjust) {
-			$date = Time::getAdjustedTime($date);
+			$date = Time::getAdjustedTime($date, null, false, $offset);
 		}
 
 		if (empty($format)) {
@@ -115,8 +121,9 @@ class Time
 	* @param bool $to_server_time if this is going to server time or user time
 	* @return the timezone adjusted timestamp for the current user, or the server timestamp if user is not logged in
 	*/
-	function getAdjustedTime($timestamp, $res_time = null, $to_server_time = false) {
-		if (Time::getHourOffset() == 0) {
+	function getAdjustedTime($timestamp, $res_time = null, $to_server_time = false, $offset = null) {
+		$hourOffset = $offset != null ? $offset : Time::getHourOffset($to_server_time);
+		if ($hourOffset == 0) {
 			return $timestamp;
 		}
 
@@ -124,7 +131,7 @@ class Time
 			$timestamp += ($res_time + (60 * $res_time));
 		}
 
-		return $timestamp + 3600 * Time::getHourOffset($to_server_time);
+		return $timestamp + 3600 * $hourOffset;
 	}
 
 	/**
@@ -171,8 +178,10 @@ class Time
 	* @param int $minutes minutes to adjust
 	* @return the timezone adjusted number of minutes past midnight
 	*/
-	function getAdjustedMinutes($minutes, $to_server_time = false) {
-		return ($minutes + (60 * Time::getHourOffset($to_server_time) + 1440)) % 1440;
+	function getAdjustedMinutes($minutes, $to_server_time = false, $offset = null) {
+		$hourOffset = $offset != null ? $offset : Time::getHourOffset($to_server_time);
+		
+		return ($minutes + (60 * $hourOffset + 1440)) % 1440;
 	}
 
 	/**

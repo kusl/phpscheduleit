@@ -29,6 +29,7 @@ for ($i = 0; $i < count($reminders); $i++) {
 		$mail = new ReminderEmail(new PHPMailer());
 		$mail->buildFromReminder($cur);
 		$mail->send();
+		print_r($mail);
 		$reminderids_sent[] = $cur->id;
 	}
 }

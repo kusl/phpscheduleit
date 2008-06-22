@@ -145,7 +145,7 @@ td.cellColor1, .cellColor1 td, .cellColor1
 .r0 td, .ro0 td
 {
     padding: 2px;
-    background-color: #F8FAEA;
+    background-color: #FFFFFF;
     font-size: 11px;
 }
 
@@ -160,6 +160,17 @@ td.cellColor1, .cellColor1 td, .cellColor1
 {
     cursor:pointer;
     background-color: green;
+}
+.r0 td.o:hover
+{
+	cursor: default;
+	background-color: #FFFFFF;
+}
+
+.r1 td.o:hover
+{
+	cursor: default;
+	background-color: #F8FAEA;
 }
 
 .r0:hover td.resourceName, .r1:hover td.resourceName

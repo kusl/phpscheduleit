@@ -172,7 +172,7 @@ class Schedule {
 		}
 
 		if ($max_notice != 0) {
-			$max_days = intval($max_notice / 24);
+			$max_days = ceil($max_notice / 24);
 	
 			$max_date = mktime(0,0,0, date('m'), date('d') + $max_days);
 	

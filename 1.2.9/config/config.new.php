@@ -283,4 +283,8 @@ $conf['ldap']['lookupid'] = 'jwt-unique=userName,ou=internal,ou=people,dc=domain
 $conf['ldap']['lookuppwd'] = 'userPassword';
 
 /// END COPY FOR VERSION 1.2.0 ///
+
+/// 1.2.9 ///
+$conf['ldap']['ssl'] = false;
+/// END 1.2.9 ///
 ?>

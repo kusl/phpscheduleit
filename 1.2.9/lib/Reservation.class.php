@@ -325,7 +325,7 @@ class Reservation {
 
 					$dates[] = $this->start_date;
 					$valid_resids[] = $this->id;
-					CmnFns::write_log($this->word . ' ' . $this->id . ' modified.  machid:' . $this->get_machid() .', dates:' . $this->start_date . ' - ' . $this->end_date . ', start:' . $this->start . ', end:' . $this->end, $this->memberid, $_SERVER['REMOTE_ADDR']);
+					//CmnFns::write_log($this->word . ' ' . $this->id . ' modified.  machid:' . $this->get_machid() .', dates:' . $this->start_date . ' - ' . $this->end_date . ', start:' . $this->start . ', end:' . $this->end, $this->memberid, $_SERVER['REMOTE_ADDR']);
 				}
 			}
 		}
@@ -448,10 +448,13 @@ class Reservation {
 		$day = $date_vals['mday'];
 		$hour = $date_vals['hours'];
 		$min = $date_vals['minutes'];
-
-		$min_days = intval($min_notice / 24);
-		$min_time = ((intval($min_notice % 24) + $hour) * 60) + $min;
-		$min_date = mktime(0,0,0, $month, $day + $min_days);
+		$sec = $date_vals['seconds'];
+		$year = $date_vals['year'];
+		
+		$min_date_full = mktime($hour + $min_notice, $min, $sec, $month, $day);
+		$min_date_vals = getdate($min_date_full);
+		$min_date = mktime(0,0,0, $min_date_vals['mon'], $min_date_vals['mday'], $min_date_vals['year']);
+		$min_time = $min_date_vals['hours'] * 60 + $min_date_vals['minutes'];
 
 		if ( ($this->start_date < $min_date) ||
 			 ($this->start_date == $min_date && $this->start < $min_time) )
@@ -461,12 +464,12 @@ class Reservation {
 		}
 
 		if ($max_notice != 0 && $dates_valid) {
-			// Only need to check this if the min notice check passed
-			$max_days = intval($max_notice / 24);
-			$max_time = ((intval($max_notice % 24) + $hour) * 60) + $min;
-
-			$max_date = mktime(0,0,0, $month, $day + $max_days);
-
+			// Only need to check this if the min notice check passed			
+			$max_date_full = mktime($hour + $max_notice, $min, $sec, $month, $day);
+			$max_date_vals = getdate($max_date_full);
+			$max_date = mktime(0,0,0, $max_date_vals['mon'], $max_date_vals['mday'], $max_date_vals['year']);
+			$max_time = $max_date_vals['hours'] * 60 + $max_date_vals['minutes'];
+			
 			if ( ($this->start_date > $max_date) ||
 				 ($this->start_date == $max_date && $this->start > $max_time) )
 			{

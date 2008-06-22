@@ -190,7 +190,8 @@ function print_name_cell($ts, $id, $name, $shown, $is_blackout, $scheduleid, $pe
 */
 function print_blank_cols($cols, $start, $span, $ts, $machid, $scheduleid, $scheduleType, $clickable, $class = '') {
     $is_blackout = intval($scheduleType == BLACKOUT_ONLY);
-
+	$offClass = $clickable ? '' : 'class="o"';
+	
     $js = '';
     for ($i = 0; $i <= $cols; $i++) {
         if ($scheduleType != READ_ONLY && ($clickable || $is_blackout)) {
@@ -198,7 +199,7 @@ function print_blank_cols($cols, $start, $span, $ts, $machid, $scheduleid, $sche
             $tend = $tstart + $span;
             $js = "onclick=\"reserve('r','$machid','$ts','','$scheduleid',$is_blackout,'','',$tstart,$tend);\"";
         }
-        echo "<td $js>&nbsp;</td>";
+        echo "<td $offClass $js>&nbsp;</td>";
     }
 }
 

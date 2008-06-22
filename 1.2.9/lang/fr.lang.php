@@ -174,7 +174,7 @@ $strings['Go back to system administration'] = 'Retour à l\'administration du sy
 $strings['Or wait to be automatically redirected there.'] = 'ou attendre d\'y être automatiquement redirigé.';
 $strings['There were problems processing your request.'] = 'Des difficultés ont été rencontrées lors de l\'exécution de votre demande.';
 $strings['Please go back and correct any errors.'] = 'Merci de bien vouloir retourner corriger les erreurs eventuelles.';
-$strings['Login to view details and place reservations'] = 'Connectez vous pour voir les détails et éffectuer des reservations';
+$strings['Login to view details and place reservations'] = 'Connectez vous pour voir les détails et effectuer des réservations';
 $strings['Memberid is not available.'] = 'L\'identifiant de l\'utilisateur: %s n\'est pas disponible.';
 
 $strings['Schedule Title'] = 'Titre de la planification';
