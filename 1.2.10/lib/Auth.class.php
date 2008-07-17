@@ -4,7 +4,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Edmund Edgar
-* @version 07-28-07
+* @version 07-17-08
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -100,7 +100,7 @@ class Auth {
 
 		if ($isCookie !== false) {		// Cookie is set
 			$cookieValue = $isCookie;
-			
+
 			if ( ($id = $this->verifyCookie($cookieValue)) !== false) {
 				$ok_user = $ok_pass = true;
 			}
@@ -212,14 +212,14 @@ class Auth {
 			CmnFns::redirect(urldecode($resume));
 		}
 	}
-	
+
 	function verifyCookie($cookieValue)
 	{
 		$parts = explode('|', $cookieValue);
 		if (count($parts) != 2) {
 			return false;
 		}
-		
+
 		$memberid = $parts[0];
 		if ( $cookieValue == $this->generateCookie($memberid) ) {
 			return $memberid;
@@ -229,12 +229,12 @@ class Auth {
 			return false;
 		}
 	}
-	
+
 	function generateCookie($memberid)
-	{		
+	{
 		$passwordhash = $this->db->getPassword($memberid);
 		$cookiehash = md5($memberid . substr($passwordhash, 1, strlen($passwordhash) -5) );
-		
+
 		return $memberid.'|'.$cookiehash;
 	}
 
@@ -453,17 +453,17 @@ class Auth {
 		}
 
 
-        if( !$conf['ldap']['authentication'] ) {
+        //if( !$conf['ldap']['authentication'] ) {
 
             // Make sure email isnt in database (and is not current users email)
             if ($is_edit) {
                 $user = new User($data['memberid']);
-                if (!$use_logonname) {
-					if ($this->db->userExists($data['emailaddress']) && ($data['emailaddress'] != $user->get_email()) ) {
-						$msg .= translate('That email is taken already.') . '<br/>';
-					}
+                if ($this->db->userExists($data['emailaddress']) && ($data['emailaddress'] != $user->get_email()) )
+                {
+					$msg .= translate('That email is taken already.') . '<br/>';
 				}
-				else {
+                if ($use_logonname)
+                {
 					if ( $this->db->userExists($data['logon_name'], true) && ($data['logon_name'] != $user->get_logon_name()) ) {
 						$msg .= translate('That logon name is taken already.') . '<br/>';
 					}
@@ -492,7 +492,7 @@ class Auth {
 					$msg .= translate('That logon name is taken already.') . '<br/>';
 				}
             }
-        }
+        //}
 
 		return $msg;
 	}
