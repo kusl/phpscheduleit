@@ -1,6 +1,6 @@
 =================================================
-=   phpScheduleIt 1.2.9         Release Notes   =
-=                  06/21/2007                   =
+=   phpScheduleIt 1.2.10        Release Notes   =
+=                  07/17/2008                   =
 =                                               =
 =     http://phpscheduleit.sourceforge.net      =
 =        lqqkout13@users.sourceforge.net        =
@@ -10,29 +10,19 @@
 -------------------------------------------------
 -                   Overview                    -
 -------------------------------------------------
-	The purpose of this document is to describe the 1.2.9 release and how to contribute to the project.
+	The purpose of this document is to describe the 1.2.10 release and how to contribute to the project.
 
 Please see the readme.html file for setup instructions, general program information, and the changelog.
 
 
 -------------------------------------------------
--              Changes from 1.2.8               -
+-              Changes from 1.2.9               -
 -------------------------------------------------
 +               Summary of changes              +
 
 
-This is a bugfix release and contains no new features.
-- Added some fixes to improve page load times on the schedule page.  This change will not work on IE6 and lower
-- A few updates to reduce the page file size for schedule.php
-- Automatically pick the end time when start time is changed
-- Added SSL support for LDAPEngine
-- Updated fi/tr translations
-- Bugfix: Reservation email showed date/time in server timezone
-- Bugfix: Min/Max reservation notification times weren't working across days
-- Bugfix: "Check availability" failed if all necessary fields were not filled in
-- Bugfix: Missing $ for variable name in Time.class.php
-- Bugfix: Fixed schedule column formatting
-- Bugfix: Fix for IE6 mouseover
+This is a security release and contains no new features.
+- Patched a security vulnerability when using logon names instead of email addresses
 
 
 -------------------------------------------------

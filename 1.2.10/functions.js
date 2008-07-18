@@ -54,15 +54,6 @@ function verifyEdit() {
 	return true;
 }
 
-function checkBrowser() {
-	if ( (navigator.appName.indexOf("Netscape") != -1) && ( parseFloat(navigator.appVersion) <= 4.79 ) ) {
-		newWin = window.open("","message","height=200,width=300");
-		newWin.document.writeln("<center><b>This system is optimized for Netscape version 6.0 or higher.<br>" +
-					"Please visit <a href='http://channels.netscape.com/ns/browsers/download.jsp' target='_blank'>Netscape.com</a> to obtain an update.");
-		newWin.document.close();
-	}
-}
-
 function help(file) {    
 		window.open("help.php#" + file ,"","width=500,height=500,scrollbars");    
 		void(0);    

@@ -7,7 +7,7 @@
 		</if>
 	</target>
 	<target name="package" description="packages all required files">
-		<property name="version" value="1.2.9"/>
+		<property name="version" value="1.2.10"/>
 		<property name="packagename" value="phpScheduleIt_${version}" overwrite="false" />
 		<property name="archive_directory" value="F:/sites/phpScheduleIt_archive/${version}"/>
 		<property name="zipdirectory" value="F:/sites/phpScheduleIt_archive/zip_releases/${version}"/>

@@ -209,9 +209,6 @@ function printLoginForm($msg = '', $resume = '') {
 	$link = CmnFns::getNewLink();
 	$use_logonname = (bool)$conf['app']['useLogonName'] || (bool)$conf['ldap']['authentication'];
 
-	// Check browser information
-	echo '<script language="JavaScript" type="text/javascript">checkBrowser();</script>';
-
 	if (!empty($msg))
 		CmnFns::do_error_box($msg, '', false);
 ?>
