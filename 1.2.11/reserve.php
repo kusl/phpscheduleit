@@ -82,8 +82,11 @@ function process_reservation($fn) {
 	$is_pending = (isset($_POST['pending']) && $_POST['pending']);
 
 	if (isset($_POST['start_date'])) {			// Parse the POST-ed starting and ending dates
-		$start_date = eval('return mktime(0,0,0, \'' . str_replace(INTERNAL_DATE_SEPERATOR, '\',\'', $_POST['start_date']) . '\');');
-		$end_date = eval('return mktime(0,0,0, \'' . str_replace(INTERNAL_DATE_SEPERATOR, '\',\'', $_POST['end_date']) . '\');');
+		$sd = explode(INTERNAL_DATE_SEPERATOR, $_POST['start_date']);
+		$ed = explode(INTERNAL_DATE_SEPERATOR, $_POST['end_date']);
+
+		$start_date = mktime(0,0,0, $sd[0], $sd[1], $sd[2]);
+		$end_date = mktime(0,0,0, $ed[0], $ed[1], $ed[2]);
 	}
 
 	if (isset($_POST['resid']))
