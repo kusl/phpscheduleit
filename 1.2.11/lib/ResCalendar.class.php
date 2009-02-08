@@ -5,7 +5,7 @@
 *  reservation data in a particular format for a resource
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 01-28-07
+* @version 02-07-09
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -17,7 +17,8 @@ include_once('MyCalendar.class.php');
 include_once('db/ResCalendarDB.class.php');
 include_once(BASE_DIR . '/templates/rescalendar.template.php');
 
-class ResCalendar extends MyCalendar {
+class ResCalendar extends MyCalendar 
+{
 	var $machid;
 	var $scheduleid;
 	var $type;
@@ -37,7 +38,8 @@ class ResCalendar extends MyCalendar {
 	* @param int MyCalendarType type for this calendar
 	* @param int $actualDate todays date
 	*/
-	function ResCalendar($userid = null, $type = null, $actualDate = null, $machid = null, $scheduleid = null) {
+	function ResCalendar($userid = null, $type = null, $actualDate = null, $machid = null, $scheduleid = null) 
+	{
 		$this->machid = $machid;
 		$this->scheduleid = $scheduleid;
 
@@ -47,19 +49,23 @@ class ResCalendar extends MyCalendar {
 		$this->resources = $this->db->get_resources();		// Used to provide a pull down to change resources
 		$this->schedules = $this->db->get_schedules();		// Used in resource pull down and to determine start/end/interval times
 		
-		if ($this->machid == null && $this->scheduleid == null) {
+		if ($this->machid == null && $this->scheduleid == null) 
+		{
 			$this->scheduleid = $this->resources[0]['scheduleid'];
 		}
 		$this->isresource = ($this->scheduleid == null);
 		
-		if ($this->isresource && $this->machid == null) {
+		if ($this->isresource && $this->machid == null) 
+		{
 			$this->machid = $this->resources[0]['machid'];	// If we dont have a machid from the querystring, take the first one in the list
 			$this->scheduleid = $this->resources[0]['scheduleid'];
 		}
-		else if (!$this->isresource && $this->scheduleid == null) {
+		else if (!$this->isresource && $this->scheduleid == null) 
+		{
 			$this->scheduleid = $this->schedules[0]['scheduleid'];
 		}
-		else if ($this->isresource && $this->machid != null) {
+		else if ($this->isresource && $this->machid != null) 
+		{
 			// Set the scheduleid for this machid
 			for ($i = 0; $i < count($this->resources); $i++) {
 				if ($this->resources[$i]['machid'] == $this->machid) {
@@ -97,11 +103,13 @@ class ResCalendar extends MyCalendar {
 	* Calls the appropriate function to load the reservations fitting this calendar data
 	* @param none
 	*/
-	function load_reservations() {		
+	function load_reservations() 
+	{		
 		global $conf;
 		$firstResDate = $this->firstDate;
 		$lastResDate = $this->lastDate;
-		if ($this->type == MYCALENDARTYPE_MONTH) {
+		if ($this->type == MYCALENDARTYPE_MONTH) 
+		{
 			$datestamp = $this->firstDate;
 			$date_vars = explode(' ',date('d m Y t w W',$datestamp));
 			$last_month_num_days = date('t', mktime(0,0,0, $date_vars[1]-1, $date_vars[0], $date_vars[2]));
@@ -119,12 +127,14 @@ class ResCalendar extends MyCalendar {
 	* Prints the given calendar out based on type
 	* @param none
 	*/
-	function print_calendar() {
+	function print_calendar() 
+	{
 		global $conf;
 		
 		$is_private = $conf['app']['privacyMode'] && !Auth::isAdmin();
 		
-		if ($this->type != MYCALENDARTYPE_SIGNUP) {
+		if ($this->type != MYCALENDARTYPE_SIGNUP) 
+		{
 		
 			$paramname = $this->isresource ? 'machid' : 'scheduleid';
 			$paramvalue = $this->isresource ? $this->machid : $this->scheduleid;
@@ -137,13 +147,16 @@ class ResCalendar extends MyCalendar {
 			
 			print_resource_jump_link($this->resources, $this->schedules, $this->machid, $this->scheduleid, $this->actualDate, $this->type, $this->isresource);
 			
-			switch ($this->type) {
+			switch ($this->type) 
+			{
 				case MYCALENDARTYPE_DAY :
 				case MYCALENDARTYPE_WEEK :
-					if ($this->isresource) {
+					if ($this->isresource) 
+					{
 						print_day_resource_reservations($this->reservations, $this->firstDate, $this->totalDays, $this->scheduleid, $this->starttime, $this->endtime, $this->timespan, $is_private);
 					}
-					else {
+					else 
+					{
 						print_day_reservations($this->reservations, $this->firstDate, $this->totalDays, false, $is_private);
 					}
 					break;
@@ -153,7 +166,8 @@ class ResCalendar extends MyCalendar {
 			
 			print_details_div();
 		}
-		else {
+		else 
+		{
 			print_signup_sheet($this->reservations, $this->firstDate, 1, $this->starttime, $this->endtime, $this->timespan, $this->name, $is_private);		
 		}
 	}

@@ -5,7 +5,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 08-09-07
+* @version 02-07-09
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -415,10 +415,12 @@ class AdminDB extends DBEngine {
 		$values = array();
 		$group_list = $this->make_in_list($groupids);
 
-		if (!empty($groupids)) {
+		if (!empty($groupids)) 
+		{
 			$inner_join = ' INNER JOIN ' . $this->get_table(TBL_USER_GROUPS) . ' ug ON l.memberid = ug.memberid AND ug.groupid IN (' . $group_list . ')';
 		}
-		if (!empty($fname) || !empty($lname) ) {
+		if (!empty($fname) || !empty($lname) ) 
+		{
 			$where = " WHERE fname LIKE '$fname%' AND lname LIKE '$lname%'";
 		}
 
@@ -428,14 +430,22 @@ class AdminDB extends DBEngine {
 		$vert = CmnFns::get_vert_order();
 
 		if ($order == 'date' && !isset($_GET['vert']))		// Default the date to DESC
+		{
 			$vert = 'DESC';
-
+		}
+		
+		$orders = trim(preg_replace("/l.$order,?/", '', 'l.lname, l.fname'));
+		if (strrpos($orders, ',') == strlen($orders)-1) 
+		{
+			$orders = substr($orders, 0, strlen($orders)-1);
+		}
+		
 		// Set up query to get neccessary records ordered by user request first, then logical order
 		$query = 'SELECT l.*'
 				. ' FROM ' . $this->get_table(TBL_LOGIN) . ' as l'
 				. $inner_join
 				. $where
-				. ' ORDER BY ' . $order . ' ' . $vert . ', l.lname, l.fname';
+				. " ORDER BY $orders $vert";
 
 		$result = $this->db->limitQuery($query, $pager->getOffset(), $pager->getLimit(), $values);
 

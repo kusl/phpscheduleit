@@ -3,7 +3,7 @@
 * DBEngine class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 02-01-07
+* @version 02-07-09
 * @package DBEngine
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -16,11 +16,13 @@ include_once($basedir . '/lib/CmnFns.class.php');
 /**
 * Pear::DB
 */
-if ($GLOBALS['conf']['app']['safeMode']) {
+if ($GLOBALS['conf']['app']['safeMode']) 
+{
     ini_set('include_path', ( dirname(__FILE__) . '/pear/' . PATH_SEPARATOR . ini_get('include_path') ));
     include_once('pear/DB.php');
 }
-else {
+else 
+{
     include_once('DB.php');
 }
 
@@ -40,7 +42,8 @@ class DBEngine {
     * DBEngine constructor to initialize object
     * @param none
     */
-    function DBEngine() {
+    function DBEngine() 
+    {
         $this->prefix = $GLOBALS['conf']['db']['pk_prefix'];
         $this->dbs = array ($GLOBALS['conf']['db']['dbName']);
 
@@ -53,7 +56,8 @@ class DBEngine {
     * @param none
     * @global $conf
     */
-    function db_connect() {
+    function db_connect() 
+    {
         global $conf;
 
         /***********************************************************
@@ -94,7 +98,8 @@ class DBEngine {
     *  if additional databases are added
     * @param none
     */
-    function define_tables() {
+    function define_tables() 
+    {
         $this->table_to_database = array (
                         'login'         => $this->dbs[0],
                         'reservations'    => $this->dbs[0],
@@ -112,7 +117,8 @@ class DBEngine {
     * @global $conf
     * @return fully qualified table name in form: database.table
     */
-    function get_table($table) {
+    function get_table($table) 
+    {
         global $conf;
         return $conf['db']['tbl_prefix'] . $table;
         //return $this->table_to_database[$table] . '.' . $table;
@@ -124,11 +130,16 @@ class DBEngine {
     * @param strin $database name of database that this table belongs to
     * @return success of assignment
     */
-    function set_table($table, $database) {
+    function set_table($table, $database) 
+    {
         if (!isset($this->table_to_database[$table]))
+        {
             return false;
+        }
         else
+        {
             $this->table_to_database[$table] = $database;
+        }
         return true;
     }
 
@@ -155,23 +166,32 @@ class DBEngine {
 
         // Append any other sorting constraints
         for ($i = 1; $i < count($orders); $i++)
+        {
             $query .= ', ' . $orders[$i];
-
+        }
+        
         if (!is_null($limit) && !is_null($offset))        // Limit query
+        {
             $result = $this->db->limitQuery($query, $offset, $limit, $where_values);
+        }
         else                                        // Standard query
+        {
             $result = $this->db->query($query, $where_values);
-
+        }
+        
         $this->check_for_error($result);
 
-        if ($result->numRows() <= 0) {        // Check if any records exist
+        if ($result->numRows() <= 0) 
+        {        // Check if any records exist
             $this->err_msg = translate('There are no records in the table.', array($table));
             return false;
         }
 
         while ($rs = $result->fetchRow())
+        {
             $return[] = $this->cleanRow($rs);
-
+        }
+        
         $result->free();
 
         return $return;
@@ -183,7 +203,8 @@ class DBEngine {
     * @param string $field field name that items are in
     * @param array $to_delete array of items to delete
     */
-    function deleteRecords($table, $field, $to_delete) {
+    function deleteRecords($table, $field, $to_delete) 
+    {
         // Put into string, quoting each value
         $delete = join('","', $to_delete);
         $delete = '"'. $delete . '"';
@@ -204,12 +225,14 @@ class DBEngine {
     * @param bool $include_participating if this should include the reservations where the user is only particpating
     * @return array of reservation data
     */
-    function get_user_reservations($id, $order, $vert, $include_participating = false) {
+    function get_user_reservations($id, $order, $vert, $include_participating = false) 
+    {
         $return = array();
 
 		// Clean out the duplicated order so that MSSQL is OK
 		$orders = trim(preg_replace("/(res|rs).$order,?/", '', 'res.start_date, rs.name, res.starttime'));
-		if (strrpos($orders, ',') == strlen($orders)-1) {
+		if (strrpos($orders, ',') == strlen($orders)-1) 
+		{
 			$orders = substr($orders, 0, strlen($orders)-1);
 		}
 
@@ -221,7 +244,7 @@ class DBEngine {
                     . ' AND (res.start_date>=? OR (res.start_date<=? AND res.end_date>=?))'
                     . ' AND res.is_blackout <> 1'
                     . (!$include_participating ? ' AND owner = 1' : ' AND invited = 0')
-                    . " ORDER BY $order $vert, res.start_date, rs.name, res.starttime";
+                    . " ORDER BY $orders $vert";
 
         $values = array($id, mktime(0,0,0), mktime(0,0,0), mktime(0,0,0));
 
@@ -232,12 +255,14 @@ class DBEngine {
         // Check if error
         $this->check_for_error($result);
 
-        if ($result->numRows() <= 0) {
+        if ($result->numRows() <= 0) 
+        {
             $this->err_msg = translate('You do not have any reservations scheduled.');
             return false;
         }
 
-        while ($rs = $result->fetchRow()) {
+        while ($rs = $result->fetchRow()) 
+        {
             $return[] = $this->cleanRow($rs);
         }
 

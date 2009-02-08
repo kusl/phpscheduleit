@@ -139,7 +139,8 @@ class Reservation {
 	* If this is a recurring reservation, it may delete all reservations in group
 	* @param boolean $del_recur whether to delete all recurring reservations in this group
 	*/
-	function del_res($del_recur) {
+	function del_res($del_recur) 
+	{
 		$this->type = RES_TYPE_DELETE;
 
 		$this->is_repeat = $del_recur;
@@ -147,18 +148,23 @@ class Reservation {
 		$this->check_perms();					// Make sure they are who they claim to be
 
 		$users_to_inform = array();				// Notify all users that this reservation is being deleted
-		for ($i = 0; $i < count($this->users); $i++) {
+		for ($i = 0; $i < count($this->users); $i++) 
+		{
 			$users_to_inform[] = $this->users[$i]['email'];
 		}
 
 		$this->db->del_res($this->id, $this->parentid, $del_recur, mktime(0,0,0), $this->user->userid);
 
 		if (!$this->is_blackout)		// Mail the user if they want to be notified
+		{
 			$this->send_email('e_del', null, $users_to_inform);
-
+		}
+		
 		CmnFns::write_log($this->word . ' ' . $this->id . ' deleted.', $this->user->get_id(), $_SERVER['REMOTE_ADDR']);
 		if ($this->is_repeat)
+		{
 			CmnFns::write_log('All ' . $this->word . 's associated with ' . $this->id . ' (having parentid ' . $this->parentid . ') were also deleted', $this->memberid, $_SERVER['REMOTE_ADDR']);
+		}
 		$this->print_success('deleted');
 	}
 
@@ -169,7 +175,8 @@ class Reservation {
 	* @param array $users_to_invite array of users to invite to this reservation
 	* @param array $resources_to_add array of additional resources to add to this reservation
 	*/
-	function add_res($users_to_invite = array(), $resources_to_add = array()) {
+	function add_res($users_to_invite = array(), $resources_to_add = array()) 
+	{
 		$this->type     = RES_TYPE_ADD;
 		$repeat = $this->repeat;
 
@@ -198,25 +205,35 @@ class Reservation {
 
 		$is_parent = $this->is_repeat;		// First valid reservation will be parentid (no parentid if solo reservation)
 
-		for ($i = 0; $i < count($repeat); $i++) {
+		for ($i = 0; $i < count($repeat); $i++) 
+		{
 			$this->start_date = $repeat[$i];
-			if ($this->is_repeat) {
+			if ($this->is_repeat) 
+			{
 				// End date will always be the same as the start date for recurring reservations
 				$this->end_date = $this->start_date;
 			}
-			if ($i == 0) $tmp_date = $this->start_date;			// Store the first date to use in the email
+			if ($i == 0) 
+			{
+				$tmp_date = $this->start_date;			// Store the first date to use in the email
+			}
+			
 			$is_valid = $this->check_res($resources_to_add);
 
-			if ($is_valid) {
+			if ($is_valid) 
+			{
 				$tmp_valid = true;								// Only one recurring needs to work
 				$this->id = $this->db->add_res($this, $is_parent, $users_to_invite, $resources_to_add, $accept_code);
-				if ($this->reminder_minutes_prior != 0) {
+				if ($this->reminder_minutes_prior != 0) 
+				{
 					$reminder->save($this, $this->reminder_minutes_prior); 		// Add the reminder
 				}
-				if (!$is_parent) {
+				if (!$is_parent) 
+				{
 					array_push($dates, $this->start_date);		// Add recurring dates (first date isnt recurring)
 				}
-				else {
+				else 
+				{
 					$this->parentid = $this->id;				// The first reservation is the parent id
 				}
 				CmnFns::write_log($this->word . ' ' . $this->id . ' added.  machid:' . $this->resource->get_property('machid') .', dates:' . $this->start_date . ' - ' . $this->end_date . ', start:' . $this->start . ', end:' . $this->end, $this->user->get_id(), $_SERVER['REMOTE_ADDR']);
@@ -225,10 +242,15 @@ class Reservation {
 		}
 
 		if ($this->has_errors())					// Print any errors generated when adding the reservations
+		{
 			$this->print_all_errors(!$this->is_repeat);
-
+		}
+		
 		$this->start_date = $tmp_date;				// Restore first date for use in email
-		if ($this->is_repeat) array_unshift($dates, $this->start_date);		// Add to list of successful dates
+		if ($this->is_repeat) 
+		{
+			array_unshift($dates, $this->start_date);		// Add to list of successful dates
+		}
 
 		sort($dates);
 
@@ -236,18 +258,23 @@ class Reservation {
 		$this->start_date = $orig_start_date;
 		$this->end_date = $orig_end_date;
 
-		if (!$this->is_blackout) {		// Notify the user if they want (only 1 email)
+		// Notify the user if they want (only 1 email)
+		if (!$this->is_blackout) 
+		{		
 			$this->sched = $this->db->get_schedule_data($this->scheduleid);
 			$this->send_email('e_add', $dates);
 		}
 
 		// Send out invites, if needed
-		if (!$this->is_pending && count($users_to_invite) > 0) {
+		if (!$this->is_pending && count($users_to_invite) > 0) 
+		{
 			$this->invite_users($users_to_invite, $dates, $accept_code);
 		}
 
 		if (!$this->is_repeat || $tmp_valid)
+		{
 			$this->print_success('created', $dates);
+		}
 	}
 
 	/**

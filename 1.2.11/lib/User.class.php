@@ -83,14 +83,16 @@ class User {
 	
 	/**
 	* Gets a userid by email
-	* @param string $email the email address of the User or AnonymousUser
+	* @param string $email_address the email address of the User or AnonymousUser
 	* @return the memberid, if it exists
 	*/
-	function get_id_by_email($email) {
-		if ($this->db == null) { 
+	function get_id_by_email($email_address) 
+	{
+		if ($this->db == null) 
+		{ 
 			$this->db = new UserDB();
 		}
-		return $this->db->get_id_by_email($email);
+		return $this->db->get_id_by_email($email_address);
 	}
 	
 	/**
@@ -284,20 +286,27 @@ class User {
 	* @param array $groupids (optional) the group ids to check for admin on.  if this is not provided, this just checks if the user is an admin of any group
 	* @return if the user is the group admin or not
 	*/
-	function is_group_admin($groupids = null) {
+	function is_group_admin($groupids = null)
+	 {
 		$admin_groups = $this->get_admin_groups();
-			
-		if ( !is_null($groupids) ) {
-			if ( count($admin_groups) <= 0 ) { 
+		
+		if ( !is_null($groupids) ) 
+		{
+			if ( count($admin_groups) <= 0 ) 
+			{ 
 				return false;		// No groups, so can't be an admin
 			}
-			for ($i = 0; $i < count($groupids); $i++) {
-				if ( array_search($groupids[$i], $admin_groups) !== false ) {
+			for ($i = 0; $i < count($groupids); $i++) 
+			{
+				if ( array_search($groupids[$i], $admin_groups) !== false ) 
+				{
+					
 					return true;	// Admin of at least one of the groups
 				}
 			}
 		}
-		else {
+		else 
+		{
 			return count($admin_groups) > 0;
 		}
 	}

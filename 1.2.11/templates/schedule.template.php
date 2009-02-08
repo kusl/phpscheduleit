@@ -6,7 +6,7 @@
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
 * @author Richard Cantzler <rmcii@users.sourceforge.net>
-* @version 06-23-07
+* @version 12-21-08
 * @package Templates
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt

@@ -6,7 +6,7 @@
 * It will also allow other users to view this reservation.
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
 * @author David Poole <David.Poole@fccc.edu>
-* @version 08-08-06
+* @version 02-07-09
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -76,12 +76,14 @@ $t->printHTMLFooter();
 * Processes a reservation request (add/del/edit)
 * @param string $fn function to perform
 */
-function process_reservation($fn) {
+function process_reservation($fn) 
+{
 	$success = false;
 	global $Class;
 	$is_pending = (isset($_POST['pending']) && $_POST['pending']);
 
-	if (isset($_POST['start_date'])) {			// Parse the POST-ed starting and ending dates
+	if (isset($_POST['start_date'])) // Parse the POST-ed starting and ending dates
+	{			
 		$sd = explode(INTERNAL_DATE_SEPERATOR, $_POST['start_date']);
 		$ed = explode(INTERNAL_DATE_SEPERATOR, $_POST['end_date']);
 
@@ -90,26 +92,35 @@ function process_reservation($fn) {
 	}
 
 	if (isset($_POST['resid']))
+	{
 		$res = new $Class($_POST['resid'], false, $is_pending);
+	}
 	else if (isset($_GET['resid']))
+	{
 		$res = new $Class($_GET['resid'], false, $is_pending);
-	else {
+	}
+	else 
+	{
 		// New reservation
 		$res = new $Class(null, false, $is_pending);
-		if ($_POST['interval'] != 'none') {		// Check for reservation repeation
-			if ($start_date == $end_date) {
+		if ($_POST['interval'] != 'none') // Check for reservation repeation
+		{		
+			if ($start_date == $end_date) 
+			{
 				$res->is_repeat = true;
 				$days = isset($_POST['repeat_day']) ? $_POST['repeat_day'] : NULL;
 				$week_num = isset($_POST['week_number']) ? $_POST['week_number'] : NULL;
 				$repeat = CmnFns::get_repeat_dates($start_date, $_POST['interval'], $days, $_POST['repeat_until'], $_POST['frequency'], $week_num);
 			}
-			else {
+			else 
+			{
 				// Cannot repeat multi-day reservations
 				$repeat = array($start_date);
 				$res->is_repeat = false;
 			}
 		}
-		else {
+		else 
+		{
 			$repeat = array($start_date);
 			$res->is_repeat = false;
 		}
@@ -123,7 +134,8 @@ function process_reservation($fn) {
 		$res->is_pending = false;	
 	}
 	
-	if ($fn == 'create' || $fn == 'modify') {
+	if ($fn == 'create' || $fn == 'modify') 
+	{
 		$helper = new ReservationHelper();
 		$util = new Utility();
 
@@ -154,20 +166,24 @@ function process_reservation($fn) {
 		$res->reminder_minutes_prior = isset($_POST['reminder_minutes_prior']) ? intval($_POST['reminder_minutes_prior']) : 0;
 	}
 
-	if ($fn == 'create') {
+	if ($fn == 'create') 
+	{
 		$res->resource = new Resource($_POST['machid']);
 		$res->scheduleid= $_POST['scheduleid'];
 		$res->repeat = $repeat;
 		$res->add_res($users_to_invite, $resources_to_add);
 	}
-	else if ($fn == 'modify') {
+	else if ($fn == 'modify') 
+	{
 		$res->summary = str_replace("\n", '', $_POST['summary']);
 		$res->mod_res($users_to_invite, $users_to_remove, $unchanged_users, $resources_to_add, $resources_to_remove, isset($_POST['del']), isset($_POST['mod_recur']));
 	}
-	else if ($fn == 'delete') {
+	else if ($fn == 'delete') 
+	{
 		$res->del_res(isset($_POST['mod_recur']));
 	}
-	else if ($fn == 'approve') {
+	else if ($fn == 'approve') 
+	{
 		$res->approve_res(isset($_POST['mod_recur']));
 	}
 }

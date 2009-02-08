@@ -11,7 +11,7 @@
 */
 /***************************************
 * phpScheduleIt                        *
-* Version 1.2.7                        *
+* Version 1.2.11                       *
 * http://phpscheduleit.sourceforge.net *
 *                                      *
 * Nick Korbel                          *

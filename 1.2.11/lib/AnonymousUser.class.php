@@ -14,7 +14,8 @@ $basedir = dirname(__FILE__) . '/..';
 
 include_once($basedir . '/lib/db/AnonymousUserDB.class.php');
 
-class AnonymousUser {
+class AnonymousUser 
+{
 	var $userid;		// Properties
 	var $email;			//
 	var $fname;			//
@@ -30,11 +31,13 @@ class AnonymousUser {
 	* Sets the userid variable
 	* @param string $userid users id
 	*/
-	function AnonymousUser($userid = null) {		
+	function AnonymousUser($userid = null) 
+	{		
 		$this->userid = $userid;
 		$this->db = new AnonymousUserDB();
 		
-		if (!empty($this->userid)) {		// Load values
+		if (!empty($this->userid)) 
+		{		// Load values
 			$this->load_by_id();
 		}
 	}
@@ -45,15 +48,19 @@ class AnonymousUser {
 	* @param none
 	* @return array of user data
 	*/
-	function load_by_id() {
+	function load_by_id() 
+	{
 		$u = $this->db->get_user_data($this->userid);
 		
-		if (!$u) {
+		if (!$u) 
+		{
 			$this->err_msg = $this->db->get_err();
 			return;
 		}
-		else
+		else 
+		{
 			$this->is_valid = true;
+		}
 			
 		$this->fname	= $u['fname'];
 		$this->lname	= $u['lname'];
@@ -64,32 +71,41 @@ class AnonymousUser {
 	* Saves the AnonymousUser to the database if all required fields exist
 	* @param none
 	*/
-	function save() {
-		if (empty($this->userid)) {
+	function save() 
+	{
+		if (empty($this->userid)) 
+		{
 			$err_msg = 'userid is required';
 			return false;
 		}
-		if (empty($this->fname)) {
+		if (empty($this->fname)) 
+		{
 			$err_msg = 'fname is required';
 			return false;
 		}
-		if (empty($this->lname)) {
+		if (empty($this->lname)) 
+		{
 			$err_msg = 'lname is required';
 			return false;
 		}
-		if (empty($this->email)) {
+		if (empty($this->email)) 
+		{
 			$err_msg = 'email is required';
 			return false;
 		}
 		
 		// All fields are ok, so insert
-		if ($this->is_created) {
+		if ($this->is_created) 
+		{
 			$this->db->update($this);
 		}
-		else {
+		else 
+		{
 			$this->db->create($this);
 			$this->is_created = true;		// We don't want to execute an insert next time save() is called
 		}
+		
+		return true;
 	}
 	
 	/**
@@ -97,7 +113,8 @@ class AnonymousUser {
 	* @param none
 	* @returns new AnonymousUser object
 	*/
-	function &getNewUser() {
+	function &getNewUser() 
+	{
 		$user = new AnonymousUser();
 		$user->userid = $user->db->get_new_id();
 		$user->is_created = false;
@@ -109,9 +126,10 @@ class AnonymousUser {
 	* @param string $email the email address of the User or AnonymousUser
 	* @return the memberid, if it exists
 	*/
-	function get_id_by_email($email) {
+	function get_id_by_email($email_address) 
+	{
 		$db = new AnonymousUserDB();
-		return $db->get_id_by_email($email);
+		return $db->get_id_by_email($email_address);
 	}
 		
 	/**
@@ -119,7 +137,8 @@ class AnonymousUser {
 	* @param none
 	* @return boolean if user is valid or not
 	*/
-	function is_valid() {
+	function is_valid() 
+	{
 		return $this->is_valid;
 	}
 	
@@ -128,7 +147,8 @@ class AnonymousUser {
 	* @param none
 	* @return error message as string
 	*/
-	function get_error() {
+	function get_error() 
+	{
 		return $this->err_msg;
 	}
 	
@@ -137,7 +157,8 @@ class AnonymousUser {
 	* @param none
 	* @return user id
 	*/
-	function get_id() {
+	function get_id() 
+	{
 		return $this->userid;
 	}
 	
@@ -146,7 +167,8 @@ class AnonymousUser {
 	* @param none
 	* @return user first name
 	*/
-	function get_fname() {
+	function get_fname() 
+	{
 		return $this->fname;
 	}
 	
@@ -155,7 +177,8 @@ class AnonymousUser {
 	* @param none
 	* @return user last name
 	*/
-	function get_lname() {
+	function get_lname() 
+	{
 		return $this->lname;
 	}
 	
@@ -164,7 +187,8 @@ class AnonymousUser {
 	* @param none
 	* @return the users full name as one string
 	*/
-	function get_name() {
+	function get_name() 
+	{
 		return $this->fname . ' ' . $this->lname;
 	}
 	
@@ -173,7 +197,8 @@ class AnonymousUser {
 	* @param none
 	* @return email address of this user
 	*/
-	function get_email() {
+	function get_email() 
+	{
 		return $this->email;
 	}
 }

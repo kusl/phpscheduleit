@@ -4,7 +4,7 @@
 *  without actually placing the reservation.
 * The output from this is to be used by an AJAX response handler
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 04-28-06
+* @version 02-07-09
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -98,8 +98,11 @@ function process_reservation(&$res) {
 	$is_pending = (isset($_POST['pending']) && $_POST['pending']);
 	
 	if (isset($_POST['start_date'])) {			// Parse the POST-ed starting and ending dates
-		$start_date = eval('return mktime(0,0,0, \'' . str_replace(INTERNAL_DATE_SEPERATOR, '\',\'', $_POST['start_date']) . '\');');
-		$end_date = eval('return mktime(0,0,0, \'' . str_replace(INTERNAL_DATE_SEPERATOR, '\',\'', $_POST['end_date']) . '\');');
+		$sd = explode(INTERNAL_DATE_SEPERATOR, $_POST['start_date']);
+		$ed = explode(INTERNAL_DATE_SEPERATOR, $_POST['end_date']);
+
+		$start_date = mktime(0,0,0, $sd[0], $sd[1], $sd[2]);
+		$end_date = mktime(0,0,0, $ed[0], $ed[1], $ed[2]);
 	}
 	
 	$repeat = array($start_date);

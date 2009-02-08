@@ -373,21 +373,25 @@ class Auth {
 	* @param array $data array of user data
 	* @param bool if the admin is updating user data
 	*/
-	function do_edit_user($data, $adminUpdate) {
+	function do_edit_user($data, $adminUpdate) 
+	{
 		global $conf;
 
 		// Verify user data
 		$msg = $this->check_all_values($data, true);
-		if (!empty($msg)) {
+		if (!empty($msg)) 
+		{
 			return $msg;
 		}
 
 		$this->db->update_user($data['memberid'], $data);
 
-		if (!$adminUpdate) {
+		if (!$adminUpdate) 
+		{
 			$adminemail = strtolower($conf['app']['adminEmail']);
 			// If it is the admin, set session variable
-			if ($data['emailaddress'] == $adminemail) {
+			if ($data['emailaddress'] == $adminemail) 
+			{
 				$_SESSION['sessionAdmin'] = $adminemail;
 			}
 

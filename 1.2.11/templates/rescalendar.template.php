@@ -2,7 +2,7 @@
 /**
 * Provide all of the presentation functions for the ResCalendar class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 01-28-07
+* @version 02-07-09
 * @package Templates
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -20,29 +20,51 @@ $link = CmnFns::getNewLink();
 * @param $type int calendar view type
 * @param $isresource bool if this is a resource view
 */
-function print_resource_jump_link($resources, $schedules, $machid, $scheduleid, $datestamp, $type, $isresource) {
+function print_resource_jump_link($resources, $schedules, $machid, $scheduleid, $datestamp, $type, $isresource) 
+{
 	global $link;
 	$machCount = 0;	
 	$date_string = date('m,j,Y', $datestamp);
 	
 	echo "<p align=\"center\"><select name=\"resource_select\" class=\"textbox\" onchange=\"javascript:changeResCalendar($date_string, $type, this.options[this.selectedIndex].value);\">";
-	for ($schedule = 0; $schedule < count($schedules); $schedule++) {
+	for ($schedule = 0; $schedule < count($schedules); $schedule++) 
+	{
 		echo "<option value=\"s|{$schedules[$schedule]['scheduleid']}\"";
-		if ($schedules[$schedule]['scheduleid'] == $scheduleid) { echo ' selected="selected" '; }
-		echo ">{$schedules[$schedule]['scheduletitle']}</option>\n";
-		for (; $machCount < count($resources); $machCount++) {
-			echo "<option value=\"m|{$resources[$machCount]['machid']}\"";
-			if ($resources[$machCount]['machid'] == $machid) { echo ' selected="selected" '; }
-			echo ">&nbsp;&nbsp;{$resources[$machCount]['name']}</option>\n";
-			if (isset($resources[$machCount+1]) && $resources[$machCount+1]['scheduleid'] != $schedules[$schedule]['scheduleid']) { $machCount++; break; }
+		
+		if ($schedules[$schedule]['scheduleid'] == $scheduleid) 
+		{ 
+			echo ' selected="selected" '; 
 		}
+		
+		echo ">{$schedules[$schedule]['scheduletitle']}</option>\n";
+		
+		print_resource_options($resources, $schedules[$schedule]['scheduleid'], $machid);
 	}
 	echo '</select> ';
-	if ($type == MYCALENDARTYPE_DAY && $isresource) {
+	if ($type == MYCALENDARTYPE_DAY && $isresource) 
+	{
 		$link_string = "javascript:window.open('signup.php?view=%d&amp;date=%s&amp;machid=%s','signup','height=700,width=600,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes');void(0);";
 		$link->doImageLink(sprintf($link_string, MYCALENDARTYPE_SIGNUP, date('m-d-Y',$datestamp), $machid), 'img/signup.gif', translate('Signup View'));
 	}
 	echo '</p>'; 
+}
+
+function print_resource_options($resources, $scheduleid, $selectedMachid)
+{
+	foreach ($resources as $resource)
+	{
+		if ($resource['scheduleid'] == $scheduleid)
+		{
+			echo "<option value=\"m|{$resource['machid']}\"";
+	
+			if ($resource['machid'] == $selectedMachid) 
+			{ 
+				echo ' selected="selected" '; 
+			}
+			
+			echo ">&nbsp;&nbsp;{$resource['name']}</option>\n";
+		}
+	}
 }
 
 /**

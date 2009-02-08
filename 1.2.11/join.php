@@ -2,7 +2,7 @@
 /**
 * Handles the self activation for users joining a reservation
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 06-23-07
+* @version 02-07-09
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -27,23 +27,27 @@ $email_address = htmlspecialchars(trim($_POST['h_join_email']));
 $found_user = false;
 
 // Get the Reservation
-$res = new Reservation($resid);
-
+$res = new Reservation($resid);		
+					
 if ($res != null && !empty($resid)) {
 	$found_user = findUser($userid);
 	
 	// Validate data
-	if (validate_data($userid, $fname, $lname, $email) == '') {
+	if (validate_data($userid, $fname, $lname, $email_address) == '') 
+	{
 		$user = new User();
 		// Load get the userid or create one if the data is ok
 		// First see if we have a user with this email address
-		if ( ($userid == $user->get_id_by_email($email)) != false ) {
+		
+		if ( ($userid = $user->get_id_by_email($email_address)) !== false ) 
+		{
 			// Invite the user we found in the database
 			$user = new User($userid);
 			$userid = $user->get_id();
 			$found_user = true;
 		}
-		else if ( ($userid == AnonymousUser::get_id_by_email($email)) != false ) {
+		else if ( ($userid = AnonymousUser::get_id_by_email($email_address)) !== false ) 
+		{
 			// There is an anonymous user with this email already, update info
 			$a_user = new AnonymousUser($userid);
 			$a_user->fname = $fname;
@@ -59,31 +63,41 @@ if ($res != null && !empty($resid)) {
 			$user->email = $email_address;
 			$found_user = true;
 		}
-		else {
+		else 
+		{
 			// Create the anonymous user
 			$a_user = AnonymousUser::getNewUser();
 			$a_user->fname = $fname;
 			$a_user->lname = $lname;
 			$a_user->email = $email_address;
-			$a_user->save();
+			$is_saved = $a_user->save();
 			
-			$user = new User();
-			$user->userid = $userid;
-			$user->fname = $fname;
-			$user->lname = $lname;
-			$user->email = $email_address;
-			$found_user = true;
+			$userid = $a_user->get_id();
+			
+			if ($is_saved)
+			{
+				$user = new User();
+				$user->userid = $userid;
+				$user->fname = $fname;
+				$user->lname = $lname;
+				$user->email = $email_address;
+				$found_user = true;
+			}
 		}
-		if ($found_user) {
+		if ($found_user) 
+		{
 			$participating = false;
 			// See if the user is already in the participation list
-			for ($i = 0; $i < count($res->users); $i++) {
-				if ($res->users[$i]['memberid'] == $userid) {
+			for ($i = 0; $i < count($res->users); $i++) 
+			{
+				if ($res->users[$i]['memberid'] == $userid) 
+				{
 					$participating = true;
 					break;
 				}
 			}
-			if (!$participating) {	
+			if (!$participating) 
+			{	
 				$accept_code = $res->db->get_new_id();
 				// Add the user to the invite list in the db
 				$res->add_participant($userid, $accept_code);
@@ -91,19 +105,23 @@ if ($res != null && !empty($resid)) {
 				$info[$userid] = $user->email;
 				$res->invite_users($info, array($res->start_date), $accept_code);
 			}
-			else {
+			else 
+			{
 				CmnFns::do_error_box(translate('You are already invited to this reservation. Please follow participation instructions previously sent to your email.'), '', false);
 			}
 		}
-		else {
+		else 
+		{
 			CmnFns::do_error_box(translate('Sorry, we could not find that user in the database.'), '', false);		
 		}
 	}
-	else {
+	else 
+	{
 		CmnFns::do_error_box(translate('Please go back and correct any errors.'), '', false);
 	}
 }
-else {
+else 
+{
 	CmnFns::do_error_box(translate('That record could not be found.'), '', false);
 }
 
@@ -139,10 +157,11 @@ function findUser($userid) {
 * @param string $userid
 * @param string $fname
 * @param string $lname
-* @param string $email
+* @param string $email_address
 * @return message if the data is valid or not
 */
-function validate_data($userid, $fname, $lname, $email) {
+function validate_data($userid, $fname, $lname, $email_address) {
+
 	$msg = '';
 	if ($userid == '') {
 		if (empty($fname)) {
@@ -151,7 +170,7 @@ function validate_data($userid, $fname, $lname, $email) {
 		if (empty($lname)) {
 			$msg .= translate('Last name is required.') . '<br/>';
 		}
-		if (empty($email) || !preg_match("/^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/", $email)) {
+		if (empty($email_address) || !preg_match("/^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/", $email_address)) {
 			$msg .= translate('Valid email address is required.');
 		}
 	}

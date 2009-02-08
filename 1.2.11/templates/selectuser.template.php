@@ -2,7 +2,7 @@
 /**
 * Provide the output functions for the SelectUser class
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 02-05-05
+* @version 02-07-09
 * @package Templates
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -17,7 +17,8 @@ $link = CmnFns::getNewLink();	// Get Link object
 * @param mixed $users array of user data
 * @param string $err last database error
 */
-function print_user_list(&$pager, $users, $err, $javascript) {
+function print_user_list(&$pager, $users, $err, $javascript) 
+{
 	global $link;
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
@@ -34,9 +35,12 @@ function print_user_list(&$pager, $users, $err, $javascript) {
         <?php
 	
 	if (!$users)
+	{
 		echo '<tr class="cellColor0"><td colspan="2" style="text-align: center;">' . $err . '</td></tr>' . "\n";
+	}
 	
-	for ($i = 0; is_array($users) && $i < count($users); $i++) {
+	for ($i = 0; is_array($users) && $i < count($users); $i++) 
+	{
 		$cur = $users[$i];
 		$fname = $cur['fname'];
 		$lname = $cur['lname'];
@@ -44,7 +48,7 @@ function print_user_list(&$pager, $users, $err, $javascript) {
 		
 		$fname_lname = array($fname, $lname);
         
-		echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" onmouseover=\"this.className='SelectUserRowOver';\" onmouseout=\"this.className='cellColor" . ($i%2) . "';\" onclick=\"" . sprintf("$javascript('%s','%s','%s','%s');", $cur['memberid'], $fname, $lname, $email) . ";\">\n"
+		echo "<tr class=\"cellColor" . ($i%2) . "\" align=\"center\" onmouseover=\"this.className='SelectUserRowOver';\" onmouseout=\"this.className='cellColor" . ($i%2) . "';\" onclick=\"" . sprintf("$javascript('%s','%s','%s','%s');", $cur['memberid'], addslashes($fname), addslashes($lname), $email) . "\">\n"
                . "<td style=\"text-align:left;\">$fname $lname</td>\n"
                . "<td style=\"text-align:left;\">$email</td>\n"
                . "</tr>\n";

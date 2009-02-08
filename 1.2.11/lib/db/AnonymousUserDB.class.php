@@ -40,8 +40,8 @@ class AnonymousUserDB extends DBEngine {
 	* @param string $email the email address of the User or AnonymousUser
 	* @return the memberid, if it exists
 	*/
-	function get_id_by_email($email) {
-		$result = $this->db->getRow('SELECT memberid FROM ' . $this->get_table('anonymous_users') . ' WHERE email=?', array($email));
+	function get_id_by_email($email_address) {
+		$result = $this->db->getRow('SELECT memberid FROM ' . $this->get_table('anonymous_users') . ' WHERE email=?', array($email_address));
 		$this->check_for_error($result);
 		
 		if (count($result) <= 0) {
@@ -64,6 +64,8 @@ class AnonymousUserDB extends DBEngine {
 			$user->get_fname(),
 			$user->get_lname()			
 		);
+		
+//		print_r($user);
 		
 		$query = 'INSERT INTO ' . $this->get_table('anonymous_users') . ' VALUES(?, ?, ?, ?)';
 		$q = $this->db->prepare($query);
