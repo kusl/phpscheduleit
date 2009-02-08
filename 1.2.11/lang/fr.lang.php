@@ -493,7 +493,7 @@ $strings['Minimum reservation length'] = 'Durée minimum de réservation :';
 $strings['Maximum reservation length'] = 'Durée maximum de réservation :';
 $strings['You do not have permission to use this resource.'] = 'Vous n\'avez pas les droits d\'utilisation de cette ressource.';
 $strings['reserved or unavailable'] = '%s à %s est reservé ou indisponible.';   // @since 1.1.0
-$strings['Reservation created for'] = 'Reservation créée pour %s';
+$strings['Reservation created for'] = 'Reservation créé pour %s';
 $strings['Reservation modified for'] = 'Reservation modifiée pour %s';
 $strings['Reservation deleted for'] = 'Reservation effacée %s';
 $strings['created'] = 'créé';
@@ -501,7 +501,7 @@ $strings['modified'] = 'modifié';
 $strings['deleted'] = 'effacé';
 $strings['Reservation #'] = 'Reservation #';
 $strings['Contact'] = 'Contact';
-$strings['Reservation created'] = 'Reservation créée';
+$strings['Reservation created'] = 'Reservation créé';
 $strings['Reservation modified'] = 'Reservation modifiée';
 $strings['Reservation deleted'] = 'Reservation effacée';
 
@@ -723,6 +723,7 @@ $strings['Accessory Name'] = 'Nom de l\'accessoire';
 $strings['Accessories'] = 'Accessoires';
 $strings['All Accessories'] = 'Tout les accessoires';
 $strings['Added Accessories'] = 'Accessoires rajoutés';
+$strings['Bookings'] = 'Réservations';
 // end since 1.2.0
 
 /***

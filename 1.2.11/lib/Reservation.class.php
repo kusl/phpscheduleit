@@ -503,6 +503,7 @@ class Reservation {
 	* @return if the time is valid
 	*/
 	function check_min_max() {
+		if ($this->adminMode) { return true; }
 		$min = $this->resource->get_property('minres');
 		$max = $this->resource->get_property('maxRes');
 		if ($this->start_date < $this->end_date) {  return true; }	// Cannot have a min/max for multi-day reservations
@@ -653,12 +654,13 @@ class Reservation {
 		$adminemail = $this->sched['adminemail'];
 		$techEmail  = $conf['app']['techEmail'];
 		$url        = CmnFns::getScriptURL();
-
+		
+		$userGmtOffset = $this->user->get_timezone();
 		// Format date
-		$start_date   = Time::formatReservationDate($this->start_date, $this->start);
-		$end_date	  = Time::formatReservationDate($this->end_date, $this->end);
-		$start  = Time::formatTime($this->get_start());
-		$end    = Time::formatTime($this->get_end());
+		$start_date   = Time::formatReservationDate($this->start_date, $this->start, $userGmtOffset);
+		$end_date	  = Time::formatReservationDate($this->end_date, $this->end, $userGmtOffset);
+		$start  = Time::formatTime($this->get_start(), true, $userGmtOffset);
+		$end    = Time::formatTime($this->get_end(), true, $userGmtOffset);
 
 		$defs = array(
 				translate('Reservation #'),

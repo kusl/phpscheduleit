@@ -100,12 +100,12 @@ class Time
 	* @param string $format the PHP format string for the resulting date
 	* @return the adjusted and formatted timestamp for the reservation
 	*/
-	function formatReservationDate($res_ts, $res_time, $format = '', $format_key = '') {
+	function formatReservationDate($res_ts, $res_time, $format = '', $format_key = '', $offset = null) {
 		global $conf;
 		global $dates;
 
 		$start_ts = $res_ts + (60 * $res_time);
-		$res_ts = Time::getAdjustedTime($start_ts);
+		$res_ts = Time::getAdjustedTime($start_ts, null, false, $offset);
 
 		if (empty($format_key)) {
 			$format_key = 'general_date';

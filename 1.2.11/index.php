@@ -26,7 +26,7 @@ $resume = (isset($_POST['resume'])) ? $_POST['resume'] : '';
 if (isset($_GET['logout'])) {
     $auth->doLogout();   
 }
-else if (isset($_POST['login'])) {
+else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$msg = $auth->doLogin($_POST['email'], $_POST['password'], (isset($_POST['setCookie']) ? 'y' : null), false, $resume, $_POST['language']);
 }
 else if (isset($_COOKIE['ID'])) {

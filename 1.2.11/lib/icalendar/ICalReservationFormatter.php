@@ -47,14 +47,14 @@ class ICalReservationFormatter extends IReservationFormatter
 		
 		$adjusted = Time::getAdjustedTime(mktime());
 		$builder->append( sprintf(
-							"DTSTAMP:%sT%sZ\r\n",
+							"DTSTAMP:%sT%s\r\n",
 							date('Ymd', $adjusted),
 							date('His', $adjusted)
 							));
 
 		$adjusted_start = Time::getAdjustedMinutes($this->_reservation->start);
 		$builder->append( sprintf(
-							"DTSTART:%sT%s%s00Z\r\n",
+							"DTSTART:%sT%s%s00\r\n",
 							date('Ymd', Time::getAdjustedDate($this->_reservation->start_date, $this->_reservation->start)),
 							Time::getHours($adjusted_start),
 							Time::getMinutes($adjusted_start)
@@ -62,7 +62,7 @@ class ICalReservationFormatter extends IReservationFormatter
 
 		$adjusted_end = Time::getAdjustedMinutes($this->_reservation->end);
 		$builder->append( sprintf(
-							"DTEND:%sT%s%s00Z\r\n",
+							"DTEND:%sT%s%s00\r\n",
 							date('Ymd', Time::getAdjustedDate($this->_reservation->end_date, $this->_reservation->end)),
 							Time::getHours($adjusted_end),
 							Time::getMinutes($adjusted_end)
@@ -70,7 +70,7 @@ class ICalReservationFormatter extends IReservationFormatter
 
 		$adjusted = Time::getAdjustedTime($this->_reservation->created);
 		$builder->append( sprintf(
-							"CREATED:%sT%sZ\r\n",
+							"CREATED:%sT%s\r\n",
 							date('Ymd', $adjusted),
 							date('His', $adjusted)
 							));
@@ -78,7 +78,7 @@ class ICalReservationFormatter extends IReservationFormatter
 		if (!empty($this->_reservation->modified)) {
 			$adjusted = Time::getAdjustedTime($this->_reservation->modified);
 			$builder->append( sprintf(
-								"LAST-MODIFIED:%sT%sZ\r\n",
+								"LAST-MODIFIED:%sT%s\r\n",
 								date('Ymd', $adjusted),
 								date('His', $adjusted)
 								));
