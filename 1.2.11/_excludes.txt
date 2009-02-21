@@ -10,3 +10,5 @@ nant.bat
 lib/config
 lib/config/**
 **/configupdate.php
+**/.*
+.settings/*.*

@@ -42,6 +42,7 @@
 
 $languages = array (
 	//'ca'	=> array('ca([-_][[:alpha:]]{2})?|catalan','ca.lang.php', 'ca', 'Catal&agrave;'),
+	'ar'	=> array('ar([-_][[:alpha:]]{2})?|arabic', 'ar.lang.php', 'ar', 'Arabic (&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;)'),
 	'zh_CN' => array('zh([-_]cn)?|chinese', 'zh_CN.lang.php', 'zh', 'Chinese Simplified (&#x7b80;&#x4f53;&#x4e2d;&#x6587;)'),
 	'zh_TW'	=> array('zh([-_]tw)?|chinese', 'zh_TW.lang.php', 'zh', 'Chinese Traditional (&#x6b63;&#x9ad4;&#x4e2d;&#x6587;)'),
 	'cs'	=> array('cs([-_][[:alpha:]]{2})?|czech', 'cs.lang.php', 'cs', 'Czech (&#x010c;esky)'),
@@ -53,7 +54,7 @@ $languages = array (
 	'el'	=> array('el([-_][[:alpha:]]{2})?|greek', 'el.lang.php', 'el', 'Greek (&#x0395;&#x03bb;&#x03bb;&#x03b7;&#x03bd;&#x03b9;&#x03ba;&#x03ac;)'),
 	'it'	=> array('it([-_][[:alpha:]]{2})?|italian', 'it.lang.php', 'it', 'Italiano'),
 	'ja'	=> array('ja([-_][[:alpha:]]{2})?|Japanese', 'ja_JP.lang.php', 'ja', 'Japanese'),
-	'ko'	=> array('ko([-_][[:alpha:]]{2})?|korean', 'ko_KR.lang.php', 'ko', 'Korean'),
+	'ko'	=> array('ko([-_][[:alpha:]]{2})?|korean', 'ko_KR.lang.php', 'ko', 'Korean (&#54620;&#44397;&#50612;)'),
 	'hu'	=> array('hu([-_][[:alpha:]]{2})?|hungarian', 'hu.lang.php', 'hu', 'Magyar'),
 	'nl'	=> array('nl([-_][[:alpha:]]{2})?|dutch', 'nl.lang.php', 'nl', 'Nederlands'),
 	'pt_PT'	=> array('pr([-_]PT)|portuguese', 'pt_PT.lang.php', 'pt', 'Portugu&ecirc;s'),
