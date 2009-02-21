@@ -1,6 +1,6 @@
 =================================================
-=   phpScheduleIt 1.2.10        Release Notes   =
-=                  07/17/2008                   =
+=   phpScheduleIt 1.2.11        Release Notes   =
+=                  02/20/2009                   =
 =                                               =
 =     http://phpscheduleit.sourceforge.net      =
 =        lqqkout13@users.sourceforge.net        =
@@ -10,25 +10,36 @@
 -------------------------------------------------
 -                   Overview                    -
 -------------------------------------------------
-	The purpose of this document is to describe the 1.2.10 release and how to contribute to the project.
+The purpose of this document is to describe the 1.2.11 release and how to contribute to the project.
 
 Please see the readme.html file for setup instructions, general program information, and the changelog.
 
 
 -------------------------------------------------
--              Changes from 1.2.9               -
+-              Changes from 1.2.10              -
 -------------------------------------------------
 +               Summary of changes              +
 
 
-This is a security release and contains no new features.
-- Patched a security vulnerability when using logon names instead of email addresses
+This is a bugfix/security release and contains no new features.
+- Patched a security vulnerability on reserve.php and check.php
+- Fixed anonymous user reservation participation
+- Fixed display issue when group admin edits user data
+- Fixed schedule/reservation drop down issue on Schedule Calendar when schedule has no resources
+- Fixed issue with selecting a user with single quote in name
+- Fixed absolute time issues with ICalendar formatting
+- Updated French translation
+- Fixed times in reservation emails to be formatted in user's timezone
+- Added Arabic translation
+- Updated Spanish translation
+- Updated Italian translation
+- Updated French translation
 
 
 -------------------------------------------------
 -          Instructions for translators         -
 -------------------------------------------------
-	There are detailed instructions for translators in both /config/langs.php and in /lang/en.lang.php.
+There are detailed instructions for translators in both /config/langs.php and in /lang/en.lang.php.
 	
 New translations need to complete the entire language file.
 
