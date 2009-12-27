@@ -2,7 +2,7 @@
 /**
 * Builds and sends the email for reservation reminders
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 06-21-08
+* @version 12-26-09
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -65,22 +65,28 @@ class ReminderEmail extends IEmail
 	}
 
 	function _buildSubject($reminder) {
+		global $conf;
+		$offset = $reminder->timezone - $conf['app']['timezone'];
+		
 		return translate('Reminder Subject',
 			array(
 			$reminder->resource_name,
-			Time::formatDate($reminder->start_date, '', true, $reminder->timezone),
-			Time::formatTime($reminder->start_time, true, $reminder->timezone)
+			Time::formatDate($reminder->start_date, '', true, $offset),
+			Time::formatTime($reminder->start_time, true, $offset)
 			)
 		);
 	}
 
 	function _buildBody($reminder) {
+		global $conf;
+		$offset = $reminder->timezone - $conf['app']['timezone'];
+		
 		return translate_email('Reminder Body',
 			$reminder->resource_name,
-			Time::formatDate($reminder->start_date, '', true, $reminder->timezone),
-			Time::formatTime($reminder->start_time, true, $reminder->timezone),
-			Time::formatDate($reminder->end_date, '', true, $reminder->timezone),
-			Time::formatTime($reminder->end_time, true, $reminder->timezone)
+			Time::formatDate($reminder->start_date, '', true, $offset),
+			Time::formatTime($reminder->start_time, true, $offset),
+			Time::formatDate($reminder->end_date, '', true, $offset),
+			Time::formatTime($reminder->end_time, true, $offset)
 		);
 	}
 }

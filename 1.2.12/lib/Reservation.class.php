@@ -894,6 +894,7 @@ EOT;
 
 		if ($send) {
 			$mailer->Send();
+			//print_r($mailer);
 		}
 
 		$headers = null;

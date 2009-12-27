@@ -2,7 +2,7 @@
 /**
 * Time formatting and calculation functions
 * @author Nick Korbel <lqqkout13@users.sourceforge.net>
-* @version 06-21-08
+* @version 12-26-09
 * @package phpScheduleIt
 *
 * Copyright (C) 2003 - 2007 phpScheduleIt
@@ -122,7 +122,7 @@ class Time
 	* @return the timezone adjusted timestamp for the current user, or the server timestamp if user is not logged in
 	*/
 	function getAdjustedTime($timestamp, $res_time = null, $to_server_time = false, $offset = null) {
-		$hourOffset = $offset != null ? $offset : Time::getHourOffset($to_server_time);
+		$hourOffset = $offset != null ? $offset : Time::getHourOffset($to_server_time, $offset);
 		if ($hourOffset == 0) {
 			return $timestamp;
 		}
@@ -188,11 +188,18 @@ class Time
 	* Gets the hourOffset for the currently logged in user or 0 if they are not logged in
 	* @return the hour offset between user timezone and server timezone
 	*/
-	function getHourOffset($to_server_time = false) {
-		if (isset($_SESSION['hourOffset'])) {
-			return $to_server_time ? $_SESSION['hourOffset'] * -1 : $_SESSION['hourOffset'];
+	function getHourOffset($to_server_time = false, $offset = null) {
+		$workingOffset = 0;
+		if ($offset == null && isset($_SESSION['hourOffset']))
+		{
+			$workingOffset = $_SESSION['hourOffset'];
 		}
-		return 0;
+		if ($offset != null)
+		{
+			$workingOffset = $offset;
+		}
+		
+		return $to_server_time ? $workingOffset * -1 : $workingOffset;
 	}
 
 	/**
