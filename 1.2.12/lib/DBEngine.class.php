@@ -205,6 +205,10 @@ class DBEngine {
     */
     function deleteRecords($table, $field, $to_delete) 
     {
+		if (count($to_delete) == 0)
+		{
+			return true;
+		}
         // Put into string, quoting each value
         $delete = join('","', $to_delete);
         $delete = '"'. $delete . '"';
