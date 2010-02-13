@@ -142,11 +142,12 @@ function process_reservation($fn)
 		$orig = (isset($_POST['orig_invited_users']) && count($_POST['orig_invited_users']) > 0) ? $_POST['orig_invited_users'] : array();
 		$invited = (isset($_POST['invited_users'])) ? $_POST['invited_users'] : array();
 		$removed = (isset($_POST['removed_users'])) ? $_POST['removed_users'] : array();
-
+		$participating = (isset($_POST['participating_users'])) ? $_POST['participating_users'] : array();
+		
 		$users_to_remove = $helper->getRowsForRemoval($orig, $removed, $invited);
 		$users_to_invite = $helper->getRowsForInvitation($orig, $invited);
-		$unchanged_users = $helper->getUnchangedUsers($orig, $invited);
-
+		$unchanged_users = $helper->getUnchangedUsers($orig, $invited, $participating);
+		
 		$orig_resources = (isset($_POST['orig_resources']) && count($_POST['orig_resources']) > 0) ? $_POST['orig_resources'] : array();
 		$selected_resources =  (isset($_POST['selected_resources']) && count($_POST['selected_resources']) > 0) ? $_POST['selected_resources'] : array();
 

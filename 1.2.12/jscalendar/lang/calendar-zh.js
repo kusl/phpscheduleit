@@ -39,6 +39,8 @@ Calendar._SDN = new Array
  "Áù",
  "ÈÕ");
 
+Calendar._FD = 0;
+
 // full month names
 Calendar._MN = new Array
 ("Ò»ÔÂ",

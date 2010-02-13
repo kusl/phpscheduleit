@@ -1,5 +1,5 @@
 =================================================
-=   phpScheduleIt 1.2.11        Release Notes   =
+=   phpScheduleIt 1.2.12        Release Notes   =
 =                  02/20/2009                   =
 =                                               =
 =     http://phpscheduleit.sourceforge.net      =
@@ -16,24 +16,17 @@ Please see the readme.html file for setup instructions, general program informat
 
 
 -------------------------------------------------
--              Changes from 1.2.10              -
+-              Changes from 1.2.11              -
 -------------------------------------------------
 +               Summary of changes              +
 
 
 This is a bugfix/security release and contains no new features.
-- Patched a security vulnerability on reserve.php and check.php
-- Fixed anonymous user reservation participation
-- Fixed display issue when group admin edits user data
-- Fixed schedule/reservation drop down issue on Schedule Calendar when schedule has no resources
-- Fixed issue with selecting a user with single quote in name
-- Fixed absolute time issues with ICalendar formatting
-- Updated French translation
-- Fixed times in reservation emails to be formatted in user's timezone
-- Added Arabic translation
-- Updated Spanish translation
-- Updated Italian translation
-- Updated French translation
+- Fixed minor start day bug in calendar-zh.js
+- Fixed bug where participating users were not receiving reservation modification emails
+- Fixed broken schedule link from daily/weekly "My Calendar" views
+- Fixed issue where user data validation would fail LDAP authentication
+- Fixed bug which was improperly adjusting times in reservation emails when user/server timezones did not match
 
 
 -------------------------------------------------

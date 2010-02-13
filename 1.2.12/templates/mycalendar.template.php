@@ -155,7 +155,7 @@ function print_day_reservations($reservations, $datestamp, $days, $show_owner_ic
 	echo '<tr><td class="scheduleDateHeader">&nbsp;</td>';
 	for ($day_count = 0; $day_count < $days; $day_count++) {
 		$datestamps[$day_count] = mktime(0,0,0, $date_vars['mon'], $date_vars['mday'] + $day_count, $date_vars['year']);
-		echo '<td width="' . $col_width . '%" class="scheduleDateHeader"><a href="schedule.php?date=' . sprintf('%d-%d-%d', $date_vars['mon'], $date_vars['mday'], $date_vars['year']) . '&amp;scheduleid=$scheduleid">' . translate_date('schedule_daily', $datestamps[$day_count]) . '</a></td>';
+		echo '<td width="' . $col_width . '%" class="scheduleDateHeader"><a href="schedule.php?date=' . sprintf('%d-%d-%d', $date_vars['mon'], $date_vars['mday'], $date_vars['year']) . '&amp;scheduleid=' . $scheduleid . '">' . translate_date('schedule_daily', $datestamps[$day_count]) . '</a></td>';
 	}
 	echo "</tr>\n";
 	

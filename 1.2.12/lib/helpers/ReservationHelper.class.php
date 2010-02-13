@@ -68,10 +68,16 @@ class ReservationHelper
 	* Returns all the users who have no status change at all
 	* @param array $orig the POST-ed array of users who were originally on the reservation
 	* @param array $invited the POST-ed array of users in the invited list
+	* @param array $participating the POST-ed array of users in the participating list
 	* @return array hashtable with memberid as the key and the email address as the value
 	*/
-	function getUnchangedUsers($orig, $invited) {
+	function getUnchangedUsers($orig, $invited, $participating) {
 		$unchanged = array();
+		
+		foreach($participating as $idx => $val) {
+				$parts = explode('|', $val);
+				$unchanged[$parts[0]] = $parts[1];
+			}
 		
 		if (!is_null($orig) && !empty($orig) && !is_null($invited) && !empty($invited)) {
 			$common = array_intersect($orig, $invited);

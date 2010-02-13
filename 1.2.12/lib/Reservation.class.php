@@ -152,7 +152,7 @@ class Reservation {
 		{
 			$users_to_inform[] = $this->users[$i]['email'];
 		}
-
+		
 		$this->db->del_res($this->id, $this->parentid, $del_recur, mktime(0,0,0), $this->user->userid);
 
 		if (!$this->is_blackout)		// Mail the user if they want to be notified
@@ -682,12 +682,11 @@ class Reservation {
 		$techEmail  = $conf['app']['techEmail'];
 		$url        = CmnFns::getScriptURL();
 		
-		$userGmtOffset = $this->user->get_timezone();
 		// Format date
-		$start_date   = Time::formatReservationDate($this->start_date, $this->start, $userGmtOffset);
-		$end_date	  = Time::formatReservationDate($this->end_date, $this->end, $userGmtOffset);
-		$start  = Time::formatTime($this->get_start(), true, $userGmtOffset);
-		$end    = Time::formatTime($this->get_end(), true, $userGmtOffset);
+		$start_date   = Time::formatReservationDate($this->start_date, $this->start);
+		$end_date	  = Time::formatReservationDate($this->end_date, $this->end);
+		$start  = Time::formatTime($this->get_start());
+		$end    = Time::formatTime($this->get_end());
 
 		$defs = array(
 				translate('Reservation #'),

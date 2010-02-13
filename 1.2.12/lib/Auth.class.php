@@ -275,10 +275,13 @@ class Auth {
 	*/
 	function do_register_user($data, $adminCreated) {
 		global $conf;
-		// Verify user data
-		$msg = $this->check_all_values($data, false);
-		if (!empty($msg)) {
-			return $msg;
+		
+		if( !$conf['ldap']['authentication'] ) {
+			// Verify user data
+			$msg = $this->check_all_values($data, false);
+			if (!empty($msg)) {
+				return $msg;
+			}
 		}
 
 		$adminemail = strtolower($conf['app']['adminEmail']);
