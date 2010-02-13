@@ -10,7 +10,7 @@
 -------------------------------------------------
 -                   Overview                    -
 -------------------------------------------------
-The purpose of this document is to describe the 1.2.11 release and how to contribute to the project.
+The purpose of this document is to describe the 1.2.12 release and how to contribute to the project.
 
 Please see the readme.html file for setup instructions, general program information, and the changelog.
 
@@ -27,6 +27,15 @@ This is a bugfix/security release and contains no new features.
 - Fixed broken schedule link from daily/weekly "My Calendar" views
 - Fixed issue where user data validation would fail LDAP authentication
 - Fixed bug which was improperly adjusting times in reservation emails when user/server timezones did not match
+- Fixed bug displaying incorrect times in reminder emails
+- Fixed bug when calling deleteRecords() with an empty array
+- Added Bulgarian translation
+- Added Polish translation
+- Added Danish translation
+- Updated Portuguese (pt_BR) translation and added help file
+- Updated German translation
+- Added Spanish version of readme
+- Changed Arabic to display right to left
 
 
 -------------------------------------------------

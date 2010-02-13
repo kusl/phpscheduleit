@@ -11,14 +11,14 @@
 
 // full day names
 Calendar._DN = new Array
-("Søndag",
+("S&oslash;ndag",
 "Mandag",
 "Tirsdag",
 "Onsdag",
 "Torsdag",
 "Fredag",
-"Lørdag",
-"Søndag");
+"L&oslash;rdag",
+"S&oslash;ndag");
 
 // Please note that the following array of short day names (and the same goes
 // for short month names, _SMN) isn't absolutely necessary. We give it here
@@ -34,14 +34,14 @@ Calendar._DN = new Array
 
 // short day names
 Calendar._SDN = new Array
-("Søn",
+("S&oslash;n",
 "Man",
 "Tir",
 "Ons",
 "Tor",
 "Fre",
-"Lør",
-"Søn");
+"L&oslash;r",
+"S&oslash;n");
 
 // full month names
 Calendar._MN = new Array
@@ -93,18 +93,18 @@ Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "- eller Shift-klik for for mindre værdi\n" +
 "- eller klik og træk for hurtigere valg.";
 
-Calendar._TT["PREV_YEAR"] = "Ét år tilbage (hold for menu)";
-Calendar._TT["PREV_MONTH"] = "Én måned tilbage (hold for menu)";
+Calendar._TT["PREV_YEAR"] = "Ét &aring;r tilbage (hold for menu)";
+Calendar._TT["PREV_MONTH"] = "Én m&aring;ned tilbage (hold for menu)";
 Calendar._TT["GO_TODAY"] = "Gå til i dag";
-Calendar._TT["NEXT_MONTH"] = "Én måned frem (hold for menu)";
-Calendar._TT["NEXT_YEAR"] = "Ét år frem (hold for menu)";
-Calendar._TT["SEL_DATE"] = "Vælg dag";
-Calendar._TT["DRAG_TO_MOVE"] = "Træk vinduet";
+Calendar._TT["NEXT_MONTH"] = "Én m&aring;ned frem (hold for menu)";
+Calendar._TT["NEXT_YEAR"] = "Ét &aring;r frem (hold for menu)";
+Calendar._TT["SEL_DATE"] = "V&aelig;lg dag";
+Calendar._TT["DRAG_TO_MOVE"] = "Tr&aelig;k vinduet";
 Calendar._TT["PART_TODAY"] = " (i dag)";
 
 // the following is to inform that "%s" is to be the first day of week
 // %s will be replaced with the day name.
-Calendar._TT["DAY_FIRST"] = "Vis %s først";
+Calendar._TT["DAY_FIRST"] = "Vis %s f&oslash;rst";
 
 // This may be locale-dependent. It specifies the week-end days, as an array
 // of comma-separated numbers. The numbers are from 0 to 6: 0 means Sunday, 1
@@ -113,11 +113,11 @@ Calendar._TT["WEEKEND"] = "0,6";
 
 Calendar._TT["CLOSE"] = "Luk";
 Calendar._TT["TODAY"] = "I dag";
-Calendar._TT["TIME_PART"] = "(Shift-)klik eller træk for at ændre værdi";
+Calendar._TT["TIME_PART"] = "(Shift-)klik eller tr&aelig;k for at &aelig;ndre v&aelig;rdi";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%d-%m-%Y";
-Calendar._TT["TT_DATE_FORMAT"] = "%a, %b %e";
+Calendar._TT["TT_DATE_FORMAT"] = "%a, %e. %b";
 
 Calendar._TT["WK"] = "Uge";
 Calendar._TT["TIME"] = "Tid:";

@@ -55,12 +55,15 @@ global $days_letter;		  //
 global $months_full;		  //
 global $months_abbr;		  //
 global $days_letter;		  //
+global $text_direction;		  //
 /******************************/
 
 // Charset for this language
 // 'iso-8859-1' will work for most languages
 //$charset = 'iso-8859-1';
 $charset = 'Windows-1256';
+
+$text_direction = "rtl";
 
 /***
   DAY NAMES

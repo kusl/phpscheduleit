@@ -20,7 +20,7 @@
 	</head>
 	<body bgcolor="#ffffff" text="#000000">
 		<h3 align="center"><a name="top" id="top"></a>Welcome to phpScheduleIt</h3>
-		<h5 align="center">Version 1.2.8<br>
+		<h5 align="center">Version 1.2.12<br>
 			<a href="mailto:lqqkout13@users.sourceforge.net">Nick Korbel</a><br>
 			<a href="http://phpscheduleit.sourceforge.net" target="_blank">http://phpscheduleit.sourceforge.net</a></h5>
 <table width="100%" border="0" cellspacing="0" cellpadding="5" style="BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid"
@@ -683,114 +683,7 @@
 					<p>All database manipulation should be done though the Administration Tools, NOT
 						manually. <i>Manually editing the database can lead to data corruption and render
 							the system unstable or useless.</i></p>
-					<h4>Changelog</h4>
-					<p>Version 1.2.0 (2006-06-12)</p>
-					<p>- User groups<br />
-			      - Email reminders<br />
-		          - Ability to check reservation availability<br />
-					    - iCalendar/vCalendar exports
-				      <br />
-					  - Minimum and maximum reservation dates<br />
-					  - Support for user-specific timezones<br />
-					  -
-			         Non-invited users can participate in a reservation<br />
-			         - Non-registered users can participate in a reservation<br />
-			         - Resource specific maximum number of reservation participants<br />
-					- Admin/group admin can add and edit user profile data<br />
-					- Ability to reserve additional resources on a reservation<br />
-					- RSS feeds<br />
-					- Update to <a href="pear.php.net" target="_blank">PEAR</a> version 1.98<br />
-					- Update to DB version 1.80<br />
-					- New language: Chinese (Traditional)<br />
-					- Minor bugfixes</p>
-					<p>Version 1.1.0 (2005-04-21)</p>
-					<p>- Login name support<br>
-						- LDAP support<br>
-						- Web-configurable announcements<br>
-						- Reservation approval support<br>
-						- Multiple day reservation support<br>
-						- Reservation invitations<br>
-						- Day/week/month calendar view for personal reservations, schedule
-						reservations, resource reservations<br>
-						- Signup sheet view for resources<br>
-						- Administrator can place reservations for users, change reservation owner<br>
-						- Clickable time slots for creating new reservations<br>
-						- Multiple administrator support<br>
-						- Update to <a href="pear.php.net" target="_blank">PEAR</a> version 1.82.2.6<br>
-						- New languages: Greek, Portuguese, Portuguese (Brazil), Slovenian, Swedish,
-						Turkish</p>
-					<p>Version 1.0.0 (2005-09-12)</p>
-					<p>- Multiple language support was added<br>
-						- PHP safe mode was added to resolve shared PEAR problems<br>
-						- Updated <a href="http://phpmailer.sourceforge.net">PHPMailer</a> to version
-						1.72
-						<br>
-						- Bugfix-Reservationemailbodybug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=969023&amp;group_id=95547&amp;atid=611778<br>
-						- Bugfix-Monthly calendar navigation bug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=966476&amp;group_id=95547&amp;atid=611778<br>
-						-
-						Bugfix - Reservation modification bug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=962880&amp;group_id=95547&amp;atid=611778<br>
-						- Bugfix- Userinfo 404bug. http://sourceforge.net/tracker/index.php?func=detail&amp;aid=953562&amp;group_id=95547&amp;atid=611778<br>
-						- Bugfix/patch - Obsoletepermissiondatabug.http://sourceforge.net/tracker/index.php?func=detail&amp;aid=951374&amp;group_id=95547&amp;atid=611778
-						<br>
-						- Bugfix/patch - Add better support for PostgreSQL<br>
-						- Security updates and patches</p>
-					<p>Version 0.9.9 (2005-05-09)</p>
-					<p>- Blackout times have been implemented<br>
-						- Reservation
-						class bug has been fixed. (See http://sourceforge.net/tracker/index.php?func=detail&amp;aid=902323&amp;group_id=95547&amp;atid=611780
-						for more info)<br>
-						- Reservation summaries have been added with a configurable option to display
-						them on the schedule<br>
-						- Schedule now displays correct days when showing less than 7 at a time<br>
-						- Advanced recurring reservation features added<br>
-						- Read-only version of the schedule can be seen by unregistered or users that
-						are not logged in<br>
-						- Admin has the power to reset a password for a user<br>
-						- Minor UI changes<br>
-						- Auto-assign permissions are now per-resource instead of global
-						<br>
-						- Multiple schedules are now supported with a GUI for managing them<br>
-						- Better support for non-MySQL databases<br>
-						- Registration email is now plain-text<br>
-						- Inclusion of <a href="http://phpmailer.sourceforge.net">PHPMailer</a> to send
-						all email communications<br>
-						- A bug that prevented phpScheduleIt from running in BSD environments has been
-						fixed<br>
-						- Option to email users permission changes has been added</p>
-					<p>Version 0.9.3 (2005-01-24)</p>
-					<p>
-						- Auth
-						classbughasbeenfixed.(Seehttp://sourceforge.net/tracker/index.php?func=detail&amp;aid=869070&amp;group_id=95547&amp;atid=611778
-						for more info)<br>
-						- Users can be searched on from the Manage Users admin tool<br>
-						- Users can be browsed by last name<br>
-						- Recurring reservations can be modified or deleted as a group<br>
-						- Recurring reservation code has been revised and is much faster</p>
-					<p>Version 0.9.0 stable (2003-12-28)</p>
-					<p>- reservation time intervals can be managed in the config file<br>
-						- reservation min/max lengths can be managed on a per-resource basis through
-						the resource admin tool
-						<br>
-						- position registration field can be managed in the config file<br>
-						- institution registration field can be managed in the config file<br>
-						- 12/24 hour time can be chosen in the config file<br>
-						- $conf['app']['webroot'] changed to $conf['app']['weburi']<br>
-						<br>
-						- fixed bugs in setup files (manual setup had obsolete field, both had
-						incorrect 'not null' fields)</p>
-					<p>Version 0.9.0 beta (2003-11-30)</p>
-					<p>- auto-assign permissions to users upon registration option added, allowing the
-						user to be automatically given rights to use all resources upon registration<br>
-						- print search results in HTML, text, XML, CSV format<br>
-						- export database data as XML or CSV<br>
-						- fixed bugs in search where old database fields were being used<br>
-						- fixed bug in view user info that would not change users if they had the same
-						name</p>
-					<p>Version 0.7.0 beta (2003-11-25)</p>
-					<p>This is the first public release of phpScheduleIt. There was a good deal changed
-						and removed from the previous version, including PI information and a lot of
-						wording changes.</p>
-					<h4>Credits</h4>
+				  <h4>Credits</h4>
 					<p><em>Application Code</em></p>
 					<p>Nick Korbel &lt;lqqkout13@users.sourceforge.net&gt;<br>
 						David Poole &lt;David.Poole@fccc.edu&gt;					</p>
@@ -831,8 +724,9 @@
 					<p>European Portuguese (pt_PT)<br>
 						- Pedro Ramos</p>
 					<p>Brazillian Portuguese (pt_BR)<br>
-						- Thiago Moesch</p>
-					<p>Russian (ru)<br />
+						- Thiago Moesch<br />
+					- Caliane Zschornack</p>
+				  <p>Russian (ru)<br />
 					- Sergey Salnikov</p>
 					<p>Spanish (es)<br>
 					  - Josue Rojas</p>
@@ -845,7 +739,16 @@
 					- <span id="_user_klas.flodqvist@isklabbe.se">Klas Flodqvist</span></p>
 			  <p>Turkish (tr)<br>
 						- Ozcan Dogan</p>
-					<h4>Resources</h4>
+			  <p>Bulgarian (bg)<br />
+			  - &#1042;&#1083;&#1072;&#1076;&#1080;&#1089;&#1083;&#1072;&#1074; &#1046;&#1080;&#1074;&#1082;&#1086;&#1074;</p>
+			  <p>Polish (pl)<br />
+			  -Arkadiusz Lipiec</p>
+			  <p>Danish (da)<br />
+			  - Christian Clausen</p>
+			  <p>Arabic (ar)<br />
+			    - shbleidi<br />
+			    </p>
+			  <h4>Resources</h4>
 					<p>
 						<a href="http://phpscheduleit.sourceforge.net" target="_blank">http://phpscheduleit.sourceforge.net</a><br>
 						<a href="http://www.php.net" target="_blank">http://www.php.net</a><br>

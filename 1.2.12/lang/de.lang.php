@@ -169,7 +169,7 @@ $strings['Valid schedule must be selected'] = 'Gültiger Zeitplan muss ausgewählt
 $strings['Minimum reservation length must be less than or equal to maximum reservation length.'] = 'Minimale Reservierungsdauer muss kleiner als oder gleich gross wie die maximale Reservierungsdauer sein.';
 $strings['Your request was processed successfully.'] = 'Ihre Anfrage wurde erfolgreich weitergeleitet.';
 $strings['Go back to system administration'] = 'Zurück zur System Administration';
-$strings['Or wait to be automatically redirected there.'] = 'Oder  auf die automatische Weiterleitung warten.';
+$strings['Or wait to be automatically redirected there.'] = 'Oder auf die automatische Weiterleitung warten.';
 $strings['There were problems processing your request.'] = 'Es gab Probleme beim Weiterleiten Ihrer Anfrage.';
 $strings['Please go back and correct any errors.'] = 'Bitte kehren Sie zurück und korrigieren Sie alle Fehler.';
 $strings['Login to view details and place reservations'] = 'Loggen Sie sich ein um Details zu sehen und Reservierungen zu erstellen.';
@@ -195,12 +195,12 @@ $strings['Back'] = 'Zurück';
 $strings['Next'] = 'Nächste';
 $strings['Close Window'] = 'Fenster schließen';
 $strings['Search'] = 'Suchen';
-$strings['Clear'] = 'Säubern';
+$strings['Clear'] = 'Zurücksetzen';
 
 
 $strings['Days to Show'] = 'Tage anzeigen';
 $strings['Reservation Offset'] = 'Reservation Offset';
-$strings['Hidden'] = 'Versteckt';
+$strings['Hidden'] = 'Nicht sichtbar';
 $strings['Show Summary'] = 'Zusammenfassung anzeigen';
 $strings['Add Schedule'] = 'Zeitplan hinzufügen';
 $strings['Edit Schedule'] = 'Zeitplan bearbeiten';
@@ -228,11 +228,11 @@ $strings['Sort by descending email address'] = 'Absteigund nach E-Mail Adresse s
 $strings['Sort by descending institution'] = 'Absteigend nach Instutition sortieren';
 $strings['Sort by ascending last name'] = 'Aufsteigend nach Nachnamen sortieren';
 $strings['Sort by ascending email address'] = 'Aufsteigend nach E-Mail Adresse sortieren';
-$strings['Sort by ascending institution'] = 'Aufsteigend nach Instution sortieren';
-$strings['Sort by descending resource name'] = 'Absteigend nach Ressource Namen sortieren';
+$strings['Sort by ascending institution'] = 'Aufsteigend nach Institution sortieren';
+$strings['Sort by descending resource name'] = 'Absteigend nach Ressource-Namen sortieren';
 $strings['Sort by descending location'] = 'Absteigend nach Ort sortieren';
 $strings['Sort by descending schedule title'] = 'Absteidgend nach Zeiplan-Titel sortieren';
-$strings['Sort by ascending resource name'] = 'Aufsteigend nach Ressource Namen sortieren';
+$strings['Sort by ascending resource name'] = 'Aufsteigend nach Ressource-Namen sortieren';
 $strings['Sort by ascending location'] = 'Aufsteigend nach Ort sortieren';
 $strings['Sort by ascending schedule title'] = 'Austeigend nach Zeitplan-Titel sortieren';
 $strings['Sort by descending date'] = 'Absteigend nach Datum sortieren';
@@ -272,7 +272,7 @@ $strings['Notify user'] = 'Benutzer benachrichten';
 $strings['User Reservations'] = 'Benutzer Reservierungen';
 $strings['Date'] = 'Datum';
 $strings['User'] = 'Benutzer';
-$strings['Email Users'] = 'Dem Benutzer eine E-Mail schreiben';
+$strings['Email Users'] = 'Benutzern eine E-Mail schreiben';
 $strings['Subject'] = 'Betreff.';
 $strings['Message'] = 'Nachricht';
 $strings['Please select users'] = 'Bitte Benutzer auswählen';
@@ -291,7 +291,7 @@ $strings['Export Data'] = 'Daten exportieren';
 $strings['Reset Password for'] = 'Passwort zurücksetzen für %s';
 $strings['Please edit your profile'] = 'Bitte bearbeiten Sie Ihr Profil';
 $strings['Please register'] = 'Bitte registrieren Sie sich.';
-$strings['Email address (this will be your login)'] = 'E-Mail Addresse (Das wird Ihr Log-In sein.)';
+$strings['Email address (this will be your login)'] = 'E-Mail Addresse (Das wird Ihr Login-Name sein.)';
 $strings['Keep me logged in'] = 'Eingeloggt bleiben. <br/>(erfordert Cookies)';
 $strings['Edit Profile'] = 'Profil bearbeiten';
 $strings['Register'] = 'Registrieren';
@@ -301,21 +301,21 @@ $strings['Password'] = 'Passwort';
 $strings['First time user'] = 'Das erste mal hier?';
 $strings['Click here to register'] = 'Klicken Sie hier um sich zu registrieren.';
 $strings['Register for phpScheduleIt'] = ' In phpScheduleIt registrieren';
-$strings['Log In'] = 'Log-in';
+$strings['Log In'] = 'Einloggen';
 $strings['View Schedule'] = 'Zeitplan anschauen';
 $strings['View a read-only version of the schedule'] = 'Eine Nur-Lese Version des Zeitplans anschauen.';
 $strings['I Forgot My Password'] = 'Passwort vergessen';
 $strings['Retreive lost password'] = 'Verlorenes Passwort abfragen';
 $strings['Get online help'] = 'Online-Hilfe';
 $strings['Language'] = 'Sprache';
-$strings['(Default)'] = '(Vorgabe)';
+$strings['(Default)'] = '(Voreinstellung)';
 $strings['Next Week'] = 'Nächste Woche &raquo;';
 $strings['for'] = 'für';
 
 $strings['My Announcements'] = 'Meine Ankündigungen';
 $strings['My Reservations'] = 'Meine Reservierungen';
 $strings['My Permissions'] = 'Meine Rechteverwaltung';
-$strings['My Quick Links'] = 'Meine Schnell-Links';
+$strings['My Quick Links'] = 'Menü';
 $strings['Announcements as of'] = 'Ankündigungen von %s';
 $strings['There are no announcements.'] = 'Es gibt keine Ankündigungen.';
 $strings['Resource'] = 'Ressource';
@@ -341,7 +341,7 @@ $strings['I prefer'] = 'Ich bevorzuge:';
 $strings['Your email preferences were successfully saved'] = 'Ihre E-Mail Einstellungen wurden erfolgreich gespeichert!';
 $strings['Return to My Control Panel'] = 'Zurück zum Kontrol-Panel';
 
-$strings['Please select the starting and ending times'] = 'Bitte wählen Sie Start und End Zeiten aus.:';
+$strings['Please select the starting and ending times'] = 'Bitte wählen Sie Start und End Zeiten:';
 $strings['Please change the starting and ending times'] = 'Bitte ändern Sie Start und End Zeiten:';
 $strings['Reserved time'] = 'Reservierte Zeit:';
 $strings['Minimum Reservation Length'] = 'Minimale Reservierungsdauer:';
@@ -369,7 +369,7 @@ $strings['Summary'] = 'Zusammenfassung';
 
 $strings['View schedule'] = 'Zeitplan anschauen:';
 $strings['My Reservations'] = 'Meine Reservierungen';
-$strings['My Past Reservations'] = 'Meine vergangene Reservierungen';
+$strings['My Past Reservations'] = 'Meine vergangenen Reservierungen';
 $strings['Other Reservations'] = 'Andere Reservierungen';
 $strings['Other Past Reservations'] = 'Andere vergangene Reservierungen';
 $strings['Blacked Out Time'] = 'Geblockte Zeiten';
@@ -419,7 +419,7 @@ $strings['Return to top'] = 'Zurück nach oben';
 $strings['Select Search Criteria'] = 'Suchkriterien auswählen';
 $strings['Schedules'] = 'Zeitpläne:';
 $strings['All Schedules'] = 'Alle Zeitpläne';
-$strings['Hold CTRL to select multiple'] = 'Halte STRG-Taste gedrückt um mehrere auszuwählen.';
+$strings['Hold CTRL to select multiple'] = 'STRG-Taste gedrückt halten um mehrere auszuwählen.';
 $strings['Users'] = 'Benutzer:';
 $strings['All Users'] = 'Alle Benutzer';
 $strings['Resources'] = 'Ressourcen';
@@ -445,7 +445,7 @@ $strings['Previous User'] = '&laquo; Vorheriger Benutzer';
 $strings['Next User'] = 'Nächster Benutzer &raquo;';
 
 $strings['No results'] = 'Keine Ergebnisse';
-$strings['That record could not be found.'] = 'Diese Eintragung konnte nicht gefunden werden.';
+$strings['That record could not be found.'] = 'Dieser Eintrag konnte nicht gefunden werden.';
 $strings['This blackout is not recurring.'] = 'Dieser Block ist nicht wiederkehrend.';
 $strings['This reservation is not recurring.'] = 'Diese Reservierung ist nicht wiederkehrend.';
 $strings['There are no records in the table.'] = 'Es gibt keine Eintragungen in der Tabelle %s .';
@@ -457,7 +457,7 @@ $strings['There was an error executing your query'] = 'Es gab einen Fehler beim 
 $strings['That cookie seems to be invalid'] = 'Dieser Cookie scheint ungültig zu sein';
 $strings['We could not find that email in our database.'] = 'Wir konnten diese E-Mail in unserer Datenbank nicht finden.';
 $strings['That password did not match the one in our database.'] = 'Dieses Passwort stimmt mit dem in unserer Datenbank nicht überein.';
-$strings['You can try'] = '<br />Sie können versuchen:<br />Eine E-Mail-Adresse registrieren.<br />oder:<br />Versuchen nochmal einzuloggen.';
+$strings['You can try'] = '<br />Sie können versuchen:<br />Eine E-Mail-Adresse zu registrieren.<br />oder:<br />Versuchen nochmal einzuloggen.';
 $strings['A new user has been added'] = 'Ein neuer Benutzer wurde angelegt';
 $strings['You have successfully registered'] = 'Sie haben sich erfolgreich registriert!';
 $strings['Continue'] = 'Fortsetzen...';
@@ -467,7 +467,7 @@ $strings['Valid email address is required.'] = '- Gültige E-Mail-Adresse wird be
 $strings['First name is required.'] = '- Vorname wird benötigt.';
 $strings['Last name is required.'] = '- Nachname wird benötigt.';
 $strings['Phone number is required.'] = '- Telefonnumer wird benötigt.';
-$strings['That email is taken already.'] = '- Diese E-Mail-Adresse wird bereits benutzt.<br />Bitte nochmal mit einer anderen versuchen.';
+$strings['That email is taken already.'] = '- Diese E-Mail-Adresse wird bereits benutzt.<br />Bitte nocheinmal mit einer Anderen versuchen.';
 $strings['Min 6 character password is required.'] = '- Ein Passwort mit mind. %s Zeichen wird benötigt.';
 $strings['Passwords do not match.'] = '- Passwörter stimmen nicht überein.';
 
@@ -478,14 +478,14 @@ $strings['Your reservation was successfully created'] = 'Die Reservierung wurde 
 $strings['Your reservation was successfully modified'] = 'Die Reservierung wurde geändert';
 $strings['Your reservation was successfully deleted'] = 'Die Reservierung wurde erfolgreich gelöscht';
 $strings['Your blackout was successfully created'] = 'Der Block wurde erfolgreich angelegt.';
-$strings['Your blackout was successfully modified'] = 'Der Block wurde erfolgreich verändert';
-$strings['Your blackout was successfully deleted'] = 'Der Block wurde erfolgreich gelöscht';
+$strings['Your blackout was successfully modified'] = 'Der Block wurde erfolgreich verändert.';
+$strings['Your blackout was successfully deleted'] = 'Der Block wurde erfolgreich gelöscht.';
 $strings['for the follwing dates'] = 'für die folgenden Daten:';
 $strings['Start time must be less than end time'] = 'Die Startzeit muss vor der Endzeit sein.';
 
 $strings['Current start time is'] = 'Aktuelle Startzeit ist:';
 $strings['Current end time is'] = 'Aktuelle Endzeit ist:';
-$strings['Reservation length does not fall within this resource\'s allowed length.'] = 'Die angegebene Reservierungsdauer ist länger als die für diese Ressource erlaubte Reservierungsdauer.';
+$strings['Reservation length does not fall within this resource\'s allowed length.'] = 'Die angegebene Reservierungsdauer ist länger/kürzer als die für diese Ressource erlaubte Reservierungsdauer.';
 $strings['Your reservation is'] = 'Die Reservierung ist:';
 $strings['Minimum reservation length'] = 'Minimale  Reservierungsdauer:';
 $strings['Maximum reservation length'] = 'Maximale Reservierungsdauer:';
@@ -514,7 +514,7 @@ $strings['[All Reservations]'] = '[Alle Reservierungen]';
 
 $strings['Permissions Updated'] = 'Rechte aktualisiert';
 $strings['Your permissions have been updated'] = 'Die %s Rechte wurden aktualisiert';
-$strings['You now do not have permission to use any resources.'] = 'Sie haben leider kein Rechte mehr, um Ressourcen zu nutzen.';
+$strings['You now do not have permission to use any resources.'] = 'Sie haben leider keine Rechte, um Ressourcen zu nutzen.';
 $strings['You now have permission to use the following resources'] = 'Sie haben nun die Rechte, die folgenden Ressourcen zu nutzen:';
 $strings['Please contact with any questions.'] = 'Für alle Fragen bitte %s kontaktieren.';
 $strings['Password Reset'] = 'Passwort zurücksetzen';
@@ -539,16 +539,16 @@ $strings['Please log into your database'] = 'Bitte in die Datenbank einloggen';
 $strings['Enter database root username'] = 'Datenbank-Root-Benutzernamen eingeben:';
 $strings['Enter database root password'] = 'Datenbank-Root Passwort eingeben:';
 $strings['Login to database'] = 'Login zur Datenbank';
-$strings['Root user is not required. Any database user who has permission to create tables is acceptable.'] = 'Root Benutzer ist <b>nicht</b> unbedingt nötig. Jeder Datenbank Benutzer, der genügend Rechte hat um Tabellen anzulegen ist möglich.';
-$strings['This will set up all the necessary databases and tables for phpScheduleIt.'] = 'Das wird alle für phpScheduleIt benötigten Datenbanken und Tabellen einriechten.';
-$strings['It also populates any required tables.'] = 'Es füllt auch alle benötigten Tabellen aus.';
-$strings['Warning: THIS WILL ERASE ALL DATA IN PREVIOUS phpScheduleIt DATABASES!'] = 'Achtung: DAS WIRD ALLE DATEN IN VORHERIGEN phpScheduleIt DATENBANKEN LÖSCHEN!';
+$strings['Root user is not required. Any database user who has permission to create tables is acceptable.'] = 'Root Benutzer Rechte sind <b>nicht</b> nötig. Jeder Datenbank Benutzer, der genügend Rechte hat um Tabellen anzulegen ist möglich.';
+$strings['This will set up all the necessary databases and tables for phpScheduleIt.'] = 'Dies wird alle für phpScheduleIt benötigten Datenbanken und Tabellen einrichten.';
+$strings['It also populates any required tables.'] = 'Es füllt auch alle benötigten Tabellen.';
+$strings['Warning: THIS WILL ERASE ALL DATA IN PREVIOUS phpScheduleIt DATABASES!'] = 'Achtung: DIES WIRD ALLE DATEN IN VORHERIGEN phpScheduleIt DATENBANKEN LÖSCHEN!';
 $strings['Not a valid database type in the config.php file.'] = 'Ungültiger Datenbanktyp in der config.php Datei.';
 $strings['Database user password is not set in the config.php file.'] = 'Das Datenbankbenutzer-Passwort ist in der config.php Datei nicht gesetzt.';
 $strings['Database name not set in the config.php file.'] = 'Datenbank Name ist in der config.php Datei nicht gesetzt.';
 $strings['Successfully connected as'] = 'Erfolgreich verbunden als:';
 $strings['Create tables'] = 'Tabellen anlegen >';
-$strings['There were errors during the install.'] = 'Es trat Fehler während der Installation auf. Es ist möglich, dass phpScheduleIt trotzdem funktionieren wird, wenn die Fehler nur gering waren.<br/><br/>'
+$strings['There were errors during the install.'] = 'Es sind während der Installation Fehler aufgetreten. Es ist möglich, dass phpScheduleIt trotzdem funktioniert, wenn die Fehler nur klein waren.<br/><br/>'
 	. 'Bitte posten Sie alle Fragen in die Foren auf <a href="http://sourceforge.net/forum/?group_id=95547">SourceForge</a>.';
 
 $strings['You have successfully finished setting up phpScheduleIt and are ready to begin using it.'] = 'phpScheduleIt wurde erfolgreich eingerichtet und ist jetzt zum Benutzen bereit';
@@ -577,7 +577,7 @@ $strings['This will populate the required fields for phpScheduleIt 1.0.0 and pat
 		. '<br />Das wird nur benötigt, wenn ein manueller SQL-Update von 0.9.9 durchgeführt wurde';
 
 // @since 1.0.0 RC1
-$strings['If no value is specified, the default password set in the config file will be used.'] = 'Wenn kein Wert gesetzt ist, dann wird das Passwort verwendet, welches in der Konfigurationsdatei angegeben wurde.';
+$strings['If no value is specified, the default password set in the config file will be used.'] = 'Wenn kein Wert gesetzt ist, wird das Passwort aus der Konfigurationsdatei verwendet.';
 $strings['Notify user that password has been changed?'] = 'Benutzer über Passwortänderung benachrichtigen?';
 
 // @since 1.1.0
@@ -586,7 +586,7 @@ $strings['Invalid User Name/Password.'] = 'Ungültiger Benutzername/Passwort User
 $strings['Pending User Reservations'] = 'Unbestätigte Benutzerreservierungen';
 $strings['Approve'] = 'Erlauben';
 $strings['Approve this reservation'] = 'Diese Reservierung erlauben.';
-$strings['Approve Reservations'] ='Reservierungen erlauben';
+$strings['Approve Reservations'] = 'Reservierungen erlauben';
 
 $strings['Announcement'] = 'Ankündigung';
 $strings['Number'] = 'Nummer';
@@ -600,21 +600,21 @@ $strings['Announcement text is required.'] = 'Ankündigungstext wird benötigt.';
 $strings['Announcement number is required.'] = 'Ankündigungsnummer wird benötigt.';
 
 
-$strings['Pending Approval'] = 'Unbestätigte Erlaubnis';
-$strings['My reservation is approved'] = 'Meine Reservierung ist erlaubt';
-$strings['This reservation must be approved by the administrator.'] = 'Diese Reservierung muss erst vom Administrator erlaubt werden.';
-$strings['Approval Required'] = 'Erlaubnis erforderlich';
-$strings['No reservations requiring approval'] = 'Keine Reservierungen benötigen eine Erlaubnis';
-$strings['Your reservation was successfully approved'] = 'Ihre Reservierung wurde erfolgreich erlaubt.';
-$strings['Reservation approved for'] = 'Erservierung für %s erlaubt.';
-$strings['approved'] = 'erlaubt';
-$strings['Reservation approved'] = 'Reservierung erlaubt.';
+$strings['Pending Approval'] = 'Unbestätigt';
+$strings['My reservation is approved'] = 'Meine Reservierung ist bestätigt';
+$strings['This reservation must be approved by the administrator.'] = 'Diese Reservierung muss erst vom Administrator bestätigt werden.';
+$strings['Approval Required'] = 'Bestätigung erforderlich';
+$strings['No reservations requiring approval'] = 'Keine Reservierungen benötigen eine Bestätigung';
+$strings['Your reservation was successfully approved'] = 'Ihre Reservierung wurde erfolgreich bestätigt.';
+$strings['Reservation approved for'] = 'Reservierung für %s erlaubt.';
+$strings['approved'] = 'bestätigt';
+$strings['Reservation approved'] = 'Reservierung bestätigt.';
 
 $strings['Valid username is required'] = 'Gültiger Benutzername wird benötitgt';
-$strings['That logon name is taken already.'] = 'Dieser Log-in Name ist bereits vergeben.';
-$strings['this will be your login'] = '(Das wird ihr Log-in sein)';
-$strings['Logon name'] = 'Log-in Name';
-$strings['Your logon name is'] = 'Ihr Log-in Name ist %s';
+$strings['That logon name is taken already.'] = 'Dieser Login Name ist bereits vergeben.';
+$strings['this will be your login'] = '(Das wird ihr Login Name sein)';
+$strings['Logon name'] = 'Login Name';
+$strings['Your logon name is'] = 'Ihr Login Name ist %s';
 
 $strings['Start'] = 'Anfang';
 $strings['End'] = 'Ende';
@@ -636,7 +636,7 @@ $strings['Manage Invites'] = 'Einladungen verwalten';
 $strings['No invite was selected'] = 'Keine Einladung wurde ausgewählt';
 $strings['reservation accepted'] = '%s hat Ihre Einladung am %s akzeptiert';
 $strings['reservation declined'] = '%s hat Ihre Einladung am %s abgelehnt';
-$strings['Login to manage all of your invitiations'] = 'Loggen Sie sich ein um Ihre Einladungen zu verwalten';
+$strings['Login to manage all of your invitiations'] = 'Loggen Sie sich ein, um Ihre Einladungen zu verwalten.';
 $strings['Reservation Participation Change'] = 'Reservierung Teilnahme Änderung';
 $strings['My Invitations'] = 'Meine Einladugen';
 $strings['Accept'] = 'Akzeptieren';
@@ -669,12 +669,12 @@ $strings['Change'] = 'Ändern';
 
 $strings['Update'] = 'Updaten';
 $strings['phpScheduleIt Update is only available for versions 1.0.0 or later'] = 'phpScheduleIt Update ist nur für Version 1.0.0 oder später verfügbar';
-$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt ist bereits aktuell';
+$strings['phpScheduleIt is already up to date'] = 'phpScheduleIt ist auf dem neuesten Stand';
 $strings['Migrating reservations'] = 'Reservierungen migrieren';
 
 $strings['Admin'] = 'Admininstrator';
 $strings['Manage Announcements'] = 'Ankündigungen verwalten';
-$strings['There are no announcements'] = 'There are no announcements';
+$strings['There are no announcements'] = 'Es liegen keine Ankündigungen vor';
 // end since 1.1.0
 
 // @since 1.2.0
@@ -689,10 +689,10 @@ $strings['My Participation Options'] = 'Meine Teilnahmeoptionen';
 $strings['Join Reservation'] = 'An Reservierung teilnehmen';
 $strings['Join All Recurring'] = 'An allen wiederkehrenden Terminen teilnehmen';
 $strings['You are not participating on the following reservation dates because they are at full capacity.'] = 'Sie können an folgenden Terminen nicht teilnehmen, weil sie bereits ausgebucht sind.';
-$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'Sie wurden hierzu bereits eingeladen. Bitte folgen Sie den Anweisungen zum Teilnehmen in der vorhergegangen Email.';
+$strings['You are already invited to this reservation. Please follow participation instructions previously sent to your email.'] = 'Sie wurden hierzu bereits eingeladen. Bitte folgen Sie den Anweisungen zur Teilnahme der vorangegangen E-Mail.';
 $strings['Additional Tools'] = 'Zusätzliche Funktionen';
 $strings['Create User'] = 'Benutzer anlegen';
-$strings['Check Availability'] = 'Check Availability';
+$strings['Check Availability'] = 'Verfügbarkeit prüfen';
 //$strings['Add Resources'] = 'Add Resources';
 $strings['Manage Additional Resources'] = 'Zubehör verwalten';
 $strings['All Additional Resources'] = 'Alles Zubehör';
@@ -701,7 +701,7 @@ $strings['Unlimited'] = 'Unbegrenzt';
 $strings['Add Additional Resource'] = 'Zubehör hinzufügen';
 $strings['Edit Additional Resource'] = 'Zubehör bearbeiten';
 $strings['Checking'] = 'Prüfe';
-$strings['You did not select anything to delete.'] = 'Sie haben nichts zum löschen ausgewählt.';
+$strings['You did not select anything to delete.'] = 'Sie haben nichts zum Löschen ausgewählt.';
 $strings['Added Resources'] = 'Hinzugefügtes Zubehör';
 $strings['Additional resource is reserved'] = 'Das Zubehör %s kann nur %s gleichzeitig gebucht werden.';
 $strings['All Groups'] = 'Alle Gruppen';
@@ -711,7 +711,7 @@ $strings['Manage Groups'] = 'Gruppen verwalten';
 $strings['None'] = 'Nichts';
 $strings['Group name is required.'] = 'Gruppenname wird zwingend benötigt.';
 $strings['Groups'] = 'Gruppen';
-$strings['Current Groups'] = 'Gegenwärtige Gruppe';
+$strings['Current Groups'] = 'Gegenwärtige Gruppen';
 $strings['Group Administration'] = 'Gruppen Verwaltung';
 $strings['Reminder Subject'] = 'Reservierungserinnerung- %s, %s %s';
 $strings['Reminder'] = 'Erinnerung';
@@ -719,11 +719,11 @@ $strings['before reservation'] = 'vor der Reservierung';
 $strings['My Participation'] = 'Meine Teilnahme';
 $strings['My Past Participation'] = 'Meine vergangene Teilnahme';
 $strings['Timezone'] = 'Zeitzone';
-$strings['Export'] = 'Export';
+$strings['Export'] = 'Exportieren';
 $strings['Select reservations to export'] = 'Wählen Sie die zu exportierenden Reservierungen';
 $strings['Export Format'] = 'Export Format';
-$strings['This resource cannot be reserved less than x hours in advance'] = 'Diese Ressource kann nicht weniger als %s Stunden im voraus aufgehoben werden';
-$strings['This resource cannot be reserved more than x hours in advance'] = 'Diese Ressource kann nicht mehr als %s Stunden im voraus aufgehoben werden';
+$strings['This resource cannot be reserved less than x hours in advance'] = 'Diese Ressource kann nicht weniger als %s Stunden im Voraus reserviert werden';
+$strings['This resource cannot be reserved more than x hours in advance'] = 'Diese Ressource kann nicht mehr als %s Stunden im Voraus reserviert werden';
 $strings['Minimum Booking Notice'] = 'Minimale Buchungsmöglichkeit';
 $strings['Maximum Booking Notice'] = 'Maximale Buchungsmöglichkeit';
 $strings['hours prior to the start time'] = 'Stunden vor der Startzeit';
@@ -749,11 +749,12 @@ $strings['Added Accessories'] = 'Hinzugefügtes Zubehör';
 
 $email['register'] = "%s, %s\n\r\n"
 				. "Sie haben sich erfolgreich mit den folgenden Daten registriert:\r\n"
+				. "Login Name: %s\r\n"
 				. "Name: %s %s\r\n"
 				. "Tel: %s\r\n"
 				. "Institution: %s\r\n"
 				. "Stellung: %s\r\n\r\n"
-				. "Bitte loggen Sie sich in den Zeitplan hier ein::\r\n"
+				. "Bitte loggen Sie sich in den Zeitplan hier ein:\r\n"
 				. "%s\r\n\r\n"
 				. "Im Kontrol-Panel können Verweise auf den Online-Zeitplan und das Profil gefunden werden.\r\n\r\n"
 				. "Bitte richten Sie alle Fragen über die Ressourcen oder Reservierungen an %s";
@@ -770,21 +771,18 @@ $email['register_admin'] = "Administrator,\r\n\r\n"
 // First part of the email that a user gets after they create/modify/delete a reservation
 // 'reservation_activity_1' through 'reservation_activity_6' are all part of one email message
 //  that needs to be assembled depending on different options.  Please translate all of them.
-// First part of the email that a user gets after they create/modify/delete a reservation
-// 'reservation_activity_1' through 'reservation_activity_6' are all part of one email message
-//  that needs to be assembled depending on different options.  Please translate all of them.
 $email['reservation_activity_1'] = "%s,\r\n<br />"
 			. "Sie haben erfolgreich %s: Reservierung  #%s.\r\n\r\n<br/><br/>"
-			. "Bitte benutzen Sie diese Reservierungsnummer, wenn Sie den Administrator für Fragen kontaktieren.\r\n\r\n<br/><br/>"
+			. "Bitte benutzen Sie diese Reservierungsnummer, wenn Sie den Administrator für Fragen kontaktieren wollen.\r\n\r\n<br/><br/>"
 			. "Ihre Reservierung: VON %s, %s Uhr BIS %s, %s Uhr;"
 			. " RAUM: %s, %s.\r\n\r\n<br/><br/>";
 $email['reservation_activity_2'] = "Diese Reservierung wird an folgenden Daten wiederholt:\r\n<br/>";
 $email['reservation_activity_3'] = "Alle wiederkehrenden Reservierungen in dieser Gruppe wurden auch %s.\r\n\r\n<br/><br/>";
 $email['reservation_activity_4'] = "Die folgende Zusammenfassung wurde geliefert für folgende Reservierung: \r\n<br/>%s\r\n\r\n<br/><br/>";
-$email['reservation_activity_5'] = "Wenn dies ein Fehler sein sollte, kontaktieren Sie bitte den Administrator über : %s"
-			. " oder rufen Sie ihn an : %s.\r\n\r\n<br/><br/>"
+$email['reservation_activity_5'] = "Wenn dies ein Fehler sein sollte, kontaktieren Sie bitte den Administrator über: %s"
+			. " oder rufen Sie ihn an: %s.\r\n\r\n<br/><br/>"
 			. "Die Reservierungsdaten können jederzeit angeschaut und verändert werden durch "
-			. " das einloggen in %s auf:\r\n<br/>"
+			. " das Einloggen in %s auf:\r\n<br/>"
 			. "<a href=\"%s\" target=\"_blank\">%s</a>.\r\n\r\n<br/><br/>";
 $email['reservation_activity_6'] = "Bitte richten Sie alle technischen Fragen an: <a href=\"mailto:%s\">%s</a>.\r\n\r\n<br/><br/>";
 
@@ -792,21 +790,20 @@ $email['reservation_activity_6'] = "Bitte richten Sie alle technischen Fragen an
 $email['password_reset'] = "Ihr %s Passwort wurde vom Administrator zurückgesetzt.\r\n\r\n"
 			. "Ihr temporäres Passwort lautet: \r\n\r\n %s\r\n\r\n"
 			. "Bitte benutzen Sie dieses Passwort (um ganz sicher zu sein kopieren und einfügen) um sich in %s auf %s einzuloggen."
-			. " Es sollte sofort in 'Meine Profil Informationen und Passwort ändern' in Meine Schnell-Links geändert werden .\r\n\r\n"
-			. "Bitte kontaktieren Sie  %s bei allen Fragen.";
+			. " Es sollte sofort unter 'Meine Profil Informationen und Passwort ändern' im Menü geändert werden.\r\n\r\n"
+			. "Bitte kontaktieren Sie bei allen Fragen %s.";
 
 // Email that the user gets when they change their lost password using the 'Password Reset' form
 
 // Email that the user gets when they change their lost password using the 'Password Reset' form
 $email['new_password'] = "%s,\r\n"
-            . "Ihr neues Passwort  %s für ihr Account ist:\r\n\r\n"
+            . "Ihr neues Passwort %s für ihr Account ist:\r\n\r\n"
             . "%s\r\n\r\n"
-            . "Bitte einloggen auf %s "
-            . "mit dem neuem Passwort "
-            . "(einfach kopieren und einfügen um ganz sicher zu sein) "
+            . "Bitte mit dem neuen Passwort auf %s  einloggen "
+            . "(kopieren und einfügen um ganz sicher zu sein) "
             . "und ändern Sie Ihr Passwort sofort, indem Sie auf "
             . "Meine Profil Informationen und Passwort ändern "
-            . "in Meine Schnell-Links klicken.\r\n\r\n"
+            . "im Menü klicken.\r\n\r\n"
             . "Bitte alle Fragen an %s.";
 
 // @since 1.2.0

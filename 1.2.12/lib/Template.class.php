@@ -47,13 +47,19 @@ class Template {
 		global $languages;
 		global $lang;
 		global $charset;
+		global $text_direction;
+		
+		if (!isset($text_direction))
+		{
+			$text_direction = 'ltr';
+		}
 		
 		$path = $this->dir_path;
 		echo "<?xml version=\"1.0\" encoding=\"$charset\"?" . ">\n";
 	?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $languages[$lang][2]?>" lang="<?php echo $languages[$lang][2]?>">
+	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $languages[$lang][2]?>" lang="<?php echo $languages[$lang][2]?>" dir="<?php echo $text_direction?>">
 	<head>
 	<title>
 	<?php echo $this->title?>
