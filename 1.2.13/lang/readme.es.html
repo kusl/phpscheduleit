@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for Windows (vers 14 February 2006), see www.w3.org" />
+    <title>
+      Introduction to phpScheduleIt
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <style type="text/css">
+/*<![CDATA[*/
+                <!-- li { font-size: 12px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; }
+        body { font-family: Verdana, Arial, Helvetica, sans-serif; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; background-color: #F0F0F0; }
+        p { font-size: 12px; margin-left: 25px; margin-top: 3px; }
+        h5 { margin-left: 10px; }
+        a { color: #104E8B; }
+        a:hover { color: #474747; }
+        .head { background-color: #EBEBEB; color: #000000; text-align: center; font-weight: bold; font-size: 12px; }
+        .row { background-color: #FFFFFF; color: #666666; padding-left: 10px; padding-right: 10px; font-size: 11px; padding-top: 1px; padding-bottom: 1px; }
+        .code { font-family: "Courier New", Courier, mono; }
+        .variable { font-size: 14px; font-weight: bold; margin-bottom: 0px; margin-top: 3px; }
+        -->
+    /*]]>*/
+    </style>
+  </head>
+  <body bgcolor="white" text="black">
+    <div>
+      <h2>
+        <font size="4" face="Arial"><b><i>PhpScheduleIt</i></b></font>
+      </h2>
+      <h3>
+        <font size="4" face="Arial"><b>Sistema de navegación </b></font>
+      </h3>
+      <p>
+        <font size="3" face="Times New Roman">La pantalla de inicio de sesión
+        es el punto de entrada por defecto en el sistema. Aquí el usuario
+        puede acceder a ingresar al sistema o pasar a la página de registro.
+        Si un usuario selecciona la opción "Mantener la sesión abierta",
+        entonces será derivado automáticamente a su cuadro de control cada
+        vez que regrese al sistema. (hasta que seleccione “Cierre de
+        sesión). Después del inicio de sesión o registración exitosa, el
+        usuario será automáticamente derivado  a Mi Panel de control.</font>
+         <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Mi Panel de Control es la
+        "Página Principal" para cada usuario. Allí podrá ver, modificar y
+        suprimir sus reservas futuras. La lista de reservas es clasificable en
+        orden ascendente / descendente por cada columna. Aquí, también se
+        presentará una tabla de Accesos Directos donde puede navegar hasta el
+        planificador, editar su perfil o su contraseña o salir del sistema.
+        Los usuarios pueden volver a Mi Panel de control desde cualquier parte
+        del sistema en cualquier momento haciendo clic en "Mi Panel de Control"
+        debajo del mensaje de bienvenida.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">El planificador es donde los
+        hacen sus reservaciones nuevas y editan las anteriores. Al hacer clic
+        en el nombre de un recurso se abrirá una ventana emergente donde el
+        usuario puede reservar el recurso. Si el usuario selecciona un tiempo
+        que ya está reservado por otro usuario, la reserva no se realizará y
+        se le pedirá que vuelva a intentarlo. Los usuarios no pueden editar o
+        eliminar la reserva de otro usuario. Sólo estarán autorizados a
+        verlo. Además, los usuarios no pueden reservar o modificar una reserva
+        para una fecha del pasado, un recurso inactivo o un recurso que no se
+        les ha dado permiso. El administrador tiene el poder de modificar o
+        eliminar cualquier reserva , tanto desde el planificador como desde la
+        herramienta administrativa "Administración de Reservas".</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Cuando un usuario hace clic en el
+        enlace rápido "Cambiar Perfil", será llevado a una página parecida
+        a la página de registro con toda su información de llenado (excepto
+        la contraseña). La edición de la información dará lugar a un cambio
+        en la base de datos. Para los campos en blanco o sin cambios no se
+        modificará la base de datos.</font>
+      </p>
+      <h3>
+        <font size="4" face="Arial"><b>Gestión de usuarios</b></font>
+      </h3>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Advertencias:</i></font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Cuando más de una instancia de
+        phpScheduleIt  comparten una base de datos, es fundamental que se
+        aborden todas las cuestiones de integridad de datos. Por ejemplo,
+        compartir una tabla de sesiones pero mantener tablas de reservas
+        independientes puede resultar en peligro de integridad de datos. Si un
+        usuario tiene reservas cometida en más de un sistema y se elimina de
+        la tabla sesión global, sus reservas no se eliminarán a menos que
+        sean eliminadas de una de las instancias secundarias del
+        sistema.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Existen dos técnicas principales
+        que se pueden utilizar para resolver este problema:</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">1) Los datos compartidos (en este
+        caso, la información de acceso) deben ser eliminados de una instancia
+        secundaria de la aplicación. Esta instancia de secundaria será
+        consciente de todas las bases de datos en el sistema y será capaz de
+        eliminar todos los datos asociados con los datos sean
+        eliminados.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">2) Los "sobrantes" de datos puede
+        ser eliminados manualmente en el sistema por un administrador. En este
+        ejemplo, las reservas asociadas a los usuarios eliminados se pueden
+        eliminar desde el programador o de las herramientas de
+        administración.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Notas:</i></font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">La tabla de usuarios inicialmente
+        estará vacío.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Todos los usuarios están
+        obligados a inscribirse en la primera utilización de phpScheduleIt.
+        Todos los campos en el formulario de registro son necesarios. El
+        registro da un error si el formulario no se completa totalmente. Tras
+        el registro con éxito, un identificador único de usuario será creado
+        automáticamente para cada usuario.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Los usuarios pueden editar sus
+        datos personales en cualquier momento, accediendo a ella y
+        seleccionando la opción "Cambiar perfil " del panel de accesos. Se les
+        presentará su página de información personal donde se pueden cambiar
+        cualquiera de los campos.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Herramienta administrativa:
+        Administrar usuarios</i></font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">El administrador puede eliminar
+        usuarios en cualquier momento desde el sistema seleccionando la opción
+        "Administrar usuarios" opción en la tabla de accesos . La herramienta
+        "Administrar usuarios" le permitirá navegar hacia una página con
+        todos los usuarios, ordenados alfabéticamente (por defecto), que
+        muestra un número determinado de usuarios a la vez. La lista de
+        usuarios puede ser ordenada por orden ascendente / descendente por
+        nombre de columna. Para cada columna, haciendo clic en el signo de
+        menos se muestra la lista en orden descendente basado en el nombre de
+        la columna, haciendo clic en el signo más se muestra la lista en orden
+        ascendente basado en el nombre de la columna. El orden de
+        clasificación será conservado a través de las páginas.</font>
+         <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Desde este cuadro, puede enviar
+        un correo al usuario haciendo clic en su dirección de correo
+        electrónico, ver toda la información sobre este usuario haciendo clic
+        en el enlace “Ver Información”, gestiónar la información sobre
+        formación de los usuarios haciendo clic en el vínculo de formación,
+        o borrar cualquier número de usuarios, al marcar su casilla de
+        eliminar.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Haciendo clic en un enlace de
+        nombre de usuario para un usuario se abrirá una ventana nueva
+        mostrando toda la información sobre el usuario seleccionado.</font>
+         <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> Al hacer clic en el vínculo
+        Restablecer la contraseña le llevará a una pantalla que permite
+        restablecer una contraseña de un usuario. Es improbable que deba hacer
+        esto, porque los usuarios tienen el poder para obtener una nueva
+        contraseña si la olvidan. Esta función restablece la contraseña a
+        los usuarios al valor  indicado o al valor predeterminado en el
+        archivo de configuración si no hay valor ingresado en el formulario de
+        restablecimiento. No se envia correo electrónico de confirmación,
+        así que por favor notifique al usuario después de restablecer su
+        contraseña.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Al hacer clic en el enlace de
+        permisos le permitirá navegar hacia una nueva ventana donde puede
+        seleccionar los recursos que un usuario tiene o no para usar. Tras el
+        registro, si se ha activado en el archivo de configuración, sólo
+        tendrá permiso para utilizar los recursos de auto-asignar. Para
+        conceder o revocar el permiso para un usuario, marcar o desmarcar la
+        casilla de verificación para cada recurso que el usuario está
+        autorizado a utilizar.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Para eliminar un usuario,
+        simplemente marque la casilla "Eliminar usuario" para cada usuario que
+        el administrador desea eliminar y presione el botón "Borrar". Al
+        administrador se le pedirá que verifique la eliminación de todos los
+        usuarios seleccionados y de todas sus reservas. Después de la
+        eliminación con éxito de los usuarios, la página Administrar
+        usuarios se actualizará mostrando que los cambios se han hecho. <b>Con
+        la eliminación de un usuario también se borrarán TODAS las reservas
+        para ese usuario.</b></font>
+      </p>
+      <h3>
+        <font size="4" face="Arial"><b>Gestión de los Recursos</b></font>
+      </h3>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Notas:</i></font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">El cuadro inicial de <i>los
+        recursos</i> estará vacío.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Herramienta administrativa:
+        Administración de Recursos</i></font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">El administrador puede eliminar
+        en cualquier momento los recursos del sistema seleccionando la
+        opción  “Gestión de Recursos" en la tabla de accesos directos. La
+        herramienta  “Gestión de Recursos" le permitirá navegar hacia una
+        página con todos los recursos, ordenados alfabéticamente (por
+        defecto), que muestra un número específico de recursos a la vez. La
+        lista de los recursos pueden ser ordenados por orden ascendente /
+        descendente por nombre de columna. Para cada columna, haciendo clic en
+        el signo de menos muestra la lista en orden descendente basado en el
+        nombre de la columna, haciendo clic en el signo más muestra la lista
+        en orden ascendente basado en el nombre de la columna. El orden de
+        clasificación será conservado a través de las páginas.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Para agregar un recurso,
+        introduzca los datos del recurso en el panel de “Añadir recurso”
+        en la parte inferior de la página de Gestión de Recursos.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Usted tendrá que especificar a
+        que calendario pertenece este recurso. También tendrá que establecer
+        la longitudes mínima y máxima de reserva. Los usuarios no podrán
+        hacer reservas que sean más cortas que el mínimo o superior al
+        máximo. El marcar la casilla de verificación Auto-Asignar permisos
+        indica que desea que todos los usuarios (actuales y futuros) tienen
+        permiso para utilizar este recurso.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Pulse el botón "Agregar
+        recurso". El recurso será agregado a la base de datos con un número
+        de identificación único y la página Administrar los recursos se
+        regenerará, mostrando el nuevo recurso. Los nuevos recursos se
+        establecerán en "activo" por defecto.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Para modificar la información de
+        un recurso, haga clic en el enlace de edición del recurso. La
+        información aparecerá en el formulario de abajo. Cualquier campo que
+        se cambia se actualizará en la base de datos. Los campos sin cambios o
+        vacíos no se modificará en la base de datos.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Para eliminar un recurso, active
+        la casilla Eliminar para cada recurso que el administrador desea
+        eliminar y pulse Eliminar los recursos "botón". Al administrador se le
+        pedirá que verifique la eliminación de los recursos seleccionados.
+        <b>Con la eliminación de un recurso, se eliminarán también todas las
+        reservas puestas a ese recurso.</b> Después que los recursos han sido
+        removidos de la base de datos, la página “Administrar Recursos” se
+        regenerará, mostrando la eliminación con éxito de los
+        recursos.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> La columna de estado de la
+        lista, indica la situación <i>actual</i> de cada recurso. Para cambiar
+        el estado de un recurso, simplemente haga clic en el enlace en la
+        columna "Estado" y el recurso o bien se activa o inactiva. El estado
+        del recurso NO afecta las reservas hechas previamente.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Al agregar o modificar un
+        recurso, tiene la opción de seleccionar la duración mínima y máxima
+        de las reservas. Las reservas de menor duración que la mínima o mayor
+        a la máxima no serán aceptadas. Asignar el mismo tiempo  a estos
+        valores, requerirá que todas las reservas sean de  esta
+        duración.</font>
+      </p>
+      <h3>
+        <font size="4" face="Arial"><b>Recordatorios de Reserva</b></font>
+      </h3>
+      <p>
+        <font size="3" face="Times New Roman">A fin de que se emitan correos
+        electrónicos de recordatorio de reserva, debe agregar tiempos de
+        recordatorios permitidos a su web.config, descrito anteriormente, y
+        añadir una tarea automatizada.</font> <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Pasos en Windows</font>
+      </p>
+      <ol type="1">
+        <li>
+          <font size="3" face="Times New Roman">Añadir una tarea programada
+          para ejecutarse send_reminders.php php.exe</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Inicio -&gt; Programas -&gt;
+          Accesorios -&gt; Herramientas del sistema -&gt; Tareas
+          programadas</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Haga clic en Agregar tarea
+          programada</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Haga clic en Siguiente</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Haga clic en Examinar y navegue
+          hasta la ubicación de php.exe (c: \ php \ php.exe en la mayoría de
+          los casos)</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Realice esta tarea: Todos los
+          días a las 12:00 am</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Haga clic en Siguiente</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Haga clic en Siguiente</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Escriba sus credenciales (o
+          haga clic en Siguiente)</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Active la casilla "Abrir
+          propiedades avanzadas para esta tarea cuando haga clic en
+          Finalizar"</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Haga clic en Finalizar</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Cambie el cuadro Ejecutar para
+          anexar la ruta completa al send_reminders.php. Por ejemplo, si
+          phpScheduleIt se instala en C: \ Inetpub \ wwwroot \ phpScheduleIt,
+          este valor debe ser c: \ php \ php.exe C: \ Inetpub \ wwwroot \
+          phpScheduleIt \ cmd \ send_reminders.php</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Haga clic en la ficha
+          Programación y haga clic en el botón Avanzado</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">De verificación Repetir tarea
+          y entrar cada 5 minutos durante 24 horas</font>
+        </li>
+      </ol>
+      <p>
+        <a href=
+        "http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/agent_change_schedule.mspx?mfr=true"
+        target="_blank"></a> <font size="3" face="Times New Roman">Para más
+        información:</font> <a href=
+        "http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/agent_change_schedule.mspx?mfr=true"
+        target="_blank"><font color="blue" size="3" face=
+        "Times New Roman"><u>http://www.microsoft.com/<wbr />resources/documentation/<wbr />windows/xp/all/proddocs/en-us/<wbr />agent_change_schedule.mspx?<wbr />mfr=true</u></font></a>
+         <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Pasos en Linux</font>
+      </p>
+      <ol type="1">
+        <li>
+          <font size="3" face="Times New Roman">Abre tu editor de crontab:
+          crontab-e</font>
+        </li>
+        <li>
+          <font size="3" face="Times New Roman">Añadir una línea a la entrada
+          en el crontab del usuario que ejecuta el proceso de servidor web para
+          ejecutar el script recordatorio por correo electrónico. Vuelva a
+          colocar la estructura de directorios a continuación con su
+          phpScheduleIt ruta de instalación:  <br />
+          1 * * * * cd / web / directorio / phpscheduleit / cmd,. /
+          Send_reminders.php</font>
+        </li>
+      </ol> <br />
+      <p>
+        <a href=
+        "http://74.125.91.132/translate_c?hl=es&amp;sl=en&amp;tl=es&amp;u=http://en.wikipedia.org/wiki/Cron&amp;rurl=translate.google.com&amp;usg=ALkJrhjpONh1p-tKI8W_DJzbr1Dq6BiP3w"
+        target="_blank"></a> <font size="3" face="Times New Roman">Para más
+        información:</font> <a href=
+        "http://74.125.91.132/translate_c?hl=es&amp;sl=en&amp;tl=es&amp;u=http://en.wikipedia.org/wiki/Cron&amp;rurl=translate.google.com&amp;usg=ALkJrhjpONh1p-tKI8W_DJzbr1Dq6BiP3w"
+        target="_blank"><font color="blue" size="3" face=
+        "Times New Roman"><u>http://en.wikipedia.org/wiki/<wbr />Cron</u></font></a>
+      </p>
+      <h3>
+        <font size="4" face="Arial"><b>Otras Herramientas de
+        administración </b></font>
+      </h3>
+      <p>
+        <font size="3" face="Times New Roman">El panel de acceso rápido del
+        administrador es diferente al de todos los demás.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"><i>Gestionar usuarios</i> y
+        <i>Gestión de Recursos</i> se han descrito ya. El resto se describe a
+        continuación. Nótese que las herramientas de administración sólo se
+        pueden acceder cuando se inicia sesión como administrador. Todos los
+        demás usuarios se quedan al margen de cualquier página de
+        administración.</font> <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Administrar horarios</i> le
+        permite agregar o editar los horarios. A continuación se muestra una
+        descripción de las propiedades de “horarios”:  <br />
+        Nombre del horario: Título de la programación para aparecer en los
+        enlaces y como un título  <br />
+        Hora de inicio: Hora del día para empezar a permitir que las reservas
+         <br />
+        Hora Final: Hora del día para dejar de permitir que las reservas
+         <br />
+        Franjas de tiempo: intervalos de Reserva  <br />
+        Primer día de semana: Día de la semana para iniciar el programa de
+         <br />
+        Días visibles: Número de días a mostrar en el programa en un momento
+         <br />
+        ( Reserva Offset: Número de días de antelación que el usuario
+        necesita hacer una reserva, no esta presente en v1.2.11) <br />
+        Oculto: si la programación se puede ver  <br />
+        Mostrar Descripción: Ya sea para mostrar los resúmenes de reserva
+         <br />
+        Email Administrativo: Dirección de correo electrónico del
+        administrador de este programa de</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Administrar reservas</i> le
+        permitirá navegar hacia una página que enumera todas las reservas en
+        la base de datos ordenados por fecha ascendente, mostrando un número
+        determinado de reservas por página. La lista de reservas pueden ser
+        ordenados por orden ascendente / descendente por nombre de columna.
+        Para cada columna, haciendo clic en el signo de menos muestra la lista
+        en orden descendente basado en el nombre de la columna, haciendo clic
+        en el signo más, muestra la lista en orden ascendente basado en el
+        nombre de la columna. El orden de clasificación será conservado a
+        través de las páginas.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">En esta tabla, hacer clic en el
+        nombre del usuario se abrirá una ventana pop-up con toda la
+        información del usuario seleccionado. Al hacer clic en el punto de
+        vista, modificar, eliminar los vínculos se abrirá una ventana
+        emergente que le permite ver, modificar o eliminar la reserva
+        seleccionada.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"><i>Tiempos Muertos</i> le lleva a
+        una página similar al planificador normal, pero le permite establecer
+        plazos de interrupción (tiempos en que no están disponibles para
+        reserva). Establecer plazos de interrupción es como hacer una
+        reserva.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"> <i>Buscar reservas</i> se va a
+        un formulario de búsqueda que permite al administrador especificar
+        determinados criterios de búsqueda. Los criterios son los siguientes:
+        la totalidad o parte de usuarios específicos, todos o algunos de los
+        recursos específicos, horario de inicio y finalización y fechas
+        inicial y final. Por defecto, la  seleccion hora de inicio y
+        finalización será la misma que se proporciona en el archivo de
+        configuración y la selección de fecha de inicio y final son el valor
+        más bajo y más altode las fechas reservadas.</font>
+      </p>
+      <p>
+        <font size="3" face="Times New Roman">Después de realizar la
+        búsqueda, los resultados serán impresos para cada combinación de
+        usuario / recurso, en orden alfabético. Estos resultados también
+        están disponibles en un formato de sólo texto pulsando el botón
+        "Imprimir estos resultados a un archivo de texto" en la parte superior
+        de la página de resultados.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"><i>Envío de correo
+        electrónico</i> <i>Masivo a usuarios</i> se va a una página donde
+        usted puede enviar un correo electrónico en masa a cualquiera o todos
+        los usuarios registrados. Este correo electrónico puede contener
+        etiquetas HTML, si lo desea.</font>  <br />
+      </p>
+      <p>
+        <font size="3" face="Times New Roman"><i>Ver Sistema de
+        Estadísticas</i> le llevará a una página donde se dan muchas
+        estadísticas acerca de casi todos los aspectos del sistema. Las
+        estadísticas de reservas también se grafican.</font>
+      </p>
+    </div>
+  </body>
+</html>

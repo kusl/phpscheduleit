@@ -1,0 +1,71 @@
+=================================================
+=   phpScheduleIt 1.2.12        Release Notes   =
+=                  02/20/2009                   =
+=                                               =
+=     http://phpscheduleit.sourceforge.net      =
+=        lqqkout13@users.sourceforge.net        =
+=================================================
+
+
+-------------------------------------------------
+-                   Overview                    -
+-------------------------------------------------
+The purpose of this document is to describe the 1.2.12 release and how to contribute to the project.
+
+Please see the readme.html file for setup instructions, general program information, and the changelog.
+
+
+-------------------------------------------------
+-              Changes from 1.2.11              -
+-------------------------------------------------
++               Summary of changes              +
+
+
+This is a bugfix/security release and contains no new features.
+- Fixed minor start day bug in calendar-zh.js
+- Fixed bug where participating users were not receiving reservation modification emails
+- Fixed broken schedule link from daily/weekly "My Calendar" views
+- Fixed issue where user data validation would fail LDAP authentication
+- Fixed bug which was improperly adjusting times in reservation emails when user/server timezones did not match
+- Fixed bug displaying incorrect times in reminder emails
+- Fixed bug when calling deleteRecords() with an empty array
+- Added Bulgarian translation
+- Added Polish translation
+- Added Danish translation
+- Updated Portuguese (pt_BR) translation and added help file
+- Updated German translation
+- Added Spanish version of readme
+- Changed Arabic to display right to left
+
+
+-------------------------------------------------
+-          Instructions for translators         -
+-------------------------------------------------
+There are detailed instructions for translators in both /config/langs.php and in /lang/en.lang.php.
+	
+New translations need to complete the entire language file.
+
+Existing translations need to complete all strings noted with a "//@since 1.2.0" comment.
+
+
+-------------------------------------------------
+-                Contributing                  -
+-------------------------------------------------
+FEATURES/BUGFIXES
+	If you have written a new feature or fixed a bug in the code, please submit all changed files or a diff file to lqqkout13@users.sourceforge.net.
+	
+TRANSLATIONS
+	If you have a translation complete, please email the language file to nkorbel@php.brickhost.com.  Please make sure that you take full credit for the translation by including your name and email  address, if you wish.
+
+	I will be testing with all language files I receive to look for PHP syntax or runtime errors. Please test phpScheduleIt with your translation and report any bugs to the 'Developers' forum on SourceForge http://sourceforge.net/forum/forum.php?thread_id=1104186&forum_id=331297.
+	
+I want to thank everyone beforehand for helping with this huge task.
+
+
+-------------------------------------------------
+-            phpScheduleIt Roadmap              -
+-------------------------------------------------
+2.0.0
+	- Code rewrite
+	- UI rewrite
+	- Plugin support for 3rd-party authentication
