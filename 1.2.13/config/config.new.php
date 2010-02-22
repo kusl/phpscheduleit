@@ -259,7 +259,7 @@ $conf['ldap']['basedn'] = "ou=people,o=domain.com";
 
 /// START COPY FOR VERSION 1.2.0 ///
 
-// This will allow or disable user self-registration.  If this is disabled, the admin will only be able to create users [1]
+// This will allow or disable user self-registration.  Only turn this off after the administratior has been initially created. If this is disabled, the admin will only be able to create users [1]
 $conf['app']['allowSelfRegistration'] = 1;
 
 // This will allow or disable the generation of RSS feeds for users to view their reservation data [1]
