@@ -485,7 +485,17 @@ function setSchedule(sid) {
 
 function changeSchedule(sel) {
 	var url = document.URL.split('?')[0];
-	document.location.href = url + "?scheduleid=" + sel.options[sel.selectedIndex].value;
+	var qss = document.location.search.substring(1).split('&')
+	var stdate = "";
+	if (qss != "") {
+		for (var i = 0; i < qss.length; i++){
+			qs = qss[i].split('=');
+			if (qs[0] == "date"){
+				stdate = qs[1];
+			}
+		}
+	}
+	document.location.href = url + "?" + ((stdate == "")?(""):("date="+stdate+"&")) + "scheduleid=" + sel.options[sel.selectedIndex].value;
 }
 
 function showHideCpanelTable(element) {
