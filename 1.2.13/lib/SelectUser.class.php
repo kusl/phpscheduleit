@@ -39,8 +39,8 @@ class SelectUser {
 	function SelectUser($fname = '', $lname = '') {
 		$orders = array('lname', 'fname', 'email');
 		$this->db = new AdminDB();
-		$this->pager = new Pager(0, 10);
-		$this->pager->setViewLimitSelect(false);
+		$this->pager = new Pager();
+		$this->pager->setViewLimitSelect(true);
 
 		if (!empty($fname) || !empty($lname)) {
 			$num = $this->db->get_num_user_recs($fname, $lname);

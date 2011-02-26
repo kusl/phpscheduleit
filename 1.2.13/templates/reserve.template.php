@@ -12,11 +12,27 @@
 */
 
 /**
+* Prints out link to account creation in a new window depending on a setting in the config file.
+* TO-DO: Style the link, place it in a better spot
+* 
+*/
+function print_creation_link() {
+	global $conf;
+	if($conf['ui']['reservation_link'])
+	{
+		echo "<a href=\"register.php\" TARGET=\"_BLANK\">" . translate('Create User') . "</a>\n";
+	}
+
+}
+
+
+/**
 * Print out the resource name
 * @param string $name name of the resource
 */
 function print_title($name) {
 	echo "<h3 align=\"center\">$name</h3>\n";
+    print_creation_link();
 }
 
 /**

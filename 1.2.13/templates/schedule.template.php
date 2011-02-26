@@ -52,14 +52,14 @@ function print_color_key() {
     global $conf;
 ?>
 <table align="center" cellpadding="5" cellspacing="10"><tr style="font-size: 10px; font-weight: bold; text-align: center; vertical-align: center;">
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Reservations')?></td>
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Past Reservations')?></td>
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('My Participation')?></td>
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_past_res'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('My Past Participation')?></td>
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Reservations')?></td>
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_past_res'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Other Past Reservations')?></td>
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['pending'][0]['color']?>; border: 2px #000000 solid;"><?php echo translate('Pending Approval')?></td>
-<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['blackout'][0]['color']?>; border: 2px #000000 solid; color: #CCCCCC;"><?php echo translate('Blacked Out Time')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_res'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['my_res'][0]['text']?>;"><?php echo translate('My Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['my_past_res'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['my_past_res'][0]['text']?>;"><?php echo translate('My Past Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_res'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['participant_res'][0]['text']?>;"><?php echo translate('My Participation')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['participant_past_res'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['participant_past_res'][0]['text']?>;"><?php echo translate('My Past Participation')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_res'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['other_res'][0]['text']?>;"><?php echo translate('Other Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['other_past_res'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['other_past_res'][0]['text']?>;"><?php echo translate('Other Past Reservations')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['pending'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['pending'][0]['text']?>;"><?php echo translate('Pending Approval')?></td>
+<td style="width: 75px; height: 38px; background-color:#<?php echo $conf['ui']['blackout'][0]['color']?>; border: 2px #000000 solid; color: #<?php echo $conf['ui']['blackout'][0]['text']?>;"><?php echo translate('Blacked Out Time')?></td>
 </tr></table>
 <?php
 }

@@ -206,6 +206,10 @@ $conf['ui']['logoImage'] = 'img/phpScheduleIt.gif';
 // Welcome message show at login page ['Welcome to phpScheduleIt!']
 $conf['ui']['welcome'] = 'Welcome to phpScheduleIt!';
 
+// If a link to account creation should be displayed on the new reservation page
+// Can be 0 (for no) or 1 (for yes)
+$conf['ui']['reservation_link'] = 0;
+
 /*
 Configure this section to customize the color of reserved time blocks
 Set 'color' to be the color when the mouse is not over the reseravtion
@@ -219,12 +223,12 @@ Please DO NOT put the hash mark (#) before the colors
 'other_past_res' is the colors that will be used for all past reservations that the current user does not own
 'blackout' is the colors that will be used for blacked out times (hover is only relative to the admin)
 */
-$conf['ui']['my_res'][]         = array ('color' => '5E7FB1', 'hover' => '799DD3', 'text' => 'FFFFFF');
-$conf['ui']['other_res'][]      = array ('color' => 'D2DDEC', 'hover' => 'AFBED3', 'text' => 'FFFFFF');
-$conf['ui']['my_past_res'][]    = array ('color' => 'A0A1A1', 'hover' => '6F7070', 'text' => 'FFFFFF');
-$conf['ui']['other_past_res'][] = array ('color' => 'CFCFCF', 'hover' => 'ABABAB', 'text' => 'FFFFFF');
-$conf['ui']['pending'][]        = array ('color' => 'E4DC04', 'hover' => 'F7F386', 'text' => 'FFFFFF');
-$conf['ui']['blackout'][]       = array ('color' => '6F292D', 'hover' => '99353A', 'text' => 'FFFFFF');
+$conf['ui']['my_res'][]         = array ('color' => 'FFCDF3', 'hover' => '799DD3', 'text' => '000000');
+$conf['ui']['other_res'][]      = array ('color' => '814A19', 'hover' => 'AFBED3', 'text' => 'FFFFFF');
+$conf['ui']['my_past_res'][]    = array ('color' => 'AD2323', 'hover' => '6F7070', 'text' => 'FFFFFF');
+$conf['ui']['other_past_res'][] = array ('color' => '8126C0', 'hover' => 'ABABAB', 'text' => 'FFFFFF');
+$conf['ui']['pending'][]        = array ('color' => '2A4BD7', 'hover' => 'F7F386', 'text' => 'FFFFFF');
+$conf['ui']['blackout'][]       = array ('color' => '000000', 'hover' => '99353A', 'text' => 'FFFFFF');
 
 // If we should print out the reservation owner's name in the summary box [1]
 // Can be 0 (for no) and 1 (for yes)
@@ -274,8 +278,8 @@ $conf['app']['timezone'] = 0;
 $conf['app']['allowed_reminder_times'] = array(5, 10, 30);
 
 // See time block customization above
-$conf['ui']['participant_res'][]		= array ('color' => 'CE56D6', 'hover' => 'E174E8', 'text' => 'FFFFFF');
-$conf['ui']['participant_past_res'][]	= array ('color' => '641293', 'hover' => '7B25AC', 'text' => 'FFFFFF');
+$conf['ui']['participant_res'][]		= array ('color' => 'FF9233', 'hover' => 'E174E8', 'text' => '000000');
+$conf['ui']['participant_past_res'][]	= array ('color' => 'FFEE33', 'hover' => '7B25AC', 'text' => '000000');
 
 // Account for lookup on LDAP server
 $conf['ldap']['lookupid'] = 'jwt-unique=userName,ou=internal,ou=people,dc=domain,dc=com';
