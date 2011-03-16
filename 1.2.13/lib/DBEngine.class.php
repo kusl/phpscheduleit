@@ -287,7 +287,7 @@ class DBEngine {
         $sql = 'SELECT rs.* FROM '
                     . $this->get_table('permission') . ' as pm INNER JOIN '
                     . $this->get_table('resources') . ' as rs ON pm.machid=rs.machid'
-                    . ' WHERE pm.memberid=?'
+                    . " WHERE pm.memberid=? AND rs.status = 'a'"
                     . ' ORDER BY rs.name';
 
         // Execute query

@@ -758,5 +758,8 @@ function updateEnd(startDrop)
 {
 	var endDrop = document.getElementById("endtime");
 	var index = startDrop.selectedIndex;
-	endDrop.selectedIndex = (endDrop.options.length-1 > index) ? index + 1 : index;	
+	if (endDrop.selectedIndex <= index)
+	{
+		endDrop.selectedIndex = (endDrop.options.length-1 > index) ? index + 1 : index;	
+	}
 }
