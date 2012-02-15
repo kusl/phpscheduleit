@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 /**
  * Application configuration
  */
@@ -28,7 +28,7 @@ $conf['settings']['admin.email'] = 'admin@example.com';         // email address
 $conf['settings']['default.page.size'] = '50';                  // number of records per page
 $conf['settings']['enable.email'] = 'true';                     // global configuration to enable if any emails will be sent
 $conf['settings']['default.language'] = 'en_US';                // find your language in phpScheduleIt/lang directory
-$conf['settings']['script.url'] = 'http://localhost/development';   // public URL to this phpScheduleIt instance
+$conf['settings']['script.url'] = 'http://localhost/Web';   	// public URL to the Web directory of this phpScheduleIt instance.
 $conf['settings']['password.pattern'] = '/^[^\s]{6,}$/i';           // regular expression to enforce password complexity
 $conf['settings']['schedule']['show.inaccessible.resources'] = 'true';  // whether or not resources that are inaccessible to the user are visible
 $conf['settings']['reservation']['notify.created'] = 'true';    // notifying a booking event
