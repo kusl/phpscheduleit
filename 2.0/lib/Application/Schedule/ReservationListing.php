@@ -30,6 +30,11 @@ class ReservationListing implements IMutableReservationListing
 	 */
 	private $_reservationByResource = array();
 
+	/**
+	 * @var array|ReservationItemView[]
+	 */
+	private $_reservationsByDate = array();
+
 	public function Add($reservation)
 	{
 		$this->AddItem(new ReservationListItem($reservation));
@@ -42,8 +47,26 @@ class ReservationListing implements IMutableReservationListing
 
 	protected function AddItem(ReservationListItem $item)
 	{
+		$currentDate = $item->StartDate();
+		$lastDate = $item->EndDate();
+
+		$this->AddOnDate($item, $currentDate);
+		$this->AddOnDate($item, $lastDate);
+
+		while (!$currentDate->DateEquals($lastDate))
+		{
+			$this->AddOnDate($item, $currentDate);
+			$currentDate = $currentDate->AddDays(1);
+		}
+
 		$this->_reservations[] = $item;
 		$this->_reservationByResource[$item->ResourceId()][] = $item;
+	}
+
+	private function AddOnDate(ReservationListItem $item, Date $date)
+	{
+		Log::Debug('Adding %s on %s', $item->Id(), $date);
+		$this->_reservationsByDate[$date->Format('Ymd')][] = $item;
 	}
 	
 	public function Count()
@@ -55,19 +78,29 @@ class ReservationListing implements IMutableReservationListing
 	{
 		return $this->_reservations;
 	}
-	
+
+	/**
+	 * @param Date $date
+	 * @return ReservationListing
+	 */
 	public function OnDate($date)
 	{
 		$reservationListing = new ReservationListing();
-		
-		/** @var ReservationListItem $reservation  */
-		foreach ($this->_reservations as $reservation)
-		{
-			if ($reservation->OccursOn($date))
-			{
-				$reservationListing->AddItem($reservation);
-			}
-		}
+		Log::Debug('Found %s on %s', count($this->_reservationsByDate[$date->Format('Ymd')]), $date);
+		$reservationListing->_reservations = $this->_reservationsByDate[$date->Format('Ymd')];
+		Log::Debug('Meh %s', count($reservationListing->Reservations()));
+//		/** @var ReservationListItem $reservation  */
+//		foreach ($this->_reservations as $reservation)
+//		{
+////			$sw = new StopWatch();
+////			$sw->Start();
+//			if ($reservation->OccursOn($date))
+//			{
+//				$reservationListing->AddItem($reservation);
+//			}
+////			$sw->Stop();
+////			Log::Debug('Occurs on %s took %s', $date, $sw->GetTotalSeconds());
+//		}
 		
 		return $reservationListing;
 	}

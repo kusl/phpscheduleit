@@ -59,7 +59,7 @@ class StopWatch
 	 */
 	public function GetRecordSeconds($label)
 	{
-		return $this->stopTime - $this->times[$label];
+		return $this->times[$label] - $this->startTime;
 	}
 
 	/**
@@ -69,7 +69,7 @@ class StopWatch
 	 */
 	public function TimeBetween($label1, $label2)
 	{
-		return abs($this->times[$label1] - $this->times[$label2]);
+		return $this->times[$label1] - $this->times[$label2];
 	}
 
 	/**
