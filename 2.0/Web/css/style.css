@@ -156,6 +156,8 @@ div.page-footer {
     background: url(../img/header-top.png) repeat;
 	padding-top: 1px;
 	border-top: solid 1px #333333;
+	font-size: 8pt;
+	font-weight: normal;
 }
 
 div.push {
