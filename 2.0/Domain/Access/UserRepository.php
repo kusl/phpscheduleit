@@ -116,6 +116,9 @@ class UserRepository implements IUserRepository, IUserViewRepository {
 
                 $this->_cache->Add($userId, $user);
             }
+			else {
+				return User::Null();
+			}
         }
 
         return $this->_cache->Get($userId);

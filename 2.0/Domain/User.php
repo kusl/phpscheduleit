@@ -385,6 +385,15 @@ class User
 
 		return false;
 	}
+
+	/**
+	 * @static
+	 * @return User
+	 */
+	public static function Null()
+	{
+		return new User();
+	}
 }
 
 class UserAttribute

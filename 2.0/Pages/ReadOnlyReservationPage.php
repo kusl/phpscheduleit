@@ -1,6 +1,6 @@
 <?php
 /**
-Copyright 2011-2012 Nick Korbel
+Copyright 2012 Nick Korbel
 
 This file is part of phpScheduleIt.
 
@@ -16,24 +16,30 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
-*/
- 
-define('ROOT_DIR', '../');
+ */
 
-require_once(ROOT_DIR . '/Pages/Ajax/AutoCompletePage.php');
-require_once(ROOT_DIR . '/Pages/NewReservationPage.php');
-require_once(ROOT_DIR . '/Pages/ExistingReservationPage.php');
+require_once(ROOT_DIR . 'Pages/Ajax/AutoCompletePage.php');
+require_once(ROOT_DIR . 'Pages/NewReservationPage.php');
+require_once(ROOT_DIR . 'Pages/ExistingReservationPage.php');
 
-$server = ServiceLocator::GetServer();
-
-if (!is_null($server->GetQuerystring(QueryStringKeys::REFERENCE_NUMBER)))
+class ReadOnlyReservationPage extends ExistingReservationPage
 {
-	$page = new SecurePageDecorator(new ExistingReservationPage());
-}
-else
-{
-	$page = new SecurePageDecorator(new NewReservationPage());
+	public function __construct()
+	{
+		parent::__construct();
+		$this->IsEditable = false;
+		$this->IsApprovable = false;
+	}
+
+	function SetIsEditable($canBeEdited)
+	{
+		// no-op
+	}
+
+	public function SetIsApprovable($canBeApproved)
+	{
+		// no-op
+	}
 }
 
-$page->PageLoad();
 ?>

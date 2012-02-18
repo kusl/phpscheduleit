@@ -20,20 +20,10 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
  
 define('ROOT_DIR', '../');
 
-require_once(ROOT_DIR . '/Pages/Ajax/AutoCompletePage.php');
-require_once(ROOT_DIR . '/Pages/NewReservationPage.php');
-require_once(ROOT_DIR . '/Pages/ExistingReservationPage.php');
+require_once(ROOT_DIR . 'Pages/ReadOnlyReservationPage.php');
 
-$server = ServiceLocator::GetServer();
-
-if (!is_null($server->GetQuerystring(QueryStringKeys::REFERENCE_NUMBER)))
-{
-	$page = new SecurePageDecorator(new ExistingReservationPage());
-}
-else
-{
-	$page = new SecurePageDecorator(new NewReservationPage());
-}
-
+$page = new ReadOnlyReservationPage();
 $page->PageLoad();
+
+
 ?>
