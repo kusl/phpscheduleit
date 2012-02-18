@@ -1,33 +1,67 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+REPLACE INTO `time_blocks` (`block_id`, `label`, `end_label`, `availability_code`, `layout_id`, `start_time`, `end_time`) VALUES
+(1, NULL, NULL, 2, 1, '00:00:00', '08:00:00'),
+(2, NULL, NULL, 1, 1, '08:00:00', '08:30:00'),
+(3, NULL, NULL, 1, 1, '08:30:00', '09:00:00'),
+(4, NULL, NULL, 1, 1, '09:00:00', '09:30:00'),
+(5, NULL, NULL, 1, 1, '09:30:00', '10:00:00'),
+(6, NULL, NULL, 1, 1, '10:00:00', '10:30:00'),
+(7, NULL, NULL, 1, 1, '10:30:00', '11:00:00'),
+(8, NULL, NULL, 1, 1, '11:00:00', '11:30:00'),
+(9, NULL, NULL, 1, 1, '11:30:00', '12:00:00'),
+(10, NULL, NULL, 1, 1, '12:00:00', '12:30:00'),
+(11, NULL, NULL, 1, 1, '12:30:00', '13:00:00'),
+(12, NULL, NULL, 1, 1, '13:00:00', '13:30:00'),
+(13, NULL, NULL, 1, 1, '13:30:00', '14:00:00'),
+(14, NULL, NULL, 1, 1, '14:00:00', '14:30:00'),
+(15, NULL, NULL, 1, 1, '14:30:00', '15:00:00'),
+(16, NULL, NULL, 1, 1, '15:00:00', '15:30:00'),
+(17, NULL, NULL, 1, 1, '15:30:00', '16:00:00'),
+(18, NULL, NULL, 1, 1, '16:00:00', '16:30:00'),
+(19, NULL, NULL, 1, 1, '16:30:00', '17:00:00'),
+(20, NULL, NULL, 1, 1, '17:00:00', '17:30:00'),
+(21, NULL, NULL, 1, 1, '17:30:00', '18:00:00'),
+(22, NULL, NULL, 2, 1, '18:00:00', '00:00:00');
 
+REPLACE INTO `schedules` (`schedule_id`, `name`, `isdefault`, `weekdaystart`, `daysvisible`, `layout_id`, `legacyid`) VALUES
+(1, 'Default', 1, 0, 7, 1, NULL);
 
-CREATE TABLE IF NOT EXISTS `reservation_accessories` (
-  `series_id` int(10) unsigned NOT NULL,
-  `accessory_id` smallint(5) unsigned NOT NULL,
-  `quantity` tinyint(2) unsigned NOT NULL,
-  PRIMARY KEY (`series_id`,`accessory_id`),
-  KEY `accessory_id` (`accessory_id`),
-  KEY `series_id` (`series_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+REPLACE INTO `resources` (`resource_id`, `name`, `location`, `contact_info`, `description`, `notes`, `isactive`, `min_duration`, `min_increment`, `max_duration`, `unit_cost`, `autoassign`, `requires_approval`, `allow_multiday_reservations`, `max_participants`, `min_notice_time`, `max_notice_time`, `image_name`, `schedule_id`, `legacyid`) VALUES
+(1, 'Conference Room 1', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, NULL, NULL, 'resource1.jpg', 1, NULL),
+(2, 'Conference Room 2', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, NULL, NULL, 'resource2.jpg', 1, NULL);
 
+REPLACE INTO `users` (`user_id`, `fname`, `lname`, `username`, `email`, `password`, `salt`, `organization`, `position`, `phone`, `timezone`, `language`, `homepageid`, `date_created`, `last_modified`, `lastlogin`, `status_id`, `legacyid`, `legacypassword`) VALUES
+(1, 'User', 'User', 'user', 'user@example.com', '7b6aec38ff9b7650d64d0374194307bdde711425', '3b3dbb9b', 'XYZ Org Inc.', '', '1234', 'America/Chicago', 'en_us', 1, '2012-02-17 12:29:19', '2012-02-17 12:31:06', '2008-09-16 01:59:00', 1, NULL, NULL),
+(2, 'Admin', 'Admin', 'admin', 'admin@example.com', '70f3e748c6801656e4aae9dca6ee98ab137d952c', '4a04db87', 'ABC Org Inc.', NULL, NULL, 'Europe/Helsinki', 'en_us', 1, '2012-02-17 12:29:19', '2012-02-17 12:50:57', '2012-02-17 12:50:57', 1, NULL, NULL);
 
-CREATE TABLE IF NOT EXISTS `reservation_instances` (
-  `reservation_instance_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `reference_number` varchar(50) NOT NULL,
-  `series_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`reservation_instance_id`),
-  KEY `start_date` (`start_date`),
-  KEY `end_date` (`end_date`),
-  KEY `reference_number` (`reference_number`),
-  KEY `series_id` (`series_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=411 ;
+REPLACE INTO `reservation_series` (`series_id`, `date_created`, `last_modified`, `title`, `description`, `allow_participation`, `allow_anon_participation`, `type_id`, `status_id`, `repeat_type`, `repeat_options`, `owner_id`, `legacyid`) VALUES
+(2, '2012-02-17 18:52:39', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(3, '2012-02-17 18:52:54', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(4, '2012-02-17 18:53:21', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(5, '2012-02-17 18:53:35', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(6, '2012-02-17 18:53:49', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(7, '2012-02-17 18:54:02', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(8, '2012-02-17 18:54:45', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(9, '2012-02-17 18:54:59', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(10, '2012-02-17 18:55:15', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(11, '2012-02-17 18:55:32', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(12, '2012-02-17 18:55:46', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(13, '2012-02-17 18:56:02', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(14, '2012-02-17 18:56:31', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(15, '2012-02-17 18:56:46', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(16, '2012-02-17 18:56:59', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(17, '2012-02-17 18:57:26', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(18, '2012-02-17 18:57:43', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(19, '2012-02-17 18:58:01', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(20, '2012-02-17 18:58:38', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(21, '2012-02-17 18:59:32', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(22, '2012-02-17 18:59:48', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(23, '2012-02-17 19:00:31', NULL, '', '', 0, 0, 1, 1, 'none', '', 2, NULL),
+(24, '2012-02-17 19:00:40', NULL, '', '', 0, 0, 1, 1, 'none', '', 2, NULL),
+(25, '2012-02-17 19:00:49', NULL, '', '', 0, 0, 1, 1, 'none', '', 2, NULL),
+(26, '2012-02-17 19:01:10', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
+(27, '2012-02-17 19:01:31', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL);
 
 REPLACE INTO `reservation_instances` (`reservation_instance_id`, `start_date`, `end_date`, `reference_number`, `series_id`) VALUES
 (2, '2012-02-11 22:00:00', '2012-02-11 22:30:00', '4f3ea1f6d3fef', 2),
@@ -440,15 +474,6 @@ REPLACE INTO `reservation_instances` (`reservation_instance_id`, `start_date`, `
 (409, '2012-02-27 23:00:00', '2012-02-27 23:30:00', '4f3ea40b6cf6f', 27),
 (410, '2012-02-28 23:00:00', '2012-02-28 23:30:00', '4f3ea40b6cf98', 27);
 
-CREATE TABLE IF NOT EXISTS `reservation_resources` (
-  `series_id` int(10) unsigned NOT NULL,
-  `resource_id` smallint(5) unsigned NOT NULL,
-  `resource_level_id` tinyint(2) unsigned NOT NULL,
-  PRIMARY KEY (`series_id`,`resource_id`),
-  KEY `resource_id` (`resource_id`),
-  KEY `series_id` (`series_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 REPLACE INTO `reservation_resources` (`series_id`, `resource_id`, `resource_level_id`) VALUES
 (2, 1, 1),
 (3, 2, 1),
@@ -477,84 +502,6 @@ REPLACE INTO `reservation_resources` (`series_id`, `resource_id`, `resource_leve
 (26, 2, 1),
 (27, 2, 1);
 
-CREATE TABLE IF NOT EXISTS `reservation_series` (
-  `series_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `date_created` datetime NOT NULL,
-  `last_modified` datetime DEFAULT NULL,
-  `title` varchar(85) NOT NULL,
-  `description` text,
-  `allow_participation` tinyint(1) unsigned NOT NULL,
-  `allow_anon_participation` tinyint(1) unsigned NOT NULL,
-  `type_id` tinyint(2) unsigned NOT NULL,
-  `status_id` tinyint(2) unsigned NOT NULL,
-  `repeat_type` varchar(10) DEFAULT NULL,
-  `repeat_options` varchar(255) DEFAULT NULL,
-  `owner_id` mediumint(8) unsigned NOT NULL,
-  `legacyid` char(16) DEFAULT NULL,
-  PRIMARY KEY (`series_id`),
-  KEY `type_id` (`type_id`),
-  KEY `status_id` (`status_id`),
-  KEY `reservations_owner` (`owner_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
-
-REPLACE INTO `reservation_series` (`series_id`, `date_created`, `last_modified`, `title`, `description`, `allow_participation`, `allow_anon_participation`, `type_id`, `status_id`, `repeat_type`, `repeat_options`, `owner_id`, `legacyid`) VALUES
-(2, '2012-02-17 18:52:39', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(3, '2012-02-17 18:52:54', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(4, '2012-02-17 18:53:21', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(5, '2012-02-17 18:53:35', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(6, '2012-02-17 18:53:49', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(7, '2012-02-17 18:54:02', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(8, '2012-02-17 18:54:45', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(9, '2012-02-17 18:54:59', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(10, '2012-02-17 18:55:15', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(11, '2012-02-17 18:55:32', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(12, '2012-02-17 18:55:46', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(13, '2012-02-17 18:56:02', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(14, '2012-02-17 18:56:31', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(15, '2012-02-17 18:56:46', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(16, '2012-02-17 18:56:59', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(17, '2012-02-17 18:57:26', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(18, '2012-02-17 18:57:43', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(19, '2012-02-17 18:58:01', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(20, '2012-02-17 18:58:38', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(21, '2012-02-17 18:59:32', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(22, '2012-02-17 18:59:48', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(23, '2012-02-17 19:00:31', NULL, '', '', 0, 0, 1, 1, 'none', '', 2, NULL),
-(24, '2012-02-17 19:00:40', NULL, '', '', 0, 0, 1, 1, 'none', '', 2, NULL),
-(25, '2012-02-17 19:00:49', NULL, '', '', 0, 0, 1, 1, 'none', '', 2, NULL),
-(26, '2012-02-17 19:01:10', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL),
-(27, '2012-02-17 19:01:31', NULL, '', '', 0, 0, 1, 1, 'daily', 'interval=1|termination=2012-02-28 22:00:00', 2, NULL);
-
-CREATE TABLE IF NOT EXISTS `reservation_statuses` (
-  `status_id` tinyint(2) unsigned NOT NULL,
-  `label` varchar(85) NOT NULL,
-  PRIMARY KEY (`status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-REPLACE INTO `reservation_statuses` (`status_id`, `label`) VALUES
-(1, 'Created'),
-(2, 'Deleted'),
-(3, 'Pending');
-
-CREATE TABLE IF NOT EXISTS `reservation_types` (
-  `type_id` tinyint(2) unsigned NOT NULL,
-  `label` varchar(85) NOT NULL,
-  PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-REPLACE INTO `reservation_types` (`type_id`, `label`) VALUES
-(1, 'Reservation'),
-(2, 'Blackout');
-
-CREATE TABLE IF NOT EXISTS `reservation_users` (
-  `reservation_instance_id` int(10) unsigned NOT NULL,
-  `user_id` mediumint(8) unsigned NOT NULL,
-  `reservation_user_level` tinyint(2) unsigned NOT NULL,
-  PRIMARY KEY (`reservation_instance_id`,`user_id`),
-  KEY `reservation_instance_id` (`reservation_instance_id`),
-  KEY `user_id` (`user_id`),
-  KEY `reservation_user_level` (`reservation_user_level`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 REPLACE INTO `reservation_users` (`reservation_instance_id`, `user_id`, `reservation_user_level`) VALUES
 (2, 2, 1),
@@ -966,155 +913,3 @@ REPLACE INTO `reservation_users` (`reservation_instance_id`, `user_id`, `reserva
 (408, 2, 1),
 (409, 2, 1),
 (410, 2, 1);
-
-CREATE TABLE IF NOT EXISTS `resources` (
-  `resource_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(85) NOT NULL,
-  `location` varchar(85) DEFAULT NULL,
-  `contact_info` varchar(85) DEFAULT NULL,
-  `description` text,
-  `notes` text,
-  `isactive` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `min_duration` int(11) DEFAULT NULL,
-  `min_increment` int(11) DEFAULT NULL,
-  `max_duration` int(11) DEFAULT NULL,
-  `unit_cost` decimal(7,2) DEFAULT NULL,
-  `autoassign` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `requires_approval` tinyint(1) unsigned NOT NULL,
-  `allow_multiday_reservations` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `max_participants` mediumint(8) unsigned DEFAULT NULL,
-  `min_notice_time` int(11) DEFAULT NULL,
-  `max_notice_time` int(11) DEFAULT NULL,
-  `image_name` varchar(50) DEFAULT NULL,
-  `schedule_id` smallint(5) unsigned NOT NULL,
-  `legacyid` char(16) DEFAULT NULL,
-  PRIMARY KEY (`resource_id`),
-  KEY `schedule_id` (`schedule_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
-REPLACE INTO `resources` (`resource_id`, `name`, `location`, `contact_info`, `description`, `notes`, `isactive`, `min_duration`, `min_increment`, `max_duration`, `unit_cost`, `autoassign`, `requires_approval`, `allow_multiday_reservations`, `max_participants`, `min_notice_time`, `max_notice_time`, `image_name`, `schedule_id`, `legacyid`) VALUES
-(1, 'Conference Room 1', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, NULL, NULL, 'resource1.jpg', 1, NULL),
-(2, 'Conference Room 2', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1, 0, 1, NULL, NULL, NULL, 'resource2.jpg', 1, NULL);
-
-CREATE TABLE IF NOT EXISTS `roles` (
-  `role_id` tinyint(2) unsigned NOT NULL,
-  `name` varchar(85) DEFAULT NULL,
-  `role_level` tinyint(2) unsigned DEFAULT NULL,
-  PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-REPLACE INTO `roles` (`role_id`, `name`, `role_level`) VALUES
-(1, 'Group Admin', 1),
-(2, 'Application Admin', 2);
-
-CREATE TABLE IF NOT EXISTS `schedules` (
-  `schedule_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(85) NOT NULL,
-  `isdefault` tinyint(1) unsigned NOT NULL,
-  `weekdaystart` tinyint(2) unsigned NOT NULL,
-  `daysvisible` tinyint(2) unsigned NOT NULL DEFAULT '7',
-  `layout_id` mediumint(8) unsigned NOT NULL,
-  `legacyid` char(16) DEFAULT NULL,
-  PRIMARY KEY (`schedule_id`),
-  KEY `layout_id` (`layout_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
-REPLACE INTO `schedules` (`schedule_id`, `name`, `isdefault`, `weekdaystart`, `daysvisible`, `layout_id`, `legacyid`) VALUES
-(1, 'Default', 1, 0, 7, 1, NULL);
-
-CREATE TABLE IF NOT EXISTS `time_blocks` (
-  `block_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `label` varchar(85) DEFAULT NULL,
-  `end_label` varchar(85) DEFAULT NULL,
-  `availability_code` tinyint(2) unsigned NOT NULL,
-  `layout_id` mediumint(8) unsigned NOT NULL,
-  `start_time` time NOT NULL,
-  `end_time` time NOT NULL,
-  PRIMARY KEY (`block_id`),
-  KEY `layout_id` (`layout_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
-
-REPLACE INTO `time_blocks` (`block_id`, `label`, `end_label`, `availability_code`, `layout_id`, `start_time`, `end_time`) VALUES
-(1, NULL, NULL, 2, 1, '00:00:00', '08:00:00'),
-(2, NULL, NULL, 1, 1, '08:00:00', '08:30:00'),
-(3, NULL, NULL, 1, 1, '08:30:00', '09:00:00'),
-(4, NULL, NULL, 1, 1, '09:00:00', '09:30:00'),
-(5, NULL, NULL, 1, 1, '09:30:00', '10:00:00'),
-(6, NULL, NULL, 1, 1, '10:00:00', '10:30:00'),
-(7, NULL, NULL, 1, 1, '10:30:00', '11:00:00'),
-(8, NULL, NULL, 1, 1, '11:00:00', '11:30:00'),
-(9, NULL, NULL, 1, 1, '11:30:00', '12:00:00'),
-(10, NULL, NULL, 1, 1, '12:00:00', '12:30:00'),
-(11, NULL, NULL, 1, 1, '12:30:00', '13:00:00'),
-(12, NULL, NULL, 1, 1, '13:00:00', '13:30:00'),
-(13, NULL, NULL, 1, 1, '13:30:00', '14:00:00'),
-(14, NULL, NULL, 1, 1, '14:00:00', '14:30:00'),
-(15, NULL, NULL, 1, 1, '14:30:00', '15:00:00'),
-(16, NULL, NULL, 1, 1, '15:00:00', '15:30:00'),
-(17, NULL, NULL, 1, 1, '15:30:00', '16:00:00'),
-(18, NULL, NULL, 1, 1, '16:00:00', '16:30:00'),
-(19, NULL, NULL, 1, 1, '16:30:00', '17:00:00'),
-(20, NULL, NULL, 1, 1, '17:00:00', '17:30:00'),
-(21, NULL, NULL, 1, 1, '17:30:00', '18:00:00'),
-(22, NULL, NULL, 2, 1, '18:00:00', '00:00:00');
-
-CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `fname` varchar(85) DEFAULT NULL,
-  `lname` varchar(85) DEFAULT NULL,
-  `username` varchar(85) DEFAULT NULL,
-  `email` varchar(85) NOT NULL,
-  `password` varchar(85) NOT NULL,
-  `salt` varchar(85) NOT NULL,
-  `organization` varchar(85) DEFAULT NULL,
-  `position` varchar(85) DEFAULT NULL,
-  `phone` varchar(85) DEFAULT NULL,
-  `timezone` varchar(85) NOT NULL,
-  `language` varchar(10) NOT NULL,
-  `homepageid` tinyint(2) unsigned NOT NULL DEFAULT '1',
-  `date_created` datetime NOT NULL,
-  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `lastlogin` datetime DEFAULT NULL,
-  `status_id` tinyint(2) unsigned NOT NULL,
-  `legacyid` char(16) DEFAULT NULL,
-  `legacypassword` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  KEY `status_id` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
-REPLACE INTO `users` (`user_id`, `fname`, `lname`, `username`, `email`, `password`, `salt`, `organization`, `position`, `phone`, `timezone`, `language`, `homepageid`, `date_created`, `last_modified`, `lastlogin`, `status_id`, `legacyid`, `legacypassword`) VALUES
-(1, 'User', 'User', 'user', 'user@example.com', '7b6aec38ff9b7650d64d0374194307bdde711425', '3b3dbb9b', 'XYZ Org Inc.', '', '1234', 'America/Chicago', 'en_us', 1, '2012-02-17 12:29:19', '2012-02-17 12:31:06', '2008-09-16 01:59:00', 1, NULL, NULL),
-(2, 'Admin', 'Admin', 'admin', 'admin@example.com', '70f3e748c6801656e4aae9dca6ee98ab137d952c', '4a04db87', 'ABC Org Inc.', NULL, NULL, 'Europe/Helsinki', 'en_us', 1, '2012-02-17 12:29:19', '2012-02-17 12:50:57', '2012-02-17 12:50:57', 1, NULL, NULL);
-
-
-ALTER TABLE `reservation_accessories`
-  ADD CONSTRAINT `reservation_accessories_ibfk_1` FOREIGN KEY (`accessory_id`) REFERENCES `accessories` (`accessory_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservation_accessories_ibfk_2` FOREIGN KEY (`series_id`) REFERENCES `reservation_series` (`series_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `reservation_instances`
-  ADD CONSTRAINT `reservations_series` FOREIGN KEY (`series_id`) REFERENCES `reservation_series` (`series_id`) ON DELETE CASCADE;
-
-ALTER TABLE `reservation_resources`
-  ADD CONSTRAINT `reservation_resources_ibfk_1` FOREIGN KEY (`resource_id`) REFERENCES `resources` (`resource_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservation_resources_ibfk_2` FOREIGN KEY (`series_id`) REFERENCES `reservation_series` (`series_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `reservation_series`
-  ADD CONSTRAINT `reservations_owner` FOREIGN KEY (`owner_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `reservations_status` FOREIGN KEY (`status_id`) REFERENCES `reservation_statuses` (`status_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservations_type` FOREIGN KEY (`type_id`) REFERENCES `reservation_types` (`type_id`) ON UPDATE CASCADE;
-
-ALTER TABLE `reservation_users`
-  ADD CONSTRAINT `reservation_users_ibfk_1` FOREIGN KEY (`reservation_instance_id`) REFERENCES `reservation_instances` (`reservation_instance_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservation_users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `resources`
-  ADD CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`schedule_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `schedules`
-  ADD CONSTRAINT `schedules_ibfk_1` FOREIGN KEY (`layout_id`) REFERENCES `layouts` (`layout_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `time_blocks`
-  ADD CONSTRAINT `time_blocks_ibfk_1` FOREIGN KEY (`layout_id`) REFERENCES `layouts` (`layout_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `user_statuses` (`status_id`) ON UPDATE CASCADE;

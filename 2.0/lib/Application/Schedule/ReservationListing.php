@@ -21,19 +21,32 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 class ReservationListing implements IMutableReservationListing
 {
 	/**
-	 * @var array|ReservationItemView[]
+	 * @param string $targetTimezone
 	 */
-	private $_reservations = array();
-	
+	public function __construct($targetTimezone)
+	{
+		$this->timezone = $targetTimezone;
+	}
+
 	/**
-	 * @var array|ReservationItemView[]
+	 * @var string
 	 */
-	private $_reservationByResource = array();
+	protected $timezone;
 
 	/**
 	 * @var array|ReservationItemView[]
 	 */
-	private $_reservationsByDate = array();
+	protected $_reservations = array();
+	
+	/**
+	 * @var array|ReservationItemView[]
+	 */
+	protected $_reservationByResource = array();
+
+	/**
+	 * @var array|ReservationItemView[]
+	 */
+	protected $_reservationsByDate = array();
 
 	public function Add($reservation)
 	{
@@ -47,25 +60,30 @@ class ReservationListing implements IMutableReservationListing
 
 	protected function AddItem(ReservationListItem $item)
 	{
-		$currentDate = $item->StartDate();
-		$lastDate = $item->EndDate();
+		$currentDate = $item->StartDate()->ToTimezone($this->timezone);
+		$lastDate = $item->EndDate()->ToTimezone($this->timezone);
 
-		$this->AddOnDate($item, $currentDate);
-		$this->AddOnDate($item, $lastDate);
-
-		while (!$currentDate->DateEquals($lastDate))
+		if ($currentDate->DateEquals($lastDate))
 		{
 			$this->AddOnDate($item, $currentDate);
-			$currentDate = $currentDate->AddDays(1);
+		}
+		else
+		{
+			while (!$currentDate->DateEquals($lastDate))
+			{
+				$this->AddOnDate($item, $currentDate);
+				$currentDate = $currentDate->AddDays(1);
+			}
+			$this->AddOnDate($item, $lastDate);
 		}
 
 		$this->_reservations[] = $item;
 		$this->_reservationByResource[$item->ResourceId()][] = $item;
 	}
 
-	private function AddOnDate(ReservationListItem $item, Date $date)
+	protected function AddOnDate(ReservationListItem $item, Date $date)
 	{
-		Log::Debug('Adding %s on %s', $item->Id(), $date);
+//		Log::Debug('Adding id %s on %s', $item->Id(), $date);
 		$this->_reservationsByDate[$date->Format('Ymd')][] = $item;
 	}
 	
@@ -80,41 +98,42 @@ class ReservationListing implements IMutableReservationListing
 	}
 
 	/**
+	 * @param array|ReservationListItem[] $reservations
+	 * @return ReservationListing
+	 */
+	private function Create($reservations)
+	{
+		$reservationListing = new ReservationListing($this->timezone);
+
+		if ($reservations != null)
+		{
+			foreach($reservations as $reservation)
+			{
+				$reservationListing->AddItem($reservation);
+			}
+		}
+
+		return $reservationListing;
+	}
+
+	/**
 	 * @param Date $date
 	 * @return ReservationListing
 	 */
 	public function OnDate($date)
 	{
-		$reservationListing = new ReservationListing();
-		Log::Debug('Found %s on %s', count($this->_reservationsByDate[$date->Format('Ymd')]), $date);
-		$reservationListing->_reservations = $this->_reservationsByDate[$date->Format('Ymd')];
-		Log::Debug('Meh %s', count($reservationListing->Reservations()));
-//		/** @var ReservationListItem $reservation  */
-//		foreach ($this->_reservations as $reservation)
-//		{
-////			$sw = new StopWatch();
-////			$sw->Start();
-//			if ($reservation->OccursOn($date))
-//			{
-//				$reservationListing->AddItem($reservation);
-//			}
-////			$sw->Stop();
-////			Log::Debug('Occurs on %s took %s', $date, $sw->GetTotalSeconds());
-//		}
-		
-		return $reservationListing;
+//		Log::Debug('Found %s reservations on %s', count($this->_reservationsByDate[$date->Format('Ymd')]), $date);
+		return $this->Create($this->_reservationsByDate[$date->Format('Ymd')]);
 	}
 	
 	public function ForResource($resourceId)
 	{
-		$reservationListing = new ReservationListing();
-		
 		if (array_key_exists($resourceId, $this->_reservationByResource))
 		{
-			$reservationListing->_reservations = $this->_reservationByResource[$resourceId];
+			return $this->Create($this->_reservationByResource[$resourceId]);
 		}
 		
-		return $reservationListing;
+		return new ReservationListing($this->timezone);
 	}
 }
 

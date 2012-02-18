@@ -88,7 +88,7 @@ class DailyLayoutTests extends TestBase
 			->with($this->equalTo($displayDate))
 			->will($this->returnValue($periods));
 		
-		$layout = new DailyLayout(new ReservationListing(), $scheduleLayout);
+		$layout = new DailyLayout(new ReservationListing("America/Chicago"), $scheduleLayout);
 		$labels = $layout->GetLabels($displayDate);
 		
 		$this->assertEquals('12:00', $labels[0]);

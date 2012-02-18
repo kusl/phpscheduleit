@@ -102,9 +102,6 @@ class ScheduleReservationList implements IScheduleReservationList
 	
 	public function BuildSlots()
 	{
-		$sw = new StopWatch();
-		$sw->Start();
-
 		$slots = array();
 		
 		for ($currentIndex = 0; $currentIndex < count($this->_layoutItems); $currentIndex++)
@@ -127,7 +124,6 @@ class ScheduleReservationList implements IScheduleReservationList
 				$span = ($endingPeriodIndex - $currentIndex) + 1;
 
 				$slots[] = $item->BuildSlot($layoutItem->BeginDate(), $this->_layoutItems[$endingPeriodIndex]->EndDate(), $this->_layoutDateStart, $span);
-				//$slots[] = new ReservationSlot($layoutItem->BeginDate(), $this->_layoutItems[$endingPeriodIndex]->EndDate(), $this->_layoutDateStart, $span, $reservation);
 
 				$currentIndex = $endingPeriodIndex;
 			}
@@ -136,18 +132,12 @@ class ScheduleReservationList implements IScheduleReservationList
 				$slots[] = new EmptyReservationSlot($layoutItem->BeginDate(), $layoutItem->EndDate(), $this->_layoutDateStart, $layoutItem->IsReservable());
 			}
 		}
-
-		$sw->Stop();
-		Log::Debug("BuildSlots() on %s took %s", $this->_layoutDateStart, $sw->GetTotalSeconds());
 	
 		return $slots;
 	}
 	
 	private function IndexItems()
 	{
-		$sw = new StopWatch();
-		$sw->Start();
-
 		foreach ($this->_items as $item)
 		{		
 			$start = $item->StartDate()->ToTimezone($this->_destinationTimezone);
@@ -165,9 +155,6 @@ class ScheduleReservationList implements IScheduleReservationList
 			
 			$this->_itemsByStartTime[$start->Timestamp()] = $item;
 		}
-
-		$sw->Stop();
-		Log::Debug("IndexItems() on %s took %s", $this->_layoutDateStart, $sw->GetTotalSeconds());
 	}
 	
 	private function ItemStartsOnPastDate(ReservationListItem $item)
@@ -184,8 +171,6 @@ class ScheduleReservationList implements IScheduleReservationList
 	
 	private function IndexLayout()
 	{
-		$sw = new StopWatch();
-		$sw->Start();
 		$this->_firstLayoutTime =  $this->_layoutDateEnd;
 		
 		for ($i = 0; $i < count($this->_layoutItems); $i++)		
@@ -207,9 +192,6 @@ class ScheduleReservationList implements IScheduleReservationList
 			$this->_layoutByStartTime[$itemBegin->Timestamp()] = $this->_layoutItems[$i];
 			$this->_layoutIndexByEndTime[$endTime->Timestamp()] = $i;
 		}
-
-		$sw->Stop();
-		Log::Debug("IndexLayout() on %s took %s", $this->_layoutDateStart, $sw->GetTotalSeconds());
 	}
 	
 	/**

@@ -44,9 +44,15 @@ interface IReservationListing extends IResourceReservationListing
 {
 	/**
 	 * @param Date $date
-	 * @return IDateReservationListing
+	 * @return IReservationListing
 	 */
 	public function OnDate($date);
+
+	/**
+	 * @param int $resourceId
+	 * @return IReservationListing
+	 */
+	public function ForResource($resourceId);
 }
 
 interface IMutableReservationListing extends IReservationListing

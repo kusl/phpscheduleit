@@ -68,9 +68,12 @@ class DailyLayout implements IDailyLayout
 		$sw = new StopWatch();
 		$sw->Start();
 
-		$onDate = $this->_reservationListing->OnDate($date);
+//		$onDate = $this->_reservationListing->OnDate($date);
 		$sw->Record('date');
-		$forResource = $onDate->ForResource($resourceId);
+//		$forResource = $onDate->ForResource($resourceId);
+
+		$onDate =  $this->_reservationListing->ForResource($resourceId);
+		$forResource = $onDate->OnDate($date);
 		$sw->Record('listing');
 		$items = $forResource->Reservations();
 		$list = new ScheduleReservationList($items, $this->_scheduleLayout, $date);
@@ -78,13 +81,13 @@ class DailyLayout implements IDailyLayout
 		$sw->Record('slots');
 		$sw->Stop();
 
-		Log::Debug("DailyLayout::GetLayout - For resourceId %s on date %s, took %s seconds to get reservation listing (%s for date), %s to build the slots, %s total seconds for %s reservations",
-			$resourceId, $date->ToString(),
-			$sw->GetRecordSeconds('listing'),
-			$sw->GetRecordSeconds('date'),
-			$sw->TimeBetween('slots', 'listing'),
-			$sw->GetTotalSeconds(),
-			count($items));
+//		Log::Debug("DailyLayout::GetLayout - For resourceId %s on date %s, took %s seconds to get reservation listing (%s for date), %s to build the slots, %s total seconds for %s reservations",
+//			$resourceId, $date->ToString(),
+//			$sw->GetRecordSeconds('listing'),
+//			$sw->GetRecordSeconds('date'),
+//			$sw->TimeBetween('slots', 'listing'),
+//			$sw->GetTotalSeconds(),
+//			count($items));
 
 		return $slots;
 	}
