@@ -80,6 +80,11 @@ class ReservationListingTests extends TestBase
 		$this->assertEquals(4, $reservationListing->ForResource(1)->Count());
 		$this->assertEquals(2, $onDate1->ForResource(1)->Count());
 
+		$this->assertEquals(2, count($reservationListing->OnDateForResource(Date::Parse('2009-10-09', 'CST'), 1)));
+		$this->assertEquals(2, count($reservationListing->OnDateForResource(Date::Parse('2009-10-09', 'CST'), 2)));
+		$this->assertEquals(1, count($reservationListing->OnDateForResource(Date::Parse('2009-10-10', 'CST'), 1)));
+		$this->assertEquals(0, count($reservationListing->OnDateForResource(Date::Parse('2009-10-10', 'CST'), 999)));
+
 		$date1Items = $onDate1->Reservations();
 		$this->assertTrue(in_array(new ReservationListItem($res1), $date1Items));
 		$this->assertTrue(in_array(new ReservationListItem($res2), $date1Items));

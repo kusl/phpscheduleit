@@ -48,6 +48,11 @@ class ReservationListing implements IMutableReservationListing
 	 */
 	protected $_reservationsByDate = array();
 
+	/**
+	 * @var array|ReservationItemView[]
+	 */
+	protected $_reservationsByDateAndResource = array();
+
 	public function Add($reservation)
 	{
 		$this->AddItem(new ReservationListItem($reservation));
@@ -85,6 +90,7 @@ class ReservationListing implements IMutableReservationListing
 	{
 //		Log::Debug('Adding id %s on %s', $item->Id(), $date);
 		$this->_reservationsByDate[$date->Format('Ymd')][] = $item;
+		$this->_reservationsByDateAndResource[$date->Format('Ymd') . '|' . $item->ResourceId()][] = $item;
 	}
 	
 	public function Count()
@@ -134,6 +140,18 @@ class ReservationListing implements IMutableReservationListing
 		}
 		
 		return new ReservationListing($this->timezone);
+	}
+
+	public function OnDateForResource(Date $date, $resourceId)
+	{
+		$items = $this->_reservationsByDateAndResource[$date->Format('Ymd') . '|' . $resourceId];
+
+		if (is_null($items))
+		{
+			return array();
+		}
+
+		return $items;
 	}
 }
 
