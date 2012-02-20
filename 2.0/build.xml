@@ -120,8 +120,14 @@
 		</copy>
 	</target>
 
-	<target name="create.demo" depends="package">
-
+	<target name="create.demo" depends="stage.files">
+		<delete dir="${demo.dir}" failonerror="false"/>
+		<mkdir dir="${demo.dir}"/>
+		<copy todir="${demo.dir}" includeemptydirs="true">
+			<fileset dir="${stagingdir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="minify" description="minify javascript and css files">
