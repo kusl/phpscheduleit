@@ -263,7 +263,18 @@ class SmartyPage extends Smarty
 		{
 			$key = $params['key'];
 		}
-		return $date->Format($this->Resources->GetDateFormat($key));
+		$format = $this->Resources->GetDateFormat($key);
+
+		$formatted = $date->Format($format);
+
+		if (strpos($format, 'l') !== false)
+		{
+			// correct english day name to translated day name
+			$english_days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+			$days = $this->Resources->GetDays('full');
+			$formatted = str_replace($english_days[$date->Weekday()], $days[$date->Weekday()], $formatted);
+		}
+		return $formatted;
 	}
 
 	public function PrintImage($params, &$smarty)
@@ -317,7 +328,7 @@ class SmartyPage extends Smarty
 		{
 			$actualContent = trim($content);
 			return empty($actualContent) ? '' :
-					"<div class=\"$class\">
+					"<div class=\"$class\" style=\"background-image:none;\">
 					<table>
 						<tr>
 							<td><img src=\"img/alert.png\" alt=\"Alert\" width=\"60\" height=\"60\" /></td>

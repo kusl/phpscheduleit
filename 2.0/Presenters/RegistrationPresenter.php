@@ -90,7 +90,7 @@ class RegistrationPresenter
     {
         if (is_null($captchaService))
         {
-            $this->captchaService = CaptchaService::Create();
+            $this->captchaService = CaptchaService::Create(ServiceLocator::GetServer()->GetRemoteAddress());
         }
         else
         {
@@ -116,13 +116,15 @@ class RegistrationPresenter
     {
         if ($this->page->IsValid())
         {
+			$loginName = $this->page->GetLoginName();
+			Log::Debug('Registring new user %s', $loginName);
             $additionalFields = array('phone' => $this->page->GetPhone(),
                 'organization' => $this->page->GetOrganization(),
                 'position' => $this->page->GetPosition());
 
 			$language = Resources::GetInstance()->CurrentLanguage;
 			$this->registration->Register(
-                $this->page->GetLoginName(),
+                $loginName,
                 $this->page->GetEmail(),
                 $this->page->GetFirstName(),
                 $this->page->GetLastName(),
