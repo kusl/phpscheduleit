@@ -85,7 +85,7 @@ class GroupRepositoryTests extends TestBase
 
 		$results = $users->Results();
 		$this->assertEquals(2, count($results));
-		$this->assertEquals(1, $results[0]->Id);
+		$this->assertEquals(1, $results[0]->UserId);
 	}
 
 	public function testCanLoadById()
