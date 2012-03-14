@@ -305,13 +305,11 @@ class ReservationResourceView
 {
     private $_id;
     private $_resourceName;
-    private $_adminGroupId;
 
 	public function __construct($resourceId, $resourceName = '')
     {
         $this->_id = $resourceId;
         $this->_resourceName = $resourceName;
-        $this->_adminGroupId = $adminGroupId;
     }
 
     /**
@@ -328,14 +326,6 @@ class ReservationResourceView
     public function Name()
     {
         return $this->_resourceName;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function GetAdminGroupId()
-    {
-        return $this->_adminGroupId;
     }
 
     /**
