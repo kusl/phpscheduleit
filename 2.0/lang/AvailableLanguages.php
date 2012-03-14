@@ -35,6 +35,7 @@ class AvailableLanguages
         			'fr_fr' => new AvailableLanguage('fr_fr', 'fr_fr.php', 'Fran&ccedil;ais'),
         			'ja_jp' => new AvailableLanguage('ja_jp', 'ja_jp.php', 'Japanese'),
 					'pl' => new AvailableLanguage('pl', 'pl.php', 'Polski'),
+					'pt_br' => new AvailableLanguage('pt_br', 'pt_br.php', 'Portugu&ecirc;s Brasileiro'),
         		);
     }
 }
