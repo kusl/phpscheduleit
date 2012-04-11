@@ -232,23 +232,23 @@ class SchedulePresenterTests extends TestBase
 
     public function testStartsOnCurrentDateIfShowingLessThanAWeekOfData()
     {
-        $timezone = 'CST';
+        $timezone = 'America/Chicago';
+		$this->fakeConfig->SetTimezone($timezone);
 
         // saturday
-        $currentServerDate = Date::Create(2009, 07, 18, 11, 00, 00, 'CST');
+        $currentServerDate = Date::Create(2009, 07, 18, 11, 00, 00, $timezone);
         Date::_SetNow($currentServerDate);
 
         $startDay = 0;
         $daysVisible = 6;
 
         // previous sunday
-        $expectedStart = Date::Create(2009, 07, 18, 00, 00, 00, $timezone);
+        $expectedStart = Date::Create(2009, 07, 12, 00, 00, 00, $timezone);
         $expectedEnd = $expectedStart->AddDays($daysVisible);
         $expectedScheduleDates = new DateRange($expectedStart, $expectedEnd);
 
         $user = new UserSession(1);
         $user->Timezone = $timezone;
-        $this->fakeConfig->SetTimezone('CST');
 
         $schedule = $this->getMock('ISchedule');
         $schedulePage = $this->getMock('ISchedulePage');
@@ -561,8 +561,8 @@ class SchedulePresenterTests extends TestBase
 		
 		$schedule = new Schedule(1, null, true, 1, 5);
 		
-		$expectedPrevious = Date::Parse('2011-03-30', $tz);
-		$expectedNext = Date::Parse('2011-04-09', $tz);
+		$expectedPrevious = Date::Parse('2011-03-28', $tz);
+		$expectedNext = Date::Parse('2011-04-11', $tz);
 		
 		$page = $this->getMock('ISchedulePage');
 		$page->expects($this->once())
