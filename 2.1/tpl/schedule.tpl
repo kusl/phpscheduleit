@@ -80,7 +80,6 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 	{/if}
 	<a href="#" id="calendar_toggle">
 		{html_image src="calendar.png" altKey="ShowHideNavigation"}
-		
 	</a>
 	</div>
 	
@@ -90,6 +89,10 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 		<a href="#" onclick="ChangeDate({formatdate date=$PreviousDate format="Y, m, d"}); return false;"><img src="img/arrow_large_left.png" alt="Back" /></a> 
 		{formatdate date=$FirstDate} - {formatdate date=$LastDate}
 		<a href="#" onclick="ChangeDate({formatdate date=$NextDate format="Y, m, d"}); return false;"><img src="img/arrow_large_right.png" alt="Forward" /></a>
+
+		{if $ShowFullWeekLink}
+			<a href="{add_querystring key=SHOW_FULL_WEEK value=1}" id="showFullWeek">({translate key=ShowFullWeek})</a>
+		{/if}
 	</div>
 </div>
 

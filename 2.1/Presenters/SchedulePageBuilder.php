@@ -112,6 +112,12 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		$selectedWeekday = $selectedDate->Weekday();
 
 		$scheduleLength = $schedule->GetDaysVisible();
+
+		if ($page->GetShowFullWeek())
+		{
+			$scheduleLength = 7;
+		}
+
 		$startDay = $schedule->GetWeekdayStart();
 
 		/**
@@ -142,10 +148,17 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 	/**
 	 * @see ISchedulePageBuilder::BindDisplayDates()
 	 */
-	public function BindDisplayDates(ISchedulePage $page, DateRange $dateRange, UserSession $userSession,
+	public function BindDisplayDates(ISchedulePage $page,
+									 DateRange $dateRange,
+									 UserSession $userSession,
 									 ISchedule $schedule)
 	{
 		$scheduleLength = $schedule->GetDaysVisible();
+		if ($page->GetShowFullWeek())
+		{
+			$scheduleLength = 7;
+		}
+
 		// we don't want to display the last date in the range (it will be midnight of the last day)
 		$adjustedDateRange = new DateRange($dateRange->GetBegin()->ToTimezone($userSession->Timezone), $dateRange->GetEnd()->ToTimezone($userSession->Timezone)->AddDays(-1));
 
@@ -157,6 +170,7 @@ class SchedulePageBuilder implements ISchedulePageBuilder
 		$prevAdjustment = 7 * floor($adjustment / 7); // ie, if 10, we only want to go back 7 days so there is overlap
 
 		$page->SetPreviousNextDates($startDate->AddDays(-$prevAdjustment), $startDate->AddDays($adjustment));
+		$page->ShowFullWeekToggle($scheduleLength < 7);
 	}
 
 	/**

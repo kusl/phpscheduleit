@@ -568,6 +568,10 @@ class SchedulePresenterTests extends TestBase
 		$page->expects($this->once())
 			->method('SetPreviousNextDates')
 			->with($this->equalTo($expectedPrevious), $this->equalTo($expectedNext));
+
+		$page->expects($this->once())
+			->method('ShowFullWeekToggle')
+			->with($this->equalTo(true));
 			
 		$builder = new SchedulePageBuilder();
 		$builder->BindDisplayDates($page, new DateRange($start, $end), $session, $schedule);
@@ -594,6 +598,49 @@ class SchedulePresenterTests extends TestBase
 			
 		$builder = new SchedulePageBuilder();
 		$builder->BindDisplayDates($page, new DateRange($start, $end), $session, $schedule);
+	}
+
+	public function testShowsSevenDaysIfWeAreShowingFullWeek()
+	{
+		$timezone = 'America/Chicago';
+		// saturday
+		$selectedDate = Date::Parse('2009-07-18', $timezone);
+
+		$startDay = 0;
+		$daysVisible = 100;
+
+		// previous sunday
+		$expectedStart = Date::Parse('2009-07-12', $timezone);
+		$expectedEnd = $expectedStart->AddDays(7);
+		$expectedScheduleDates = new DateRange($expectedStart, $expectedEnd);
+
+		$user = new UserSession(1);
+		$user->Timezone = $timezone;
+		$this->fakeConfig->SetTimezone($timezone);
+
+		$schedule = $this->getMock('ISchedule');
+		$schedulePage = $this->getMock('ISchedulePage');
+
+		$schedulePage->expects($this->once())
+			->method('GetSelectedDate')
+			->will($this->returnValue($selectedDate->Format("Y-m-d")));
+
+		$schedulePage->expects($this->once())
+			->method('GetShowFullWeek')
+			->will($this->returnValue(true));
+
+		$schedule->expects($this->once())
+			->method('GetWeekdayStart')
+			->will($this->returnValue($startDay));
+
+		$schedule->expects($this->once())
+			->method('GetDaysVisible')
+			->will($this->returnValue($daysVisible));
+
+		$pageBuilder = new SchedulePageBuilder();
+		$dates = $pageBuilder->GetScheduleDates($user, $schedule, $schedulePage);
+
+		$this->assertEquals($expectedScheduleDates, $dates);
 	}
 }
 
