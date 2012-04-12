@@ -522,7 +522,7 @@ class Queries
 		ORDER BY ri.start_date ASC';
 
     const GET_RESERVATION_LIST =
-            'SELECT *, rs.status_id as status_id, rs.description as description,
+            'SELECT *, rs.status_id as status_id, rs.description as description, rs.date_created as date_created,
               owner.fname as ownerFname, owner.lname as ownerLname, owner.user_id as owner_id
 		FROM reservation_instances ri
 		INNER JOIN reservation_series rs ON ri.series_id = rs.series_id
