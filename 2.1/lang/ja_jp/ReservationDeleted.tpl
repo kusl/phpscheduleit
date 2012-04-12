@@ -38,14 +38,6 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 		{formatdate date=$date}<br/>
 	{/foreach}
 
-	{if $RequiresApproval}
-		<br/>
-		承認が必要なリソースの予約が含まれています。 そのため承認されるまでは保留状態となります。
-	{/if}
-	
-	<br/>
-	<a href="{$ScriptUrl}/{$ReservationUrl}">予約の表示</a> |
-	<a href="{$ScriptUrl}/{$ICalUrl}">Outlookへ追加</a> |
 	<a href="{$ScriptUrl}">phpScheduleItへログイン</a>
 	
 {include file='..\..\tpl\Email\emailfooter.tpl'}
