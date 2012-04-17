@@ -149,6 +149,8 @@ class Authentication implements IAuthentication
             }
         }
 
+		Log::Debug('Cookie login. IsValid: %s', $valid);
+
         return $valid;
     }
 
