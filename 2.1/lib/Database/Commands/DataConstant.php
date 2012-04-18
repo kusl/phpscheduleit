@@ -826,7 +826,8 @@ class Queries
 			last_modified = @dateModified,
 			timezone = @timezone,
 			allow_calendar_subscription = @allow_calendar_subscription,
-			public_id = @publicid
+			public_id = @publicid,
+			language = @language
 		WHERE
 			user_id = @userid';
 
