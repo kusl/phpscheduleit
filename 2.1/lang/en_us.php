@@ -184,7 +184,6 @@ class en_us extends Language
         $strings['Duration'] = 'Duration';
         $strings['Active'] = 'Active';
         $strings['Inactive'] = 'Inactive';
-        $strings['ResetPassword'] = 'Reset Password';
         $strings['LastLogin'] = 'Last Login';
         $strings['Search'] = 'Search';
         $strings['ResourcePermissions'] = 'Resource Permissions';
