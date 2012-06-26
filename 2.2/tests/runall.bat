@@ -1,0 +1,1 @@
+c:\php\php -f C:\PHP\phpunit AllTests.php
