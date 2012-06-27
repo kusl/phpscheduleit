@@ -249,7 +249,22 @@ class Installer
 
         if ($row = mysql_fetch_assoc($result))
         {
-            return $row['version_number'];
+            $versionNumber = $row['version_number'];
+
+			if ($versionNumber == 2.1)
+			{
+				// bug in 2.2 upgrade did not insert version number, check for table instead
+
+				$getCustomAttributes = 'SELECT * FROM custom_attributes';
+				$customAttributesResults = mysql_query($getCustomAttributes);
+
+				if ($customAttributesResults)
+				{
+					return 2.2;
+				}
+			}
+
+			return $versionNumber;
         }
 
         return 2.0;
