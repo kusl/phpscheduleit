@@ -239,7 +239,7 @@ class Installer
             return false;
         }
 
-        $getVersion = 'SELECT * FROM dbversion';
+        $getVersion = 'SELECT * FROM `dbversion` order by version_date desc limit 0,1';
         $result = mysql_query($getVersion);
 
         if (!$result)
@@ -250,7 +250,7 @@ class Installer
         if ($row = mysql_fetch_assoc($result))
         {
             $versionNumber = $row['version_number'];
-
+			echo $versionNumber;
 			if ($versionNumber == 2.1)
 			{
 				// bug in 2.2 upgrade did not insert version number, check for table instead
@@ -260,6 +260,7 @@ class Installer
 
 				if ($customAttributesResults)
 				{
+					mysql_query("insert into dbversion values('2.2', now())");
 					return 2.2;
 				}
 			}
