@@ -36,6 +36,6 @@ class GroupAdminManageReservationsPage extends ManageReservationsPage
     }
 }
 
-$page = new AdminPageDecorator(new GroupAdminManageReservationsPage());
+$page = new RoleRestrictedPageDecorator(new GroupAdminManageReservationsPage(), array(RoleLevel::GROUP_ADMIN));
 $page->PageLoad();
 ?>
