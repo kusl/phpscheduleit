@@ -84,8 +84,15 @@ class CalendarExportPage extends Page implements ICalendarExportPage
 
 		$this->Set('phpScheduleItVersion', $config->GetKey(ConfigKeys::VERSION));
 		$this->Set('DateStamp', Date::Now());
-		$this->Set('ScriptUrl', $config->GetScriptUrl());
 
+		/* 
+                   ScriptUrl is used to generate iCal UID's. As a workaround to this bug 
+		   https://bugzilla.mozilla.org/show_bug.cgi?id=465853 
+		   we need to avoid using any slashes "/"
+		 */
+                $url = $config->GetScriptUrl();
+		$this->Set('ScriptUrl', parse_url ($url, PHP_URL_HOST) );
+                                
 		if ($this->hideDetails)
 		{
 			$this->Display('Export/ical-private.tpl');

@@ -38,7 +38,7 @@ function Reservation(opts) {
 	participation.addedUsers = [];
 
 	var changeUser = {};
-	
+
 	Reservation.prototype.init = function(ownerId) {
 		participation.addedUsers.push(ownerId);
 
@@ -84,10 +84,7 @@ function Reservation(opts) {
 			AddResources();
 		});
 
-		$('#resourceNames, #additionalResources').delegate('.resourceDetails', 'mouseover', function() {
-            var resourceId = $(this).siblings(".resourceId").val();
-			$(this).bindResourceDetails(resourceId);
-		});
+		WireUpResourceDetailPopups();
 
 		$('#btnRemoveAttachment').click(function(e){
 			e.preventDefault();
@@ -169,7 +166,7 @@ function Reservation(opts) {
 			var params = y[1].split(',');
 			var id = params[0].split('=')[1];
 			var quantity = params[1].split('=')[1];
-			var quantityElement = elements.accessoriesDialog.find('[name="accessory' + id + '"]')
+			var quantityElement = elements.accessoriesDialog.find('[name="accessory' + id + '"]');
 			quantityElement.val(quantity);
 			if (quantity > 0)
 			{
@@ -198,27 +195,30 @@ function Reservation(opts) {
 	var AddSelected = function(dialogBoxId, displayDivId, inputId) {
 		$(displayDivId).empty();
 
-		var resourceId = $('#resourceNames .resourceId').val();
+		var resourceNames = $('#resourceNames');
+		var resourceIdHdn = resourceNames.find('.resourceId');
+		var resourceId = resourceIdHdn.val();
 
 		var checkboxes = $(dialogBoxId + ' :checked');
 
-		if (checkboxes.length == 1)
+		if (checkboxes.length >= 1)
 		{
-			$('#resourceNames .resourceDetails').text($(checkboxes[0]).next().text());
-			$('#resourceNames .resourceId').val($(checkboxes[0]).val());
+			resourceNames.find('.resourceDetails').text($(checkboxes[0]).next().text());
+			resourceIdHdn.val($(checkboxes[0]).val());
 		}
-		else
+		if (checkboxes.length > 1)
 		{
-			checkboxes.each(function() {
-				if ($(this).val() != resourceId)
+			$.each(checkboxes, function(i) {
+				if (i == 0)
 				{
-					$(displayDivId)
-						.append('<p><a href="#" class="resourceDetails">' + $(this).next().text() + '</a><input class="resourceId" type="hidden" name="' + inputId + '[]" value="' + $(this).val() + '"/></p>');
+					return true;
 				}
+				$(displayDivId).append('<p><a href="#" class="resourceDetails">' + $(this).next().text() + '</a><input class="resourceId" type="hidden" name="' + inputId + '[]" value="' + $(this).val() + '"/></p>');
 			});
 		}
 
 		$(dialogBoxId).dialog('close');
+		WireUpResourceDetailPopups();
 	};
 
 	var AdjustEndDate = function() {
@@ -275,12 +275,13 @@ function Reservation(opts) {
 	};
 
 	var WireUpButtonPrompt = function () {
-		$('#updateButtons').dialog({
+		var updateButtons = $('#updateButtons');
+		updateButtons.dialog({
 			autoOpen: false, modal: true, draggable: false, resizable: false, closeOnEscape: false,
 			minWidth: 700, width: 700, height: 100
 		});
 
-		$('#updateButtons').find('.button').click(function() {
+		updateButtons.find('.button').click(function() {
 			$('#updateButtons').dialog('close');
 		});
 
@@ -304,11 +305,20 @@ function Reservation(opts) {
 		});
 	};
 
+	function WireUpResourceDetailPopups()
+	{
+		$('#resourceNames, #additionalResources').find('.resourceDetails').each(function ()
+		{
+			var resourceId = $(this).siblings(".resourceId").val();
+			$(this).bindResourceDetails(resourceId);
+		});
+	};
+
 	function InitializeCheckboxes(dialogBoxId, displayDivId) {
 		var selectedItems = [];
 		$(displayDivId + ' p').each(function() { selectedItems.push($(this).text()) });
 
-		var resourceId = $('#resourceNames .resourceId').val();
+		var resourceId = $('#resourceNames').find('.resourceId').val();
 
 		$(dialogBoxId + ' :checkbox').each(function() {
 			var checkboxText = $(this).next().text();

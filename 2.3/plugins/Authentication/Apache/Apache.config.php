@@ -1,6 +1,7 @@
+
 <?php
 /**
-Copyright 2011-2012 Nick Korbel
+Copyright 2012 Alois Schloegl
 
 This file is part of phpScheduleIt.
 
@@ -16,30 +17,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
-define('ROOT_DIR', '../');
-
-if (!file_exists(ROOT_DIR . 'config/config.php'))
-{
-	die('Missing config/config.php. Please refer to the installation instructions.');
-}
-
-require_once(ROOT_DIR . 'Pages/LoginPage.php');
-require_once(ROOT_DIR . 'Presenters/LoginPresenter.php');
-
-$page = new LoginPage();
-
-if ($page->LoggingIn())
-{
-    $page->Login();
-}
-
-if ($page->ChangingLanguage())
-{
-    $page->ChangeLanguage();
-}
-
-$page->PageLoad();
-
+$conf['settings']['plugins']['Authentication'] = 'Apache';
 ?>
