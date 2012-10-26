@@ -57,6 +57,13 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 		{/if}
 	</style>
 
+	{if $printCssFiles neq ''}
+		{assign var='PrintCssFileList' value=','|explode:$printCssFiles}
+		{foreach from=$PrintCssFileList item=cssFile}
+		<link rel='stylesheet' type='text/css' href='{$Path}{$cssFile}' media='print' />
+		{/foreach}
+	{/if}
+
 	<script type="text/javascript">
 		$(document).ready(function () {
 		initMenu();
@@ -146,7 +153,7 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 							<li class="menuitem"><a href="{$Path}admin/manage_admin_groups.php">{translate key="ManageGroups"}</a>
 
 						{/if}
-						{if $CanViewResourceAdmin || CanViewScheduleAdmin}
+						{if $CanViewResourceAdmin || $CanViewScheduleAdmin}
 							<li class="menuitem"><a href="{$Path}admin/manage_admin_resources.php">{translate key="ManageResources"}</a></li>
 							<li class="menuitem"><a href="{$Path}admin/manage_blackouts.php">{translate key="ManageBlackouts"}</a></li>
 						{/if}

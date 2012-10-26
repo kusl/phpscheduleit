@@ -1,5 +1,4 @@
-<?php
-/**
+{*
 Copyright 2011-2012 Nick Korbel
 
 This file is part of phpScheduleIt.
@@ -16,34 +15,29 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
- */
+*}
+{include file='..\..\tpl\Email\emailheader.tpl'}
+	
+	Reservation Details:
+	<br/>
+	<br/>
+	
+	Starting: {formatdate date=$StartDate key=reservation_email}<br/>
+	Ending: {formatdate date=$EndDate key=reservation_email}<br/>
+	Resource: {$ResourceName}<br/>
+	Title: {$Title}<br/>
+	Description: {$Description|nl2br}<br/>
+	
+	{if count($RepeatDates) gt 0}
+		<br/>
+		The following dates have been removed:
+		<br/>
+	{/if}
+	
+	{foreach from=$RepeatDates item=date name=dates}
+		{formatdate date=$date}<br/>
+	{/foreach}
 
-define('ROOT_DIR', '../../../');
-
-require_once(ROOT_DIR . 'lib/Common/namespace.php');
-
-try
-{
-	ob_clean();
-	require_once(ROOT_DIR . 'lib/external/securimage/securimage.php');
-
-	$img = new securimage();
-
-	// configure the captcha display
-	$img->image_width = 280;
-	$img->image_height = 100;
-	$img->code_length = 6;
-	$img->image_bg_color = new Securimage_Color("#ffffff");
-	$img->text_color = new Securimage_Color("#000000");
-	$img->noise_color = $img->text_color;
-	$img->line_color = new Securimage_Color("#cccccc");
-
-	$img->show();
-}
-catch (Exception $ex)
-{
-	Log::Error('Error showing captcha image: %s', $ex);
-}
-
-
-?>
+	<a href="{$ScriptUrl}">Log in to phpScheduleIt</a>
+	
+{include file='..\..\tpl\Email\emailfooter.tpl'}
