@@ -24,6 +24,7 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 <head>
 	<title>{if $TitleKey neq ''}{translate key=$TitleKey args=$TitleArgs}{else}{$Title}{/if}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset={$Charset}"/>
+	<meta name="robots" content="noindex" />
 {if $ShouldLogout}
 	<meta http-equiv="REFRESH" content="{$SessionTimeoutSeconds};URL={$Path}logout.php?{QueryStringKeys::REDIRECT}={$smarty.server.REQUEST_URI|urlencode}">
 {/if}
@@ -42,7 +43,7 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 		@import url({$Path}css/nav.css);
 		@import url({$Path}css/style.css);
 		{if $UseLocalJquery}
-			@import url({$Path}scripts/css/smoothness/jquery-ui-1.9.0.custom.css);
+			@import url({$Path}scripts/css/smoothness/jquery-ui-1.9.0.custom.min.css);
 		{else}
 			@import url(//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/smoothness/jquery-ui.css);
 		{/if}
