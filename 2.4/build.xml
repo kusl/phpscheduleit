@@ -151,7 +151,7 @@
 		<mkdir dir="${stagingdir}"/>
 		<copy todir="${stagingdir}" includeemptydirs="true">
 			<fileset dir=".">
-				<include name="**/*"/>
+				<include name="**/*"/>			
 				<exclude name="**.psd"/>
 				<exclude name="**.bak"/>
 				<exclude name="*test*"/>
@@ -161,7 +161,6 @@
 				<exclude name="**/tests/**"/>
 				<exclude name="**/docs/**"/>
 				<exclude name="tpl_c/*.php"/>
-				<exclude name=".*"/>
 				<exclude name=".*/**"/>
 				<exclude name=".idea/**"/>
 				<exclude name=".settings/**"/>
