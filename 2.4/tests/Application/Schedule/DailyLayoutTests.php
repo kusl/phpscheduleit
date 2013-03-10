@@ -115,25 +115,31 @@ class DailyLayoutTests extends TestBase
 		$labels = $layout->GetPeriods($displayDate, true);
 
 		$i=0;
-		$this->assertEquals('12:00', $labels[$i++]->Label($displayDate));
+		$this->assertEquals('12:00', $labels[$i]->Label($displayDate));
 		$this->assertEquals(1, $labels[$i]->Span());
-		$this->assertEquals('06:30', $labels[$i++]->Label($displayDate));
+		$i++;
+		$this->assertEquals('06:30', $labels[$i]->Label($displayDate));
 		$this->assertEquals(1, $labels[$i]->Span());
-		$this->assertEquals('07:30', $labels[$i++]->Label($displayDate));
+		$i++;
+		$this->assertEquals('07:30', $labels[$i]->Label($displayDate));
 		$this->assertEquals(1, $labels[$i]->Span());
-		$this->assertEquals('08:00', $labels[$i++]->Label($displayDate));
+		$i++;
+		$this->assertEquals('08:00', $labels[$i]->Label($displayDate));
 		$this->assertEquals(4, $labels[$i]->Span());
-		$this->assertEquals('09:00', $labels[$i++]->Label($displayDate));
+		$i++;
+		$this->assertEquals('09:00', $labels[$i]->Label($displayDate));
 		$this->assertEquals(2, $labels[$i]->Span());
-		$this->assertEquals('10:00', $labels[$i++]->Label($displayDate));
+		$i++;
+		$this->assertEquals('10:00', $labels[$i]->Label($displayDate));
 		$this->assertEquals(1, $labels[$i]->Span());
-		$this->assertEquals('11:00', $labels[$i++]->Label($displayDate));
+		$i++;
+		$this->assertEquals('11:00', $labels[$i]->Label($displayDate));
+		$this->assertEquals(2, $labels[$i]->Span());
+		$i++;
+		$this->assertEquals('02:00', $labels[$i]->Label($displayDate));
 		$this->assertEquals(1, $labels[$i]->Span());
-		$this->assertEquals('11:30', $labels[$i++]->Label($displayDate));
-		$this->assertEquals(1, $labels[$i]->Span());
-		$this->assertEquals('02:00', $labels[$i++]->Label($displayDate));
-		$this->assertEquals(1, $labels[$i]->Span());
-		$this->assertEquals('05:30', $labels[$i++]->Label($displayDate));
+		$i++;
+		$this->assertEquals('05:30', $labels[$i]->Label($displayDate));
 		$this->assertEquals(1, $labels[$i]->Span());
 	}
 }

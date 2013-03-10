@@ -19,6 +19,8 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once(ROOT_DIR . 'lib/Common/Helpers/StopWatch.php');
+require_once(ROOT_DIR . 'Domain/ScheduleLayout.php');
+require_once(ROOT_DIR . 'Domain/SchedulePeriod.php');
 
 interface IDailyLayout
 {
@@ -145,12 +147,13 @@ class DailyLayout implements IDailyLayout
 				$span = 0;
 				$nextPeriodTime = $periodStart->AddMinutes(60);
 				$tempPeriod = $currentPeriod;
-				while($tempPeriod->BeginDate()->LessThan($nextPeriodTime))
+				while ($tempPeriod->BeginDate()->LessThan($nextPeriodTime))
 				{
 					$span++;
 					$i++;
 					$tempPeriod = $periods[$i];
 				}
+				$i--;
 
 			}
 			$periodsToReturn[] = new SpanablePeriod($currentPeriod, $span);
@@ -183,8 +186,9 @@ class SpanablePeriod extends SchedulePeriod
 {
 	private $span = 1;
 
-	public function __construct(SchedulePeriod $period)
+	public function __construct(SchedulePeriod $period, $span = 1)
 	{
+		$this->span = $span;
 		parent::__construct($period->BeginDate(), $period->EndDate(), $period->_label);
 	}
 
