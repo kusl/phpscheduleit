@@ -101,7 +101,7 @@ td.reserved.pending.hilite {
 	background-color: #ffc973;
 }
 
-td.reservable.hilite {
+td.reservable.hilite, #reservations .ui-selecting {
 	background-color: #23BF35;
 }
 
@@ -109,7 +109,7 @@ td.hilite {
 	cursor: pointer;
 }
 
-td.reservable.clicked {
+td.reservable.clicked, #reservations .ui-selected {
 	background-color: #259433;
 }
 
