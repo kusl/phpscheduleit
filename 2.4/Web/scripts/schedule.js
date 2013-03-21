@@ -26,13 +26,13 @@ function Schedule(opts)
 			$(this).removeClass('clicked');
 		});
 
-//		reservations.delegate('.reservable', 'click', function ()
-//		{
-//			var start = $('.start', this).val();
-//			var end = $('.end', this).val();
-//			var link = $('.href', this).val();
-//			window.location = link + "&sd=" + start + "&ed=" + end;
-//		});
+		reservations.delegate('.reservable', 'click', function ()
+		{
+			var start = $('.start', this).val();
+			var end = $('.end', this).val();
+			var link = $('.href', this).val();
+			window.location = link + "&sd=" + start + "&ed=" + end;
+		});
 
 		this.initResources();
 		this.initNavigation();
@@ -193,7 +193,8 @@ function Schedule(opts)
 		};
 
 		reservationsElement.selectable({
-			filter: '.reservable',
+			filter: 'td.reservable',
+			distance: 20,
 			start: function (event, ui)
 			{
 				startHref = '';
@@ -208,8 +209,11 @@ function Schedule(opts)
 			},
 			stop: function (event, ui)
 			{
-				window.location = href + "&sd=" + startDate + "&ed=" + endDate;
-				console.log('Start:' + startDate + ' end:' + endDate);
+				if (href != '' && startDate != '' && endDate != '')
+				{
+					window.location = href + "&sd=" + startDate + "&ed=" + endDate;
+					console.log('Start:' + startDate + ' end:' + endDate);
+				}
 			}
 		});
 	}
