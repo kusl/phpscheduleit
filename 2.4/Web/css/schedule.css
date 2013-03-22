@@ -92,6 +92,14 @@ td.reserved.mine.hilite {
 	color: #ffffff;
 }
 
+td.reserved.participating, div.reserved.participating {
+	background-color: #875cae;
+}
+
+td.reserved.participating.hilite {
+	background-color: #a979d1;
+}
+
 td.reserved.pending, div.reserved.pending {
 	background-color: #ffb540;
 	color: #ffffff;
