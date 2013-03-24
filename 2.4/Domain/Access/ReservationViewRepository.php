@@ -949,6 +949,7 @@ class ReservationItemView implements IReservedItemView
 		$this->OwnerOrganization = $userOrganization;
 		$this->OwnerPosition = $userPosition;
 		$this->UserId = $userId;
+		$this->UserLevelId = $userLevelId;
 
 		if (!empty($startDate) && !empty($endDate))
 		{
@@ -1097,6 +1098,11 @@ class ReservationItemView implements IReservedItemView
 	public function GetDuration()
 	{
 		return $this->StartDate->GetDifference($this->EndDate);
+	}
+
+	public function IsUserOwner($userId)
+	{
+		return $this->UserId == $userId && $this->UserLevelId == ReservationUserLevel::OWNER;
 	}
 
 	/**
