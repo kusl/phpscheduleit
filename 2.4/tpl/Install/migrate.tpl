@@ -17,14 +17,21 @@ You should have received a copy of the GNU General Public License
 along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{include file='globalheader.tpl' Title='phpScheduleIt v2.0 Migration'}
+{include file='globalheader.tpl' Title='phpScheduleIt v2 Migration'}
 
 <h1>Migrate phpScheduleIt v1.2 to v2.x (MySQL only)</h1>
 
-<div id="migratingSchedules" class="hidden">Migrating schedules {html_image src="admin-ajax-indicator.gif"}</div>
-<div id="migratedSchedules" class="hidden">
-	<span class="migratedCount">-</span> out of <span class="legacyCount">-</span>
-	<span class="percentComplete">-</span>%</div>
+<div class="migratingElements hidden">Migrating <span
+			class="elementType"></span> {html_image src="admin-ajax-indicator.gif"}</div>
+<div class="migratedElements hidden">
+	Migrated <span class="migratedCount">-</span> out of <span class="legacyCount">-</span>
+	<span class="percentComplete">-</span>% <span class="elementType"></span>
+</div>
+
+<div id="migrationResults">
+
+</div>
+
 <div>
 	{if $ShowResults}
 		Migrated {$SchedulesMigratedCount} Schedules
@@ -43,51 +50,79 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 		<script type="text/javascript">
 			function Migration()
 			{
-//				function poll()
-//				{
-//					setTimeout(function ()
-//					{
-//						$.ajax({
-//							url: "migrate.php?check=schedules",
-//							type: "GET",
-//							success: function (data)
-//							{
-//								console.log(data);
-//							},
-//							dataType: "json",
-//							complete: poll,
-//							timeout: 2000
-//						})
-//					}, 5000);
-//				}
+				var migratingElements = $('.migratingElements');
+				var migratedElements = $('.migratedElements');
+				var migrationResults = $('#migrationResults');
 
-				var migratingSchedules = $('#migratingSchedules');
-				var migratedSchedules = $('#migratedSchedules');
-				var startSchedules = function ()
+				var startMigration = function (migrateParams)
 				{
-					migratingSchedules.show();
+					var elementType = migrateParams.elementType;
+					var migrating = $('#migrating-' + elementType);
+					var migrated = $('#migrated-' + elementType);
+					if (!$.contains(migrationResults, $('#migrating-' + elementType)))
+					{
+						migrating = migratingElements.clone();
+						migrating.attr('id', 'migrating-' + elementType);
+						migrating.appendTo(migrationResults);
+					}
+					if (!$.contains(migrationResults, $('#migrated-' + elementType)))
+					{
+						migrated = migratedElements.clone();
+						migrated.attr('id', 'migrated-' + elementType);
+						migrated.appendTo(migrationResults);
+					}
+
+					migrating.find('.elementType').text(elementType);
+					migrated.find('.elementType').text(elementType);
+					migrating.show();
+
 					$.ajax({
-						url: "migrate.php?start=schedules",
+						url: "migrate.php?start=" + elementType,
 						type: "GET",
 						success: function (data)
 						{
-							migratedSchedules.find('.migratedCount').text(data.MigratedCount);
-							migratedSchedules.find('.legacyCount').text(data.LegacyCount);
-							migratedSchedules.find('.percentComplete').text(data.PercentComplete);
-							migratedSchedules.show();
-							console.log(data);
+							migrated.find('.migratedCount').text(data.MigratedCount);
+							migrated.find('.legacyCount').text(data.LegacyCount);
+							migrated.find('.percentComplete').text(data.PercentComplete);
+							migrated.show();
+							console.log('Migrating data ' + elementType);
 							if (data.RemainingCount > 0)
 							{
-								startSchedules();
+								migrateParams.current();
 							}
 							else
 							{
-								migratingSchedules.hide();
-								//startResources();
+								migrating.hide();
+								if (migrateParams.next != null)
+								{
+									migrateParams.next();
+								}
 							}
 						},
 						dataType: "json"
 					});
+				};
+
+				var startResources = function ()
+				{
+					startMigration(
+							{
+								elementType: 'resources',
+								current: startResources,
+								next: null
+							}
+					);
+				};
+
+				var startSchedules = function ()
+				{
+					startMigration(
+							{
+								elementType: 'schedules',
+								current: startSchedules,
+								next: startResources
+							}
+					);
 				};
 
 				this.run = function ()
