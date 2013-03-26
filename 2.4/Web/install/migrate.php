@@ -39,6 +39,11 @@ class MigrationPage extends Page
 		$this->presenter = new MigrationPresenter($this);
 	}
 
+	protected function GetShouldAutoLogout()
+	{
+		return false;
+	}
+
 	public function PageLoad()
 	{
 		$this->presenter->PageLoad();
@@ -51,10 +56,22 @@ class MigrationPage extends Page
 		return !empty($buttonValue);
 	}
 
+	public function SetScheduleProgress($numberPending)
+	{
+		$this->SetJson($numberPending);
+	}
+
 	public function DisplayResults()
 	{
-		$this->Set('ShowResults', true);
+		//$this->Set('ShowResults', true);
+		$this->Set('StartMigration', true);
 		$this->Display('Install/migrate.tpl');
+	}
+
+	public function RunningSchedules()
+	{
+		$val = $this->GetQuerystring('start');
+		return !empty($val);
 	}
 
 	public function DisplayMigrationPrompt()
@@ -126,8 +143,49 @@ class MigrationPage extends Page
 	{
 		$this->Set('InstallPasswordFailed', !$passwordValid);
 	}
+}
 
+class MigrationSession
+{
+	public static function SetPasswordOK($value)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-password-ok', $value);
+	}
 
+	public static function ClearLegacyDb()
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-db', null);
+	}
+
+	public static function GetLegacyDb()
+	{
+		return ServiceLocator::GetServer()->GetSession('migrate-legacy-db');
+	}
+
+	public static function SetLegacyDb($legacyUserName, $legacyPassword, $legacyHostSpec, $legacyDatabaseName)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-db', array(
+			'username' => $legacyUserName,
+			'password' => $legacyPassword,
+			'hostspec' => $legacyHostSpec,
+			'databasename' => $legacyDatabaseName
+		));
+	}
+
+	public static function SetLastScheduleId($legacyScheduleId)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-scheduleid', $legacyScheduleId);
+	}
+
+	public static function GetLastScheduleId()
+	{
+		$id = ServiceLocator::GetServer()->GetSession('migrate-legacy-scheduleid');
+		if (empty($id))
+		{
+			return 0;
+		}
+		return $id;
+	}
 }
 
 class MigrationPresenter
@@ -144,11 +202,18 @@ class MigrationPresenter
 
 	public function PageLoad()
 	{
-		if ($this->page->IsRunningMigration())
+		if ($this->page->RunningSchedules())
 		{
+			$legacyDatabase = new Database($this->GetLegacyConnection());
+			$currentDatabase = ServiceLocator::GetDatabase();
+			$this->MigrateSchedules($legacyDatabase, $currentDatabase);
+		}
+		elseif ($this->page->IsRunningMigration())
+		{
+
 			if ($this->TestInstallPassword() && $this->TestLegacyConnection())
 			{
-				$this->Migrate();
+				//$this->Migrate();
 				$this->page->DisplayResults();
 			}
 			else
@@ -180,13 +245,26 @@ class MigrationPresenter
 	 */
 	private function GetLegacyConnection()
 	{
-		$legacyUserName = $this->page->GetLegacyUserName();
-		$legacyPassword = $this->page->GetLegacyPassword();
-		$legacyHostSpec = $this->page->GetLegacyHostSpec();
-		$legacyDatabaseName = $this->page->GetLegacyDatabaseName();
+		$sessionValues = MigrationSession::GetLegacyDb();
+
+		if (!empty($sessionValues))
+		{
+			$legacyUserName = $sessionValues['username'];
+			$legacyPassword = $sessionValues['password'];
+			$legacyHostSpec = $sessionValues['hostspec'];
+			$legacyDatabaseName = $sessionValues['databasename'];
+		}
+		else
+		{
+			$legacyUserName = $this->page->GetLegacyUserName();
+			$legacyPassword = $this->page->GetLegacyPassword();
+			$legacyHostSpec = $this->page->GetLegacyHostSpec();
+			$legacyDatabaseName = $this->page->GetLegacyDatabaseName();
+
+			MigrationSession::SetLegacyDb($legacyUserName, $legacyPassword, $legacyHostSpec, $legacyDatabaseName);
+		}
 
 		return new MySqlConnection($legacyUserName, $legacyPassword, $legacyHostSpec, $legacyDatabaseName);
-
 	}
 
 	/**
@@ -203,6 +281,7 @@ class MigrationPresenter
 			return true;
 		} catch (Exception $ex)
 		{
+			MigrationSession::ClearLegacyDb();
 			$this->page->SetLegacyConnectionSucceeded(false);
 			return false;
 		}
@@ -217,24 +296,26 @@ class MigrationPresenter
 
 		if (empty($password) || $password != $this->page->GetInstallPassword())
 		{
+			MigrationSession::SetPasswordOK(null);
 			$this->page->SetInstallPasswordSucceeded(false);
 			return false;
 		}
 		$this->page->SetInstallPasswordSucceeded(true);
+		MigrationSession::SetPasswordOK(true);
 		return true;
 	}
 
 	private function MigrateSchedules(Database $legacyDatabase, Database $currentDatabase)
 	{
-		Log::Debug('Start migrating schedules');
+		$lastScheduleId = MigrationSession::GetLastScheduleId();
+		Log::Debug('Start migrating schedules. Starting at scheduleid %s', $lastScheduleId);
 
 		$schedulesMigrated = 0;
 		$scheduleRepo = new ScheduleRepository();
 
-		$getLegacySchedules = new AdHocCommand('select scheduleid, scheduletitle, daystart, dayend, timespan,
+		$getLegacySchedules = new AdHocCommand("select scheduleid, scheduletitle, daystart, dayend, timespan,
                 timeformat, weekdaystart, viewdays, usepermissions, ishidden, showsummary, adminemail, isdefault
-                from schedules');
-
+                from schedules where scheduleid > $lastScheduleId order by scheduleid limit 0, 1000");
 
 		$getExistingSchedules = new AdHocCommand('select legacyid from schedules');
 		$reader = $currentDatabase->Query($getExistingSchedules);
@@ -249,7 +330,8 @@ class MigrationPresenter
 
 		while ($row = $reader->GetRow())
 		{
-			if (in_array($row['scheduleid'], $knownIds))
+			$legacyScheduleId = $row['scheduleid'];
+			if (in_array($legacyScheduleId, $knownIds))
 			{
 				continue;
 			}
@@ -267,10 +349,17 @@ class MigrationPresenter
 			$scheduleRepo->AddScheduleLayout($newId, $layout);
 
 			$schedulesMigrated++;
+			MigrationSession::SetLastScheduleId($legacyScheduleId);
 		}
 
 		Log::Debug('Done migrating schedules (%s schedules)', $schedulesMigrated);
 
+		$getLegacyCount = new AdHocCommand('select count(*) as count from schedules');
+		$getMigratedCount = new AdHocCommand('select count(*) as count from schedules where legacyid is not null');
+
+		$progressCounts = $this->GetProgressCounts($getLegacyCount, $getMigratedCount);
+
+		$this->page->SetScheduleProgress($progressCounts);
 		$this->page->SetSchedulesMigrated($schedulesMigrated);
 	}
 
@@ -660,8 +749,7 @@ class MigrationPresenter
 
 					$newId = $reservation->SeriesId();
 					$currentDatabase->Execute(new AdHocCommand("update reservation_series set legacyid = \"$legacyId\" where series_id = $newId"));
-				}
-				catch (Exception $ex)
+				} catch (Exception $ex)
 				{
 					Log::Error('Error migrating reservation %s. Exception: %s', $legacyId, $ex);
 				}
@@ -735,6 +823,43 @@ class MigrationPresenter
 
 		return DateRange::Create($s, $e, Configuration::Instance()->GetKey(ConfigKeys::SERVER_TIMEZONE));
 	}
+
+	private function GetProgressCounts($legacyCountCommand, $migratedCountCommand)
+	{
+		$legacyCount = 0;
+		$migratedCount = 0;
+
+		$legacyDb = new Database($this->GetLegacyConnection());
+		$reader = $legacyDb->Query($legacyCountCommand);
+		if ($row = $reader->GetRow())
+		{
+			$legacyCount = $row['count'];
+		}
+
+		$reader = ServiceLocator::GetDatabase()->Query($migratedCountCommand);
+		if ($row = $reader->GetRow())
+		{
+			$migratedCount = $row['count'];
+		}
+
+		return new ProgressCounts($legacyCount, $migratedCount);
+	}
+}
+
+class ProgressCounts
+{
+	public $LegacyCount = 0;
+	public $MigratedCount = 0;
+	public $RemainingCount = 0;
+	public $PercentComplete = 0;
+
+	public function __construct($legacyCount, $migratedCount)
+	{
+		$this->LegacyCount = $legacyCount;
+		$this->MigratedCount = $migratedCount;
+		$this->RemainingCount = $legacyCount - $migratedCount;
+		$this->PercentComplete = ($migratedCount / $legacyCount) * 100;
+	}
 }
 
 class MigrateBookableResource extends BookableResource
@@ -747,7 +872,5 @@ class MigrateBookableResource extends BookableResource
 
 $page = new MigrationPage();
 $page->PageLoad();
-
-
 
 ?>
