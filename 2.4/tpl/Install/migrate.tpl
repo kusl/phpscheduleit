@@ -32,10 +32,12 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 
 </div>
 
-<div id="#done" class="hidden">
+<div id="done" class="hidden">
 Done!
 </div>
 
+<div id="errorMessage" class="error hidden">There was an error running the migration. See details below.</div>
+<div id="errorContents" class="hidden" style="width:100%"></div>
 <div>
 	{if $StartMigration}
 		<script type="text/javascript">
@@ -94,10 +96,16 @@ Done!
 								}
 							}
 						},
+						error: function(data)
+						{
+							migrating.hide();
+							migrated.hide();
+							$('#errorMessage').show();
+							$('#errorContents').text(JSON.stringify(data)).show();
+						},
 						dataType: "json"
 					});
 				};
-
 
 				var startSchedules = function ()
 				{

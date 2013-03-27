@@ -39,6 +39,11 @@ class MigrationPage extends Page
 		$this->presenter = new MigrationPresenter($this);
 	}
 
+	public function SetError($ex)
+	{
+		$this->SetJsonError($ex);
+	}
+
 	protected function GetShouldAutoLogout()
 	{
 		return false;
@@ -286,32 +291,38 @@ class MigrationPresenter
 
 	private function Migrate($runTarget)
 	{
-		$legacyDatabase = $this->GetLegacyDatabase();
-		$currentDatabase = ServiceLocator::GetDatabase();
+		try
+		{
+			$legacyDatabase = $this->GetLegacyDatabase();
+			$currentDatabase = ServiceLocator::GetDatabase();
 
-		if ($runTarget == 'schedules')
+			if ($runTarget == 'schedules')
+			{
+				$this->MigrateSchedules($legacyDatabase, $currentDatabase);
+			}
+			if ($runTarget == 'resources')
+			{
+				$this->MigrateResources($legacyDatabase, $currentDatabase);
+			}
+			if ($runTarget == 'accessories')
+			{
+				$this->MigrateAccessories($legacyDatabase, $currentDatabase);
+			}
+			if ($runTarget == 'groups')
+			{
+				$this->MigrateGroups($legacyDatabase, $currentDatabase);
+			}
+			if ($runTarget == 'users')
+			{
+				$this->MigrateUsers($legacyDatabase, $currentDatabase);
+			}
+			if ($runTarget == 'reservations')
+			{
+				$this->MigrateReservations($legacyDatabase, $currentDatabase);
+			}
+		} catch (Exception $ex)
 		{
-			$this->MigrateSchedules($legacyDatabase, $currentDatabase);
-		}
-		if ($runTarget == 'resources')
-		{
-			$this->MigrateResources($legacyDatabase, $currentDatabase);
-		}
-		if ($runTarget == 'accessories')
-		{
-			$this->MigrateAccessories($legacyDatabase, $currentDatabase);
-		}
-		if ($runTarget == 'groups')
-		{
-			$this->MigrateGroups($legacyDatabase, $currentDatabase);
-		}
-		if ($runTarget == 'users')
-		{
-			$this->MigrateUsers($legacyDatabase, $currentDatabase);
-		}
-		if ($runTarget == 'reservations')
-		{
-			$this->MigrateReservations($legacyDatabase, $currentDatabase);
+			$this->page->SetError($ex);
 		}
 	}
 
