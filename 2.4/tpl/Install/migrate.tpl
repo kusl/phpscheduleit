@@ -25,28 +25,19 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 			class="elementType"></span> {html_image src="admin-ajax-indicator.gif"}</div>
 <div class="migratedElements hidden">
 	Migrated <span class="migratedCount">-</span> out of <span class="legacyCount">-</span>
-	<span class="percentComplete">-</span>% <span class="elementType"></span>
+	<span class="elementType"></span> (<span class="percentComplete">-</span>%)
 </div>
 
 <div id="migrationResults">
 
 </div>
 
+<div id="#done">
+Done!
+</div>
+
 <div>
-	{if $ShowResults}
-		Migrated {$SchedulesMigratedCount} Schedules
-		<br/>
-		Migrated {$ResourcesMigratedCount} Resources
-		<br/>
-		Migrated {$AccessoriesMigratedCount} Accessories
-		<br/>
-		Migrated {$GroupsMigratedCount} Groups
-		<br/>
-		Migrated {$UsersMigratedCount} Users
-		<br/>
-		Migrated {$ReservationsMigratedCount} Reservations
-		<br/>
-	{elseif $StartMigration}
+	{if $StartMigration}
 		<script type="text/javascript">
 			function Migration()
 			{
@@ -59,13 +50,13 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 					var elementType = migrateParams.elementType;
 					var migrating = $('#migrating-' + elementType);
 					var migrated = $('#migrated-' + elementType);
-					if (!$.contains(migrationResults, $('#migrating-' + elementType)))
+					if (migrationResults.find(migrating).length <= 0)
 					{
 						migrating = migratingElements.clone();
 						migrating.attr('id', 'migrating-' + elementType);
 						migrating.appendTo(migrationResults);
 					}
-					if (!$.contains(migrationResults, $('#migrated-' + elementType)))
+					if (migrationResults.find(migrated).length <= 0)
 					{
 						migrated = migratedElements.clone();
 						migrated.attr('id', 'migrated-' + elementType);
@@ -97,22 +88,16 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 								{
 									migrateParams.next();
 								}
+								else
+								{
+									$('#done').show();
+								}
 							}
 						},
 						dataType: "json"
 					});
 				};
 
-				var startResources = function ()
-				{
-					startMigration(
-							{
-								elementType: 'resources',
-								current: startResources,
-								next: null
-							}
-					);
-				};
 
 				var startSchedules = function ()
 				{
@@ -125,11 +110,65 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 					);
 				};
 
+				var startResources = function ()
+				{
+					startMigration(
+							{
+								elementType: 'resources',
+								current: startResources,
+								next: startAccessories
+							}
+					);
+				};
+
+				var startAccessories = function ()
+				{
+					startMigration(
+							{
+								elementType: 'accessories',
+								current: startAccessories,
+								next: startGroups
+							}
+					);
+				};
+
+				var startGroups = function ()
+				{
+					startMigration(
+							{
+								elementType: 'groups',
+								current: startGroups,
+								next: startUsers
+							}
+					);
+				};
+
+				var startUsers = function ()
+				{
+					startMigration(
+							{
+								elementType: 'users',
+								current: startUsers,
+								next: startReservations
+							}
+					);
+				};
+
+				var startReservations = function ()
+				{
+					startMigration(
+							{
+								elementType: 'reservations',
+								current: startReservations,
+								next: null
+							}
+					);
+				};
+
 				this.run = function ()
 				{
 					startSchedules();
-					console.log('starting migration');
-				}
+				};
 			}
 
 			var migration = new Migration();

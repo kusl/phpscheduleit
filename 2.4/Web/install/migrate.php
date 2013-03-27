@@ -61,7 +61,7 @@ class MigrationPage extends Page
 		$this->SetJson($numberPending);
 	}
 
-	public function DisplayResults()
+	public function StartMigration()
 	{
 		$this->Set('StartMigration', true);
 		$this->Display('Install/migrate.tpl');
@@ -170,11 +170,6 @@ class MigrationSession
 		));
 	}
 
-	public static function SetLastScheduleId($legacyScheduleId)
-	{
-		ServiceLocator::GetServer()->SetSession('migrate-legacy-scheduleid', $legacyScheduleId);
-	}
-
 	private static function GetLastId($key)
 	{
 		$id = ServiceLocator::GetServer()->GetSession($key);
@@ -185,19 +180,64 @@ class MigrationSession
 		return $id;
 	}
 
-	public static function GetLastScheduleId()
+	public static function SetLastScheduleRow($schedulesMigrated)
 	{
-		return self::GetLastId('migrate-legacy-scheduleid');
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-schedules', $schedulesMigrated);
 	}
 
-	public static function GetLastResourceId()
+	public static function GetLastScheduleRow()
 	{
-		return self::GetLastId('migrate-legacy-resourceid');
+		return self::GetLastId('migrate-legacy-schedules');
 	}
 
-	public static function SetLastResourceId($legacyResourceId)
+	public static function GetLastResourceRow()
 	{
-		ServiceLocator::GetServer()->SetSession('migrate-legacy-resourceid', $legacyResourceId);
+		return self::GetLastId('migrate-legacy-resources');
+	}
+
+	public static function SetLastResourceRow($resourcesMigrated)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-resources', $resourcesMigrated);
+	}
+
+	public static function SetLastAccessoryRow($accessoriesMigrated)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-accessories', $accessoriesMigrated);
+	}
+
+	public static function GetLastAccessoryRow()
+	{
+		return self::GetLastId('migrate-legacy-accessories');
+	}
+
+	public static function GetLastGroupRow()
+	{
+		return self::GetLastId('migrate-legacy-groups');
+	}
+
+	public static function SetLastGroupRow($groupsMigrated)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-groups', $groupsMigrated);
+	}
+
+	public static function GetLastUserRow()
+	{
+		return self::GetLastId('migrate-legacy-users');
+	}
+
+	public static function SetLastUserRow($usersMigrated)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-users', $usersMigrated);
+	}
+
+	public static function GetLastReservationRow()
+	{
+		return self::GetLastId('migrate-legacy-reservations');
+	}
+
+	public static function SetLastReservationRow($reservationsMigrated)
+	{
+		ServiceLocator::GetServer()->SetSession('migrate-legacy-reservations', $reservationsMigrated);
 	}
 }
 
@@ -226,7 +266,7 @@ class MigrationPresenter
 		{
 			if ($this->TestInstallPassword() && $this->TestLegacyConnection())
 			{
-				$this->page->DisplayResults();
+				$this->page->StartMigration();
 			}
 			else
 			{
@@ -342,7 +382,7 @@ class MigrationPresenter
 
 	private function MigrateSchedules(Database $legacyDatabase, Database $currentDatabase)
 	{
-		$schedulesMigrated = MigrationSession::GetLastScheduleId();
+		$schedulesMigrated = MigrationSession::GetLastScheduleRow();
 		Log::Debug('Start migrating schedules. Starting at row %s', $schedulesMigrated);
 
 		$scheduleRepo = new ScheduleRepository();
@@ -383,7 +423,7 @@ class MigrationPresenter
 			$scheduleRepo->AddScheduleLayout($newId, $layout);
 
 			$schedulesMigrated++;
-			MigrationSession::SetLastScheduleId($schedulesMigrated);
+			MigrationSession::SetLastScheduleRow($schedulesMigrated);
 		}
 
 		Log::Debug('Done migrating schedules (%s schedules)', $schedulesMigrated);
@@ -399,7 +439,7 @@ class MigrationPresenter
 
 	private function MigrateResources(Database $legacyDatabase, Database $currentDatabase)
 	{
-		$resourcesMigrated = MigrationSession::GetLastResourceId();
+		$resourcesMigrated = MigrationSession::GetLastResourceRow();
 		Log::Debug('Start migrating resources. Starting at row %s', $resourcesMigrated);
 
 		$resourceRepo = new ResourceRepository();
@@ -457,7 +497,7 @@ class MigrationPresenter
 			$currentDatabase->Execute(new AdHocCommand("update resources set legacyid = \"{$row['machid']}\" where resource_id = $newId"));
 
 			$resourcesMigrated++;
-			MigrationSession::SetLastResourceId($resourcesMigrated);
+			MigrationSession::SetLastResourceRow($resourcesMigrated);
 		}
 
 		Log::Debug('Done migrating resources (%s resources)', $resourcesMigrated);
@@ -474,9 +514,9 @@ class MigrationPresenter
 
 	private function MigrateAccessories(Database $legacyDatabase, Database $currentDatabase)
 	{
-		Log::Debug('Start migrating accessories');
+		$accessoriesMigrated = MigrationSession::GetLastAccessoryRow();
+		Log::Debug('Start migrating accessories. Starting at row %s', $accessoriesMigrated);
 
-		$accessoriesMigrated = 0;
 		$accessoryRepo = new AccessoryRepository();
 
 		$getExisting = new AdHocCommand('select legacyid from accessories');
@@ -488,7 +528,8 @@ class MigrationPresenter
 			$knownIds[] = $row['legacyid'];
 		}
 
-		$getAccessories = new AdHocCommand('select resourceid, name, number_available from additional_resources');
+		$getAccessories = new AdHocCommand("select resourceid, name, number_available from additional_resources
+		 order by resourceid limit $accessoriesMigrated, 1000");
 
 		$reader = $legacyDatabase->Query($getAccessories);
 
@@ -503,17 +544,24 @@ class MigrationPresenter
 			$currentDatabase->Execute(new AdHocCommand("update accessories set legacyid = \"{$row['resourceid']}\" where accessory_id = $newId"));
 
 			$accessoriesMigrated++;
+			MigrationSession::SetLastAccessoryRow($accessoriesMigrated);
 		}
 
 		Log::Debug('Done migrating accessories (%s accessories)', $accessoriesMigrated);
+		$getLegacyCount = new AdHocCommand('select count(*) as count from additional_resources');
+		$getMigratedCount = new AdHocCommand('select count(*) as count from accessories where legacyid is not null');
+
+		$progressCounts = $this->GetProgressCounts($getLegacyCount, $getMigratedCount);
+
+		$this->page->SetProgress($progressCounts);
 		$this->page->SetAccessoriesMigrated($accessoriesMigrated);
 	}
 
 	private function MigrateGroups(Database $legacyDatabase, Database $currentDatabase)
 	{
-		Log::Debug('Start migrating groups');
+		$groupsMigrated = MigrationSession::GetLastGroupRow();
+		Log::Debug('Start migrating groups. Starting at row %s', $groupsMigrated);
 
-		$groupsMigrated = 0;
 		$groupRepo = new GroupRepository();
 
 		$getExisting = new AdHocCommand('select legacyid from groups');
@@ -525,7 +573,7 @@ class MigrationPresenter
 			$knownIds[] = $row['legacyid'];
 		}
 
-		$getGroups = new AdHocCommand('select groupid, group_name  from groups');
+		$getGroups = new AdHocCommand("select groupid, group_name from groups order by groupid limit $groupsMigrated, 1000");
 
 		$reader = $legacyDatabase->Query($getGroups);
 
@@ -541,19 +589,24 @@ class MigrationPresenter
 			$currentDatabase->Execute(new AdHocCommand("update groups set legacyid = \"{$row['groupid']}\" where group_id = $newId"));
 
 			$groupsMigrated++;
+			MigrationSession::SetLastGroupRow($groupsMigrated);
 		}
 
 		Log::Debug('Done migrating groups (%s groups)', $groupsMigrated);
+
+		$getLegacyCount = new AdHocCommand('select count(*) as count from groups');
+		$getMigratedCount = new AdHocCommand('select count(*) as count from groups where legacyid is not null');
+
+		$progressCounts = $this->GetProgressCounts($getLegacyCount, $getMigratedCount);
+		$this->page->SetProgress($progressCounts);
 
 		$this->page->SetGroupsMigrated($groupsMigrated);
 	}
 
 	private function MigrateUsers(Database $legacyDatabase, Database $currentDatabase)
 	{
-		Log::Debug('Start migrating users');
-
-		$usersMigrated = 0;
-		$userRepo = new UserRepository();
+		$usersMigrated = MigrationSession::GetLastUserRow();
+		Log::Debug('Start migrating users. Starting at row %s', $usersMigrated);
 
 		$getExisting = new AdHocCommand('select legacyid from users');
 		$reader = $currentDatabase->Query($getExisting);
@@ -587,7 +640,8 @@ class MigrationPresenter
 			$groupMap[$row['legacyid']] = $row['group_id'];
 		}
 
-		$getUsers = new AdHocCommand('select memberid, email, password, fname, lname, phone, institution, position, e_add, e_mod, e_del, e_app, e_html, logon_name, is_admin, lang, timezone from login');
+		$getUsers = new AdHocCommand("select memberid, email, password, fname, lname, phone, institution, position, e_add, e_mod, e_del, e_app, e_html, logon_name, is_admin, lang, timezone
+		from login order by memberid limit $usersMigrated, 500");
 		$reader = $legacyDatabase->Query($getUsers);
 
 		while ($row = $reader->GetRow())
@@ -611,7 +665,9 @@ class MigrationPresenter
 				$row['phone'],
 				$row['institution'],
 				$row['position'],
-				AccountStatus::ACTIVE);
+				AccountStatus::ACTIVE,
+				null,
+				null);
 
 			$newId = ServiceLocator::GetDatabase()->ExecuteInsert($registerCommand);
 			$legacypassword = $row['password'];
@@ -627,25 +683,33 @@ class MigrationPresenter
 				}
 			}
 			$usersMigrated++;
+			MigrationSession::SetLastUserRow($usersMigrated);
 		}
 
 		Log::Debug('Done migrating users (%s users)', $usersMigrated);
+
+		$getLegacyCount = new AdHocCommand('select count(*) as count from login');
+		$getMigratedCount = new AdHocCommand('select count(*) as count from users where legacyid is not null');
+
+		$progressCounts = $this->GetProgressCounts($getLegacyCount, $getMigratedCount);
+		$this->page->SetProgress($progressCounts);
 
 		$this->page->SetUsersMigrated($usersMigrated);
 	}
 
 	private function MigrateReservations(Database $legacyDatabase, Database $currentDatabase)
 	{
-		Log::Debug('Start migrating reservations');
+		$reservationsMigrated = MigrationSession::GetLastReservationRow();
+		Log::Debug('Start migrating reservations. Starting at row %s', $reservationsMigrated);
 
-		$reservationsMigrated = 0;
 		$reservationRepository = new ReservationRepository();
 		$blackoutRepository = new BlackoutRepository();
 
-		$getLegacyReservations = new AdHocCommand('select r.resid, machid, scheduleid, start_date, end_date,
+		$getLegacyReservations = new AdHocCommand("select r.resid, machid, scheduleid, start_date, end_date,
             starttime, endtime, created, modified, parentid, is_blackout, is_pending, summary, allow_participation, allow_anon_participation,
             ru.memberid
-            FROM reservations r INNER JOIN reservation_users ru ON r.resid = ru.resid AND owner = 1');
+            FROM reservations r INNER JOIN reservation_users ru ON r.resid = ru.resid AND owner = 1
+            ORDER BY r.resid LIMIT $reservationsMigrated, 100");
 
 		$getExisting = new AdHocCommand('select legacyid from reservation_series');
 		$reader = $currentDatabase->Query($getExisting);
@@ -721,8 +785,6 @@ class MigrationPresenter
 				continue;
 			}
 
-			$reservationsMigrated++;
-
 			$date = $this->BuildDateRange($row['start_date'], $row['starttime'], $row['end_date'], $row['endtime']);
 
 			$mappedUserId = $userMapping[$row['memberid']];
@@ -797,9 +859,20 @@ class MigrationPresenter
 					Log::Error('Error migrating reservation %s. Exception: %s', $legacyId, $ex);
 				}
 			}
+
+			$reservationsMigrated++;
+			MigrationSession::SetLastReservationRow($reservationsMigrated);
 		}
 
 		Log::Debug('Done migrating reservations (%s reservations)', $reservationsMigrated);
+		$getLegacyCount = new AdHocCommand('select count(*) as count from reservations');
+		$getMigratedCount = new AdHocCommand('SELECT
+		(select count(*) from reservation_series where legacyid is not null) +
+		(select count(*) from blackout_series where legacyid is not null )
+		as count');
+
+		$progressCounts = $this->GetProgressCounts($getLegacyCount, $getMigratedCount);
+		$this->page->SetProgress($progressCounts);
 
 		$this->page->SetReservationsMigrated($reservationsMigrated);
 	}
@@ -901,7 +974,14 @@ class ProgressCounts
 		$this->LegacyCount = $legacyCount;
 		$this->MigratedCount = $migratedCount;
 		$this->RemainingCount = $legacyCount - $migratedCount;
-		$this->PercentComplete = ($migratedCount / $legacyCount) * 100;
+		if ($legacyCount > 0)
+		{
+			$this->PercentComplete = round((($migratedCount / $legacyCount) * 100), 2);
+		}
+		else
+		{
+			$this->PercentComplete = 100;
+		}
 	}
 }
 
