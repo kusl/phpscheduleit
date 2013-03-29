@@ -142,7 +142,7 @@ class DailyLayout implements IDailyLayout
 			$periodStart = $currentPeriod->BeginDate();
 			$periodLength = $periodStart->GetDifference($currentPeriod->EndDate())->Hours();
 
-			if ($periodStart->Minute() == 0 && $periodLength < 1)
+			if (!$periods[$i]->IsLabelled() && ($periodStart->Minute() == 0 && $periodLength < 1))
 			{
 				$span = 0;
 				$nextPeriodTime = $periodStart->AddMinutes(60);
