@@ -477,7 +477,7 @@ class Queries
 			[JOIN_TOKEN]
 			WHERE rs.status_id <> 2
 			[AND_TOKEN]
-			GROUP BY ri.reservation_instance_id, ri.series_id
+			GROUP BY ri.reservation_instance_id, rr.resource_id, ri.series_id
 			ORDER BY ri.start_date ASC';
 
 	const GET_RESERVATION_ACCESSORIES =
