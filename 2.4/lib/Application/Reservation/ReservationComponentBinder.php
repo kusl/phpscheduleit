@@ -50,7 +50,7 @@ class ReservationDateBinder implements IReservationComponentBinder
 
 		$layout = $this->scheduleRepository->GetLayout($requestedScheduleId, new ReservationLayoutFactory($timezone));
 		$startPeriods = $layout->GetLayout($startDate);
-		if ($startPeriods[0]->Begin()->Compare($startPeriods[1]->Begin()) > 0)
+		if (count($startPeriods) > 1 && $startPeriods[0]->Begin()->Compare($startPeriods[1]->Begin()) > 0)
 		{
 			$period = array_shift($startPeriods);
 			$startPeriods[] = $period;
