@@ -495,6 +495,7 @@ class en_us extends Language
 		$strings['ConfigureApplication'] = 'Configure phpScheduleIt';
 		$strings['ConfigUpdateSuccess'] = 'Your config file is now up to date!';
 		$strings['ConfigUpdateFailure'] = 'We could not automatically update your config file. Please overwrite the contents of config.php with the following:';
+		$strings['SelectUser'] = 'Select User';
 		// End Install
 
 		// Errors
