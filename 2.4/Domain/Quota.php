@@ -320,7 +320,8 @@ class Quota implements IQuota
 		/** @var $reservation ReservationItemView */
 		foreach ($reservationsWithinRange as $reservation)
 		{
-			if (($series->ContainsResource($reservation->ResourceId) || $series->ScheduleId() == $reservation->ScheduleId) &&
+			if ( ( (!empty($this->resourceId) && $series->ContainsResource($reservation->ResourceId))
+							|| (!empty($this->scheduleId) && $series->ScheduleId() == $reservation->ScheduleId) ) &&
 					!array_key_exists($reservation->ReferenceNumber, $toBeSkipped) &&
 					!$this->willBeDeleted($series, $reservation->ReservationId)
 			)
@@ -441,7 +442,32 @@ class QuotaSearchDates
 	}
 }
 
-class QuotaDurationDay extends QuotaDuration implements IQuotaDuration
+abstract class QuotaDuration implements IQuotaDuration
+{
+	const Day = 'day';
+	const Week = 'week';
+	const Month = 'month';
+
+	/**
+	 * @param ReservationSeries $reservationSeries
+	 * @return array|Date[]
+	 */
+	protected function GetFirstAndLastReservationDates(ReservationSeries $reservationSeries)
+	{
+		/** @var $instances Reservation[] */
+		$instances = $reservationSeries->Instances();
+		usort($instances, array('Reservation', 'Compare'));
+
+		return array($instances[0]->StartDate(), $instances[count($instances) - 1]->EndDate());
+	}
+
+	public function __toString()
+	{
+		return sprintf('QuotaDuration Name=%s', $this->Name());
+	}
+}
+
+class QuotaDurationDay extends QuotaDuration
 {
 	/**
 	 * @param ReservationSeries $reservationSeries
@@ -506,27 +532,7 @@ class QuotaDurationDay extends QuotaDuration implements IQuotaDuration
 	}
 }
 
-abstract class QuotaDuration
-{
-	const Day = 'day';
-	const Week = 'week';
-	const Month = 'month';
-
-	/**
-	 * @param ReservationSeries $reservationSeries
-	 * @return array|Date[]
-	 */
-	protected function GetFirstAndLastReservationDates(ReservationSeries $reservationSeries)
-	{
-		/** @var $instances Reservation[] */
-		$instances = $reservationSeries->Instances();
-		usort($instances, array('Reservation', 'Compare'));
-
-		return array($instances[0]->StartDate(), $instances[count($instances) - 1]->EndDate());
-	}
-}
-
-class QuotaDurationWeek extends QuotaDuration implements IQuotaDuration
+class QuotaDurationWeek extends QuotaDuration
 {
 	/**
 	 * @param ReservationSeries $reservationSeries
@@ -550,7 +556,7 @@ class QuotaDurationWeek extends QuotaDuration implements IQuotaDuration
 
 	/**
 	 * @param Date $date
-	 * @return void
+	 * @return string
 	 */
 	public function GetDurationKey(Date $date)
 	{
@@ -626,9 +632,8 @@ class QuotaDurationWeek extends QuotaDuration implements IQuotaDuration
 	}
 }
 
-class QuotaDurationMonth extends QuotaDuration implements IQuotaDuration
+class QuotaDurationMonth extends QuotaDuration
 {
-
 	/**
 	 * @param ReservationSeries $reservationSeries
 	 * @param string $timezone
@@ -801,6 +806,11 @@ class QuotaLimitCount implements IQuotaLimit
 	{
 		return QuotaUnit::Reservations;
 	}
+
+	public function __toString()
+	{
+		return sprintf('QuotaLimitCount Name=%s, Amount=%s', $this->Name(), $this->Amount());
+	}
 }
 
 class QuotaLimitHours implements IQuotaLimit
@@ -869,6 +879,11 @@ class QuotaLimitHours implements IQuotaLimit
 	public function Name()
 	{
 		return QuotaUnit::Hours;
+	}
+
+	public function __toString()
+	{
+		return sprintf('QuotaLimitHours Name=%s Amount=%s', $this->Name(), $this->Amount());
 	}
 }
 

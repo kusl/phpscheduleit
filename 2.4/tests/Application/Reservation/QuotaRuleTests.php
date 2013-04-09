@@ -155,7 +155,6 @@ class QuotaRuleTests extends TestBase
 		$this->assertFalse($result->IsValid(), 'first quotas was exceeded');
 	}
 
-
 	private function ChecksAgainstQuota($quota, $series, $repo, $schedule, $user, $exceeds = false)
 	{
 		$quota->expects($this->once())
