@@ -103,7 +103,7 @@ class Log
 	 */
 	public static function Error($message, $args = array())
 	{
-		if (!self::GetInstance()->logger->isEnabledFor(LoggerLevel::ERROR))
+		if (!self::GetInstance()->logger->isEnabledFor(LoggerLevel::getLevelError()))
 		{
 			return;
 		}
