@@ -398,7 +398,7 @@ class Queries
 		INNER JOIN group_roles gr ON r.role_id = gr.role_id
 		WHERE gr.group_id = @groupid';
 
-	const GET_REMINDER_NOTICES = 'SELECT
+	const GET_REMINDER_NOTICES = 'SELECT DISTINCT
 		rs.*,
 		ri.*,
 		u.*,
