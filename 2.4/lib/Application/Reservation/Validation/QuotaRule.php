@@ -62,8 +62,7 @@ class QuotaRule implements IReservationValidationRule
 		{
 			if ($quota->ExceedsQuota($reservationSeries, $user, $schedule, $this->reservationViewRepository))
 			{
-				Log::Debug('Quota exceeded. Quota ResourceId=%s, ScheduleId=%s, GroupId=%s, Limit=%s, Duration=%s',
-						   $quota->ResourceId(), $quota->ScheduleId(), $quota->GroupId(), $quota->GetLimit(), $quota->GetDuration());
+				Log::Debug('Quota exceeded. %s', $quota->ToString());
 				return new ReservationRuleResult(false, Resources::GetInstance()->GetString('QuotaExceeded'));
 			}
 		}
