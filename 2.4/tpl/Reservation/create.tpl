@@ -43,7 +43,7 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
             |
             <button id="promptForChangeUsers" type="button" class="button" style="display:inline">
                 <img src="img/users.png"/>
-			{translate key='SelectUser'}
+			{translate key='AllUsers'}
             </button>
         </li>
     </ul>
@@ -60,7 +60,8 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
 				{if $ShowAdditionalResources}
                     <a href="#"
-                       onclick="$('#dialogAddResources').dialog('open'); return false;">({translate key=MoreResources})</a>
+                       onclick="$('#dialogAddResources').dialog('open'); return false;">({translate key=MoreResources}
+                        )</a>
 				{/if}
                     <div id="additionalResources"></div>
                 </div>
@@ -227,7 +228,7 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 {/if}
 </form>
 
-<div id="dialogAddResources" class="dialog" title="{translate key=AddResources}">
+<div id="dialogAddResources" class="dialog" title="{translate key=AddResources}" style="display:none;">
 
 {foreach from=$AvailableResources item=resource}
 	{if $resource->CanAccess}
