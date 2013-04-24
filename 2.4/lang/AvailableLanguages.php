@@ -42,6 +42,7 @@ class AvailableLanguages
         			'he' => new AvailableLanguage('he', 'he.php', 'עברית'),
         			'it_it' => new AvailableLanguage('it_it', 'it_it.php', 'Italiano'),
         			'ja_jp' => new AvailableLanguage('ja_jp', 'ja_jp.php', 'Japanese'),
+					'lt' => new AvailableLanguage('lt', 'lt.php', 'Lietuvių'),
 					'pl' => new AvailableLanguage('pl', 'pl.php', 'Polski'),
 					'pt_br' => new AvailableLanguage('pt_br', 'pt_br.php', 'Portugu&ecirc;s Brasileiro'),
 					'sv_sv' => new AvailableLanguage('sv_sv', 'sv_sv.php', 'Swedish'),
