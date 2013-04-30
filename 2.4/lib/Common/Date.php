@@ -482,15 +482,15 @@ class Date
 
 	private function InitializeParts()
 	{
-		$parts = getdate($this->date->getTimestamp());
+		$parts = explode(' ', $this->date->format('H i s m d Y w'));
 
-		$this->parts['hours'] = $parts['hours'];
-		$this->parts['minutes'] = $parts['minutes'];
-		$this->parts['seconds'] = $parts['seconds'];
-		$this->parts['mon'] = $parts['mon'];
-		$this->parts['mday'] = $parts['mday'];
-		$this->parts['year'] = $parts['year'];
-		$this->parts['wday'] = $parts['wday'];
+		$this->parts['hours'] = $parts[0];
+		$this->parts['minutes'] = $parts[1];
+		$this->parts['seconds'] =$parts[2];
+		$this->parts['mon'] = $parts[3];
+		$this->parts['mday'] = $parts[4];
+		$this->parts['year'] = $parts[5];
+		$this->parts['wday'] = $parts[6];
 	}
 
 	/**
