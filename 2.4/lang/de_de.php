@@ -569,16 +569,16 @@ class de_de extends en_us
         $strings['ResourceReservations'] = 'Ressourcen Reservierungen';
         $strings['Customization'] = 'Anpassungen';
         $strings['Attributes'] = 'Attribute';
-		$strings['AccountActivation'] = 'Benutzerkonto Aktivieren';
-		$strings['ScheduleReservations'] = 'Reservierungsplanung';
-		$strings['Reports'] = 'Berichte';
-		$strings['GenerateReport'] = 'Neuen Bericht erstellen';
-		$strings['MySavedReports'] = 'Meine gespeicherten Berichte';
-		$strings['CommonReports'] = 'Standard Berichte';
-		$strings['ViewDay'] = 'Zeige Tag';
-		$strings['Group'] = 'Gruppe';
-		$strings['ManageConfiguration'] = 'Programm Konfiguration';
-		$strings['LookAndFeel'] = 'Logo und CSS Änderung';
+	$strings['AccountActivation'] = 'Benutzerkonto Aktivieren';
+	$strings['ScheduleReservations'] = 'Reservierungsplanung';
+	$strings['Reports'] = 'Berichte';
+	$strings['GenerateReport'] = 'Neuen Bericht erstellen';
+	$strings['MySavedReports'] = 'Meine gespeicherten Berichte';
+	$strings['CommonReports'] = 'Standard Berichte';
+	$strings['ViewDay'] = 'Zeige Tag';
+	$strings['Group'] = 'Gruppe';
+	$strings['ManageConfiguration'] = 'Programm Konfiguration';
+	$strings['LookAndFeel'] = 'Logo und CSS Änderung';
         // End Page Titles
 
         // Day representations
