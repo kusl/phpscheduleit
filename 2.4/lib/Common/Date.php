@@ -29,7 +29,6 @@ class Date
 	private $date;
 	private $parts;
 	private $timezone;
-	private $timestamp;
 	private $timestring;
 
 	const SHORT_FORMAT = "Y-m-d H:i:s";
@@ -51,7 +50,6 @@ class Date
 
 		$this->date = new DateTime($timestring, new DateTimeZone($this->timezone));
 		$this->timestring = $this->date->format(self::SHORT_FORMAT);
-		$this->timestamp = $this->date->format('U');
 		$this->InitializeParts();
 	}
 
@@ -219,7 +217,7 @@ class Date
 	 */
 	public function Timestamp()
 	{
-		return intval($this->timestamp);
+		return $this->date->getTimestamp();
 	}
 
 	/**
@@ -484,17 +482,15 @@ class Date
 
 	private function InitializeParts()
 	{
-		list($date, $time) = explode(' ', $this->Format('w-' . self::SHORT_FORMAT));
-		list($weekday, $year, $month, $day) = explode("-", $date);
-		list($hour, $minute, $second) = explode(":", $time);
+		$parts = getdate($this->date->getTimestamp());
 
-		$this->parts['hours'] = intval($hour);
-		$this->parts['minutes'] = intval($minute);
-		$this->parts['seconds'] = intval($second);
-		$this->parts['mon'] = intval($month);
-		$this->parts['mday'] = intval($day);
-		$this->parts['year'] = intval($year);
-		$this->parts['wday'] = intval($weekday);
+		$this->parts['hours'] = $parts['hours'];
+		$this->parts['minutes'] = $parts['minutes'];
+		$this->parts['seconds'] = $parts['seconds'];
+		$this->parts['mon'] = $parts['mon'];
+		$this->parts['mday'] = $parts['mday'];
+		$this->parts['year'] = $parts['year'];
+		$this->parts['wday'] = $parts['wday'];
 	}
 
 	/**
