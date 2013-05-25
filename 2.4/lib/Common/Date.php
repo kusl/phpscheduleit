@@ -30,6 +30,7 @@ class Date
 	private $parts;
 	private $timezone;
 	private $timestring;
+	private $timestamp;
 
 	const SHORT_FORMAT = "Y-m-d H:i:s";
 
@@ -50,6 +51,7 @@ class Date
 
 		$this->date = new DateTime($timestring, new DateTimeZone($this->timezone));
 		$this->timestring = $this->date->format(self::SHORT_FORMAT);
+		$this->timestamp = $this->date->format('U');
 		$this->InitializeParts();
 	}
 
@@ -217,7 +219,7 @@ class Date
 	 */
 	public function Timestamp()
 	{
-		return $this->date->getTimestamp();
+		return $this->timestamp;
 	}
 
 	/**
