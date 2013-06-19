@@ -159,6 +159,16 @@ class NullLog4php
 	{
 
 	}
+
+	public function isDebugEnabled()
+	{
+		return false;
+	}
+
+	public function isEnabledFor($anything)
+	{
+		return false;
+	}
 }
 
 ?>
