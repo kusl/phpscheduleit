@@ -18,12 +18,14 @@ along with phpScheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 *}
 {include file='..\..\tpl\Email\emailheader.tpl'}
 	
-Questa � la tua password temporanea di phpScheduleIt : {$TemporaryPassword}
+Here is your temporary phpScheduleIt password: {$TemporaryPassword}
 
 <br/>
 
-La tua vecchia password non funzioner&agrave pi&ugrave.
+Your old password will no longer work.
+<br/>
+<br />
 
-Prego <a href="{$ScriptUrl}">Loggati in phpScheduleIt</a> e cambia la tua password al pi&ugrave presto.
+Please <a href="{$ScriptUrl}">Log in to phpScheduleIt</a> and change your password as soon as possible.
 	
 {include file='..\..\tpl\Email\emailfooter.tpl'}
