@@ -29,34 +29,31 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<link rel="shortcut icon" href="{$Path}favicon.ico"/>
 	<link rel="icon" href="{$Path}favicon.ico"/>
 	{if $UseLocalJquery}
-		<script type="text/javascript" src="{$Path}scripts/js/jquery-1.8.2.min.js"></script>
-		<script type="text/javascript" src="{$Path}scripts/js/jquery-ui-1.9.0.custom.min.js"></script>
+		{jsfile src="js/jquery-1.8.2.min.js"}
+		{jsfile src="js/jquery-ui-1.9.0.custom.min.js"}
 	{else}
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 	{/if}
-	<script type="text/javascript" src="{$Path}scripts/phpscheduleit.js"></script>
-	{*<script type="text/javascript" src="{$Path}scripts/menubar.js"></script>*}
-	<style type="text/css">
-		@import url({$Path}css/normalize.css);
-		@import url({$Path}css/nav.css);
-		@import url({$Path}css/style.css);
+	{jsfile src="phpscheduleit.js"}
+		{cssfile src="normalize.css"}
+		{cssfile src="nav.css"}
+		{cssfile src="style.css"}
 		{if $UseLocalJquery}
-			@import url({$Path}scripts/css/smoothness/jquery-ui-1.9.0.custom.min.css);
+			{cssfile src="scripts/css/smoothness/jquery-ui-1.9.0.custom.min.css"}
 		{else}
-			@import url(//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/smoothness/jquery-ui.css);
+			<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/smoothness/jquery-ui.css" type="text/css"></link>
 		{/if}
 		{if $cssFiles neq ''}
 			{assign var='CssFileList' value=','|explode:$cssFiles}
 			{foreach from=$CssFileList item=cssFile}
-			@import url({$Path}{$cssFile});
+				{cssfile src=$cssFile}
 			{/foreach}
 		{/if}
-		@import url('{$Path}css/{$CssUrl}');
+		{cssfile src=$CssUrl}
 		{if $CssExtensionFile neq ''}
-			@import url('{$CssExtensionFile}');
+			{cssfile src=$CssExtensionFile}
 		{/if}
-	</style>
 
 	{if $printCssFiles neq ''}
 		{assign var='PrintCssFileList' value=','|explode:$printCssFiles}
