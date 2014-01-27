@@ -128,6 +128,24 @@ class ResourcesWebServiceTests extends TestBase
 
 		$this->assertEquals(new ResourceStatusReasonsResponse($this->server, $reasons), $this->server->_LastResponse);
 	}
-}
+	
+	public function testGetsAllResourceAvailability()
+	{
+		$this->fail('todo');
+	}
 
-?>
+	public function testGetsAllResourceAvailabilityForARequestTime()
+	{
+		$this->fail('todo');
+	}
+
+	public function testGetsSingleResourceAvailability()
+	{
+		$this->fail('todo');
+	}
+
+	public function testGetsSingleResourceAvailabilityForARequestTime()
+	{
+		$this->fail('todo');
+	}
+}
