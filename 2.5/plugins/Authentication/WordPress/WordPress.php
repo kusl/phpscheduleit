@@ -169,5 +169,3 @@ class WordPress extends Authentication implements IAuthentication
 		);
 	}
 }
-
-?>
