@@ -26,6 +26,8 @@ require_once(ROOT_DIR . 'WebServices/Responses/ResourcesResponse.php');
 require_once(ROOT_DIR . 'WebServices/Responses/CustomAttributeResponse.php');
 require_once(ROOT_DIR . 'WebServices/Responses/Resource/ResourceStatusResponse.php');
 require_once(ROOT_DIR . 'WebServices/Responses/Resource/ResourceStatusReasonsResponse.php');
+require_once(ROOT_DIR . 'WebServices/Responses/Resource/ResourceAvailabilityResponse.php');
+require_once(ROOT_DIR . 'WebServices/Responses/Resource/ResourceReference.php');
 
 class ResourcesWebService
 {
@@ -44,12 +46,20 @@ class ResourcesWebService
 	 */
 	private $attributeService;
 
-	public function __construct(IRestServer $server, IResourceRepository $resourceRepository,
-								IAttributeService $attributeService)
+	/**
+	 * @var IReservationViewRepository
+	 */
+	private $reservationRepository;
+
+	public function __construct(IRestServer $server,
+								IResourceRepository $resourceRepository,
+								IAttributeService $attributeService,
+								IReservationViewRepository $reservationRepository)
 	{
 		$this->server = $server;
 		$this->resourceRepository = $resourceRepository;
 		$this->attributeService = $attributeService;
+		$this->reservationRepository = $reservationRepository;
 	}
 
 	/**
@@ -117,6 +127,98 @@ class ResourcesWebService
 
 		$this->server->WriteResponse(new ResourceStatusReasonsResponse($this->server, $reasons));
 	}
-}
 
-?>
+	/**
+	 * @name GetAvailability
+	 * @description Returns resource availability for the requested time
+	 * Optional query string parameter: dateTime. If no dateTime is requested the current datetime will be used.
+	 * @response ResourcesAvailabilityResponse
+	 * @return void
+	 */
+	public function GetAvailability()
+	{
+		$requestedTime = Date::Now();
+		$resources = $this->resourceRepository->GetResourceList();
+		$reservations = $this->reservationRepository->GetReservationList(Date::Now()->AddDays(-1), Date::Now()->AddDays(1));
+
+		$indexedReservations = array();
+
+		foreach ($reservations as $reservation)
+		{
+			$key = $reservation->GetResourceId();
+			if (!array_key_exists($key, $indexedReservations))
+			{
+				$indexedReservations[$key] = array();
+			}
+
+			$indexedReservations[$key][] = $reservation;
+		}
+
+		$resourceAvailability = array();
+
+		foreach ($resources as $resource)
+		{
+			$resourceId = $resource->GetResourceId();
+			$conflict = null;
+			$nextReservation = null;
+			$opening = null;
+
+			if (array_key_exists($resourceId, $indexedReservations))
+			{
+				$resourceReservations = $indexedReservations[$resourceId];
+
+				/** @var $reservation ReservationItemView */
+				foreach ($resourceReservations as $i => $reservation)
+				{
+					if ($conflict == null && $reservation->BufferedTimes()->Overlaps(new DateRange($requestedTime, $requestedTime)))
+					{
+						$conflict = $reservation;
+					}
+
+					if ($nextReservation == null &&	$reservation->StartDate->GreaterThan($requestedTime))
+					{
+						$nextReservation = $reservation;
+					}
+				}
+
+				$opening = $this->GetOpeningAfter($resourceReservations, $requestedTime);
+
+				if ($opening == null && $conflict != null)
+				{
+					$opening = $conflict->BufferedTimes()->GetEnd();
+				}
+			}
+
+			$resourceAvailability[] = new ResourceAvailabilityResponse($this->server, $resource, $conflict, $nextReservation, $opening);
+		}
+
+		$this->server->WriteResponse(new ResourcesAvailabilityResponse($this->server, $resourceAvailability));
+	}
+
+	/**
+	 * @param ReservationItemView[] $reservations
+	 * @param Date $requestedTime
+	 * @return Date|null
+	 */
+	private function GetOpeningAfter($reservations, $requestedTime)
+	{
+		/** @var $reservation ReservationItemView */
+		foreach ($reservations as $i => $reservation)
+		{
+			if ($reservation->BufferedTimes()->GetBegin()->GreaterThanOrEqual($requestedTime) >= 0)
+			{
+				for ($r = $i; $r < count($reservations)-1; $r++)
+				{
+					$thisRes = $reservations[$r]->BufferedTimes();
+					$nextRes = $reservations[$r+1]->BufferedTimes();
+					if ($thisRes->GetEnd()->LessThan($nextRes->GetBegin()))
+					{
+						return $thisRes->GetEnd();
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+}

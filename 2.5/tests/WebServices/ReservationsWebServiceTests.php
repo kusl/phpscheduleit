@@ -195,5 +195,3 @@ class ReservationsWebServiceTests extends TestBase
 		$this->assertEquals($expectedResponse, $this->server->_LastResponse);
 	}
 }
-
-?>

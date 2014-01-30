@@ -179,5 +179,3 @@ class ReservationsWebService
 		return $this->server->GetQueryString(WebServiceQueryStringKeys::SCHEDULE_ID);
 	}
 }
-
-?>
