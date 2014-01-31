@@ -1,26 +1,27 @@
 <?php
 /**
-Copyright 2012-2014 Nick Korbel
-
-This file is part of Booked Scheduler.
-
-Booked Scheduler is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Booked Scheduler is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright 2012-2014 Nick Korbel
+ *
+ * This file is part of Booked Scheduler.
+ *
+ * Booked Scheduler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Booked Scheduler is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once(ROOT_DIR . 'Pages/Ajax/ReservationSavePage.php');
 require_once(ROOT_DIR . 'Pages/Ajax/ReservationUpdatePage.php');
 require_once(ROOT_DIR . 'Pages/Ajax/ReservationDeletePage.php');
+require_once(ROOT_DIR . 'Pages/Ajax/ReservationApprovalPage.php');
 require_once(ROOT_DIR . 'Presenters/Reservation/ReservationPresenterFactory.php');
 require_once(ROOT_DIR . 'Presenters/Reservation/ReservationHandler.php');
 
@@ -116,14 +117,18 @@ class ReservationSaveController implements IReservationSaveController
 	 */
 	public function Approve($session, $referenceNumber)
 	{
+		$facade = new ReservationApprovalRequestResponseFacade($referenceNumber, $session);
 		$presenter = $this->factory->Approve($facade, $session);
+		$presenter->PageLoad();
+		return new ReservationControllerResult($referenceNumber, $facade->Errors());
 	}
 
 	public function Delete($session, $referenceNumber, $updateScope)
 	{
 		$facade = new ReservationDeleteRequestResponseFacade($referenceNumber, $updateScope);
 
-		$validationErrors = $this->ValidateDeleteRequest($facade->GetReferenceNumber(), $facade->GetSeriesUpdateScope());
+		$validationErrors = $this->ValidateDeleteRequest($facade->GetReferenceNumber(),
+														 $facade->GetSeriesUpdateScope());
 
 		if (count($validationErrors) > 0)
 		{
@@ -725,4 +730,53 @@ class ReservationDeleteRequestResponseFacade implements IReservationDeletePage
 	}
 }
 
-?>
+class ReservationApprovalRequestResponseFacade implements IReservationApprovalPage
+{
+	private $referenceNumber;
+	private $errors = array();
+
+	public function __construct($referenceNumber)
+	{
+		$this->referenceNumber = $referenceNumber;
+	}
+
+	/**
+	 * @param bool $succeeded
+	 */
+	public function SetSaveSuccessfulMessage($succeeded)
+	{
+		// no-op
+	}
+
+	/**
+	 * @param array|string[] $errors
+	 */
+	public function ShowErrors($errors)
+	{
+		$this->errors = $errors;
+	}
+
+	/**
+	 * @return array|string[]
+	 */
+	public function Errors()
+	{
+		return $this->errors;
+	}
+
+	/**
+	 * @param array|string[] $warnings
+	 */
+	public function ShowWarnings($warnings)
+	{
+		// no-op
+	}
+
+	/**
+	 * @return string
+	 */
+	public function GetReferenceNumber()
+	{
+		return $this->referenceNumber;
+	}
+}

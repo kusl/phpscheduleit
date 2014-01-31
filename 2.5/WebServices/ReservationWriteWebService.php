@@ -118,8 +118,7 @@ class ReservationWriteWebService
 	/**
 	 * @name ApproveReservation
 	 * @description Approves a pending reservation.
-	 * @request ReservationRequest
-	 * @response ReservationUpdatedResponse
+	 * @response ReservationApprovedResponse
 	 * @param string $referenceNumber
 	 * @return void
 	 */
@@ -135,7 +134,7 @@ class ReservationWriteWebService
 			Log::Debug('ReservationWriteWebService.Approve() - Reservation Approved. ReferenceNumber=%s',
 					   $referenceNumber);
 
-			$this->server->WriteResponse(new ReservationUpdatedResponse($this->server, $referenceNumber),
+			$this->server->WriteResponse(new ReservationApprovedResponse($this->server, $referenceNumber),
 										 RestResponse::OK_CODE);
 		}
 		else

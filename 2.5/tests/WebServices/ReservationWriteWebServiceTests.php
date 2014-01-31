@@ -104,7 +104,7 @@ class ReservationWriteWebServiceTests extends TestBase
 					   $this->equalTo($referenceNumber))
 				->will($this->returnValue($controllerResult));
 
-		$this->service->Update($referenceNumber);
+		$this->service->Approve($referenceNumber);
 
 		$expectedResponse = new ReservationApprovedResponse($this->server, $referenceNumber);
 		$this->assertEquals($expectedResponse, $this->server->_LastResponse);
@@ -161,7 +161,7 @@ class ReservationWriteWebServiceTests extends TestBase
 		$this->server->SetRequest($reservationRequest);
 
 		$errors = array('error');
-		$controllerResult = new ReservationControllerResult($reservationRequest);
+		$controllerResult = new ReservationControllerResult($referenceNumber);
 		$controllerResult->SetErrors($errors);
 
 		$this->controller->expects($this->once())
@@ -170,6 +170,27 @@ class ReservationWriteWebServiceTests extends TestBase
 				->will($this->returnValue($controllerResult));
 
 		$this->service->Update($referenceNumber);
+
+		$expectedResponse = new FailedResponse($this->server, $errors);
+		$this->assertEquals($expectedResponse, $this->server->_LastResponse);
+		$this->assertEquals(RestResponse::BAD_REQUEST_CODE, $this->server->_LastResponseCode);
+	}
+
+	public function testWhenApproveValidationFails()
+	{
+		$referenceNumber = '123';
+
+		$errors = array('error');
+		$controllerResult = new ReservationControllerResult($referenceNumber);
+		$controllerResult->SetErrors($errors);
+
+		$this->controller->expects($this->once())
+				->method('Approve')
+				->with($this->equalTo($this->server->GetSession()),
+									   $this->equalTo($referenceNumber))
+				->will($this->returnValue($controllerResult));
+
+		$this->service->Approve($referenceNumber);
 
 		$expectedResponse = new FailedResponse($this->server, $errors);
 		$this->assertEquals($expectedResponse, $this->server->_LastResponse);
