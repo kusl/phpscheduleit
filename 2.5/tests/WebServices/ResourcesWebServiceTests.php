@@ -144,8 +144,10 @@ class ResourcesWebServiceTests extends TestBase
 		$resourceId2 = 2;
 		$resourceId3 = 3;
 
-		$startTime = Date::Now()->AddHours(-1);
-		$endTime = Date::Now()->AddHours(1);
+		$startTime = Date::Now()
+						 ->AddHours(-1);
+		$endTime = Date::Now()
+					   ->AddHours(1);
 		$resources = array(new FakeBookableResource($resourceId1), new FakeBookableResource($resourceId2), new FakeBookableResource($resourceId3));
 
 		$this->repository->expects($this->once())
@@ -153,7 +155,7 @@ class ResourcesWebServiceTests extends TestBase
 						 ->will($this->returnValue($resources));
 
 		$conflicting = new TestReservationItemView(1, $startTime, $endTime, $resourceId1);
-		$upcoming = new TestReservationItemView(2, $startTime->AddHours(3), $endTime->AddHours(3), $resourceId1);
+		$upcoming = new TestReservationItemView(2, $endTime, $endTime->AddHours(3), $resourceId1);
 		$upcoming2 = new TestReservationItemView(3, $endTime->AddHours(3), $endTime->AddHours(4), $resourceId1);
 		$upcoming3 = new TestReservationItemView(4, $endTime->AddHours(5), $endTime->AddHours(6), $resourceId1);
 
@@ -164,16 +166,18 @@ class ResourcesWebServiceTests extends TestBase
 
 		$this->reservationRepository->expects($this->once())
 									->method('GetReservationList')
-									->with($this->equalTo(Date::Now()->AddDays(-1)),
-										   $this->equalTo(Date::Now()->AddDays(1)))
+									->with($this->equalTo(Date::Now()
+															  ->AddDays(-1)),
+										   $this->equalTo(Date::Now()
+															  ->AddDays(1)))
 									->will($this->returnValue($reservations));
 
 		$this->service->GetAvailability();
 
-		$resources = array (
-				new ResourceAvailabilityResponse($this->server, $resources[0], $conflicting, $upcoming, $endTime->AddHours(4)),
-				new ResourceAvailabilityResponse($this->server, $resources[1], null, $upcoming2, null),
-				new ResourceAvailabilityResponse($this->server, $resources[2], $upcoming5, null, $upcoming5->GetEndDate()),
+		$resources = array(
+			new ResourceAvailabilityResponse($this->server, $resources[0], $conflicting, $upcoming, $endTime->AddHours(4)),
+			new ResourceAvailabilityResponse($this->server, $resources[1], null, $upcoming2, null),
+			new ResourceAvailabilityResponse($this->server, $resources[2], $upcoming5, null, $upcoming5->GetEndDate()),
 		);
 
 		$this->assertEquals(new ResourcesAvailabilityResponse($this->server, $resources), $this->server->_LastResponse);
@@ -181,16 +185,131 @@ class ResourcesWebServiceTests extends TestBase
 
 	public function testGetsAllResourceAvailabilityForARequestTime()
 	{
-		$this->fail('todo');
+		$date = Date::Parse('2014-01-01 04:30:00', 'America/Chicago');
+		$this->server->SetQueryString(WebServiceQueryStringKeys::DATE_TIME, $date->ToIso());
+
+		$resourceId1 = 1;
+		$resourceId2 = 2;
+		$resourceId3 = 3;
+
+		$startTime = $date->AddHours(-1);
+		$endTime = $date->AddHours(1);
+		$resources = array(new FakeBookableResource($resourceId1), new FakeBookableResource($resourceId2), new FakeBookableResource($resourceId3));
+
+		$this->repository->expects($this->once())
+						 ->method('GetResourceList')
+						 ->will($this->returnValue($resources));
+
+		$conflicting = new TestReservationItemView(1, $startTime, $endTime, $resourceId1);
+		$upcoming = new TestReservationItemView(2, $endTime, $endTime->AddHours(3), $resourceId1);
+		$upcoming2 = new TestReservationItemView(3, $endTime->AddHours(3), $endTime->AddHours(4), $resourceId1);
+		$upcoming3 = new TestReservationItemView(4, $endTime->AddHours(5), $endTime->AddHours(6), $resourceId1);
+
+		$upcoming4 = new TestReservationItemView(5, $endTime->AddHours(3), $endTime->AddHours(3), $resourceId2);
+
+		$upcoming5 = new TestReservationItemView(6, $startTime, $endTime->AddHours(2), $resourceId3);
+		$reservations = array($conflicting, $upcoming, $upcoming2, $upcoming3, $upcoming4, $upcoming5);
+
+		$this->reservationRepository->expects($this->once())
+									->method('GetReservationList')
+									->with($this->equalTo($date->AddDays(-1)
+															   ->ToUtc()),
+										   $this->equalTo($date->AddDays(1)
+															   ->ToUtc()))
+									->will($this->returnValue($reservations));
+
+		$this->service->GetAvailability();
+
+		$resources = array(
+			new ResourceAvailabilityResponse($this->server, $resources[0], $conflicting, $upcoming, $endTime->AddHours(4)),
+			new ResourceAvailabilityResponse($this->server, $resources[1], null, $upcoming2, null),
+			new ResourceAvailabilityResponse($this->server, $resources[2], $upcoming5, null, $upcoming5->GetEndDate()),
+		);
+
+		$this->assertEquals(new ResourcesAvailabilityResponse($this->server, $resources), $this->server->_LastResponse);
 	}
 
 	public function testGetsSingleResourceAvailability()
 	{
-		$this->fail('todo');
+		$resourceId1 = 1;
+
+		$startTime = Date::Now()
+						 ->AddHours(-1);
+		$endTime = Date::Now()
+					   ->AddHours(1);
+		$resource = new FakeBookableResource($resourceId1);
+
+		$this->repository->expects($this->once())
+						 ->method('LoadById')
+						 ->with($this->equalTo($resourceId1))
+						 ->will($this->returnValue($resource));
+
+		$conflicting = new TestReservationItemView(1, $startTime, $endTime, $resourceId1);
+		$upcoming = new TestReservationItemView(2, $endTime, $endTime->AddHours(3), $resourceId1);
+		$upcoming2 = new TestReservationItemView(3, $endTime->AddHours(3), $endTime->AddHours(4), $resourceId1);
+		$upcoming3 = new TestReservationItemView(4, $endTime->AddHours(5), $endTime->AddHours(6), $resourceId1);
+
+		$reservations = array($conflicting, $upcoming, $upcoming2, $upcoming3);
+
+		$this->reservationRepository->expects($this->once())
+									->method('GetReservationList')
+									->with($this->equalTo(Date::Now()
+															  ->AddDays(-1)),
+										   $this->equalTo(Date::Now()
+															  ->AddDays(1)),
+										   $this->isEmpty(),
+										   $this->isEmpty(),
+										   $this->isEmpty(),
+										   $this->equalTo($resourceId1))
+									->will($this->returnValue($reservations));
+
+		$this->service->GetAvailability($resourceId1);
+
+		$resources = array(
+			new ResourceAvailabilityResponse($this->server, $resource, $conflicting, $upcoming, $endTime->AddHours(4))
+		);
+
+		$this->assertEquals(new ResourcesAvailabilityResponse($this->server, $resources), $this->server->_LastResponse);
 	}
 
 	public function testGetsSingleResourceAvailabilityForARequestTime()
 	{
-		$this->fail('todo');
+		$date = Date::Parse('2014-01-01 04:30:00', 'America/Chicago');
+		$this->server->SetQueryString(WebServiceQueryStringKeys::DATE_TIME, $date->ToIso());
+		$resourceId1 = 1;
+
+		$startTime = $date->AddHours(-1);
+		$endTime = $date->AddHours(1);
+		$resource = new FakeBookableResource($resourceId1);
+
+		$this->repository->expects($this->once())
+						 ->method('LoadById')
+						 ->with($this->equalTo($resourceId1))
+						 ->will($this->returnValue($resource));
+
+		$conflicting = new TestReservationItemView(1, $startTime, $endTime, $resourceId1);
+		$upcoming = new TestReservationItemView(2, $endTime, $endTime->AddHours(3), $resourceId1);
+		$upcoming2 = new TestReservationItemView(3, $endTime->AddHours(3), $endTime->AddHours(4), $resourceId1);
+		$upcoming3 = new TestReservationItemView(4, $endTime->AddHours(5), $endTime->AddHours(6), $resourceId1);
+
+		$reservations = array($conflicting, $upcoming, $upcoming2, $upcoming3);
+
+		$this->reservationRepository->expects($this->once())
+									->method('GetReservationList')
+									->with($this->equalTo($date->AddDays(-1)->ToUtc()),
+										   $this->equalTo($date->AddDays(1)->ToUtc()),
+										   $this->isEmpty(),
+										   $this->isEmpty(),
+										   $this->isEmpty(),
+										   $this->equalTo($resourceId1))
+									->will($this->returnValue($reservations));
+
+		$this->service->GetAvailability($resourceId1);
+
+		$resources = array(
+			new ResourceAvailabilityResponse($this->server, $resource, $conflicting, $upcoming, $endTime->AddHours(4))
+		);
+
+		$this->assertEquals(new ResourcesAvailabilityResponse($this->server, $resources), $this->server->_LastResponse);
 	}
 }

@@ -96,8 +96,8 @@ class ReservationResponse extends RestResponse
 		$canViewDetails = $privacyFilter->CanViewDetails($server->GetSession(), $reservation);
 
 		$this->referenceNumber = $reservation->ReferenceNumber;
-		$this->startDateTime = $reservation->StartDate->ToIso();
-		$this->endDateTime = $reservation->EndDate->ToIso();
+		$this->startDateTime = $reservation->StartDate->ToTimezone($server->GetSession()->Timezone)->ToIso();
+		$this->endDateTime = $reservation->EndDate->ToTimezone($server->GetSession()->Timezone)->ToIso();
 		$this->requiresApproval = $reservation->RequiresApproval();
 		$this->isRecurring = $reservation->IsRecurring();
 		$repeatTerminationDate = $reservation->RepeatTerminationDate != null ? $reservation->RepeatTerminationDate->ToIso() : null;
@@ -197,5 +197,3 @@ class ExampleReservationResponse extends ReservationResponse
 		$this->endReminder = ReminderRequestResponse::Example();
 	}
 }
-
-?>

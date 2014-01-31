@@ -1,21 +1,21 @@
 <?php
 /**
-Copyright 2012-2014 Nick Korbel
-
-This file is part of Booked Scheduler.
-
-Booked Scheduler is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Booked Scheduler is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright 2012-2014 Nick Korbel
+ *
+ * This file is part of Booked Scheduler.
+ *
+ * Booked Scheduler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Booked Scheduler is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once(ROOT_DIR . 'lib/WebService/namespace.php');
@@ -130,16 +130,37 @@ class ResourcesWebService
 
 	/**
 	 * @name GetAvailability
-	 * @description Returns resource availability for the requested time
+	 * @description Returns resource availability for the requested time. "availableAt" and "availableUntil" will include availability through the next 24 hours
 	 * Optional query string parameter: dateTime. If no dateTime is requested the current datetime will be used.
 	 * @response ResourcesAvailabilityResponse
 	 * @return void
 	 */
-	public function GetAvailability()
+	public function GetAvailability($resourceId = null)
 	{
-		$requestedTime = Date::Now();
-		$resources = $this->resourceRepository->GetResourceList();
-		$reservations = $this->reservationRepository->GetReservationList(Date::Now()->AddDays(-1), Date::Now()->AddDays(1));
+		$dateQueryString = $this->server->GetQueryString(WebServiceQueryStringKeys::DATE_TIME);
+
+		if (!empty($dateQueryString))
+		{
+			$requestedTime = WebServiceDate::GetDate($dateQueryString, $this->server->GetSession());
+		}
+		else
+		{
+			$requestedTime = Date::Now();
+		}
+
+		if (empty($resourceId))
+		{
+			$resources = $this->resourceRepository->GetResourceList();
+		}
+		else
+		{
+			$resources[] = $this->resourceRepository->LoadById($resourceId);
+		}
+
+		$reservations = $this->reservationRepository->GetReservationList($requestedTime->AddDays(-1),
+																		 $requestedTime->AddDays(1),
+																		 null, null, null,
+																		 $resourceId);
 
 		$indexedReservations = array();
 
@@ -170,12 +191,14 @@ class ResourcesWebService
 				/** @var $reservation ReservationItemView */
 				foreach ($resourceReservations as $i => $reservation)
 				{
-					if ($conflict == null && $reservation->BufferedTimes()->Overlaps(new DateRange($requestedTime, $requestedTime)))
+					if ($conflict == null && $reservation->BufferedTimes()
+														 ->Overlaps(new DateRange($requestedTime, $requestedTime))
+					)
 					{
 						$conflict = $reservation;
 					}
 
-					if ($nextReservation == null &&	$reservation->StartDate->GreaterThan($requestedTime))
+					if ($nextReservation == null && $reservation->StartDate->GreaterThan($requestedTime))
 					{
 						$nextReservation = $reservation;
 					}
@@ -205,13 +228,18 @@ class ResourcesWebService
 		/** @var $reservation ReservationItemView */
 		foreach ($reservations as $i => $reservation)
 		{
-			if ($reservation->BufferedTimes()->GetBegin()->GreaterThanOrEqual($requestedTime) >= 0)
+			if ($reservation->BufferedTimes()
+							->GetBegin()
+							->GreaterThanOrEqual($requestedTime) >= 0
+			)
 			{
-				for ($r = $i; $r < count($reservations)-1; $r++)
+				for ($r = $i; $r < count($reservations) - 1; $r++)
 				{
 					$thisRes = $reservations[$r]->BufferedTimes();
-					$nextRes = $reservations[$r+1]->BufferedTimes();
-					if ($thisRes->GetEnd()->LessThan($nextRes->GetBegin()))
+					$nextRes = $reservations[$r + 1]->BufferedTimes();
+					if ($thisRes->GetEnd()
+								->LessThan($nextRes->GetBegin())
+					)
 					{
 						return $thisRes->GetEnd();
 					}

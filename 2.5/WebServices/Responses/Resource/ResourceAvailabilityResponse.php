@@ -88,7 +88,7 @@ class ResourceAvailabilityResponse extends RestResponse
 
 		if (!$this->available)
 		{
-			$this->availableAt = $nextAvailableTime != null ? $nextAvailableTime->ToIso() : null;
+			$this->availableAt = $nextAvailableTime != null ? $nextAvailableTime->ToTimezone($server->GetSession()->Timezone)->ToIso() : null;
 
 			$this->AddService($server, WebServices::GetUser,
 							  array(WebServiceParams::UserId => $conflictingReservation->UserId));
@@ -98,7 +98,7 @@ class ResourceAvailabilityResponse extends RestResponse
 
 		if ($this->available && $nextReservation != null)
 		{
-			$this->availableUntil = $nextReservation->BufferedTimes()->GetBegin()->ToIso();
+			$this->availableUntil = $nextReservation->BufferedTimes()->GetBegin()->ToTimezone($server->GetSession()->Timezone)->ToIso();
 		}
 	}
 
