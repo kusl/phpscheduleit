@@ -28,6 +28,7 @@ class WebServices
 	const AllReservations = 'all_reservations';
 	const AllSchedules = 'all_schedules';
 	const AllUsers = 'all_users';
+	const ApproveReservation = 'approve_reservation';
 	const CreateReservation = 'create_reservation';
 	const CreateResource = 'create_resource';
 	const CreateUser = 'create_user';

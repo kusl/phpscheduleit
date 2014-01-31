@@ -160,6 +160,11 @@ class ReservationResponse extends RestResponse
 		{
 			$this->endReminder = new ReminderRequestResponse($reservation->EndReminder->GetValue(), $reservation->EndReminder->GetInterval());
 		}
+
+		if ($reservation->RequiresApproval())
+		{
+			$this->AddService($server, WebServices::ApproveReservation, array(WebServiceParams::ReferenceNumber => $reservation->ReferenceNumber));
+		}
 	}
 
 

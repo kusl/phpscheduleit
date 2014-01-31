@@ -48,6 +48,13 @@ interface IReservationSaveController
 	/**
 	 * @param WebServiceUserSession $session
 	 * @param string $referenceNumber
+	 * @return ReservationControllerResult
+	 */
+	public function Approve($session, $referenceNumber);
+
+	/**
+	 * @param WebServiceUserSession $session
+	 * @param string $referenceNumber
 	 * @param string $updateScope
 	 * @return ReservationControllerResult
 	 */
@@ -100,6 +107,16 @@ class ReservationSaveController implements IReservationSaveController
 		$presenter->HandleReservation($reservation);
 
 		return new ReservationControllerResult($facade->ReferenceNumber(), $facade->Errors());
+	}
+
+	/**
+	 * @param WebServiceUserSession $session
+	 * @param string $referenceNumber
+	 * @return ReservationControllerResult
+	 */
+	public function Approve($session, $referenceNumber)
+	{
+		$presenter = $this->factory->Approve($facade, $session);
 	}
 
 	public function Delete($session, $referenceNumber, $updateScope)
@@ -237,6 +254,8 @@ class ReservationSaveController implements IReservationSaveController
 
 		return $errors;
 	}
+
+
 }
 
 class ReservationControllerResult
