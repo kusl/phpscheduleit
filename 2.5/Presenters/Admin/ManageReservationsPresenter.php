@@ -108,6 +108,26 @@ class ManageReservationsPresenter extends ActionPresenter
 		$resourceStatusId = $this->page->GetResourceStatusFilterId();
 		$resourceReasonId = $this->page->GetResourceStatusReasonFilterId();
 
+		$f = $this->page->GetAttributeFilters();
+		$filters = array();
+		foreach ($f as $filter)
+		{
+			$filters[$filter->Id] = $filter->Value;
+		}
+
+		$reservationAttributes = $this->attributeService->GetByCategory(CustomAttributeCategory::RESERVATION);
+
+		$attributeFilters = array();
+		foreach ($reservationAttributes as $attribute)
+		{
+			$attributeValue = null;
+			if (array_key_exists($attribute->Id(), $filters))
+			{
+				$attributeValue = $filters[$attribute->Id()];
+			}
+			$attributeFilters[] = new Attribute($attribute, $attributeValue);
+		}
+
 		if(!$this->page->FilterButtonPressed())
 		{
 			// Get filter settings from db
@@ -149,9 +169,10 @@ class ManageReservationsPresenter extends ActionPresenter
 		$this->page->SetReservationStatusId($reservationStatusId);
 		$this->page->SetResourceStatusFilterId($resourceStatusId);
 		$this->page->SetResourceStatusReasonFilterId($resourceReasonId);
+		$this->page->SetAttributeFilters($attributeFilters);
 
 		$filter = new ReservationFilter($startDate, $endDate, $referenceNumber, $scheduleId, $resourceId, $userId,
-										$reservationStatusId, $resourceStatusId, $resourceReasonId);
+										$reservationStatusId, $resourceStatusId, $resourceReasonId, $attributeFilters);
 
 		$reservations = $this->manageReservationsService->LoadFiltered($this->page->GetPageNumber(),
 																	   $this->page->GetPageSize(),

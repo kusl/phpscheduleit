@@ -94,6 +94,10 @@ class ManageReservationsPresenterTests extends TestBase
 		$searchedUserName = 'some user';
 		$searchedResourceStatusId = 292;
 		$searchedResourceStatusReasonId = 4292;
+		/** @var TestCustomAttribute[] $customAttributes */
+		$customAttributes = array(new TestCustomAttribute(1, 'something'));
+		/** @var Attribute[] $attributes */
+		$attributes = array(new Attribute($customAttributes[0], 'value'));
 
 		$this->resourceRepository->expects($this->once())
 								 ->method('GetStatusReasons')
@@ -143,8 +147,12 @@ class ManageReservationsPresenterTests extends TestBase
 				   ->method('GetResourceStatusReasonFilterId')
 				   ->will($this->returnValue($searchedResourceStatusReasonId));
 
+		$this->page->expects($this->once())
+			->method('GetAttributeFilters')
+			->will($this->returnValue(array (new AttributeFormElement($customAttributes[0]->Id(), 'value'))));
+
 		$filter = $this->GetExpectedFilter($defaultStart, $defaultEnd, $searchedReferenceNumber, $searchedScheduleId,
-										   $searchedResourceId, $searchedUserId, $searchedStatusId, $searchedResourceStatusId, $searchedResourceStatusReasonId);
+										   $searchedResourceId, $searchedUserId, $searchedStatusId, $searchedResourceStatusId, $searchedResourceStatusReasonId, $attributes);
 
 		$data = new PageableData($this->getReservations());
 		$this->reservationsService->expects($this->once())
@@ -159,6 +167,15 @@ class ManageReservationsPresenterTests extends TestBase
 							   ->with($this->equalTo(CustomAttributeCategory::RESERVATION),
 									  $this->equalTo(range(1, 10)))
 							   ->will($this->returnValue($attributeList));
+
+		$this->attributeService->expects($this->once())
+							   ->method('GetByCategory')
+							   ->with($this->equalTo(CustomAttributeCategory::RESERVATION))
+							   ->will($this->returnValue($customAttributes));
+
+		$this->page->expects($this->once())
+			->method('SetAttributeFilters')
+			->with($attributes);
 
 		$this->page->expects($this->once())
 				   ->method('SetStartDate')
@@ -330,13 +347,14 @@ class ManageReservationsPresenterTests extends TestBase
 	 * @param int $statusId
 	 * @param null $resourceStatusId
 	 * @param null $resourceStatusReasonId
+	 * @param Attribute[] $attributes
 	 * @return ReservationFilter
 	 */
 	private function GetExpectedFilter($startDate = null, $endDate = null, $referenceNumber = null, $scheduleId = null,
 									   $resourceId = null, $userId = null, $statusId = null, $resourceStatusId = null,
-									   $resourceStatusReasonId = null)
+									   $resourceStatusReasonId = null, $attributes = null)
 	{
-		return new ReservationFilter($startDate, $endDate, $referenceNumber, $scheduleId, $resourceId, $userId, $statusId, $resourceStatusId, $resourceStatusReasonId);
+		return new ReservationFilter($startDate, $endDate, $referenceNumber, $scheduleId, $resourceId, $userId, $statusId, $resourceStatusId, $resourceStatusReasonId, $attributes);
 	}
 
 	private function getReservations()

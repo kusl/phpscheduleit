@@ -414,11 +414,27 @@ th.action {
 }
 
 #reservationFilterButtons {
-	margin-top:5px;
+	padding-top:15px;
+	clear:both;
 }
 
 #filterTable td {
 	padding: 1px 3px;
+}
+
+#filterTable {
+	list-style: none;
+	clear:both;
+}
+
+#filterTable li {
+	display:inline;
+	float:left;
+	margin-right:5px;
+}
+
+#filterTable label {
+	display: block;
 }
 
 ul.resource-status-reasons li {

@@ -209,17 +209,27 @@ interface IManageReservationsPage extends IPageable, IActionPage
 	 * @return bool
 	 */
 	public function CanUpdateResourceStatuses();
+
+	/**
+	 * @return AttributeFormElement[]
+	 */
+	public function GetAttributeFilters();
+
+	/**
+	 * @param Attribute[] $filters
+	 */
+	public function SetAttributeFilters($filters);
 }
 
 class ManageReservationsPage extends ActionPage implements IManageReservationsPage
 {
 	/**
-	 * @var \ManageReservationsPresenter
+	 * @var ManageReservationsPresenter
 	 */
 	protected $presenter;
 
 	/**
-	 * @var \PageablePage
+	 * @var PageablePage
 	 */
 	protected $pageablePage;
 
@@ -581,5 +591,21 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	public function CanUpdateResourceStatuses()
 	{
 		return $this->GetVar('CanUpdateResourceStatus');
+	}
+
+	/**
+	 * @return AttributeFormElement[]
+	 */
+	public function GetAttributeFilters()
+	{
+		return AttributeFormParser::GetAttributes($this->GetQuerystring(FormKeys::ATTRIBUTE_PREFIX));
+	}
+
+	/**
+	 * @param Attribute[] $filters
+	 */
+	public function SetAttributeFilters($filters)
+	{
+		$this->Set('AttributeFilters', $filters);
 	}
 }
