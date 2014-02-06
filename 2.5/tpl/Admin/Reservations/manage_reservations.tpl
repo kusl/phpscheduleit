@@ -161,10 +161,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<td>{formatdate date=$reservation->ModifiedDate timezone=$Timezone key=general_datetime}</td>
 		<td class="referenceNumber">{$reservation->ReferenceNumber}</td>
 		{foreach from=$AttributeList->GetAttributes($reservation->SeriesId) item=attribute}
-		<td>{$attribute->Value()}</td>
+		<td class="update inlineUpdate updateCustomAttribute" attributeId="{$attribute->Id()}" attributeType="{$attribute->Type()}">{$attribute->Value()}</td>
 		{/foreach}
-		<td align="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
-		<td align="center">
+		<td class="center"><a href="#" class="update delete">{html_image src='cross-button.png'}</a></td>
+		<td class="center">
 			{if $reservation->RequiresApproval}
 				<a href="#" class="update approve">{html_image src='tick-button.png'}</a>
 			{else}
@@ -239,6 +239,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<input type="hidden" {formname key=RESOURCE_ID} id="statusResourceId" value="" />
 		</div>
 	</form>
+</div>
+
+<div>
+{foreach from=$AttributeFilters item=attribute}
+	<div class="attributeTemplate" attributeId="{$attribute->Id()}">
+	{control type="AttributeControl" attribute=$attribute}
+	</div>
+{/foreach}
 </div>
 
 {html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}

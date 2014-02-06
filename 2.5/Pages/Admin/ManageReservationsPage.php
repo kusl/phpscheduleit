@@ -219,6 +219,11 @@ interface IManageReservationsPage extends IPageable, IActionPage
 	 * @param Attribute[] $filters
 	 */
 	public function SetAttributeFilters($filters);
+
+	/**
+	 * @param CustomAttribute[] $reservationAttributes
+	 */
+	public function SetReservationAttributes($reservationAttributes);
 }
 
 class ManageReservationsPage extends ActionPage implements IManageReservationsPage
@@ -607,5 +612,13 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	public function SetAttributeFilters($filters)
 	{
 		$this->Set('AttributeFilters', $filters);
+	}
+
+	/**
+	 * @param CustomAttribute[] $reservationAttributes
+	 */
+	public function SetReservationAttributes($reservationAttributes)
+	{
+		$this->Set('ReservationAttributes', $reservationAttributes);
 	}
 }

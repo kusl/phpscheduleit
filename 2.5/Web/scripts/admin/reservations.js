@@ -80,6 +80,13 @@ function ReservationManagement(opts, approval)
 			viewReservation(td.text());
 		});
 
+		elements.reservationTable.delegate('.updateCustomAttribute', 'click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			showCustomAttributeValue($(this).attr('attributeId'));
+		});
+
 		elements.reservationTable.find('.editable').each(function() {
 			var refNum = $(this).find('.referenceNumber').text();
 			$(this).attachReservationPopup(refNum, options.popupUrl);
@@ -123,7 +130,9 @@ function ReservationManagement(opts, approval)
 		elements.filterButton.click(filterReservations);
 		elements.clearFilterButton.click(function(e){
 			e.preventDefault();
-			elements.filterTable.find('input,select').val('')
+			elements.filterTable.find('input,select,textarea').val('')
+
+			filterReservations();
 		});
 
 		var deleteReservationResponseHandler = function(response, form)
@@ -284,6 +293,13 @@ function ReservationManagement(opts, approval)
 				attributeString;
 
 		window.location = document.location.pathname + '?' + encodeURI(filterQuery);
+	}
+
+	function showCustomAttributeValue(attributeId)
+	{
+		var template = $('.attributeTemplate[attributeId="' + attributeId + '"]');
+
+		
 	}
 
 	function viewReservation(referenceNumber)

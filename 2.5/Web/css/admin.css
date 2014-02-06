@@ -445,3 +445,7 @@ ul.resource-status-reasons {
 	padding-bottom: 20px;
 	padding-top: 5px;
 }
+
+.inlineUpdate:hover {
+	background-color:#E5E5FF;
+}
