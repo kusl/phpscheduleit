@@ -62,16 +62,21 @@ function ReservationManagement(opts, approval)
 			}
 		});
 
-		elements.reservationTable.delegate('a.update', 'click', function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			var tr = $(this).parents('tr');
+		function setCurrentReservationInformation(td)
+		{
+			var tr = td.parents('tr');
 			var referenceNumber = tr.find('.referenceNumber').text();
 			var reservationId = tr.find('.id').text();
 			setActiveReferenceNumber(referenceNumber);
 			setActiveReservationId(reservationId);
 			elements.referenceNumberList.val(referenceNumber);
+		}
+
+		elements.reservationTable.delegate('a.update', 'click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			setCurrentReservationInformation.call($(this));
 		});
 
 		elements.reservationTable.delegate('.editable', 'click', function() {
@@ -84,7 +89,15 @@ function ReservationManagement(opts, approval)
 			e.preventDefault();
 			e.stopPropagation();
 
-			showCustomAttributeValue($(this).attr('attributeId'));
+			setCurrentReservationInformation($(this));
+
+			showCustomAttributeValue($(this).attr('attributeId'), $(this));
+		});
+
+		elements.reservationTable.delegate('.cancelCellUpdate', 'click', function(e){
+			e.preventDefault();
+
+			cancelCurrentCellUpdate();
 		});
 
 		elements.reservationTable.find('.editable').each(function() {
@@ -295,11 +308,70 @@ function ReservationManagement(opts, approval)
 		window.location = document.location.pathname + '?' + encodeURI(filterQuery);
 	}
 
-	function showCustomAttributeValue(attributeId)
-	{
-		var template = $('.attributeTemplate[attributeId="' + attributeId + '"]');
+	var previousContents;
+	var previousCell;
+	var updateCancelButtons = $('#inlineUpdateCancelButtons').clone();
 
-		
+	function cancelCurrentCellUpdate()
+	{
+		if (previousCell != undefined && previousContents != undefined)
+		{
+			previousCell.empty();
+			previousCell.html(previousContents);
+		}
+	}
+
+	function showCustomAttributeValue(attributeId, cell)
+	{
+		if (previousCell != undefined && cell[0] == previousCell[0])
+		{
+			return;
+		}
+
+		cancelCurrentCellUpdate();
+
+		var showValue = function(currentReservation)
+		{
+			if (currentReservation == null)
+			{
+				alert('implement some error handling');
+			}
+
+			var template = $('.attributeTemplate[attributeId="' + attributeId + '"]').clone();
+			var attributeElement = template.find('.customAttribute');
+
+			var attributeValue = currentReservation.Attributes[attributeId].Value;
+
+			attributeElement.val(attributeValue);
+
+			previousContents = cell.html();
+			previousCell = cell;
+
+			cell.empty();
+			cell.append(template.after(updateCancelButtons));
+
+			attributeElement.focus();
+		};
+
+		getCurrentReservation(showValue);
+	}
+
+	function getCurrentReservation(showValue)
+	{
+		var refNum = getActiveReferenceNumber();
+
+		$.ajax({
+			url: 'manage_reservations.php?dr=reservation&rn=' + refNum,
+			dataType: 'json'
+		})
+				.done(function (data)
+				{
+					showValue(data);
+				})
+				.fail(function ()
+				{
+					showValue(null);
+				});
 	}
 
 	function viewReservation(referenceNumber)

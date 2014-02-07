@@ -224,6 +224,8 @@ interface IManageReservationsPage extends IPageable, IActionPage
 	 * @param CustomAttribute[] $reservationAttributes
 	 */
 	public function SetReservationAttributes($reservationAttributes);
+
+	public function SetReservationJson($reservation);
 }
 
 class ManageReservationsPage extends ActionPage implements IManageReservationsPage
@@ -266,6 +268,11 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 		$this->Set('Timezone', $userTimezone);
 		$this->Set('CsvExportUrl', ServiceLocator::GetServer()->GetUrl() . '&' . QueryStringKeys::FORMAT . '=csv');
 		$this->presenter->PageLoad($userTimezone);
+	}
+
+	public function ProcessDataRequest($dataRequest)
+	{
+		$this->presenter->ProcessDataRequest($dataRequest);
 	}
 
 	public function ShowPage()
@@ -492,11 +499,6 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 		return $this->GetQuerystring(QueryStringKeys::FORMAT);
 	}
 
-	public function ProcessDataRequest($dataRequest)
-	{
-		// no-op
-	}
-
 	/**
 	 * @param $attributeList IEntityAttributeList
 	 */
@@ -620,5 +622,10 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	public function SetReservationAttributes($reservationAttributes)
 	{
 		$this->Set('ReservationAttributes', $reservationAttributes);
+	}
+
+	public function SetReservationJson($reservation)
+	{
+		$this->SetJson($reservation);
 	}
 }

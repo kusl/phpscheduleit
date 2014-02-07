@@ -284,6 +284,15 @@ class ManageReservationsPresenter extends ActionPresenter
 			$this->resourceRepository->Update($resource);
 		}
 	}
+
+	public function ProcessDataRequest($dataRequest)
+	{
+		$referenceNumber = $this->page->GetReferenceNumber();
+
+		$r = new ReservationViewRepository();
+		$rv = $r->GetReservationForEditing($referenceNumber);
+		$this->page->SetReservationJson(empty($rv->ReservationId) ? null : $rv);
+	}
 }
 
 class ReservationFilterPreferences
