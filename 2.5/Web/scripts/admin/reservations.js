@@ -94,6 +94,15 @@ function ReservationManagement(opts, approval)
 			showCustomAttributeValue($(this).attr('attributeId'), $(this));
 		});
 
+		elements.reservationTable.delegate('.confirmCellUpdate', 'click', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+
+			var value = $(this).closest('td').find('input, select, textarea').val();
+
+			confirmCellUpdate(value, $(this).closest('td').attr('attributeId'), $(this).closest('tr').attr('seriesId'));
+		});
+
 		elements.reservationTable.delegate('.cancelCellUpdate', 'click', function(e){
 			e.preventDefault();
 			e.stopPropagation();
@@ -321,6 +330,14 @@ function ReservationManagement(opts, approval)
 			previousCell.html(previousContents);
 			previousCell = null;
 		}
+	}
+
+	function confirmCellUpdate(value, attributeId, seriesId)
+	{
+		// update reservation
+
+		// on success, update all cells + flash yellow
+		console.log('val ' + value + ' attrid ' + attributeId + ' seriesid ' +seriesId);
 	}
 
 	function showCustomAttributeValue(attributeId, cell)

@@ -121,7 +121,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{if $reservation->RequiresApproval}
 		{assign var=rowCss value='pending'}
 	{/if}
-	<tr class="{$rowCss} editable">
+	<tr class="{$rowCss} editable" seriesId="{$reservation->SeriesId}">
 		<td class="id">{$reservation->ReservationId}</td>
 		<td>{fullname first=$reservation->FirstName last=$reservation->LastName ignorePrivacy=true}</td>
 		<td>{$reservation->ResourceName}
@@ -251,7 +251,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="inlineUpdateCancelButtons" class="hidden">
 	<div>
-		<a href="#">{html_image src="tick-white.png"}</a>
+		<a href="#" class="confirmCellUpdate">{html_image src="tick-white.png"}</a>
 		<a href="#" class="cancelCellUpdate">{html_image src="cross-white.png"}</a>
 	</div>
 </div>
