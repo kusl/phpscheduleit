@@ -96,6 +96,7 @@ function ReservationManagement(opts, approval)
 
 		elements.reservationTable.delegate('.cancelCellUpdate', 'click', function(e){
 			e.preventDefault();
+			e.stopPropagation();
 
 			cancelCurrentCellUpdate();
 		});
@@ -310,7 +311,7 @@ function ReservationManagement(opts, approval)
 
 	var previousContents;
 	var previousCell;
-	var updateCancelButtons = $('#inlineUpdateCancelButtons').clone();
+	var updateCancelButtons = $('#inlineUpdateCancelButtons').clone().removeClass('hidden');
 
 	function cancelCurrentCellUpdate()
 	{
@@ -318,6 +319,7 @@ function ReservationManagement(opts, approval)
 		{
 			previousCell.empty();
 			previousCell.html(previousContents);
+			previousCell = null;
 		}
 	}
 
