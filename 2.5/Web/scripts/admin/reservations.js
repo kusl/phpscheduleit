@@ -361,7 +361,7 @@ function ReservationManagement(opts, approval)
 		var refNum = getActiveReferenceNumber();
 
 		$.ajax({
-			url: 'manage_reservations.php?dr=reservation&rn=' + refNum,
+			url: 'manage_reservations.php?dr=load&rn=' + refNum,
 			dataType: 'json'
 		})
 				.done(function (data)

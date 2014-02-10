@@ -23,6 +23,7 @@ require_once(ROOT_DIR . 'Domain/Access/namespace.php');
 require_once(ROOT_DIR . 'Presenters/ActionPresenter.php');
 require_once(ROOT_DIR . 'lib/Application/Admin/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Attributes/namespace.php');
+require_once(ROOT_DIR . 'lib/Application/Reservation/namespace.php');
 
 class ManageReservationsPresenter extends ActionPresenter
 {
@@ -287,11 +288,13 @@ class ManageReservationsPresenter extends ActionPresenter
 
 	public function ProcessDataRequest($dataRequest)
 	{
-		$referenceNumber = $this->page->GetReferenceNumber();
+		if ($dataRequest == 'load')
+		{
+			$referenceNumber = $this->page->GetReferenceNumber();
 
-		$r = new ReservationViewRepository();
-		$rv = $r->GetReservationForEditing($referenceNumber);
-		$this->page->SetReservationJson(empty($rv->ReservationId) ? null : $rv);
+			$rv = $this->manageReservationsService->LoadByReferenceNumber($referenceNumber, ServiceLocator::GetServer()->GetUserSession());
+			$this->page->SetReservationJson($rv);
+		}
 	}
 }
 

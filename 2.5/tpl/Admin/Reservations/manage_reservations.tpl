@@ -241,7 +241,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</form>
 </div>
 
-<div>
+<div class="hidden">
 {foreach from=$AttributeFilters item=attribute}
 	<div class="attributeTemplate" attributeId="{$attribute->Id()}">
 	{control type="AttributeControl" attribute=$attribute}
@@ -249,7 +249,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 {/foreach}
 </div>
 
-<div id="inlineUpdateCancelButtons">
+<div id="inlineUpdateCancelButtons" class="hidden">
 	<div>
 		<a href="#">{html_image src="tick-white.png"}</a>
 		<a href="#" class="cancelCellUpdate">{html_image src="cross-white.png"}</a>

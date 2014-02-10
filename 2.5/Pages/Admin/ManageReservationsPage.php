@@ -225,6 +225,9 @@ interface IManageReservationsPage extends IPageable, IActionPage
 	 */
 	public function SetReservationAttributes($reservationAttributes);
 
+	/**
+	 * @param ReservationView $reservation
+	 */
 	public function SetReservationJson($reservation);
 }
 
@@ -245,7 +248,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	    parent::__construct('ManageReservations', 1);
 
 		$this->presenter = new ManageReservationsPresenter($this,
-			new ManageReservationsService(new ReservationViewRepository()),
+			new ManageReservationsService(new ReservationViewRepository(), new ReservationAuthorization(PluginManager::Instance()->LoadAuthorization())),
 			new ScheduleRepository(),
 			new ResourceRepository(),
 			new AttributeService(new AttributeRepository()),

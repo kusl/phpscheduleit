@@ -28,6 +28,11 @@ class ManageReservationsServiceTests extends TestBase
 	private $reservationViewRepository;
 
 	/**
+	 * @var IReservationAuthorization|PHPUnit_Framework_MockObject_MockObject
+	 */
+	private $reservationAuthorization;
+
+	/**
 	 * @var ManageReservationsService
 	 */
 	private $service;
@@ -37,8 +42,9 @@ class ManageReservationsServiceTests extends TestBase
 		parent::setup();
 
 		$this->reservationViewRepository = $this->getMock('IReservationViewRepository');
+		$this->reservationAuthorization = $this->getMock('IReservationAuthorization');
 
-		$this->service = new ManageReservationsService($this->reservationViewRepository);
+		$this->service = new ManageReservationsService($this->reservationViewRepository, $this->reservationAuthorization);
 	}
 
 	public function testLoadsFilteredResultsAndChecksAuthorizationAgainstPendingReservations()
@@ -58,5 +64,25 @@ class ManageReservationsServiceTests extends TestBase
 
 		$this->assertEquals($data, $actualData);
 	}
+
+	public function testLoadsReservationIfTheUserCanEdit()
+	{
+		$reservation = new ReservationView();
+		$user = $this->fakeUser;
+		$referenceNumber = 'rn';
+
+		$this->reservationViewRepository->expects($this->once())
+					->method('GetReservationForEditing')
+					->with($this->equalTo($referenceNumber))
+					->will($this->returnValue($reservation));
+
+		$this->reservationAuthorization->expects($this->once())
+					->method('CanEdit')
+					->with($this->equalTo($reservation), $this->equalTo($user))
+					->will($this->returnValue(true));
+
+		$res = $this->service->LoadByReferenceNumber($referenceNumber, $user);
+
+		$this->assertEquals($reservation, $res);
+	}
 }
-?>

@@ -148,11 +148,12 @@ class ManageReservationsPresenterTests extends TestBase
 				   ->will($this->returnValue($searchedResourceStatusReasonId));
 
 		$this->page->expects($this->once())
-			->method('GetAttributeFilters')
-			->will($this->returnValue(array (new AttributeFormElement($customAttributes[0]->Id(), 'value'))));
+				   ->method('GetAttributeFilters')
+				   ->will($this->returnValue(array(new AttributeFormElement($customAttributes[0]->Id(), 'value'))));
 
 		$filter = $this->GetExpectedFilter($defaultStart, $defaultEnd, $searchedReferenceNumber, $searchedScheduleId,
-										   $searchedResourceId, $searchedUserId, $searchedStatusId, $searchedResourceStatusId, $searchedResourceStatusReasonId, $attributes);
+										   $searchedResourceId, $searchedUserId, $searchedStatusId,
+										   $searchedResourceStatusId, $searchedResourceStatusReasonId, $attributes);
 
 		$data = new PageableData($this->getReservations());
 		$this->reservationsService->expects($this->once())
@@ -174,8 +175,8 @@ class ManageReservationsPresenterTests extends TestBase
 							   ->will($this->returnValue($customAttributes));
 
 		$this->page->expects($this->once())
-			->method('SetAttributeFilters')
-			->with($attributes);
+				   ->method('SetAttributeFilters')
+				   ->with($attributes);
 
 		$this->page->expects($this->once())
 				   ->method('SetStartDate')
@@ -235,16 +236,16 @@ class ManageReservationsPresenterTests extends TestBase
 		$resource->ChangeStatus(ResourceStatus::AVAILABLE, null);
 
 		$this->page->expects($this->once())
-					->method('CanUpdateResourceStatuses')
-					->will($this->returnValue(true));
+				   ->method('CanUpdateResourceStatuses')
+				   ->will($this->returnValue(true));
 
 		$this->page->expects($this->once())
 				   ->method('GetResourceStatus')
 				   ->will($this->returnValue($resourceStatusId));
 
 		$this->page->expects($this->once())
-						   ->method('GetUpdateScope')
-						   ->will($this->returnValue(''));
+				   ->method('GetUpdateScope')
+				   ->will($this->returnValue(''));
 
 		$this->page->expects($this->once())
 				   ->method('GetResourceStatusReason')
@@ -279,7 +280,7 @@ class ManageReservationsPresenterTests extends TestBase
 		$resourceStatusReasonId = 111;
 		$referenceNumber = 'abc123';
 
-		$reservations = array(new TestReservationItemView(1, Date::Now(), Date::Now(), 1),new TestReservationItemView(1, Date::Now(), Date::Now(), 2));
+		$reservations = array(new TestReservationItemView(1, Date::Now(), Date::Now(), 1), new TestReservationItemView(1, Date::Now(), Date::Now(), 2));
 		$pageableReservations = new PageableData($reservations);
 
 		$resource1 = new FakeBookableResource(1);
@@ -289,8 +290,8 @@ class ManageReservationsPresenterTests extends TestBase
 		$resource2->ChangeStatus(ResourceStatus::AVAILABLE, null);
 
 		$this->page->expects($this->once())
-					->method('CanUpdateResourceStatuses')
-					->will($this->returnValue(true));
+				   ->method('CanUpdateResourceStatuses')
+				   ->will($this->returnValue(true));
 
 		$this->page->expects($this->once())
 				   ->method('GetResourceStatus')
@@ -309,9 +310,11 @@ class ManageReservationsPresenterTests extends TestBase
 				   ->will($this->returnValue($referenceNumber));
 
 		$this->reservationsService->expects($this->once())
-								 ->method('LoadFiltered')
-								 ->with($this->isNull(), $this->isNull(), $this->equalTo(new ReservationFilter(null, null, $referenceNumber, null, null, null, null, null)), $this->equalTo($this->fakeUser))
-								 ->will($this->returnValue($pageableReservations));
+								  ->method('LoadFiltered')
+								  ->with($this->isNull(), $this->isNull(),
+										 $this->equalTo(new ReservationFilter(null, null, $referenceNumber, null, null, null, null, null)),
+										 $this->equalTo($this->fakeUser))
+								  ->will($this->returnValue($pageableReservations));
 
 		$this->resourceRepository->expects($this->at(0))
 								 ->method('LoadById')
@@ -335,6 +338,28 @@ class ManageReservationsPresenterTests extends TestBase
 
 		$this->assertEquals($resourceStatusId, $resource1->GetStatusId());
 		$this->assertEquals($resourceStatusReasonId, $resource1->GetStatusReasonId());
+	}
+
+	public function testLoadsReservation()
+	{
+		$referenceNumber = 'rn';
+
+		$reservationView = new ReservationView();
+
+		$this->page->expects($this->once())
+					->method('GetReferenceNumber')
+					->will($this->returnValue($referenceNumber));
+
+		$this->reservationsService->expects($this->once())
+								  ->method('LoadByReferenceNumber')
+								  ->with($this->equalTo($referenceNumber), $this->equalTo($this->fakeUser))
+								  ->will($this->returnValue($reservationView));
+
+		$this->page->expects($this->once())
+						   ->method('SetReservationJson')
+						   ->with($this->equalTo($reservationView));
+
+		$this->presenter->ProcessDataRequest('load');
 	}
 
 	/**
