@@ -148,12 +148,13 @@ table.list, .list td, .list th {
 
 .list tr.editable:hover {
 	cursor: pointer;
-	background-color: #FFFF99;
+	/*background-color: #FFFF99;*/
+	background-color: #c5e4f1;
 }
 
-.list tr.clicked:hover, .list tr.clicked  {
-	background-color: #FFFF33;
-}
+/*.list tr.clicked:hover, .list tr.clicked  {*/
+	/*background-color: #FFFF33;*/
+/*}*/
 
 .userList .customAttributes {
 
@@ -447,5 +448,6 @@ ul.resource-status-reasons {
 }
 
 .inlineUpdate:hover {
-	background-color:#E5E5FF;
+	/*background-color:#E5E5FF;*/
+	background-color: #FFFF99;
 }

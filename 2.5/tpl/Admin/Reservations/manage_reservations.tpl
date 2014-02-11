@@ -247,7 +247,15 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	{control type="AttributeControl" attribute=$attribute}
 	</div>
 {/foreach}
+
+	<form id="attributeUpdateForm" method="POST" ajaxAction="{ManageReservationsActions::UpdateAttribute}">
+		<input type="hidden" id="attributeUpdateReferenceNumber" {formname key=REFERENCE_NUMBER} />
+		<input type="hidden" id="attributeUpdateId" {formname key=ATTRIBUTE_ID} />
+		<input type="hidden" id="attributeUpdateValue" {formname key=ATTRIBUTE_VALUE} />
+	</form>
 </div>
+
+
 
 <div id="inlineUpdateCancelButtons" class="hidden">
 	<div>
@@ -287,7 +295,8 @@ $(document).ready(function() {
 		updateScope: updateScope,
 		actions: actions,
 		deleteUrl: '{$Path}ajax/reservation_delete.php?{QueryStringKeys::RESPONSE_TYPE}=json',
-		resourceStatusUrl: '{$smarty.server.SCRIPT_NAME}?{QueryStringKeys::ACTION}=changeStatus'
+		resourceStatusUrl: '{$smarty.server.SCRIPT_NAME}?{QueryStringKeys::ACTION}=changeStatus',
+		submitUrl: '{$smarty.server.SCRIPT_NAME}'
 	};
 
 	var approvalOpts = {

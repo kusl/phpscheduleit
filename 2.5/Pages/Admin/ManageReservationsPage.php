@@ -229,6 +229,16 @@ interface IManageReservationsPage extends IPageable, IActionPage
 	 * @param ReservationView $reservation
 	 */
 	public function SetReservationJson($reservation);
+
+	/**
+	 * @return int
+	 */
+	public function GetAttributeId();
+
+	/**
+	 * @return string
+	 */
+	public function GetAttributeValue();
 }
 
 class ManageReservationsPage extends ActionPage implements IManageReservationsPage
@@ -595,33 +605,22 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 		$this->Set('CanUpdateResourceStatus', $canUpdate);
 
 	}
-	/**
-	 * @return bool
-	 */
+
 	public function CanUpdateResourceStatuses()
 	{
 		return $this->GetVar('CanUpdateResourceStatus');
 	}
 
-	/**
-	 * @return AttributeFormElement[]
-	 */
 	public function GetAttributeFilters()
 	{
 		return AttributeFormParser::GetAttributes($this->GetQuerystring(FormKeys::ATTRIBUTE_PREFIX));
 	}
 
-	/**
-	 * @param Attribute[] $filters
-	 */
 	public function SetAttributeFilters($filters)
 	{
 		$this->Set('AttributeFilters', $filters);
 	}
 
-	/**
-	 * @param CustomAttribute[] $reservationAttributes
-	 */
 	public function SetReservationAttributes($reservationAttributes)
 	{
 		$this->Set('ReservationAttributes', $reservationAttributes);
@@ -630,5 +629,15 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	public function SetReservationJson($reservation)
 	{
 		$this->SetJson($reservation);
+	}
+
+	public function GetAttributeId()
+	{
+		return $this->GetForm(FormKeys::ATTRIBUTE_ID);
+	}
+
+	public function GetAttributeValue()
+	{
+		return $this->GetForm(FormKeys::ATTRIBUTE_VALUE);
 	}
 }

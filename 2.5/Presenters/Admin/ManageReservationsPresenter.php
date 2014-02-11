@@ -25,6 +25,12 @@ require_once(ROOT_DIR . 'lib/Application/Admin/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Attributes/namespace.php');
 require_once(ROOT_DIR . 'lib/Application/Reservation/namespace.php');
 
+class ManageReservationsActions
+{
+	const UpdateAttribute = 'updateAttribute';
+	const ChangeStatus = 'changeStatus';
+}
+
 class ManageReservationsPresenter extends ActionPresenter
 {
 	/**
@@ -74,7 +80,8 @@ class ManageReservationsPresenter extends ActionPresenter
 		$this->attributeService = $attributeService;
 		$this->userPreferenceRepository = $userPreferenceRepository;
 
-		$this->AddAction('changeStatus', 'UpdateResourceStatus');
+		$this->AddAction(ManageReservationsActions::UpdateAttribute, 'UpdateAttribute');
+		$this->AddAction(ManageReservationsActions::ChangeStatus, 'UpdateResourceStatus');
 	}
 
 	public function PageLoad($userTimezone)
@@ -295,6 +302,18 @@ class ManageReservationsPresenter extends ActionPresenter
 			$rv = $this->manageReservationsService->LoadByReferenceNumber($referenceNumber, ServiceLocator::GetServer()->GetUserSession());
 			$this->page->SetReservationJson($rv);
 		}
+	}
+
+	public function UpdateAttribute()
+	{
+		$userSession = ServiceLocator::GetServer()->GetUserSession();
+		$referenceNumber = $this->page->GetReferenceNumber();
+		$attributeId = $this->page->GetAttributeId();
+		$attributeValue = $this->page->GetAttributeValue();
+
+		Log::Debug('Updating reservation attribute. UserId=%s, AttributeId=%s, AttributeValue=%s, ReferenceNumber=%s', $userSession->UserId, $attributeId, $attributeValue, $referenceNumber);
+
+		$this->manageReservationsService->UpdateAttribute($referenceNumber, $attributeId, $attributeValue, $userSession);
 	}
 }
 
