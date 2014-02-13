@@ -362,6 +362,30 @@ class ManageReservationsPresenterTests extends TestBase
 		$this->presenter->ProcessDataRequest('load');
 	}
 
+	public function testUpdatesReservationAttribute()
+	{
+		$referenceNumber = 'rn';
+		$attrId = 'attid';
+		$attrValue = 'val';
+
+		$this->page->expects($this->once())
+							->method('GetReferenceNumber')
+							->will($this->returnValue($referenceNumber));
+
+		$this->page->expects($this->once())
+							->method('GetAttributeId')
+							->will($this->returnValue($attrId));
+
+		$this->page->expects($this->once())
+							->method('GetAttributeValue')
+							->will($this->returnValue($attrValue));
+
+		$this->reservationsService->expects($this->once())
+							  ->method('UpdateAttribute')
+							  ->with($this->equalTo($referenceNumber), $this->equalTo($attrId), $this->equalTo($attrValue), $this->equalTo($this->fakeUser))
+							  ->will($this->returnValue(array()));
+	}
+
 	/**
 	 * @param Date $startDate
 	 * @param Date $endDate

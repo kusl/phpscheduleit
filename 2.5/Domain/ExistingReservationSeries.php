@@ -382,6 +382,11 @@ class ExistingReservationSeries extends ReservationSeries
 		return count($this->instances) == count($this->Instances());
 	}
 
+	public function UpdateBookedBy(UserSession $bookedBy)
+	{
+		$this->_bookedBy = $bookedBy;
+	}
+
 	protected function AddNewInstance(DateRange $reservationDate)
 	{
 		if (!$this->InstanceStartsOnDate($reservationDate))

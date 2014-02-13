@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-interface IReservationSaveResultsPage
+interface IReservationSaveResultsView
 {
 	/**
 	 * @param bool $succeeded
@@ -28,11 +28,10 @@ interface IReservationSaveResultsPage
 	/**
 	 * @param array|string[] $errors
 	 */
-	public function ShowErrors($errors);
+	public function SetErrors($errors);
 
 	/**
 	 * @param array|string[] $warnings
 	 */
-	public function ShowWarnings($warnings);
+	public function SetWarnings($warnings);
 }
-?>

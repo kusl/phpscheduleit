@@ -258,7 +258,7 @@ class ManageReservationsPage extends ActionPage implements IManageReservationsPa
 	    parent::__construct('ManageReservations', 1);
 
 		$this->presenter = new ManageReservationsPresenter($this,
-			new ManageReservationsService(new ReservationViewRepository(), new ReservationAuthorization(PluginManager::Instance()->LoadAuthorization())),
+			new ManageReservationsService(new ReservationViewRepository()),
 			new ScheduleRepository(),
 			new ResourceRepository(),
 			new AttributeService(new AttributeRepository()),
