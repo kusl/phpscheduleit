@@ -77,7 +77,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</li>
 		{foreach from=$AttributeFilters item=attribute}
 			<li class="customAttribute">
-				{control type="AttributeControl" attribute=$attribute}
+				{control type="AttributeControl" attribute=$attribute searchmode=true}
 			</li>
 		{/foreach}
 	</ul>

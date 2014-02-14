@@ -200,6 +200,7 @@ class ManageReservationsPresenter extends ActionPresenter
 			$seriesIds[] = $reservationItemView->SeriesId;
 		}
 
+		// dont need to do this any more, use the attributes on the row
 		$attributeList = $this->attributeService->GetAttributes(CustomAttributeCategory::RESERVATION, $seriesIds);
 		$this->page->SetAttributes($attributeList);
 
