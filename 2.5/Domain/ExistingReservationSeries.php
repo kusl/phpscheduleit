@@ -584,6 +584,16 @@ class ExistingReservationSeries extends ReservationSeries
 	}
 
 	/**
+	 * @param $attribute AttributeValue
+	 */
+	public function ChangeAttribute($attribute)
+	{
+		$this->AddEvent(new AttributeAddedEvent($attribute, $this));
+		$this->AddEvent(new AttributeRemovedEvent($attribute, $this));
+		$this->AddAttributeValue($attribute);
+	}
+
+	/**
 	 * @param $attributes AttributeValue[]|array
 	 */
 	public function ChangeAttributes($attributes)

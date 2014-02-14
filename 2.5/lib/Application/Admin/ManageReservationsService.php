@@ -111,7 +111,10 @@ class ManageReservationsService implements IManageReservationsService
 	{
 		$reservation = $this->persistenceService->LoadByReferenceNumber($referenceNumber);
 		$reservation->UpdateBookedBy($userSession);
-		$reservation->AddAttributeValue(new AttributeValue($attributeId, $attributeValue));
+
+		$attributeValues = $reservation->AttributeValues();
+		$attributeValues[$attributeId] = $attributeValue;
+		$reservation->ChangeAttribute(new AttributeValue($attributeId, $attributeValue));
 		$collector = new ManageReservationsUpdateAttributeResultCollector();
 		$this->reservationHandler->Handle($reservation, $collector);
 

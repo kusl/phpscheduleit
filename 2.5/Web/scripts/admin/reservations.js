@@ -410,7 +410,8 @@ function ReservationManagement(opts, approval)
 			var template = $('.attributeTemplate[attributeId="' + attributeId + '"]').clone();
 			var attributeElement = template.find('.customAttribute');
 
-			var attributeValue = currentReservation.Attributes[attributeId].Value;
+			var attribute = currentReservation.Attributes[attributeId];
+			var attributeValue = attribute ? attribute.Value : '';
 
 			attributeElement.val(attributeValue);
 
