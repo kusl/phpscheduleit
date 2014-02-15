@@ -329,13 +329,12 @@ function ReservationManagement(opts, approval)
 			reasonId = elements.resourceReasonIdFilter.val();
 		}
 
-		var attributes = $('[name^=psiattribute]');
+		var attributes = elements.filterTable.find('[name^=psiattribute]');
 		var attributeString = '';
 		$.each(attributes, function (i, attribute)
 		{
 			attributeString += '&' + $(attribute).attr('name') + '=' + $(attribute).val();
 		});
-		console.log(attributes);
 
 		var filterQuery =
 				'sd=' + elements.startDate.val() +
@@ -347,10 +346,9 @@ function ReservationManagement(opts, approval)
 						'&rn=' + elements.referenceNumber.val() +
 						'&rsid=' + elements.statusId.val() +
 						'&rrsid=' + elements.resourceStatusIdFilter.val() +
-						'&rrsrid=' + reasonId +
-						attributeString;
+						'&rrsrid=' + reasonId;
 
-		window.location = document.location.pathname + '?' + encodeURI(filterQuery);
+		window.location = document.location.pathname + '?' + encodeURI(filterQuery) + attributeString;
 	}
 
 	var previousContents;
