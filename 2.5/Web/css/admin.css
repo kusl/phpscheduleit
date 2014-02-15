@@ -415,27 +415,38 @@ th.action {
 }
 
 #reservationFilterButtons {
-	padding-top:15px;
+	padding-top:5px;
+	margin-top:15px;
 	clear:both;
+	border-top: solid 1px #cfcfcf;
 }
 
-#filterTable td {
-	padding: 1px 3px;
+.filterTable input, .filterTable textarea, .filterTable select
+{
+	width:150px;
 }
 
-#filterTable {
-	list-style: none;
+.filterTable ul {
+	display:block;
+	width:100%;
 	clear:both;
+	margin:auto;
+	list-style-type: none;
 }
 
-#filterTable li {
-	display:inline;
-	float:left;
-	margin-right:5px;
+.filterTable li {
+	clear:both;
+	display: inline-block;
+	list-style-type: none;
+	min-width:165px;
+	margin-right:20px;
 }
 
-#filterTable label {
+.filterTable label {
 	display: block;
+	/*float:left;*/
+	clear:left;
+	font-size:.9em;
 }
 
 ul.resource-status-reasons li {
@@ -448,6 +459,6 @@ ul.resource-status-reasons {
 }
 
 .inlineUpdate:hover {
-	/*background-color:#E5E5FF;*/
-	background-color: #FFFF99;
+	/*background-color:#FFFF99;*/
+	background-color: #fff;
 }

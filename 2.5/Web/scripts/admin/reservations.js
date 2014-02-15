@@ -94,7 +94,6 @@ function ReservationManagement(opts, approval)
 
 		elements.reservationTable.delegate('.updateCustomAttribute', 'click', function (e)
 		{
-			e.preventDefault();
 			e.stopPropagation();
 
 			setCurrentReservationInformation($(this));
@@ -411,7 +410,19 @@ function ReservationManagement(opts, approval)
 			var attribute = currentReservation.Attributes[attributeId];
 			var attributeValue = attribute ? attribute.Value : '';
 
-			attributeElement.val(attributeValue);
+			if (template.find(":checkbox")){
+				template.find(':checkbox').attr('z-index', '1000');
+//				template.find(':checkbox').attr('disabled', true)
+//				template.find(':checkbox').attr('disabled', false)
+
+				if (attributeValue){
+					template.find(':checkbox').attr('checked', true)
+				}
+			}
+			else
+			{
+				attributeElement.val(attributeValue);
+			}
 
 			previousContents = cell.html();
 			previousCell = cell;
