@@ -245,7 +245,7 @@ class SqlFilterLike extends BaseSqlFilter
 	{
 		if (!StringHelper::Contains($columnValue, '%'))
 		{
-			$columnValue = $columnValue . '%';
+			$columnValue = '%' . $columnValue . '%';
 		}
 		return new Criteria($columnName, $columnValue);
 	}
