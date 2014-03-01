@@ -20,11 +20,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <h1>{translate key='ManageResources'}</h1>
 
+{pagination pageInfo=$PageInfo}
+
 <div id="globalError" class="error" style="display:none"></div>
-<div class="admin">
-<div class="title">
-	{translate key='AllResources'}
-</div>
+<div class="admin" style="margin-top:10px;">
+	<div class="title">
+		{translate key='AllResources'}
+	</div>
+
 {foreach from=$Resources item=resource}
 	{assign var=id value=$resource->GetResourceId()}
 	<div class="resourceDetails" resourceId="{$id}">
@@ -260,6 +263,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 {/foreach}
 </div>
+
+{pagination pageInfo=$PageInfo}
 
 <div class="admin" style="margin-top:30px">
 	<div class="title">

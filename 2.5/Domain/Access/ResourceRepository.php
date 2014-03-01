@@ -77,6 +77,19 @@ class ResourceRepository implements IResourceRepository
 		return $resources;
 	}
 
+	public function GetList($pageNumber, $pageSize, $sortField = null, $sortDirection = null, $filter = null)
+	{
+		$command = new GetAllResourcesCommand();
+
+		if ($filter != null)
+		{
+			$command = new FilterCommand($command, $filter);
+		}
+
+		$builder = array('BookableResource', 'Create');
+		return PageableDataStore::GetList($command, $builder, $pageNumber, $pageSize);
+	}
+
 	/**
 	 * @param int $resourceId
 	 * @return BookableResource

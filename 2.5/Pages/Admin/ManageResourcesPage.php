@@ -19,6 +19,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once(ROOT_DIR . 'Pages/Admin/AdminPage.php');
+require_once(ROOT_DIR . 'Pages/IPageable.php');
 require_once(ROOT_DIR . 'Presenters/Admin/ManageSchedulesPresenter.php');
 require_once(ROOT_DIR . 'Domain/Access/ScheduleRepository.php');
 require_once(ROOT_DIR . 'lib/Application/Attributes/namespace.php');
@@ -126,7 +127,7 @@ interface IUpdateResourcePage
 	public function GetResourceTypeId();
 }
 
-interface IManageResourcesPage extends IUpdateResourcePage, IActionPage
+interface IManageResourcesPage extends IUpdateResourcePage, IActionPage, IPageable
 {
 	/**
 	 * @param BookableResource[] $resources
@@ -206,6 +207,8 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 			new GroupRepository(),
 			new AttributeService(new AttributeRepository())
 		);
+
+		$this->pageablePage = new PageablePage($this);
 	}
 
 	public function ProcessPageLoad()
@@ -213,6 +216,37 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		$this->presenter->PageLoad();
 
 		$this->Display('Admin/Resources/manage_resources.tpl');
+	}
+
+	/**
+	 * @return int
+	 */
+	function GetPageNumber()
+	{
+		return $this->pageablePage->GetPageNumber();
+	}
+
+	/**
+	 * @return int
+	 */
+	function GetPageSize()
+	{
+		$pageSize = $this->pageablePage->GetPageSize();
+
+		if (empty($pageSize))
+		{
+			return 10;
+		}
+		return $pageSize;
+	}
+
+	/**
+	 * @param PageInfo $pageInfo
+	 * @return void
+	 */
+	function BindPageInfo(PageInfo $pageInfo)
+	{
+		$this->pageablePage->BindPageInfo($pageInfo);
 	}
 
 	public function BindResources($resources)

@@ -114,8 +114,10 @@ class ManageResourcesPresenter extends ActionPresenter
 
 	public function PageLoad()
 	{
-		$resources = $this->resourceRepository->GetResourceList();
+		$results = $this->resourceRepository->GetList($this->page->GetPageNumber(), $this->page->GetPageSize());
+		$resources = $results->Results();
 		$this->page->BindResources($resources);
+		$this->page->BindPageInfo($results->PageInfo());
 
 		$schedules = $this->scheduleRepository->GetAll();
 		$scheduleList = array();
