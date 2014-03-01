@@ -22,6 +22,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 {pagination pageInfo=$PageInfo}
 
+{*<div>*}
+	{*Bulk Update <a href="#">These Resources</a> | <a href="#">All Resources</a>*}
+{*</div>*}
+
 <div id="globalError" class="error" style="display:none"></div>
 <div class="admin" style="margin-top:10px;">
 	<div class="title">

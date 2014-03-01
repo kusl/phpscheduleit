@@ -125,28 +125,28 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<td>{$reservation->ResourceName}
 				<div>{if $reservation->ResourceStatusId == ResourceStatus::AVAILABLE}
 						{html_image src="status.png"}
-						{if $CanUpdateResourceStatus}
-							<a class="update changeStatus" href="#"
-							   resourceId="{$reservation->ResourceId}">{translate key='Available'}</a>
-						{else}
+						{*{if $CanUpdateResourceStatus}*}
+							{*<a class="changeStatus" href="#"*}
+							   {*resourceId="{$reservation->ResourceId}">{translate key='Available'}</a>*}
+						{*{else}*}
 							{translate key='Available'}
-						{/if}
+						{*{/if}*}
 					{elseif $reservation->ResourceStatusId == ResourceStatus::UNAVAILABLE}
 						{html_image src="status-away.png"}
-						{if $CanUpdateResourceStatus}
-							<a class="update changeStatus" href="#"
-							   resourceId="{$reservation->ResourceId}">{translate key='Unavailable'}</a>
-						{else}
+						{*{if $CanUpdateResourceStatus}*}
+							{*<a class="changeStatus" href="#"*}
+							   {*resourceId="{$reservation->ResourceId}">{translate key='Unavailable'}</a>*}
+						{*{else}*}
 							{translate key='Unavailable'}
-						{/if}
+						{*{/if}*}
 					{else}
 						{html_image src="status-busy.png"}
-						{if $CanUpdateResourceStatus}
-							<a class="update changeStatus" href="#"
-							   resourceId="{$reservation->ResourceId}">{translate key='Hidden'}</a>
-						{else}
+						{*{if $CanUpdateResourceStatus}*}
+							{*<a class="changeStatus" href="#"*}
+							   {*resourceId="{$reservation->ResourceId}">{translate key='Hidden'}</a>*}
+						{*{else}*}
 							{translate key='Hidden'}
-						{/if}
+						{*{/if}*}
 					{/if}
 					{if array_key_exists($reservation->ResourceStatusReasonId,$StatusReasons)}
 						<span class="reservationResourceStatusReason">{$StatusReasons[$reservation->ResourceStatusReasonId]->Description()}</span>
