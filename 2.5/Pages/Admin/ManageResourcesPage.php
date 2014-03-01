@@ -233,7 +233,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	{
 		$pageSize = $this->pageablePage->GetPageSize();
 
-		if (empty($pageSize))
+		if ($pageSize > 10)
 		{
 			return 10;
 		}

@@ -512,7 +512,10 @@ class SmartyPage extends Smarty
 		$sb->Append($this->Resources->GetString('Rows'));
 		$sb->Append(": {$pageInfo->ResultsStart} - {$pageInfo->ResultsEnd} ({$pageInfo->Total})");
 		$sb->Append('<span>&nbsp;</span>');
-		$sb->Append($this->CreatePageLink(array('page' => 1, 'size' => '-1', 'text' => $viewAllText), $smarty));
+		if ($pageInfo->TotalPages !=1)
+		{
+			$sb->Append($this->CreatePageLink(array('page' => 1, 'size' => '-1', 'text' => $viewAllText), $smarty));
+		}
 		$sb->Append('</p><p>');
 		$sb->Append($this->Resources->GetString('Page'));
 		$sb->Append(': ');
