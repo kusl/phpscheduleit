@@ -21,17 +21,89 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <h1>{translate key='ManageResources'}</h1>
 
+<div class="filterTable main-div-shadow" id="filterTable">
+	<form id="filterForm">
+		<div class="main-div-header">{translate key=Filter}</div>
+		<ul>
+			<li>
+				<label for="filterResourceName">{translate key=Name}</label>
+				<input type="text" id="filterResourceName" class="textbox" {formname key=RESOURCE_NAME} value="{$ResourceNameFilter}"/ />
+			</li>
+			<li>
+				<label for="filterScheduleId">{translate key=Schedule}</label>
+				<select id="filterScheduleId" {formname key=SCHEDULE_ID} class="textbox">
+					<option value="">{translate key=AllSchedules}</option>
+					{object_html_options options=$AllSchedules key='GetId' label="GetName" selected=$ScheduleIdFilter}
+				</select>
+			</li>
+
+			<li>
+				<label for="filterResourceType">{translate key=ResourceType}</label>
+				<select id="filterResourceType" class="textbox" {formname key=RESOURCE_TYPE_ID}>
+					<option value="">{translate key=All}</option>
+					{object_html_options options=$ResourceTypes key='Id' label="Name" selected=$ResourceTypeFilter}
+				</select>
+			</li>
+			<li>
+				<label for="resourceStatusIdFilter">{translate key=ResourceStatus}</label>
+				<select id="resourceStatusIdFilter" class="textbox" {formname key=RESOURCE_STATUS_ID}>
+					<option value="">{translate key=All}</option>
+					<option value="{ResourceStatus::AVAILABLE}">{translate key=Available}</option>
+					<option value="{ResourceStatus::UNAVAILABLE}">{translate key=Unavailable}</option>
+					<option value="{ResourceStatus::HIDDEN}">{translate key=Hidden}</option>
+				</select>
+			</li>
+			<li>
+				<label for="resourceReasonIdFilter">{translate key=Reason}</label>
+				<select id="resourceReasonIdFilter" class="textbox"{formname key=RESOURCE_STATUS_REASON_ID}>
+					<option value="">-</option>
+				</select>
+			</li>
+			<li>
+				<label for="filterCapacity">{translate key=MinimumCapacity}</label>
+				<input type="text" id="filterCapacity" class="textbox" {formname key=MAX_PARTICIPANTS} value="{$CapacityFilter}" />
+			</li>
+			<li>
+				<label for="filterRequiresApproval">{translate key='ResourceRequiresApproval'}</label>
+				<select id="filterRequiresApproval" class="textbox" {formname key=REQUIRES_APPROVAL}>
+					{html_options options=$YesNoOptions selected=$RequiresApprovalFilter}
+				</select>
+			</li>
+			<li>
+				<label for="filterAutoAssign">{translate key='ResourcePermissionAutoGranted'}</label>
+				<select id="filterAutoAssign" class="textbox" {formname key=AUTO_ASSIGN}>
+					{html_options options=$YesNoOptions selected=$AutoPermissionFilter}
+				</select>
+			</li>
+			<li>
+				<label for="filterAllowMultiDay">{translate key=ResourceAllowMultiDay}</label>
+				<select id="filterAllowMultiDay" class="textbox" {formname key=ALLOW_MULTIDAY}>
+					{html_options options=$YesNoOptions selected=$AllowMultiDayFilter}
+				</select>
+			</li>
+			{foreach from=$AttributeFilters item=attribute}
+				<li class="customAttribute">
+					{control type="AttributeControl" attribute=$attribute searchmode=true}
+				</li>
+			{/foreach}
+		</ul>
+	</form>
+
+	<div class="clear">&nbsp;</div>
+	<div id="adminFilterButtons">
+		<button id="filter" class="button">{html_image src="search.png"} {translate key=Filter}</button>
+		<a href="#" id="clearFilter">{translate key=Reset}</a>
+	</div>
+</div>
+
 {pagination pageInfo=$PageInfo}
 
 {*<div>*}
-	{*Bulk Update <a href="#">These Resources</a> | <a href="#">All Resources</a>*}
+{*Bulk Update <a href="#">These Resources</a> | <a href="#">All Resources</a>*}
 {*</div>*}
 
 <div id="globalError" class="error" style="display:none"></div>
 <div class="admin" style="margin-top:10px;">
-	<div class="title">
-		{translate key='AllResources'}
-	</div>
 
 {foreach from=$Resources item=resource}
 	{assign var=id value=$resource->GetResourceId()}
@@ -324,10 +396,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <input type="hidden" id="activeId" value=""/>
 
 <div id="imageDialog" class="dialog" title="{translate key=AddImage}">
-	<form id="imageForm" method="post" enctype="multipart/form-data" ajaxAction="{ManageResourcesActions::ActionChangeImage}">
+	<form id="imageForm" method="post" enctype="multipart/form-data"
+		  ajaxAction="{ManageResourcesActions::ActionChangeImage}">
 		<input id="resourceImage" type="file" class="text" size="60" {formname key=RESOURCE_IMAGE} />
 		<br/>
 		<span class="note">.gif, .jpg, or .png</span>
+
 		<div class="admin-update-buttons">
 			<button type="button"
 					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
@@ -340,8 +414,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	<form id="renameForm" method="post" ajaxAction="{ManageResourcesActions::ActionRename}">
 		{translate key='Name'}: <input id="editName" type="text" class="textbox required" maxlength="85"
 									   style="width:250px" {formname key=RESOURCE_NAME} />
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Rename'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Rename'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -355,8 +431,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<option value="{$scheduleId}">{$scheduleName}</option>
 			{/foreach}
 		</select>
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -371,8 +449,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<option value="{$id}">{$resourceType->Name()}</option>
 			{/foreach}
 		</select>
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -386,8 +466,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{translate key=Contact}:<br/>
 		<input id="editContact" type="text" class="textbox" maxlength="85"
 			   style="width:250px" {formname key=RESOURCE_CONTACT} />
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -398,8 +480,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{translate key=Description}:<br/>
 		<textarea id="editDescription" class="textbox"
 				  style="width:460px;height:150px;" {formname key=RESOURCE_DESCRIPTION}></textarea>
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -410,8 +494,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{translate key=Notes}:<br/>
 		<textarea id="editNotes" class="textbox"
 				  style="width:460px;height:150px;" {formname key=RESOURCE_NOTES}></textarea>
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -551,7 +637,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			</fieldset>
 		</div>
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -565,8 +652,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<option value="{$adminGroup->Id}">{$adminGroup->Name}</option>
 			{/foreach}
 		</select>
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="tick-circle.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="tick-circle.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -586,7 +675,8 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="cross-button.png"} {translate key='Delete'}</button>
+			<button type="button"
+					class="button save">{html_image src="cross-button.png"} {translate key='Delete'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -597,8 +687,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{translate key=SortOrder}:
 		<input type="text" id="editSortOrder" class="textbox" {formname key=RESOURCE_SORT_ORDER} maxlength="3"
 			   style="width:40px"/>
+
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -614,14 +706,17 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</select>
 		<br/>
 		<br/>
-		<label for="reasonId">{translate key=Reason}</label> <a href="#" id="addStatusReason">{translate key=Add}</a><br/>
+		<label for="reasonId">{translate key=Reason}</label> <a href="#"
+																id="addStatusReason">{translate key=Add}</a><br/>
 		<select id="reasonId" {formname key=RESOURCE_STATUS_REASON_ID} class="textbox">
 		</select>
+
 		<div id="newStatusReason" class="hidden">
 			<input type="text" class="textbox" {formname key=RESOURCE_STATUS_REASON}  />
 		</div>
 		<div class="admin-update-buttons">
-			<button type="button" class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+			<button type="button"
+					class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
@@ -672,7 +767,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			bufferTime: {},
 			adminGroupId: '{$resource->GetAdminGroupId()}',
 			sortOrder: '{$resource->GetSortOrder()}',
-			resourceTypeId : '{$resource->GetResourceTypeId()}',
+			resourceTypeId: '{$resource->GetResourceTypeId()}',
 			statusId: '{$resource->GetStatusId()}',
 			reasonId: '{$resource->GetStatusReasonId()}'
 		};
@@ -726,8 +821,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		{/foreach}
 
 		{foreach from=$StatusReasons item=reason}
-			resourceManagement.addStatusReason('{$reason->Id()}', '{$reason->StatusId()}', '{$reason->Description()|escape:javascript}');
+		resourceManagement.addStatusReason('{$reason->Id()}', '{$reason->StatusId()}', '{$reason->Description()|escape:javascript}');
 		{/foreach}
+
+		resourceManagement.initializeStatusFilter('{$ResourceStatusFilterId}', '{$ResourceStatusReasonFilterId}');
 	});
 
 </script>

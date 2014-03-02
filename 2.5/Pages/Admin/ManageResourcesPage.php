@@ -140,6 +140,11 @@ interface IManageResourcesPage extends IUpdateResourcePage, IActionPage, IPageab
 	public function BindSchedules($scheduleList);
 
 	/**
+	 * @param Schedule[] $schedules
+	 */
+	public function AllSchedules($schedules);
+
+	/**
 	 * @abstract
 	 * @param $adminGroups GroupItemView[]|array
 	 * @return void
@@ -187,6 +192,26 @@ interface IManageResourcesPage extends IUpdateResourcePage, IActionPage, IPageab
 	 * @return string
 	 */
 	public function GetNewStatusReason();
+
+	/**
+	 * @param Attribute[] $attributeFilters
+	 */
+	public function BindAttributeFilters($attributeFilters);
+
+	/**
+	 * @return bool
+	 */
+	public function FilterButtonPressed();
+
+	/**
+	 * @param ResourceFilterValues $value
+	 */
+	public function SetFilterValues($value);
+
+	/**
+	 * @return ResourceFilterValues
+	 */
+	public function GetFilterValues();
 }
 
 class ManageResourcesPage extends ActionPage implements IManageResourcesPage
@@ -205,10 +230,12 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 			new ScheduleRepository(),
 			new ImageFactory(),
 			new GroupRepository(),
-			new AttributeService(new AttributeRepository())
+			new AttributeService(new AttributeRepository()),
+			new UserPreferenceRepository()
 		);
 
 		$this->pageablePage = new PageablePage($this);
+		$this->Set('YesNoOptions', array('' => '-', '1' => Resources::GetInstance()->GetString('Yes'), '0' => Resources::GetInstance()->GetString('No')));
 	}
 
 	public function ProcessPageLoad()
@@ -257,6 +284,11 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	public function BindSchedules($schedules)
 	{
 		$this->Set('Schedules', $schedules);
+	}
+
+	public function AllSchedules($schedules)
+	{
+		$this->Set('AllSchedules', $schedules);
 	}
 
 	public function ProcessAction()
@@ -476,5 +508,86 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	public function GetNewStatusReason()
 	{
 		return $this->GetForm(FormKeys::RESOURCE_STATUS_REASON);
+	}
+
+	public function FilterButtonPressed()
+	{
+		return count($_GET)>0;
+	}
+
+	public function SetFilterValues($values)
+	{
+		$this->Set('ResourceNameFilter', $values->ResourceNameFilter);
+		$this->Set('ScheduleIdFilter', $values->ScheduleIdFilter);
+		$this->Set('ResourceTypeFilter', $values->ResourceTypeFilter);
+		$this->Set('ResourceStatusFilterId', $values->ResourceStatusFilterId);
+		$this->Set('ResourceStatusReasonFilterId', $values->ResourceStatusReasonFilterId);
+		$this->Set('CapacityFilter', $values->CapacityFilter);
+		$this->Set('RequiresApprovalFilter', $values->RequiresApprovalFilter);
+		$this->Set('AutoPermissionFilter', $values->AutoPermissionFilter);
+		$this->Set('AllowMultiDayFilter', $values->AllowMultiDayFilter);
+	}
+
+	public function GetFilterValues()
+	{
+		$filterValues = new ResourceFilterValues();
+
+		$filterValues->ResourceNameFilter = $this->GetQuerystring(FormKeys::RESOURCE_NAME);
+		$filterValues->ScheduleIdFilter = $this->GetQuerystring(FormKeys::SCHEDULE_ID);
+		$filterValues->ResourceTypeFilter = $this->GetQuerystring(FormKeys::RESOURCE_TYPE_ID);
+		$filterValues->ResourceStatusFilterId = $this->GetQuerystring(FormKeys::RESOURCE_STATUS_ID);
+		$filterValues->ResourceStatusReasonFilterId = $this->GetQuerystring(FormKeys::RESOURCE_STATUS_REASON_ID);
+		$filterValues->CapacityFilter = $this->GetQuerystring(FormKeys::MAX_PARTICIPANTS);
+		$filterValues->RequiresApprovalFilter = $this->GetQuerystring(FormKeys::REQUIRES_APPROVAL);
+		$filterValues->AutoPermissionFilter = $this->GetQuerystring(FormKeys::AUTO_ASSIGN);
+		$filterValues->AllowMultiDayFilter = $this->GetQuerystring(FormKeys::ALLOW_MULTIDAY);
+		$filterValues->SetAttributes(AttributeFormParser::GetAttributes($this->GetQuerystring(FormKeys::ATTRIBUTE_PREFIX)));
+
+		return $filterValues;
+	}
+
+	public function BindAttributeFilters($attributeFilters)
+	{
+		$this->Set('AttributeFilters', $attributeFilters);
+	}
+}
+
+class ResourceFilterValues
+{
+	public $ResourceNameFilter;
+	public $ScheduleIdFilter;
+	public $ResourceTypeFilter;
+	public $ResourceStatusFilterId;
+	public $ResourceStatusReasonFilterId;
+	public $CapacityFilter;
+	public $RequiresApprovalFilter;
+	public $AutoPermissionFilter;
+	public $AllowMultiDayFilter;
+	public $Attributes = array();
+
+	/**
+	 * @param AttributeFormElement[] $attributeFormElements
+	 */
+	public function SetAttributes($attributeFormElements)
+	{
+		foreach($attributeFormElements as $e)
+		{
+			$this->SetAttributeValue($e->Id, $e->Value);
+		}
+	}
+
+	public function SetAttributeValue($id, $value)
+	{
+		$this->Attributes[$id] = $value;
+	}
+
+	public function GetAttributeValue($id)
+	{
+		if (array_key_exists($id, $this->Attributes))
+		{
+			return $this->Attributes[$id];
+		}
+
+		return null;
 	}
 }

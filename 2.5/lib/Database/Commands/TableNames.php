@@ -27,5 +27,6 @@ class TableNames
     const RESERVATION_ACCESSORIES_ALIAS = 'ra';
     const RESOURCES = 'resources';
     const SCHEDULES = 'schedules';
+    const SCHEDULES_ALIAS = 's';
     const USERS = 'users';
 }

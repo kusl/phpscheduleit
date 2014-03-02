@@ -36,7 +36,10 @@ function ResourceManagement(opts) {
 		addStatusReason:$('#addStatusReason'),
 		newStatusReason:$('#newStatusReason'),
 
-		addForm:$('#addResourceForm')
+		addForm:$('#addResourceForm'),
+		statusOptionsFilter:$('#resourceStatusIdFilter'),
+		statusReasonsFilter:$('#resourceReasonIdFilter'),
+		filterButton:$('#filter')
 	};
 
 	var resources = {};
@@ -149,7 +152,7 @@ function ResourceManagement(opts) {
 		});
 
 		elements.statusOptions.change(function(e){
-			populateReasonOptions(elements.statusOptions.val());
+			populateReasonOptions(elements.statusOptions.val(), elements.statusReasons);
 		});
 
 		elements.addStatusReason.click(function(e){
@@ -164,6 +167,12 @@ function ResourceManagement(opts) {
 				elements.statusReasons.val(elements.statusReasons.data('prev'));
 			}
 		});
+
+		elements.statusOptionsFilter.change(function(e){
+			populateReasonOptions(elements.statusOptionsFilter.val(), elements.statusReasonsFilter);
+		});
+
+		elements.filterButton.click(filterResources);
 
 		var imageSaveErrorHandler = function (result) {
 			alert(result);
@@ -226,6 +235,13 @@ function ResourceManagement(opts) {
 
 		reasons[statusId].push({id:id,description:description});
 	};
+
+	ResourceManagement.prototype.initializeStatusFilter = function (statusId, reasonId)
+		{
+			elements.statusOptionsFilter.val(statusId);
+			elements.statusOptionsFilter.trigger('change');
+			elements.statusReasonsFilter.val(reasonId);
+		};
 
 	var getSubmitCallback = function (action) {
 		return function () {
@@ -325,36 +341,6 @@ function ResourceManagement(opts) {
 		elements.configurationDialog.dialog("open");
 	};
 
-	var showAttributesPrompt = function (e) {
-		var resource = getActiveResource();
-
-		var attributeDiv = $('[resourceId="' + resource.id + '"]').find('.customAttributes');
-
-		$.each(attributeDiv.find('li[attributeId]'), function(index, value){
-			var id = $(value).attr('attributeId');
-			var attrVal = $(value).find('.attributeValue').text();
-
-			var attribute = $('#psiattribute\\[' + id + '\\]');
-
-			if (attribute.is(':checkbox'))
-			{
-				if (attrVal.toLowerCase() == 'true')
-				{
-					attribute.attr('checked', 'checked');
-				}
-				else
-				{
-					attribute.removeAttr('checked');
-				}
-			}
-			else
-			{
-				attribute.val(attrVal);
-			}
-		});
-		elements.attributeDialog.dialog('open');
-	};
-
 	var showSortPrompt = function (e) {
 		$('#editSortOrder').val(getActiveResource().sortOrder);
 		elements.sortOrderDialog.dialog("open");
@@ -371,13 +357,13 @@ function ResourceManagement(opts) {
 		elements.statusDialog.dialog("open");
 	};
 
-	function populateReasonOptions(statusId){
-		elements.statusReasons.empty().append($('<option>', {value:'', text:'-'}));
+	function populateReasonOptions(statusId, reasonsElement){
+		reasonsElement.empty().append($('<option>', {value:'', text:'-'}));
 
 		if (statusId in reasons)
 		{
 			$.each(reasons[statusId], function(i, v){
-				elements.statusReasons.append($('<option>', {
+				reasonsElement.append($('<option>', {
 						value: v.id,
 						text : v.description
 					}));
@@ -407,11 +393,9 @@ function ResourceManagement(opts) {
 		}
 	}
 
-	var showIndicator = function (formElement) {
-		formElement.find('button').hide();
-		formElement.append($('.indicator'));
-		formElement.find('.indicator').show();
-	};
+	function filterResources() {
+		window.location = document.location.pathname + '?' + $('#filterForm').serialize();
+	}
 
 	var handleAddError = function (result) {
 		$('#addResourceResults').text(result).show();

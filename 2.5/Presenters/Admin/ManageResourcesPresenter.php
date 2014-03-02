@@ -76,13 +76,19 @@ class ManageResourcesPresenter extends ActionPresenter
 	 */
 	private $attributeService;
 
+	/**
+	 * @var IUserPreferenceRepository
+	 */
+	private $userPreferenceRepository;
+
 	public function __construct(
 		IManageResourcesPage $page,
 		IResourceRepository $resourceRepository,
 		IScheduleRepository $scheduleRepository,
 		IImageFactory $imageFactory,
 		IGroupViewRepository $groupRepository,
-		IAttributeService $attributeService)
+		IAttributeService $attributeService,
+		IUserPreferenceRepository $userPreferenceRepository)
 	{
 		parent::__construct($page);
 
@@ -92,6 +98,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->imageFactory = $imageFactory;
 		$this->groupRepository = $groupRepository;
 		$this->attributeService = $attributeService;
+		$this->userPreferenceRepository = $userPreferenceRepository;
 
 		$this->AddAction(ManageResourcesActions::ActionAdd, 'Add');
 		$this->AddAction(ManageResourcesActions::ActionChangeAdmin, 'ChangeAdmin');
@@ -114,6 +121,8 @@ class ManageResourcesPresenter extends ActionPresenter
 
 	public function PageLoad()
 	{
+		$filterValues = $this->page->GetFilterValues();
+
 		$results = $this->resourceRepository->GetList($this->page->GetPageNumber(), $this->page->GetPageSize());
 		$resources = $results->Results();
 		$this->page->BindResources($resources);
@@ -128,6 +137,7 @@ class ManageResourcesPresenter extends ActionPresenter
 			$scheduleList[$schedule->GetId()] = $schedule->GetName();
 		}
 		$this->page->BindSchedules($scheduleList);
+		$this->page->AllSchedules($schedules);
 
 		$resourceTypes = $this->resourceRepository->GetResourceTypes();
 		$resourceTypeList = array();
@@ -156,8 +166,13 @@ class ManageResourcesPresenter extends ActionPresenter
 		{
 			$resourceIds[] = $resource->GetId();
 		}
+
 		$attributeList = $this->attributeService->GetAttributes(CustomAttributeCategory::RESOURCE, $resourceIds);
 		$this->page->BindAttributeList($attributeList);
+
+		$resourceAttributes = $this->attributeService->GetByCategory(CustomAttributeCategory::RESOURCE);
+
+		$this->InitializeFilter($filterValues, $resourceAttributes);
 	}
 
 	/**
@@ -433,6 +448,28 @@ class ManageResourcesPresenter extends ActionPresenter
 		$resource->SetImage($fileName);
 
 		$this->resourceRepository->Update($resource);
+	}
+
+	/**
+	 * @param $filterValues
+	 * @param $resourceAttributes
+	 */
+	public function InitializeFilter($filterValues, $resourceAttributes)
+	{
+		$filters = $filterValues->Attributes;
+		$attributeFilters = array();
+		foreach ($resourceAttributes as $attribute)
+		{
+			$attributeValue = null;
+			if (array_key_exists($attribute->Id(), $filters))
+			{
+				$attributeValue = $filters[$attribute->Id()];
+			}
+			$attributeFilters[] = new Attribute($attribute, $attributeValue);
+		}
+
+		$this->page->BindAttributeFilters($attributeFilters);
+		$this->page->SetFilterValues($filterValues);
 	}
 
 	protected function LoadValidators($action)
