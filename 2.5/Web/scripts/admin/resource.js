@@ -41,7 +41,11 @@ function ResourceManagement(opts) {
 		statusReasonsFilter:$('#resourceReasonIdFilter'),
 		filterTable:$('#filterTable'),
 		filterButton:$('#filter'),
-		clearFilterButton:$('#clearFilter')
+		clearFilterButton:$('#clearFilter'),
+
+		bulkUpdatePromptButton:$('#bulkUpdatePromptButton'),
+		bulkUpdateDialog:$('#bulkUpdateDialog'),
+		bulkUpdateList:$('#bulkUpdateList')
 	};
 
 	var resources = {};
@@ -64,6 +68,7 @@ function ResourceManagement(opts) {
 		ConfigureAdminDialog(elements.sortOrderDialog);
 		ConfigureAdminDialog(elements.resourceTypeDialog);
 		ConfigureAdminDialog(elements.statusDialog);
+		ConfigureAdminDialog(elements.bulkUpdateDialog);
 
 		$('.resourceDetails').each(function () {
 			var id = $(this).find(':hidden.id').val();
@@ -181,6 +186,18 @@ function ResourceManagement(opts) {
 			elements.filterTable.find('input,select,textarea').val('')
 
 			filterResources();
+		});
+
+		elements.bulkUpdatePromptButton.click(function(e){
+			e.preventDefault();
+
+			var items = [];
+			$.each(resources, function (i, r) {
+				items.push('<li><label><input type="checkbox" name="bulkResource[]" checked="checked" value="' + r.id + '" /> ' + r.name + '</li>');
+			});
+			$('<ul/>', {'class': 'no-style', html: items.join('')}).appendTo(elements.bulkUpdateList);
+
+			elements.bulkUpdateDialog.dialog('open');
 		});
 
 		var imageSaveErrorHandler = function (result) {

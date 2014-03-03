@@ -98,9 +98,9 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 {pagination pageInfo=$PageInfo}
 
-{*<div>*}
-{*Bulk Update <a href="#">These Resources</a> | <a href="#">All Resources</a>*}
-{*</div>*}
+<div>
+<a href="#" id="bulkUpdatePromptButton">{translate key=BulkResourceUpdate}</a>
+</div>
 
 <div id="globalError" class="error" style="display:none"></div>
 <div class="admin" style="margin-top:10px;">
@@ -720,6 +720,12 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 		</div>
 	</form>
+</div>
+
+<div id="bulkUpdateDialog" class="dialog" title="{translate key=BulkResourceUpdate}">
+	<div id="bulkUpdateList">
+
+	</div>
 </div>
 
 {html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
