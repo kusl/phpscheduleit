@@ -39,7 +39,9 @@ function ResourceManagement(opts) {
 		addForm:$('#addResourceForm'),
 		statusOptionsFilter:$('#resourceStatusIdFilter'),
 		statusReasonsFilter:$('#resourceReasonIdFilter'),
-		filterButton:$('#filter')
+		filterTable:$('#filterTable'),
+		filterButton:$('#filter'),
+		clearFilterButton:$('#clearFilter')
 	};
 
 	var resources = {};
@@ -173,6 +175,13 @@ function ResourceManagement(opts) {
 		});
 
 		elements.filterButton.click(filterResources);
+		elements.clearFilterButton.click(function (e)
+		{
+			e.preventDefault();
+			elements.filterTable.find('input,select,textarea').val('')
+
+			filterResources();
+		});
 
 		var imageSaveErrorHandler = function (result) {
 			alert(result);

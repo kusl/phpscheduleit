@@ -121,9 +121,11 @@ class ManageResourcesPresenter extends ActionPresenter
 
 	public function PageLoad()
 	{
+		$resourceAttributes = $this->attributeService->GetByCategory(CustomAttributeCategory::RESOURCE);
+
 		$filterValues = $this->page->GetFilterValues();
 
-		$results = $this->resourceRepository->GetList($this->page->GetPageNumber(), $this->page->GetPageSize());
+		$results = $this->resourceRepository->GetList($this->page->GetPageNumber(), $this->page->GetPageSize(), null, null, $filterValues->AsFilter($resourceAttributes));
 		$resources = $results->Results();
 		$this->page->BindResources($resources);
 		$this->page->BindPageInfo($results->PageInfo());
@@ -170,7 +172,6 @@ class ManageResourcesPresenter extends ActionPresenter
 		$attributeList = $this->attributeService->GetAttributes(CustomAttributeCategory::RESOURCE, $resourceIds);
 		$this->page->BindAttributeList($attributeList);
 
-		$resourceAttributes = $this->attributeService->GetByCategory(CustomAttributeCategory::RESOURCE);
 
 		$this->InitializeFilter($filterValues, $resourceAttributes);
 	}

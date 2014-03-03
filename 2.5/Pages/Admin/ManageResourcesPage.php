@@ -590,4 +590,92 @@ class ResourceFilterValues
 
 		return null;
 	}
+
+	/**
+	 * @param CustomAttribute[] $customAttributes
+	 * @return ISqlFilter
+	 */
+	public function AsFilter($customAttributes)
+	{
+		$filter = new SqlFilterNull();
+		if (!empty($this->ResourceNameFilter))
+		{
+			$filter->_And(new SqlFilterLike(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::RESOURCE_NAME), $this->ResourceNameFilter));
+		}
+		if (!empty($this->ScheduleIdFilter))
+		{
+			$filter->_And(new SqlFilterEquals(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::SCHEDULE_ID), $this->ScheduleIdFilter));
+		}
+		if (!empty($this->ResourceTypeFilter))
+		{
+			$filter->_And(new SqlFilterEquals(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::RESOURCE_TYPE_ID), $this->ResourceTypeFilter));
+		}
+		if (!empty($this->ResourceStatusFilterId))
+		{
+			$filter->_And(new SqlFilterEquals(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::RESOURCE_STATUS_ID), $this->ResourceStatusFilterId));
+		}
+		if (!empty($this->CapacityFilter))
+		{
+			$filter->_And(new SqlFilterGreaterThan(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::RESOURCE_MAX_PARTICIPANTS), $this->CapacityFilter, true));
+		}
+		if ($this->RequiresApprovalFilter != '')
+		{
+			$filter->_And(new SqlFilterEquals(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::RESOURCE_REQUIRES_APPROVAL), $this->RequiresApprovalFilter));
+		}
+		if ($this->AutoPermissionFilter != '')
+		{
+			$filter->_And(new SqlFilterEquals(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::RESOURCE_AUTOASSIGN), $this->AutoPermissionFilter));
+		}
+		if ($this->AllowMultiDayFilter != '')
+		{
+			$filter->_And(new SqlFilterEquals(new SqlFilterColumn(TableNames::RESOURCES_ALIAS, ColumnNames::RESOURCE_ALLOW_MULTIDAY), $this->AllowMultiDayFilter));
+		}
+
+		if (!empty($this->Attributes))
+		{
+			$filteringAttributes = false;
+			$attributeDefinitions = array();
+			foreach($customAttributes as $a)
+			{
+				$attributeDefinitions[$a->Id()] = $a;
+			}
+
+			$f  = new SqlFilterFreeForm(ColumnNames::RESOURCE_ID . ' IN (SELECT ' . ColumnNames::ATTRIBUTE_ENTITY_ID . ' FROM ' . TableNames::CUSTOM_ATTRIBUTE_VALUES . ' WHERE [attribute_list_token] )');
+
+			$attributeFragment = new SqlFilterNull();
+
+			/** @var $attribute Attribute */
+			foreach ($this->Attributes as $id => $value)
+			{
+				if ($value == null ||$value == '' || !array_key_exists($id, $attributeDefinitions))
+				{
+					continue;
+				}
+				$filteringAttributes = true;
+				$attribute = $attributeDefinitions[$id];
+				$attributeId = new SqlRepeatingFilterColumn(null, ColumnNames::CUSTOM_ATTRIBUTE_ID, $id);
+				$attributeValue = new SqlRepeatingFilterColumn(null, ColumnNames::CUSTOM_ATTRIBUTE_VALUE, $id);
+
+				$idEquals = new SqlFilterEquals($attributeId, $id);
+
+				if ($attribute->Type() == CustomAttributeTypes::MULTI_LINE_TEXTBOX || $attribute->Type() == CustomAttributeTypes::SINGLE_LINE_TEXTBOX)
+				{
+					$attributeFragment->_And($idEquals->_And(new SqlFilterLike($attributeValue, $value)));
+				}
+				else
+				{
+					$attributeFragment->_And($idEquals->_And(new SqlFilterEquals($attributeValue, $value)));
+				}
+			}
+
+			$f->Substitute('attribute_list_token', $attributeFragment);
+
+			if ($filteringAttributes)
+			{
+				$filter->_And($f);
+			}
+		}
+
+		return $filter;
+	}
 }

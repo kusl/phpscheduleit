@@ -94,8 +94,7 @@ class AttributeRepository implements IAttributeRepository
 	{
 		if (!$this->cache->Exists($category))
 		{
-			$reader = ServiceLocator::GetDatabase()
-							  ->Query(new GetAttributesByCategoryCommand($category));
+			$reader = ServiceLocator::GetDatabase()->Query(new GetAttributesByCategoryCommand($category));
 
 			$attributes = array();
 			while ($row = $reader->GetRow())
