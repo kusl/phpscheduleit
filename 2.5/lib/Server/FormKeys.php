@@ -26,6 +26,7 @@ class FormKeys
 	const ACCESSORY_QUANTITY_AVAILABLE = 'accessoryQuantityAvailable';
 	const ADDITIONAL_RESOURCES = 'additionalResources';
 	const ADDRESS = 'address';
+	const ALLOW_CALENDAR_SUBSCRIPTIONS = 'ALLOW_CALENDAR_SUBSCRIPTIONS';
 	const ALLOW_MULTIDAY = 'allowMultiday';
 	const ANNOUNCEMENT_TEXT = 'announcementText';
 	const ANNOUNCEMENT_START = 'announcementStart';

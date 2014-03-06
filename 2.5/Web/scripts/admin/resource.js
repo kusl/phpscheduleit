@@ -192,10 +192,14 @@ function ResourceManagement(opts) {
 			e.preventDefault();
 
 			var items = [];
+			elements.bulkUpdateList.empty();
 			$.each(resources, function (i, r) {
 				items.push('<li><label><input type="checkbox" name="bulkResource[]" checked="checked" value="' + r.id + '" /> ' + r.name + '</li>');
 			});
 			$('<ul/>', {'class': 'no-style', html: items.join('')}).appendTo(elements.bulkUpdateList);
+
+//			elements.bulkUpdateDialog.find('input, textarea').val('');
+//			elements.bulkUpdateDialog.find('select').val('-1');
 
 			elements.bulkUpdateDialog.dialog('open');
 		});

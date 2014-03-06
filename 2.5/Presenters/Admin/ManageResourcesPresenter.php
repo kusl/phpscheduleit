@@ -452,8 +452,8 @@ class ManageResourcesPresenter extends ActionPresenter
 	}
 
 	/**
-	 * @param $filterValues
-	 * @param $resourceAttributes
+	 * @param ResourceFilterValues $filterValues
+	 * @param CustomAttribute[] $resourceAttributes
 	 */
 	public function InitializeFilter($filterValues, $resourceAttributes)
 	{

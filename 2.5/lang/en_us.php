@@ -490,6 +490,7 @@ class en_us extends Language
 		$strings['AllReservationResources'] = 'All Reservation Resources';
 		$strings['File'] = 'File';
 		$strings['BulkResourceUpdate'] = 'Bulk Resource Update';
+		$strings['Unchanged'] = 'Unchanged';
 		// End Strings
 
 		// Install

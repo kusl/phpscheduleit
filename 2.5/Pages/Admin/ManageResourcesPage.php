@@ -236,6 +236,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 
 		$this->pageablePage = new PageablePage($this);
 		$this->Set('YesNoOptions', array('' => '-', '1' => Resources::GetInstance()->GetString('Yes'), '0' => Resources::GetInstance()->GetString('No')));
+		$this->Set('YesNoUnchangedOptions', array('-1' => Resources::GetInstance()->GetString('Unchanged'), '1' => Resources::GetInstance()->GetString('Yes'), '0' => Resources::GetInstance()->GetString('No')));
 	}
 
 	public function ProcessPageLoad()
