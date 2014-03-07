@@ -42,6 +42,7 @@ class ManageResourcesActions
 	const ActionChangeAttributes = 'changeAttributes';
 	const ActionChangeSort = 'changeSort';
 	const ActionChangeResourceType = 'changeResourceType';
+	const ActionBulkUpdate = 'bulkUpdate';
 }
 
 class ManageResourcesPresenter extends ActionPresenter
@@ -117,6 +118,7 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->AddAction(ManageResourcesActions::ActionChangeAttributes, 'ChangeAttributes');
 		$this->AddAction(ManageResourcesActions::ActionChangeSort, 'ChangeSortOrder');
 		$this->AddAction(ManageResourcesActions::ActionChangeResourceType, 'ChangeResourceType');
+		$this->AddAction(ManageResourcesActions::ActionBulkUpdate, 'BulkUpdate');
 	}
 
 	public function PageLoad()
@@ -176,9 +178,6 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->InitializeFilter($filterValues, $resourceAttributes);
 	}
 
-	/**
-	 * @internal should only be used for testing
-	 */
 	public function Add()
 	{
 		$name = $this->page->GetResourceName();
@@ -193,9 +192,6 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->Add($resource);
 	}
 
-	/**
-	 * @internal should only be used for testing
-	 */
 	public function ChangeConfiguration()
 	{
 		$resourceId = $this->page->GetResourceId();
@@ -226,18 +222,12 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->Update($resource);
 	}
 
-	/**
-	 * @internal should only be used for testing
-	 */
 	public function Delete()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
 		$this->resourceRepository->Delete($resource);
 	}
 
-	/**
-	 * @internal should only be used for testing
-	 */
 	public function ChangeDescription()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
@@ -247,9 +237,6 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->Update($resource);
 	}
 
-	/**
-	 * @internal should only be used for testing
-	 */
 	public function ChangeNotes()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
@@ -259,9 +246,6 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->Update($resource);
 	}
 
-	/**
-	 * @internal should only be used for testing
-	 */
 	public function Rename()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
@@ -271,9 +255,6 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->resourceRepository->Update($resource);
 	}
 
-	/**
-	 * @internal should only be used for testing
-	 */
 	public function ChangeLocation()
 	{
 		$resource = $this->resourceRepository->LoadById($this->page->GetResourceId());
@@ -473,12 +454,44 @@ class ManageResourcesPresenter extends ActionPresenter
 		$this->page->SetFilterValues($filterValues);
 	}
 
+	public function BulkUpdate()
+	{
+		$scheduleId = $this->page->GetScheduleId();
+		$resourceTypeId = $this->page->GetResourceTypeId();
+		$location = $this->page->GetLocation();
+		$contact = $this->page->GetContact();
+		$description = $this->page->GetDescription();
+		$notes = $this->page->GetNotes();
+		$adminGroupId = $this->page->GetAdminGroupId();
+
+		$statusId = $this->page->GetStatusId();
+		$reasonId = $this->page->GetStatusReasonId();
+
+		// need to figure out difference between empty and unchanged
+		$minDuration =$this->page->GetMinimumDuration();
+		$maxDuration = $this->page->GetMaximumDuration();
+		$bufferTime = $this->page->GetBufferTime();
+		$minNotice = $this->page->GetStartNoticeMinutes();
+		$maxNotice = $this->page->GetEndNoticeMinutes();
+		$allowMultiDay = $this->page->GetAllowMultiday();
+		$requiresApproval = $this->page->GetRequiresApproval();
+		$autoAssign = $this->page->GetAutoAssign();
+		$allowSubscription = $this->page->GetAllowSubscriptions();
+		$attributes = $this->page->GetAttributes();
+
+		die(var_dump($this->page->GetBulkUpdateResourceIds()));
+	}
+
 	protected function LoadValidators($action)
 	{
 		if ($action == ManageResourcesActions::ActionChangeAttributes)
 		{
 			$attributes = $this->GetAttributeValues();
 			$this->page->RegisterValidator('attributeValidator', new AttributeValidator($this->attributeService, CustomAttributeCategory::RESOURCE, $attributes, $this->page->GetResourceId()));
+		}
+		if ($action == ManageResourcesActions::ActionBulkUpdate)
+		{
+			// validate
 		}
 	}
 

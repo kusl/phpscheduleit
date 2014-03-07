@@ -491,6 +491,7 @@ class en_us extends Language
 		$strings['File'] = 'File';
 		$strings['BulkResourceUpdate'] = 'Bulk Resource Update';
 		$strings['Unchanged'] = 'Unchanged';
+		$strings['Common'] = 'Common';
 		// End Strings
 
 		// Install

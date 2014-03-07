@@ -45,7 +45,10 @@ function ResourceManagement(opts) {
 
 		bulkUpdatePromptButton:$('#bulkUpdatePromptButton'),
 		bulkUpdateDialog:$('#bulkUpdateDialog'),
-		bulkUpdateList:$('#bulkUpdateList')
+		bulkUpdateList:$('#bulkUpdateList'),
+		bulkUpdateForm:$('#bulkUpdateForm'),
+		bulkEditStatusOptions:$('#bulkEditStatusId'),
+		bulkEditStatusReasons:$('#bulkEditStatusReasonId')
 	};
 
 	var resources = {};
@@ -162,6 +165,10 @@ function ResourceManagement(opts) {
 			populateReasonOptions(elements.statusOptions.val(), elements.statusReasons);
 		});
 
+		elements.bulkEditStatusOptions.change(function(e){
+			populateReasonOptions(elements.bulkEditStatusOptions.val(), elements.bulkEditStatusReasons);
+		});
+
 		elements.addStatusReason.click(function(e){
 			e.preventDefault();
 			elements.newStatusReason.toggle();
@@ -180,6 +187,7 @@ function ResourceManagement(opts) {
 		});
 
 		elements.filterButton.click(filterResources);
+
 		elements.clearFilterButton.click(function (e)
 		{
 			e.preventDefault();
@@ -194,12 +202,14 @@ function ResourceManagement(opts) {
 			var items = [];
 			elements.bulkUpdateList.empty();
 			$.each(resources, function (i, r) {
-				items.push('<li><label><input type="checkbox" name="bulkResource[]" checked="checked" value="' + r.id + '" /> ' + r.name + '</li>');
+				items.push('<li><label><input type="checkbox" name="resourceId[]" checked="checked" value="' + r.id + '" /> ' + r.name + '</li>');
 			});
 			$('<ul/>', {'class': 'no-style', html: items.join('')}).appendTo(elements.bulkUpdateList);
 
 //			elements.bulkUpdateDialog.find('input, textarea').val('');
 //			elements.bulkUpdateDialog.find('select').val('-1');
+
+			wireUpIntervalToggle(elements.bulkUpdateDialog);
 
 			elements.bulkUpdateDialog.dialog('open');
 		});
@@ -234,6 +244,10 @@ function ResourceManagement(opts) {
 			$("#globalError").html(result).show();
 		};
 
+		var bulkUpdateErrorHandler = function (result) {
+			$("#bulkUpdateErrors").html(result).show();
+		};
+
 		ConfigureAdminForm(elements.imageForm, defaultSubmitCallback(elements.imageForm), null, imageSaveErrorHandler);
 		ConfigureAdminForm(elements.renameForm, defaultSubmitCallback(elements.renameForm), null, errorHandler);
 		ConfigureAdminForm(elements.scheduleForm, defaultSubmitCallback(elements.scheduleForm));
@@ -245,6 +259,8 @@ function ResourceManagement(opts) {
 		ConfigureAdminForm(elements.configurationForm, defaultSubmitCallback(elements.configurationForm), null, errorHandler, {onBeforeSerialize:combineIntervals});
 		ConfigureAdminForm(elements.groupAdminForm, defaultSubmitCallback(elements.groupAdminForm));
 		ConfigureAdminForm(elements.resourceTypeForm, defaultSubmitCallback(elements.resourceTypeForm));
+		ConfigureAdminForm(elements.bulkUpdateForm, defaultSubmitCallback(elements.bulkUpdateForm), null, bulkUpdateErrorHandler, {onBeforeSubmit:combineIntervals});
+
 		$.each(elements.attributeForm, function(i,form){
 			ConfigureAdminForm($(form), defaultSubmitCallback($(form)), null, attributesHandler, {validationSummary:null});
 		});
@@ -267,11 +283,11 @@ function ResourceManagement(opts) {
 	};
 
 	ResourceManagement.prototype.initializeStatusFilter = function (statusId, reasonId)
-		{
-			elements.statusOptionsFilter.val(statusId);
-			elements.statusOptionsFilter.trigger('change');
-			elements.statusReasonsFilter.val(reasonId);
-		};
+	{
+		elements.statusOptionsFilter.val(statusId);
+		elements.statusOptionsFilter.trigger('change');
+		elements.statusReasonsFilter.val(reasonId);
+	};
 
 	var getSubmitCallback = function (action) {
 		return function () {
@@ -342,18 +358,8 @@ function ResourceManagement(opts) {
 	};
 
 	var showConfigurationPrompt = function (e) {
-		elements.configurationDialog.find(':checkbox').change(function () {
-			var id = $(this).attr('id');
-			var span = elements.configurationDialog.find('.' + id);
 
-			if ($(this).is(":checked")) {
-				span.find(":text").val('');
-				span.hide();
-			}
-			else {
-				span.show();
-			}
-		});
+		wireUpIntervalToggle(elements.configurationDialog);
 
 		var resource = getActiveResource();
 
@@ -380,7 +386,7 @@ function ResourceManagement(opts) {
 		var resource = getActiveResource();
 		elements.statusOptions.val(resource.statusId);
 
-		populateReasonOptions(resource.statusId);
+		populateReasonOptions(elements.statusOptions, elements.statusReasons);
 
 		elements.statusReasons.val(resource.reasonId);
 
@@ -421,6 +427,24 @@ function ResourceManagement(opts) {
 			attributeCheckbox.attr('checked', false);
 			span.show();
 		}
+	}
+
+	function wireUpIntervalToggle(container) {
+		container.find(':checkbox').change(function ()
+		{
+			var id = $(this).attr('id');
+			var span = container.find('.' + id);
+
+			if ($(this).is(":checked"))
+			{
+				span.find(":text").val('');
+				span.hide();
+			}
+			else
+			{
+				span.show();
+			}
+		});
 	}
 
 	function filterResources() {

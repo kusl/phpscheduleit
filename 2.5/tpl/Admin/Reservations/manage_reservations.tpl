@@ -21,7 +21,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <h1>{translate key=ManageReservations}</h1>
 
-<div class="filterTable main-div-shadow" id="filterTable">
+<div class="filterTable horizontal-list label-top main-div-shadow" id="filterTable">
 	<form id="filterForm">
 		<div class="main-div-header">{translate key=Filter}</div>
 		<ul>

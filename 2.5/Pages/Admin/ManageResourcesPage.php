@@ -99,6 +99,11 @@ interface IUpdateResourcePage
 	/**
 	 * @return string
 	 */
+	public function GetAllowSubscriptions();
+
+	/**
+	 * @return string
+	 */
 	public function GetStartNoticeMinutes();
 
 	/**
@@ -212,6 +217,11 @@ interface IManageResourcesPage extends IUpdateResourcePage, IActionPage, IPageab
 	 * @return ResourceFilterValues
 	 */
 	public function GetFilterValues();
+
+	/**
+	 * @return int[]
+	 */
+	public function GetBulkUpdateResourceIds();
 }
 
 class ManageResourcesPage extends ActionPage implements IManageResourcesPage
@@ -550,6 +560,28 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	public function BindAttributeFilters($attributeFilters)
 	{
 		$this->Set('AttributeFilters', $attributeFilters);
+	}
+
+	/**
+	 * @return int[]
+	 */
+	public function GetBulkUpdateResourceIds()
+	{
+		$resourceIds = $this->GetForm(FormKeys::RESOURCE_ID);
+		if (empty($resourceIds))
+		{
+			return array();
+		}
+
+		return $resourceIds;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function GetAllowSubscriptions()
+	{
+		return $this->GetForm(FormKeys::ALLOW_CALENDAR_SUBSCRIPTIONS);
 	}
 }
 

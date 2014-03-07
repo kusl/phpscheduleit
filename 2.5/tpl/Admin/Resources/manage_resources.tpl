@@ -726,10 +726,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 <div id="bulkUpdateDialog" class="dialog horizontal-list label-top" title="{translate key=BulkResourceUpdate}">
 <div class="title">{translate key=Resources}</div>
+<form id="bulkUpdateForm" method="post" ajaxAction="{ManageResourcesActions::ActionBulkUpdate}">
+<div id="bulkUpdateErrors" class="error"></div>
+
 <div id="bulkUpdateList">
 </div>
-
-<form>
 <div>
 	<div class="title">{translate key=Common}</div>
 	<ul>
@@ -792,6 +793,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<option value="{ResourceStatus::HIDDEN}">{translate key=Hidden}</option>
 			</select>
 		</li>
+		<li>
+			<label for="bulkEditStatusReasonId">{translate key=Status}:</label>
+			<select id="bulkEditStatusReasonId" {formname key=RESOURCE_STATUS_REASON_ID} class="textbox">
+			</select>
+		</li>
 	</ul>
 	<ul>
 		<li>
@@ -852,7 +858,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			<label>
 				<input type="checkbox" id="bulkEditNoBufferTime"/> {translate key=ResourceBufferTimeNone}
 			</label>
-			<span class="noBufferTime">
+			<span class="bulkEditNoBufferTime">
 				<br/>
 				{capture name="txtBufferTime" assign="txtBufferTime"}
 					<input type='text' id='bulkEditBufferTimeDays' size='3' class='days textbox'
@@ -912,37 +918,31 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		</li>
 	</ul>
 	<ul>
-			<li>
-				<label for="bulkEditAllowMultiday">{translate key=ResourceAllowMultiDay}</label>
-				<select id="bulkEditAllowMultiday" class="textbox" {formname key=ALLOW_MULTIDAY}>
-					{html_options options=$YesNoUnchangedOptions}
-				</select>
-			</li>
-			<li>
-				<label for="bulkEditRequiresApproval">{translate key='ResourceRequiresApproval'}</label>
-				<select id="bulkEditRequiresApproval" class="textbox" {formname key=REQUIRES_APPROVAL}>
-					{html_options options=$YesNoUnchangedOptions}
-				</select>
-			</li>
-			<li>
-				<label for="bulkEditAutoAssign">{translate key='ResourcePermissionAutoGranted'}</label>
-				<select id="bulkEditAutoAssign" class="textbox" {formname key=AUTO_ASSIGN}>
-					{html_options options=$YesNoUnchangedOptions}
-				</select>
-			</li>
-			<li>
-				<label for="bulkEditAutoAssign">{translate key='ResourcePermissionAutoGranted'}</label>
-				<select id="bulkEditAutoAssign" class="textbox" {formname key=AUTO_ASSIGN}>
-					{html_options options=$YesNoUnchangedOptions}
-				</select>
-			</li>
-			<li>
-				<label for="bulkEditAllowSubscriptions">{translate key='TurnOnSubscription'}</label>
-				<select id="bulkEditAllowSubscriptions" class="textbox" {formname key=ALLOW_CALENDAR_SUBSCRIPTIONS}>
-					{html_options options=$YesNoUnchangedOptions}
-				</select>
-			</li>
-		</ul>
+		<li>
+			<label for="bulkEditAllowMultiday">{translate key=ResourceAllowMultiDay}</label>
+			<select id="bulkEditAllowMultiday" class="textbox" {formname key=ALLOW_MULTIDAY}>
+				{html_options options=$YesNoUnchangedOptions}
+			</select>
+		</li>
+		<li>
+			<label for="bulkEditRequiresApproval">{translate key='ResourceRequiresApproval'}</label>
+			<select id="bulkEditRequiresApproval" class="textbox" {formname key=REQUIRES_APPROVAL}>
+				{html_options options=$YesNoUnchangedOptions}
+			</select>
+		</li>
+		<li>
+			<label for="bulkEditAutoAssign">{translate key='ResourcePermissionAutoGranted'}</label>
+			<select id="bulkEditAutoAssign" class="textbox" {formname key=AUTO_ASSIGN}>
+				{html_options options=$YesNoUnchangedOptions}
+			</select>
+		</li>
+		<li>
+			<label for="bulkEditAllowSubscriptions">{translate key='TurnOnSubscription'}</label>
+			<select id="bulkEditAllowSubscriptions" class="textbox" {formname key=ALLOW_CALENDAR_SUBSCRIPTIONS}>
+				{html_options options=$YesNoUnchangedOptions}
+			</select>
+		</li>
+	</ul>
 </div>
 <div>
 	<div class="title">{translate key=AdditionalAttributes}</div>
@@ -955,6 +955,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 			{/if}
 		{/foreach}
 	</ul>
+</div>
+<div class="admin-update-buttons">
+	<button type="button"
+			class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
+	<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
 </div>
 </form>
 </div>
