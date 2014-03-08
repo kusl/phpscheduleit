@@ -1,21 +1,21 @@
 <?php
 /**
-Copyright 2011-2014 Nick Korbel
-
-This file is part of Booked Scheduler.
-
-Booked Scheduler is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Booked Scheduler is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright 2011-2014 Nick Korbel
+ *
+ * This file is part of Booked Scheduler.
+ *
+ * Booked Scheduler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Booked Scheduler is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once(ROOT_DIR . 'Pages/Admin/AdminPage.php');
@@ -222,6 +222,31 @@ interface IManageResourcesPage extends IUpdateResourcePage, IActionPage, IPageab
 	 * @return int[]
 	 */
 	public function GetBulkUpdateResourceIds();
+
+	/**
+	 * @return int
+	 */
+	public function GetMinimumDurationNone();
+
+	/**
+	 * @return int
+	 */
+	public function GetMaximumDurationNone();
+
+	/**
+	 * @return int
+	 */
+	public function GetBufferTimeNone();
+
+	/**
+	 * @return int
+	 */
+	public function GetStartNoticeNone();
+
+	/**
+	 * @return int
+	 */
+	public function GetEndNoticeNone();
 }
 
 class ManageResourcesPage extends ActionPage implements IManageResourcesPage
@@ -235,18 +260,23 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 	{
 		parent::__construct('ManageResources', 1);
 		$this->presenter = new ManageResourcesPresenter(
-			$this,
-			new ResourceRepository(),
-			new ScheduleRepository(),
-			new ImageFactory(),
-			new GroupRepository(),
-			new AttributeService(new AttributeRepository()),
-			new UserPreferenceRepository()
+				$this,
+				new ResourceRepository(),
+				new ScheduleRepository(),
+				new ImageFactory(),
+				new GroupRepository(),
+				new AttributeService(new AttributeRepository()),
+				new UserPreferenceRepository()
 		);
 
 		$this->pageablePage = new PageablePage($this);
-		$this->Set('YesNoOptions', array('' => '-', '1' => Resources::GetInstance()->GetString('Yes'), '0' => Resources::GetInstance()->GetString('No')));
-		$this->Set('YesNoUnchangedOptions', array('-1' => Resources::GetInstance()->GetString('Unchanged'), '1' => Resources::GetInstance()->GetString('Yes'), '0' => Resources::GetInstance()->GetString('No')));
+		$this->Set('YesNoOptions',
+				   array('' => '-', '1' => Resources::GetInstance()->GetString('Yes'), '0' => Resources::GetInstance()
+																									   ->GetString('No')));
+		$this->Set('YesNoUnchangedOptions',
+				   array('-1' => Resources::GetInstance()->GetString('Unchanged'), '1' => Resources::GetInstance()
+																								   ->GetString('Yes'), '0' => Resources::GetInstance()
+																																	   ->GetString('No')));
 	}
 
 	public function ProcessPageLoad()
@@ -523,7 +553,7 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 
 	public function FilterButtonPressed()
 	{
-		return count($_GET)>0;
+		return count($_GET) > 0;
 	}
 
 	public function SetFilterValues($values)
@@ -562,9 +592,6 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		$this->Set('AttributeFilters', $attributeFilters);
 	}
 
-	/**
-	 * @return int[]
-	 */
 	public function GetBulkUpdateResourceIds()
 	{
 		$resourceIds = $this->GetForm(FormKeys::RESOURCE_ID);
@@ -576,12 +603,34 @@ class ManageResourcesPage extends ActionPage implements IManageResourcesPage
 		return $resourceIds;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function GetAllowSubscriptions()
 	{
 		return $this->GetForm(FormKeys::ALLOW_CALENDAR_SUBSCRIPTIONS);
+	}
+
+	public function GetMinimumDurationNone()
+	{
+		return $this->GetForm(FormKeys::MIN_DURATION_NONE);
+	}
+
+	public function GetMaximumDurationNone()
+	{
+		return $this->GetForm(FormKeys::MAX_DURATION_NONE);
+	}
+
+	public function GetBufferTimeNone()
+	{
+		return $this->GetForm(FormKeys::BUFFER_TIME_NONE);
+	}
+
+	public function GetStartNoticeNone()
+	{
+		return $this->GetForm(FormKeys::MIN_NOTICE_NONE);
+	}
+
+	public function GetEndNoticeNone()
+	{
+		return $this->GetForm(FormKeys::MAX_NOTICE_NONE);
 	}
 }
 
@@ -603,7 +652,7 @@ class ResourceFilterValues
 	 */
 	public function SetAttributes($attributeFormElements)
 	{
-		foreach($attributeFormElements as $e)
+		foreach ($attributeFormElements as $e)
 		{
 			$this->SetAttributeValue($e->Id, $e->Value);
 		}
@@ -668,19 +717,19 @@ class ResourceFilterValues
 		{
 			$filteringAttributes = false;
 			$attributeDefinitions = array();
-			foreach($customAttributes as $a)
+			foreach ($customAttributes as $a)
 			{
 				$attributeDefinitions[$a->Id()] = $a;
 			}
 
-			$f  = new SqlFilterFreeForm(ColumnNames::RESOURCE_ID . ' IN (SELECT ' . ColumnNames::ATTRIBUTE_ENTITY_ID . ' FROM ' . TableNames::CUSTOM_ATTRIBUTE_VALUES . ' WHERE [attribute_list_token] )');
+			$f = new SqlFilterFreeForm(ColumnNames::RESOURCE_ID . ' IN (SELECT ' . ColumnNames::ATTRIBUTE_ENTITY_ID . ' FROM ' . TableNames::CUSTOM_ATTRIBUTE_VALUES . ' WHERE [attribute_list_token] )');
 
 			$attributeFragment = new SqlFilterNull();
 
 			/** @var $attribute Attribute */
 			foreach ($this->Attributes as $id => $value)
 			{
-				if ($value == null ||$value == '' || !array_key_exists($id, $attributeDefinitions))
+				if ($value == null || $value == '' || !array_key_exists($id, $attributeDefinitions))
 				{
 					continue;
 				}

@@ -248,6 +248,11 @@ function ResourceManagement(opts) {
 			$("#bulkUpdateErrors").html(result).show();
 		};
 
+		var beforeSubmitWithIntervals = function(form, options){
+			combineIntervals(form, options);
+			BeforeFormSubmit(form, options);
+		};
+
 		ConfigureAdminForm(elements.imageForm, defaultSubmitCallback(elements.imageForm), null, imageSaveErrorHandler);
 		ConfigureAdminForm(elements.renameForm, defaultSubmitCallback(elements.renameForm), null, errorHandler);
 		ConfigureAdminForm(elements.scheduleForm, defaultSubmitCallback(elements.scheduleForm));
@@ -256,10 +261,10 @@ function ResourceManagement(opts) {
 		ConfigureAdminForm(elements.notesForm, defaultSubmitCallback(elements.notesForm));
 		ConfigureAdminForm(elements.addForm, defaultSubmitCallback(elements.addForm), null, handleAddError);
 		ConfigureAdminForm(elements.deleteForm, defaultSubmitCallback(elements.deleteForm));
-		ConfigureAdminForm(elements.configurationForm, defaultSubmitCallback(elements.configurationForm), null, errorHandler, {onBeforeSerialize:combineIntervals});
+		ConfigureAdminForm(elements.configurationForm, defaultSubmitCallback(elements.configurationForm), null, errorHandler, {onBeforeSerialize:beforeSubmitWithIntervals});
 		ConfigureAdminForm(elements.groupAdminForm, defaultSubmitCallback(elements.groupAdminForm));
 		ConfigureAdminForm(elements.resourceTypeForm, defaultSubmitCallback(elements.resourceTypeForm));
-		ConfigureAdminForm(elements.bulkUpdateForm, defaultSubmitCallback(elements.bulkUpdateForm), null, bulkUpdateErrorHandler, {onBeforeSubmit:combineIntervals});
+		ConfigureAdminForm(elements.bulkUpdateForm, defaultSubmitCallback(elements.bulkUpdateForm), null, bulkUpdateErrorHandler, {onBeforeSubmit:beforeSubmitWithIntervals});
 
 		$.each(elements.attributeForm, function(i,form){
 			ConfigureAdminForm($(form), defaultSubmitCallback($(form)), null, attributesHandler, {validationSummary:null});

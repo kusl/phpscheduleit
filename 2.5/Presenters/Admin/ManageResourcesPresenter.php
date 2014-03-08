@@ -468,18 +468,122 @@ class ManageResourcesPresenter extends ActionPresenter
 		$reasonId = $this->page->GetStatusReasonId();
 
 		// need to figure out difference between empty and unchanged
-		$minDuration =$this->page->GetMinimumDuration();
+		$minDuration = $this->page->GetMinimumDuration();
+		$minDurationNone = $this->page->GetMinimumDurationNone();
 		$maxDuration = $this->page->GetMaximumDuration();
+		$maxDurationNone = $this->page->GetMaximumDurationNone();
 		$bufferTime = $this->page->GetBufferTime();
+		$bufferTimeNone = $this->page->GetBufferTimeNone();
 		$minNotice = $this->page->GetStartNoticeMinutes();
+		$minNoticeNone = $this->page->GetStartNoticeNone();
 		$maxNotice = $this->page->GetEndNoticeMinutes();
+		$maxNoticeNone = $this->page->GetEndNoticeNone();
 		$allowMultiDay = $this->page->GetAllowMultiday();
 		$requiresApproval = $this->page->GetRequiresApproval();
 		$autoAssign = $this->page->GetAutoAssign();
 		$allowSubscription = $this->page->GetAllowSubscriptions();
 		$attributes = $this->page->GetAttributes();
 
-		die(var_dump($this->page->GetBulkUpdateResourceIds()));
+		$resourceIds = $this->page->GetBulkUpdateResourceIds();
+
+		foreach ($resourceIds as $resourceId)
+		{
+			try
+			{
+				$resource = $this->resourceRepository->LoadById($resourceId);
+
+				if ($this->ChangingDropDown($scheduleId))
+				{
+					$resource->SetScheduleId($scheduleId);
+				}
+				if ($this->ChangingDropDown($resourceTypeId))
+				{
+					$resource->SetResourceTypeId($resourceTypeId);
+				}
+				if ($this->ChangingValue($location))
+				{
+					$resource->SetLocation($location);
+				}
+				if ($this->ChangingValue($contact))
+				{
+					$resource->SetContact($contact);
+				}
+				if ($this->ChangingValue($description))
+				{
+					$resource->SetDescription($description);
+				}
+				if ($this->ChangingValue($notes))
+				{
+					$resource->SetNotes($notes);
+				}
+				if ($this->ChangingDropDown($adminGroupId))
+				{
+					$resource->SetAdminGroupId($adminGroupId);
+				}
+				if ($this->ChangingDropDown($statusId))
+				{
+					$resource->ChangeStatus($statusId, $reasonId);
+				}
+				if (!$minDurationNone)
+				{
+					$resource->SetMinLength($minDuration);
+				}
+				if (!$maxDurationNone)
+				{
+					$resource->SetMaxLength($maxDuration);
+				}
+				if (!$bufferTimeNone)
+				{
+					$resource->SetBufferTime($bufferTime);
+				}
+				if (!$minNoticeNone)
+				{
+					$resource->SetMinNotice($minNotice);
+				}
+				if (!$maxNoticeNone)
+				{
+					$resource->SetMaxNotice($maxNotice);
+				}
+				if ($this->ChangingDropDown($allowMultiDay))
+				{
+					$resource->SetAllowMultiday($allowMultiDay);
+				}
+				if ($this->ChangingDropDown($requiresApproval))
+				{
+					$resource->SetRequiresApproval($requiresApproval);
+				}
+				if ($this->ChangingDropDown($autoAssign))
+				{
+					$resource->SetAutoAssign($autoAssign);
+				}
+				if ($this->ChangingDropDown($allowSubscription))
+				{
+					if ($allowSubscription)
+					{
+						$resource->EnableSubscription();
+					}
+					else
+					{
+						$resource->DisableSubscription();
+					}
+				}
+
+				/** @var AttributeValue $attribute */
+				foreach ($this->GetAttributeValues() as $attribute)
+				{
+					if (!empty($attribute->Value))
+					{
+						$resource->ChangeAttribute($attribute);
+					}
+				}
+
+				$this->resourceRepository->Update($resource);
+			}
+			catch(Exception $ex)
+			{
+				Log::Error('Error bulk updating resource. Id=%s. Error=%s', $resourceId, $ex);
+			}
+		}
 	}
 
 	protected function LoadValidators($action)
@@ -501,6 +605,16 @@ class ManageResourcesPresenter extends ActionPresenter
 		{
 			$this->page->SetResourcesJson(array_map(array('AdminResourceJson', 'FromBookable'), $this->resourceRepository->GetResourceList()));
 		}
+	}
+
+	private function ChangingDropDown($value)
+	{
+		return $value != "-1";
+	}
+
+	private function ChangingValue($value)
+	{
+		return !empty($value);
 	}
 }
 

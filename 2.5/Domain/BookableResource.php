@@ -698,6 +698,16 @@ class BookableResource implements IResource
 	}
 
 	/**
+	* @param $attribute AttributeValue
+	*/
+	public function ChangeAttribute($attribute)
+	{
+		$this->_removedAttributeValues[] = $attribute;
+		$this->_addedAttributeValues[] = $attribute;
+		$this->AddAttributeValue($attribute);
+	}
+
+	/**
 	 * @param $attributeValue AttributeValue
 	 */
 	public function AddAttributeValue($attributeValue)

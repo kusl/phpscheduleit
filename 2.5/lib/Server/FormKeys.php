@@ -52,6 +52,7 @@ class FormKeys
 	const BLACKOUT_APPLY_TO_SCHEDULE = 'applyToSchedule';
 	const BLACKOUT_INSTANCE_ID = 'BLACKOUT_INSTANCE_ID';
 	const BUFFER_TIME = 'BUFFER_TIME';
+	const BUFFER_TIME_NONE = 'BUFFER_TIME_NONE';
 
 	const CAPTCHA = 'captcha';
 	const CONFLICT_ACTION = 'conflictAction';
@@ -93,11 +94,16 @@ class FormKeys
 	const LOGO_FILE = 'LOGO_FILE';
 
 	const MIN_DURATION = 'minDuration';
+	const MIN_DURATION_NONE = 'minDurationNone';
 	const MIN_INCREMENT = 'minIncrement';
+	const MIN_INCREMENT_NONE = 'minIncrementNone';
 	const MAX_DURATION = 'maxDuration';
+	const MAX_DURATION_NONE = 'maxDurationNone';
 	const MAX_PARTICIPANTS = 'maxParticipants';
 	const MIN_NOTICE = 'minNotice';
+	const MIN_NOTICE_NONE = 'minNoticeNone';
 	const MAX_NOTICE = 'maxNotice';
+	const MAX_NOTICE_NONE = 'maxNoticeNone';
 
 	const NOTES = 'notes';
 
