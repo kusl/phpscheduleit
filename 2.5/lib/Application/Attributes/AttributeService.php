@@ -91,7 +91,7 @@ class AttributeService implements IAttributeService
 		return $attributeList;
 	}
 
-	public function Validate($category, $attributeValues, $entityId=null)
+	public function Validate($category, $attributeValues, $entityId = null, $ignoreEmpty = false)
 	{
 		$isValid = true;
 		$errors = array();
@@ -112,8 +112,13 @@ class AttributeService implements IAttributeService
 				continue;
 			}
 
-			$value = $values[$attribute->Id()];
+			$value = trim($values[$attribute->Id()]);
 			$label = $attribute->Label();
+
+			if (empty($value) && $ignoreEmpty)
+			{
+				continue;
+			}
 
 			if (!$attribute->SatisfiesRequired($value))
 			{

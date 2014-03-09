@@ -72,6 +72,4 @@ class AttributeValidator extends ValidatorBase
 	{
 		return $this->messages;
 	}
-
 }
-?>

@@ -71,7 +71,6 @@ function ResourceManagement(opts) {
 		ConfigureAdminDialog(elements.sortOrderDialog);
 		ConfigureAdminDialog(elements.resourceTypeDialog);
 		ConfigureAdminDialog(elements.statusDialog);
-		ConfigureAdminDialog(elements.bulkUpdateDialog);
 
 		$('.resourceDetails').each(function () {
 			var id = $(this).find(':hidden.id').val();
@@ -161,6 +160,10 @@ function ResourceManagement(opts) {
 			$(this).closest('.dialog').dialog("close");
 		});
 
+		$(".cancelColorbox").click(function () {
+			$.colorbox.close();
+		});
+
 		elements.statusOptions.change(function(e){
 			populateReasonOptions(elements.statusOptions.val(), elements.statusReasons);
 		});
@@ -211,7 +214,12 @@ function ResourceManagement(opts) {
 
 			wireUpIntervalToggle(elements.bulkUpdateDialog);
 
-			elements.bulkUpdateDialog.dialog('open');
+			$.colorbox({inline:true,
+				href:"#bulkUpdateDialog",
+				transition: "none",
+				width: "100%",
+				height: "100%"});
+			elements.bulkUpdateDialog.show();
 		});
 
 		var imageSaveErrorHandler = function (result) {
@@ -287,8 +295,7 @@ function ResourceManagement(opts) {
 		reasons[statusId].push({id:id,description:description});
 	};
 
-	ResourceManagement.prototype.initializeStatusFilter = function (statusId, reasonId)
-	{
+	ResourceManagement.prototype.initializeStatusFilter = function (statusId, reasonId)	{
 		elements.statusOptionsFilter.val(statusId);
 		elements.statusOptionsFilter.trigger('change');
 		elements.statusReasonsFilter.val(reasonId);

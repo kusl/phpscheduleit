@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{include file='globalheader.tpl' cssFiles='css/admin.css'}
+{include file='globalheader.tpl' cssFiles='css/admin.css,scripts/css/colorbox.css'}
 
 <h1>{translate key='ManageResources'}</h1>
 
@@ -98,11 +98,13 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 </div>
 
-{pagination pageInfo=$PageInfo}
+{if !empty($Resources)}
+	<div>
+		<a href="#" id="bulkUpdatePromptButton" class="">{html_image src="ui-check-boxes.png"} {translate key=BulkResourceUpdate}</a>
+	</div>
+{/if}
 
-<div>
-	<a href="#" id="bulkUpdatePromptButton">{translate key=BulkResourceUpdate}</a>
-</div>
+{pagination pageInfo=$PageInfo}
 
 <div id="globalError" class="error" style="display:none"></div>
 <div class="admin" style="margin-top:10px;">
@@ -153,8 +155,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				</li>
 
 				<li>
-					{translate key='Schedule'} <span
-					} class="resourceValue">{$Schedules[$resource->GetScheduleId()]}</span>
+					{translate key='Schedule'} <span class="resourceValue">{$Schedules[$resource->GetScheduleId()]}</span>
 					<a class="update changeScheduleButton" href="javascript: void(0);">{translate key='Move'}</a>
 				</li>
 				<li>
@@ -724,10 +725,11 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</form>
 </div>
 
-<div id="bulkUpdateDialog" class="dialog horizontal-list label-top" title="{translate key=BulkResourceUpdate}">
+<div id="bulkUpdateDialog" class="hidden horizontal-list label-top" title="{translate key=BulkResourceUpdate}">
 	<div class="title">{translate key=Resources}</div>
 	<form id="bulkUpdateForm" method="post" ajaxAction="{ManageResourcesActions::ActionBulkUpdate}">
 		<div id="bulkUpdateErrors" class="error hidden"></div>
+		{async_validator id="bulkAttributeValidator" key=""}
 		<div id="bulkUpdateList">
 		</div>
 		<div>
@@ -948,13 +950,14 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 		<div class="admin-update-buttons">
 		<button type="button"
 				class="button save">{html_image src="disk-black.png"} {translate key='Update'}</button>
-		<button type="button" class="button cancel">{html_image src="slash.png"} {translate key='Cancel'}</button>
+		<button type="button" class="button cancelColorbox">{html_image src="slash.png"} {translate key='Cancel'}</button>
 	</div>
 	</form>
 </div>
 
 {html_image src="admin-ajax-indicator.gif" class="indicator" style="display:none;"}
 {jsfile src="js/jquery.watermark.min.js"}
+{jsfile src="js/jquery.colorbox-min.js"}
 {jsfile src="admin/edit.js"}
 {jsfile src="admin/resource.js"}
 {jsfile src="js/jquery.form-3.09.min.js"}

@@ -595,7 +595,8 @@ class ManageResourcesPresenter extends ActionPresenter
 		}
 		if ($action == ManageResourcesActions::ActionBulkUpdate)
 		{
-			// validate
+			$attributes = $this->GetAttributeValues();
+			$this->page->RegisterValidator('bulkAttributeValidator', new AttributeValidator($this->attributeService, CustomAttributeCategory::RESOURCE, $attributes, null, true));
 		}
 	}
 
