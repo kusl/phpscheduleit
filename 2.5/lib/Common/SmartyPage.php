@@ -234,7 +234,7 @@ class SmartyPage extends Smarty
 			$title = $this->Resources->GetString($params['title']);
 		}
 
-		if (StringHelper::StartsWith($params['href'], '/'))
+		if (BookedStringHelper::StartsWith($params['href'], '/'))
 		{
 			$href = $params['href'];
 		}
@@ -648,7 +648,7 @@ class SmartyPage extends Smarty
 	{
 		$versionNumber = Configuration::VERSION;
 		$src = $params['src'];
-		if (!StringHelper::Contains($src, '/'))
+		if (!BookedStringHelper::Contains($src, '/'))
 		{
 			$src = "css/{$src}";
 		}
