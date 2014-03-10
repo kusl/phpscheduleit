@@ -20,7 +20,7 @@ alBooked SchedulercheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 $serverTimezone = ini_get('date.timezone');
 if (empty($serverTimezone))
 {
-	die('The server timezone is not set properly in your php.ini file. It is required that this value is set.');
+	Log::Debug('The server timezone is not set properly in your php.ini file. It is highly recommended that this value is set.');
 }
 
 class Date
