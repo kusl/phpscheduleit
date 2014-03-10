@@ -55,5 +55,3 @@ class FakePluginManager extends PluginManager implements IPostRegistration
 	}
 
 }
-
-?>

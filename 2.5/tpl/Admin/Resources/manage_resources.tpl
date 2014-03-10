@@ -785,7 +785,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				</select>
 			</li>
 			<li>
-				<label for="bulkEditStatusReasonId">{translate key=Status}:</label>
+				<label for="bulkEditStatusReasonId">{translate key=Reason}:</label>
 				<select id="bulkEditStatusReasonId" {formname key=RESOURCE_STATUS_REASON_ID} class="textbox">
 				</select>
 			</li>

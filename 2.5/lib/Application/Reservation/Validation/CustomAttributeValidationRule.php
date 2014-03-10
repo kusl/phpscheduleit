@@ -16,9 +16,14 @@ alBooked SchedulercheduleIt.  If not, see <http://www.gnu.org/licenses/>.
 
 class CustomAttributeValidationRule implements IReservationValidationRule
 {
-	public function __construct(IAttributeRepository $attributeRepository)
+	/**
+	 * @var IAttributeService
+	 */
+	private $attributeService;
+
+	public function __construct(IAttributeService $attributeService)
 	{
-		$this->attributeRepository = $attributeRepository;
+		$this->attributeService = $attributeService;
 	}
 
 	/**
@@ -29,25 +34,12 @@ class CustomAttributeValidationRule implements IReservationValidationRule
 	{
 		$resources = Resources::GetInstance();
 		$errorMessage = new StringBuilder();
-		$isValid = true;
 
-		$attributes = $this->attributeRepository->GetByCategory(CustomAttributeCategory::RESERVATION);
-		foreach ($attributes as $attribute)
+		$result = $this->attributeService->Validate(CustomAttributeCategory::RESERVATION, $reservationSeries->AttributeValues());
+		$isValid  = $result->IsValid();
+		foreach ($result->Errors() as $error)
 		{
-			$value = $reservationSeries->GetAttributeValue($attribute->Id());
-			$label = $attribute->Label();
-
-			if (!$attribute->SatisfiesRequired($value))
-			{
-				$isValid = false;
-				$errorMessage->AppendLine($resources->GetString('CustomAttributeRequired', $label));
-			}
-
-			if (!$attribute->SatisfiesConstraint($value))
-			{
-				$isValid = false;
-				$errorMessage->AppendLine($resources->GetString('CustomAttributeInvalid', $label));
-			}
+			$errorMessage->AppendLine($error);
 		}
 
 		if (!$isValid)
@@ -58,5 +50,3 @@ class CustomAttributeValidationRule implements IReservationValidationRule
 		return new ReservationRuleResult($isValid, $errorMessage->ToString());
 	}
 }
-
-?>

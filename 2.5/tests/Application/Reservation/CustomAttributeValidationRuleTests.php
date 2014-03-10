@@ -45,35 +45,22 @@ class CustomAttributeValidationRuleTests extends TestBase
 		$reservation->WithAttributeValue(new AttributeValue(2, $val2));
 		$reservation->WithAttributeValue(new AttributeValue(3, $val3));
 
-		$attributeRepository = $this->getMock('IAttributeRepository');
+		$attributeService = $this->getMock('IAttributeService');
 
-		$fakeAttr1 = new FakeCustomAttribute(1, false, true);
-		$fakeAttr2 = new FakeCustomAttribute(2, true, false);
-		$fakeAttr3 = new FakeCustomAttribute(3, true, true);
+		$errors = array('error1', 'error2');
 
-		$customAttributes = array($fakeAttr1, $fakeAttr2, $fakeAttr3);
+		$validationResult = new AttributeServiceValidationResult(false, $errors);
+		$attributeService->expects($this->once())
+				->method('Validate')
+				->with($this->equalTo(CustomAttributeCategory::RESERVATION), $this->equalTo($reservation->AttributeValues()))
+				->will($this->returnValue($validationResult));
 
-		$attributeRepository->expects($this->once())
-				->method('GetByCategory')
-				->with($this->equalTo(CustomAttributeCategory::RESERVATION))
-				->will($this->returnValue($customAttributes));
-
-		$rule = new CustomAttributeValidationRule($attributeRepository);
+		$rule = new CustomAttributeValidationRule($attributeService);
 		$result = $rule->Validate($reservation);
 
 		$this->assertEquals(false, $result->IsValid());
-
-		$this->assertContains($fakeAttr1->Label(), $result->ErrorMessage());
-		$this->assertContains($fakeAttr2->Label(), $result->ErrorMessage());
-		$this->assertNotContains($fakeAttr3->Label(), $result->ErrorMessage());
-
-		$this->assertEquals($val1, $fakeAttr1->_RequiredValueChecked);
-		$this->assertEquals($val2, $fakeAttr2->_RequiredValueChecked);
-		$this->assertEquals($val3, $fakeAttr3->_RequiredValueChecked);
-
-		$this->assertEquals($val1, $fakeAttr1->_ConstraintValueChecked);
-		$this->assertEquals($val2, $fakeAttr2->_ConstraintValueChecked);
-		$this->assertEquals($val3, $fakeAttr3->_ConstraintValueChecked);
+		$this->assertContains($errors[0], $result->ErrorMessage());
+		$this->assertContains($errors[1], $result->ErrorMessage());
 	}
 
 	public function testWhenAllAttributesAreValid()
@@ -83,25 +70,19 @@ class CustomAttributeValidationRuleTests extends TestBase
 		$reservation->WithAttributeValue(new AttributeValue(2, null));
 		$reservation->WithAttributeValue(new AttributeValue(3, null));
 
-		$attributeRepository = $this->getMock('IAttributeRepository');
+		$attributeService = $this->getMock('IAttributeService');
 
-		$fakeAttr1 = new FakeCustomAttribute(1, true, true);
-		$fakeAttr2 = new FakeCustomAttribute(2, true, true);
-		$fakeAttr3 = new FakeCustomAttribute(3, true, true);
+		$validationResult = new AttributeServiceValidationResult(true, array());
 
-		$customAttributes = array($fakeAttr1, $fakeAttr2, $fakeAttr3);
+		$attributeService->expects($this->once())
+				->method('Validate')
+				->with($this->equalTo(CustomAttributeCategory::RESERVATION), $this->equalTo($reservation->AttributeValues()))
+				->will($this->returnValue($validationResult));
 
-		$attributeRepository->expects($this->once())
-				->method('GetByCategory')
-				->with($this->equalTo(CustomAttributeCategory::RESERVATION))
-				->will($this->returnValue($customAttributes));
+		$rule = new CustomAttributeValidationRule($attributeService);
 
-		$rule = new CustomAttributeValidationRule($attributeRepository);
 		$result = $rule->Validate($reservation);
 
 		$this->assertEquals(true, $result->IsValid());
 	}
 }
-
-
-?>

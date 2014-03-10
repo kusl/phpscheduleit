@@ -235,7 +235,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 <div id="inlineUpdateErrorDialog" class="dialog" title="{translate key=Error}">
 	<div id="inlineUpdateErrors" class="hidden error">&nbsp;</div>
 	<div id="reservationAccessError" class="hidden error"/>
-	You do not have access to this reservation
 </div>
 <button type="button" class="button cancel">{translate key='OK'}</button>
 </div>
