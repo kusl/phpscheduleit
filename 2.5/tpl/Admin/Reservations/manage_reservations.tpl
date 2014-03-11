@@ -19,8 +19,6 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 {include file='globalheader.tpl' cssFiles='scripts/css/colorbox.css,css/admin.css,css/jquery.qtip.min.css'}
 
-{$ScriptUrl}
-
 <h1>{translate key=ManageReservations}</h1>
 
 <div class="filterTable horizontal-list label-top main-div-shadow" id="filterTable">
