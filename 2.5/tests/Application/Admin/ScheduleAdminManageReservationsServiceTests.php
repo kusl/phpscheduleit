@@ -50,7 +50,7 @@ class ScheduleAdminManageReservationsServiceTests extends TestBase
 		$this->userRepository = $this->getMock('IUserRepository');
 		$this->reservationAuthorization = $this->getMock('IReservationAuthorization');
 
-		$this->service = new ScheduleAdminManageReservationsService($this->reservationViewRepository, $this->userRepository, $this->reservationAuthorization);
+		$this->service = new ScheduleAdminManageReservationsService($this->reservationViewRepository, $this->userRepository, $this->reservationAuthorization, $this->getMock('IReservationHandler'), $this->getMock('IUpdateReservationPersistenceService'));
 	}
 
 	public function testLoadsFilteredResultsAndChecksAuthorizationAgainstPendingReservations()

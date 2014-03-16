@@ -37,7 +37,7 @@ class GroupAdminManageReservationsServiceTests extends TestBase
                 ->with($this->equalTo($this->fakeUser->UserId))
                 ->will($this->returnValue($user));
 
-        $service = new GroupAdminManageReservationsService($reservationRepo, $userRepo, $reservationAuth);
+        $service = new GroupAdminManageReservationsService($reservationRepo, $userRepo, $reservationAuth, $this->getMock('IReservationHandler'), $this->getMock('IUpdateReservationPersistenceService'));
 
         $reservationRows = FakeReservationRepository::GetReservationRows();
         $this->db->SetRow(0, array( array(ColumnNames::TOTAL => 4) ));

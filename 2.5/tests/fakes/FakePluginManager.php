@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class FakePluginManager extends PluginManager implements IPostRegistration
+class FakePluginManager extends PluginManager implements IPostRegistration//, IPreReservationFactory, IPostReservationFactory
 {
     public function __construct()
     {
@@ -54,4 +54,66 @@ class FakePluginManager extends PluginManager implements IPostRegistration
 		$this->_RegistrationPage = $page;
 	}
 
+	/**
+	 * @param UserSession $userSession
+	 * @return IReservationNotificationService
+	 */
+	public function CreatePostAddService(UserSession $userSession)
+	{
+		// TODO: Implement CreatePostAddService() method.
+	}
+
+	/**
+	 * @param UserSession $userSession
+	 * @return IReservationNotificationService
+	 */
+	public function CreatePostDeleteService(UserSession $userSession)
+	{
+		// TODO: Implement CreatePostDeleteService() method.
+	}
+
+	/**
+	 * @param UserSession $userSession
+	 * @return IReservationNotificationService
+	 */
+	public function CreatePostApproveService(UserSession $userSession)
+	{
+		// TODO: Implement CreatePostApproveService() method.
+	}
+
+	/**
+	 * @param UserSession $userSession
+	 * @return IReservationValidationService
+	 */
+	public function CreatePreAddService(UserSession $userSession)
+	{
+		// TODO: Implement CreatePreAddService() method.
+	}
+
+	/**
+	 * @param UserSession $userSession
+	 * @return IReservationValidationService
+	 */
+	public function CreatePreDeleteService(UserSession $userSession)
+	{
+		// TODO: Implement CreatePreDeleteService() method.
+	}
+
+	/**
+	 * @param UserSession $userSession
+	 * @return IReservationNotificationService
+	 */
+	public function CreatePostUpdateService(UserSession $userSession)
+	{
+		// TODO: Implement CreatePostUpdateService() method.
+	}
+
+	/**
+	 * @param UserSession $userSession
+	 * @return IReservationValidationService
+	 */
+	public function CreatePreUpdateService(UserSession $userSession)
+	{
+		// TODO: Implement CreatePreUpdateService() method.
+	}
 }
