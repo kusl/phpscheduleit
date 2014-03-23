@@ -80,66 +80,56 @@ interface IReservationPage extends IPage
 	function SetScheduleId($scheduleId);
 
 	/**
-	 * @abstract
 	 * @param ReservationUserView[] $participants
-	 * @return void
 	 */
 	function SetParticipants($participants);
 
 	/**
-	 * @abstract
 	 * @param ReservationUserView[] $invitees
-	 * @return void
 	 */
 	function SetInvitees($invitees);
 
 	/**
-	 * @abstract
 	 * @param $accessories ReservationAccessory[]|array
-	 * @return void
 	 */
 	function SetAccessories($accessories);
 
 	/**
-	 * @abstract
 	 * @param $attachments ReservationAttachmentView[]|array
-	 * @return void
 	 */
 	function SetAttachments($attachments);
 
 	/**
-	 * @abstract
 	 * @param $canChangeUser
-	 * @return void
 	 */
 	function SetCanChangeUser($canChangeUser);
 
 	/**
-	 * @abstract
 	 * @param bool $canShowAdditionalResources
 	 */
 	function ShowAdditionalResources($canShowAdditionalResources);
 
 	/**
-	 * @abstract
 	 * @param bool $canShowUserDetails
 	 */
 	function ShowUserDetails($canShowUserDetails);
 
 	/**
-	 * @abstract
+	 * @param bool $shouldShow
+	 */
+	function SetShowParticipation($shouldShow);
+
+	/**
 	 * @param bool $showReservationDetails
 	 */
 	function ShowReservationDetails($showReservationDetails);
 
 	/**
-	 * @abstract
 	 * @param $attributes array|Attribute[]
 	 */
 	function SetCustomAttributes($attributes);
 
 	/**
-	 * @abstract
 	 * @param bool $isHidden
 	 */
 	function HideRecurrence($isHidden);
@@ -206,7 +196,7 @@ abstract class ReservationPage extends Page implements IReservationPage
 		$this->Set('UploadsEnabled', Configuration::Instance()->GetSectionKey(ConfigSection::UPLOADS,
 																			  ConfigKeys::UPLOAD_ENABLE_RESERVATION_ATTACHMENTS,
 																			  new BooleanConverter()));
-		$this->Set('ShowParticipation', !Configuration::Instance()->GetSectionKey(ConfigSection::RESERVATION,
+		$this->Set('AllowParticipation', !Configuration::Instance()->GetSectionKey(ConfigSection::RESERVATION,
 																				  ConfigKeys::RESERVATION_PREVENT_PARTICIPATION,
 																				  new BooleanConverter()));
 		$remindersEnabled = Configuration::Instance()->GetSectionKey(ConfigSection::RESERVATION,
@@ -335,6 +325,11 @@ abstract class ReservationPage extends Page implements IReservationPage
 	public function ShowUserDetails($canShowUserDetails)
 	{
 		$this->Set('ShowUserDetails', $canShowUserDetails);
+	}
+
+	public function SetShowParticipation($shouldShow)
+	{
+		$this->Set('ShowParticipation', $shouldShow);
 	}
 
 	public function ShowReservationDetails($showReservationDetails)

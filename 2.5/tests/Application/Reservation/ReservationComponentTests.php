@@ -86,31 +86,40 @@ class ReservationComponentTests extends TestBase
 	{
 		$userDto = new UserDto($this->userId, 'f', 'l', 'email');
 
-		$this->initializer->expects($this->once())
-		->method('GetOwnerId')
-		->will($this->returnValue($this->userId));
+		$this->initializer->expects($this->any())
+			->method('CurrentUser')
+			->will($this->returnValue($this->fakeUser));
 
 		$this->initializer->expects($this->once())
-		->method('CurrentUser')
-		->will($this->returnValue($this->fakeUser));
+			->method('GetOwnerId')
+			->will($this->returnValue($this->userId));
+
+		$this->initializer->expects($this->once())
+			->method('CurrentUser')
+			->will($this->returnValue($this->fakeUser));
 
 		$this->userRepository->expects($this->once())
-		->method('GetById')
-		->with($this->equalTo($this->userId))
-		->will($this->returnValue($userDto));
+			->method('GetById')
+			->with($this->equalTo($this->userId))
+			->will($this->returnValue($userDto));
 
 		$this->reservationAuthorization->expects($this->once())
-		->method('CanChangeUsers')
-		->with($this->fakeUser)
-		->will($this->returnValue(true));
+			->method('CanChangeUsers')
+			->with($this->fakeUser)
+			->will($this->returnValue(true));
+
+		$this->fakeConfig->SetSectionKey(ConfigSection::PRIVACY, ConfigKeys::PRIVACY_HIDE_USER_DETAILS, 'true');
+		$this->initializer->expects($this->once())
+			->method('SetShowParticipation')
+			->with($this->equalTo(false));
 
 		$this->initializer->expects($this->once())
-		->method('SetCanChangeUser')
-		->with($this->equalTo(true));
+			->method('SetCanChangeUser')
+			->with($this->equalTo(true));
 
 		$this->initializer->expects($this->once())
-		->method('SetReservationUser')
-		->with($this->equalTo($userDto));
+			->method('SetReservationUser')
+			->with($this->equalTo($userDto));
 
 		$binder = new ReservationUserBinder($this->userRepository, $this->reservationAuthorization);
 		$binder->Bind($this->initializer);
