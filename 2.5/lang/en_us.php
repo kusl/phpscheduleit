@@ -307,7 +307,7 @@ class en_us extends Language
 		$strings['BlackoutCreated'] = 'Blackout Created';
 		$strings['BlackoutNotCreated'] = 'Blackout could not be created';
 		$strings['BlackoutUpdated'] = 'Blackout Updated';
-		$strings['BlackoutNotUpdated'] = 'Blackout could not be created';
+		$strings['BlackoutNotUpdated'] = 'Blackout could not be updated';
 		$strings['BlackoutConflicts'] = 'There are conflicting blackout times';
 		$strings['ReservationConflicts'] = 'There are conflicting reservations times';
 		$strings['UsersInGroup'] = 'Users in this group';
