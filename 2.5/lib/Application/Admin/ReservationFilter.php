@@ -151,7 +151,7 @@ class ReservationFilter
 		{
 			$filteringAttributes = false;
 
-			$f  = new SqlFilterFreeForm(TableNames::RESERVATION_SERIES_ALIAS . '.' . ColumnNames::SERIES_ID . ' IN (SELECT a0.' . ColumnNames::ATTRIBUTE_ENTITY_ID . ' FROM ' . TableNames::CUSTOM_ATTRIBUTE_VALUES . ' a0 ');// . ' WHERE [attribute_list_token] )');
+			$f  = new SqlFilterFreeForm(TableNames::RESERVATION_SERIES_ALIAS . '.' . ColumnNames::SERIES_ID . ' IN (SELECT a0.' . ColumnNames::ATTRIBUTE_ENTITY_ID . ' FROM ' . TableNames::CUSTOM_ATTRIBUTE_VALUES . ' a0 ');
 
 			$attributeFragment = new SqlFilterNull();
 

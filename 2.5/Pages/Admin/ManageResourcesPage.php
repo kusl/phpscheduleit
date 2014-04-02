@@ -722,7 +722,7 @@ class ResourceFilterValues
 				$attributeDefinitions[$a->Id()] = $a;
 			}
 
-			$f = new SqlFilterFreeForm(ColumnNames::RESOURCE_ID . ' IN (SELECT a0.' . ColumnNames::ATTRIBUTE_ENTITY_ID . ' FROM ' . TableNames::CUSTOM_ATTRIBUTE_VALUES . ' a0 ');//' WHERE [attribute_list_token] )');
+			$f = new SqlFilterFreeForm(ColumnNames::RESOURCE_ID . ' IN (SELECT a0.' . ColumnNames::ATTRIBUTE_ENTITY_ID . ' FROM ' . TableNames::CUSTOM_ATTRIBUTE_VALUES . ' a0 ');
 
 			$attributeFragment = new SqlFilterNull();
 
