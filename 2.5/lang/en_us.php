@@ -261,7 +261,7 @@ class en_us extends Language
 		$strings['Close'] = 'Close';
 		$strings['ExportToCSV'] = 'Export to CSV';
 		$strings['OK'] = 'OK';
-		$strings['Working'] = 'Working';
+		$strings['Working'] = 'Working...';
 		$strings['Login'] = 'Login';
 		$strings['AdditionalInformation'] = 'Additional Information';
 		$strings['AllFieldsAreRequired'] = 'all fields are required';
@@ -495,6 +495,7 @@ class en_us extends Language
 		$strings['BulkResourceUpdate'] = 'Bulk Resource Update';
 		$strings['Unchanged'] = 'Unchanged';
 		$strings['Common'] = 'Common';
+		$strings['AdvancedFilter'] = 'Advanced Filter';
 		// End Strings
 
 		// Install
