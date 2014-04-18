@@ -239,6 +239,13 @@ class Installer
             return false;
         }
 
+		$select_table_result = mysqli_query($link, 'select * from layouts');
+
+		if (!$select_table_result)
+		{
+			return false;
+		}
+
         $getVersion = 'SELECT * FROM `dbversion` order by version_number desc limit 0,1';
         $result = mysqli_query($link, $getVersion);
 
