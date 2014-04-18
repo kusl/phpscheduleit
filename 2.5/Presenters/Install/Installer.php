@@ -247,7 +247,7 @@ class Installer
             return 2.0;
         }
 
-        if ($row = mysqli_fetch_assoc($link, $result))
+        if ($row = mysqli_fetch_assoc($result))
         {
             $versionNumber = $row['version_number'];
 
