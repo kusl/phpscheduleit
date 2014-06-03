@@ -639,7 +639,7 @@ const GET_RESERVATION_LIST_TEMPLATE =
 			'SELECT r.*, s.admin_group_id as s_admin_group_id FROM  resources r
 		INNER JOIN schedules s ON r.schedule_id = s.schedule_id
 		WHERE
-			r.schedule_id = @scheduleid AND
+		  (-1 = @scheduleid OR r.schedule_id = @scheduleid)AND
 			r.status_id <> 0
 		ORDER BY COALESCE(r.sort_order,0), r.name';
 
