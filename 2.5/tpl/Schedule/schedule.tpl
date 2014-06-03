@@ -260,6 +260,10 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 
 {$smarty.capture.date_navigation}
 
+{block name="scripts"}
+
+{/block}
+
 {block name="scripts-common"}
 	{jsfile src="js/jquery.qtip.min.js"}
 	{jsfile src="js/jquery.qtip.min.js"}
@@ -287,9 +291,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 	</script>
 {/block}
 
-{block name="scripts"}
 
-{/block}
 
 {control type="DatePickerSetupControl"
 ControlId='datepicker'
