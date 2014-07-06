@@ -65,7 +65,8 @@ function Calendar(opts, reservations)
 				resourceId = '&rid=' + $(this).val();
 			}
 
-			var url = 'calendar.php?ct=' + type + '&d=' + day + '&m=' + month + '&y=' + year + scheduleId + resourceId;
+			var url = [location.protocol, '//', location.host, location.pathname].join('');
+			url = url + '?ct=' + type + '&d=' + day + '&m=' + month + '&y=' + year + scheduleId + resourceId;
 			
 			window.location = url;
 		});

@@ -19,7 +19,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once(ROOT_DIR . 'Pages/CalendarPage.php');
-require_once(ROOT_DIR . 'Presenters/CalendarPresenter.php');
+require_once(ROOT_DIR . 'Presenters/Calendar/CalendarPresenter.php');
 
 class CalendarPresenterTests extends TestBase
 {
