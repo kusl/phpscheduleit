@@ -31,14 +31,15 @@ interface ICalendarFactory
 	 * @param $month
 	 * @param $day
 	 * @param $timezone
+	 * @param $firstDayOfWeek
 	 * @return ICalendarSegment
 	 */
-	public function Create($type, $year, $month, $day, $timezone);
+	public function Create($type, $year, $month, $day, $timezone, $firstDayOfWeek = 0);
 }
 
 class CalendarFactory implements ICalendarFactory
 {
-	public function Create($type, $year, $month, $day, $timezone)
+	public function Create($type, $year, $month, $day, $timezone, $firstDayOfWeek = 0)
 	{
 		if ($type == CalendarTypes::Day)
 		{
@@ -47,11 +48,9 @@ class CalendarFactory implements ICalendarFactory
 
 		if ($type == CalendarTypes::Week)
 		{
-			return CalendarWeek::FromDate($year, $month, $day, $timezone);
+			return CalendarWeek::FromDate($year, $month, $day, $timezone, $firstDayOfWeek);
 		}
 
 		return new CalendarMonth($month, $year, $timezone);
 	}
 }
-
-?>

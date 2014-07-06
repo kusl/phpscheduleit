@@ -119,8 +119,8 @@ class CalendarPresenter
 			$subscriptionDetails = $this->subscriptionService->ForSchedule($selectedSchedule->GetId());
 		}
 
-		$calendar = $this->calendarFactory->Create($type, $year, $month, $day, $timezone);
-		$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay(),
+		$calendar = $this->calendarFactory->Create($type, $year, $month, $day, $timezone, $selectedSchedule->GetWeekdayStart());
+		$reservations = $this->reservationRepository->GetReservationList($calendar->FirstDay(), $calendar->LastDay()->AddDays(1),
 																		 null, null, $selectedScheduleId,
 																		 $selectedResourceId);
 		$calendar->AddReservations(CalendarReservation::FromScheduleReservationList(
