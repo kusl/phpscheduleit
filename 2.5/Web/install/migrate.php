@@ -1024,5 +1024,3 @@ class MigrateBookableResource extends BookableResource
 
 $page = new MigrationPage();
 $page->PageLoad();
-
-?>
