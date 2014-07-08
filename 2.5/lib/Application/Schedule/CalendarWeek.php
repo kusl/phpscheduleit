@@ -81,30 +81,11 @@ class CalendarWeek implements ICalendarSegment
 	public function FirstDay()
 	{
 		return $this->days[0]->Date();
-
-//		for ($i = 0; $i < 7; $i++)
-//		{
-//			if ($this->indexedDays[$i] != CalendarDay::Null())
-//			{
-//				return $this->indexedDays[$i]->Date();
-//			}
-//		}
-//
-//		return NullDate::Instance();
 	}
 
 	public function LastDay()
 	{
 		return $this->days[count($this->days) - 1]->Date();
-//		for ($i = 6; $i >= 0; $i--)
-//		{
-//			if ($this->indexedDays[$i] != CalendarDay::Null())
-//			{
-//				return $this->indexedDays[$i]->Date()->AddDays(1);
-//			}
-//		}
-//
-//		return NullDate::Instance();
 	}
 
 	public function AddReservations($reservations)
