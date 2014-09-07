@@ -100,23 +100,27 @@ class Date
 
 	/**
 	 * @param string $dateString
+	 * @param string $timezone
 	 * @return Date
 	 */
-	public static function ParseExact($dateString)
+	public static function ParseExact($dateString, $timezone)
 	{
 		if (empty($dateString))
 		{
 			return NullDate::Instance();
 		}
 
-		$date = DateTime::createFromFormat('Y-m-d\TH:i:s+', $dateString);
-
-		$timeOffsetString = $date->getTimezone()->getName();
-		$offsetParts = explode(':', $timeOffsetString);
-
-		$d = new Date($date->format(Date::SHORT_FORMAT), 'UTC');
-		$offsetMinutes = ($offsetParts[0] * -60) + $offsetParts[1];
-		return $d->AddMinutes($offsetMinutes);
+		$parsed = date_parse($dateString);
+		if (isset($parsed['zone']))
+		{
+			$name = timezone_name_from_abbr("", -1*$parsed['zone']*60);
+		}
+		else
+		{
+			$name = $timezone;
+		}
+		$d = Date::Create($parsed['year'], $parsed['month'], $parsed['day'], $parsed['hour'], $parsed['minute'], $parsed['second'], $name);
+		return $d;
 	}
 
 	/**
@@ -189,6 +193,11 @@ class Date
 	 */
 	public function ToIso()
 	{
+//		$offset = $this->date->getOffset();
+//		$hours = intval(intval($offset) / 3600);
+//		$minutes  = intval(($offset / 60) % 60);
+//		printf("offset = %d%d", $hours, $minutes);
+//		//die(' off '  .$offset . ' tz ' . $this->date->getTimezone()->getOffset());
 		return $this->Format(DateTime::ISO8601);
 	}
 
