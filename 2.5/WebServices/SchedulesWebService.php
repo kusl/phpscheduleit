@@ -1,21 +1,21 @@
 <?php
 /**
-Copyright 2012-2014 Nick Korbel
-
-This file is part of Booked Scheduler.
-
-Booked Scheduler is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Booked Scheduler is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright 2012-2014 Nick Korbel
+ *
+ * This file is part of Booked Scheduler.
+ *
+ * Booked Scheduler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Booked Scheduler is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once(ROOT_DIR . 'lib/WebService/namespace.php');
@@ -85,6 +85,16 @@ class SchedulesWebService
 		}
 	}
 
+	/**
+	 * @name GetSlots
+	 * @description Loads slots for a specific schedule
+	 * Optional query string parameters:  resourceId, startDateTime, endDateTime.
+	 * If no dates are provided the default schedule dates will be returned.
+	 * If dates do not include the timezone offset, the timezone of the authenticated user will be assumed.
+	 * @response ScheduleSlotsResponse
+	 * @param $scheduleId
+	 * @return void
+	 */
 	public function GetSlots($scheduleId)
 	{
 		$startDate = $this->GetDate(WebServiceQueryStringKeys::START_DATE_TIME);
@@ -109,9 +119,15 @@ class SchedulesWebService
 		$dates = $scheduleWebServiceView->GetDates();
 		$resources = $scheduleWebServiceView->GetResources();
 
-		$response = new ScheduleSlotsResponse($this->server, $scheduleId, $layout, $dates, $resources, $this->privacyFilter);
-
-		$this->server->WriteResponse($response);
+		if ($isError)
+		{
+			$this->server->WriteResponse(RestResponse::Unauthorized(), RestResponse::UNAUTHORIZED_CODE);
+		}
+		else
+		{
+			$response = new ScheduleSlotsResponse($this->server, $scheduleId, $layout, $dates, $resources, $this->privacyFilter);
+			$this->server->WriteResponse($response);
+		}
 	}
 
 	private function GetDate($queryStringKey)

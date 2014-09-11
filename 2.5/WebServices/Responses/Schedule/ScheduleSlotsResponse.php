@@ -174,4 +174,51 @@ class ScheduleSlotsResponse extends RestResponse
 			$this->dates[] = $scheduleDate;
 		}
 	}
+
+	public static function Example()
+	{
+		return new ExampleScheduleSlotsResponse();
+	}
+}
+
+class ExampleScheduleSlotsResponse extends ScheduleSlotsResponse
+{
+	public function __construct()
+	{
+		$this->dates = array(new ExampleScheduleSlotResponse());
+	}
+}
+
+class ExampleScheduleSlotResponse extends ScheduleSlotResponse
+{
+	public function __construct()
+	{
+		$this->date = Date::Now()->ToIso();
+		$this->resources = array(new ExampleScheduleSlotResourceResponse());
+	}
+}
+
+class ExampleScheduleSlotResourceResponse extends ScheduleSlotResourceResponse
+{
+	public function __construct()
+	{
+		$this->resourceId = 1;
+		$this->resourceName = 'resourcename';
+		$this->slots = array(new ExampleScheduleSlotDetailsResponse());
+	}
+}
+
+class ExampleScheduleSlotDetailsResponse extends ScheduleSlotDetailsResponse
+{
+	public function __construct()
+	{
+		$this->color = '#ffffff';
+		$this->endDateTime = Date::Now()->ToIso();
+		$this->isReservable = false;
+		$this->isReserved = true;
+		$this->label = 'username';
+		$this->reservation = ReservationItemResponse::Example();
+		$this->slotSpan = 4;
+		$this->startDateTime = Date::Now()->ToIso();
+	}
 }
