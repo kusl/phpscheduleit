@@ -32,7 +32,7 @@ along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
 				<td rowspan="2">&nbsp;</td>
 				{foreach from=$BoundDates item=date}
 					{assign var=class value=""}
-					{if $TodaysDate->DateEquals($date) eq true}
+					{if $date->DateEquals($TodaysDate)}
 						{assign var=class value="today-custom"}
 					{/if}
 					<td class="resdate-custom resdate {$class}"
