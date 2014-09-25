@@ -250,6 +250,11 @@ class ResourceRepository implements IResourceRepository
 
 	public function GetResourceGroups($scheduleId = ResourceRepository::ALL_SCHEDULES, $resourceFilter = null)
 	{
+		if (empty($scheduleId))
+		{
+			$scheduleId = ResourceRepository::ALL_SCHEDULES;
+		}
+
 		$groups = ServiceLocator::GetDatabase()
 				  ->Query(new GetAllResourceGroupsCommand());
 

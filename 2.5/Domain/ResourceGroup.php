@@ -107,6 +107,15 @@ class ResourceGroupTree
 	}
 
 	/**
+	 * @param int $groupId
+	 * @return ResourceGroup
+	 */
+	public function GetGroup($groupId)
+	{
+		return $this->references[$groupId];
+	}
+
+	/**
 	 * @return ResourceDto[] array of resources keyed by their ids
 	 */
 	public function GetAllResources()
@@ -257,4 +266,3 @@ class ResourceGroupAssignment implements IResource
 		return $this->resource_id;
 	}
 }
-?>
