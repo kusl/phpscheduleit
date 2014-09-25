@@ -564,11 +564,11 @@ class de_de extends en_us
 		$strings['InvalidStartReminderTime'] = 'Ungültige Start-Erinnerungszeit.';
 		$strings['InvalidEndReminderTime'] = 'Ungültige End-Erinnerungszeit.';
 		$strings['QuotaExceeded'] = 'Kontingentgrenze überschritten.';
-		$strings['MultiDayRule'] = '%s does not allow reservations across days.';
-		$strings['InvalidReservationData'] = 'There were problems with your reservation request.';
-		$strings['PasswordError'] = 'Password must contain at least %s letters and at least %s numbers.';
-		$strings['PasswordErrorRequirements'] = 'Password must contain a combination of at least %s upper and lower case letters and %s numbers.';
-		$strings['NoReservationAccess'] = 'You are not allowed to change this reservation.';
+		$strings['MultiDayRule'] = '%s erlaubt keine Reservierung über Tagesgrenzen.';
+		$strings['InvalidReservationData'] = 'Es gab Probleme mit Ihrer Reservierungsanfrage..';
+		$strings['PasswordError'] = 'Das Passwort muss mindestens  %s Buchstaben  und mindestens  %s Ziffern enthalten.';
+		$strings['PasswordErrorRequirements'] = 'Das Passwort muss eine Kombination von mindestens  %s Groß and Kleinbuchstaben und  %s Ziffern enthalten.';
+		$strings['NoReservationAccess'] = 'Sie dürffen diese Reservierung nicht verändern.';
 		// End Errors
 
         // Page Titles
