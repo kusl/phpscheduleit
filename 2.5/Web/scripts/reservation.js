@@ -503,7 +503,7 @@ function Reservation(opts)
 
 			var newTime = dateHelper.AddTimeDiff(diff,elements.endTime.val());
 
-			console.log(newTime);
+			//console.log(newTime);
 			elements.endTime.val(newTime);
 			elements.beginTime.data['beginTimePreviousVal'] = elements.beginTime.val();
 

@@ -231,7 +231,7 @@ function ResourceManagement(opts) {
 				var h = $('#' + id + 'Hours').val();
 				var m = $('#' + id + 'Minutes').val();
 				$(v).val(d + 'd' + h + 'h' + m + 'm');
-				console.log($(v).val());
+				//console.log($(v).val());
 			});
 		};
 
