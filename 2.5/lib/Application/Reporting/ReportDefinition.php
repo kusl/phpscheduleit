@@ -101,7 +101,6 @@ class ReportDefinition implements IReportDefinition
 
 		foreach ($reportColumns->GetCustomAttributes() as $columnName)
 		{
-			// get the actual custom attribute column description
 			$this->columns[$columnName] = new ReportStringColumn($columnName, ChartColumnDefinition::Null());
 		}
 	}
