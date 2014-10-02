@@ -126,7 +126,8 @@ class ReportDefinition implements IReportDefinition
 				$this->sum += $row[$key];
 				$this->sumColumn = $column;
 			}
-			else if ($attributes != null && BookedStringHelper::StartsWith($key, 'attribute'))
+			
+			if ($attributes != null && BookedStringHelper::StartsWith($key, 'attribute'))
 			{
 				$id = intval(str_replace('attribute', '', $key));
 				$attribute = $attributes->Get($id);
